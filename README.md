@@ -5,4 +5,4 @@ Creators:
 	- Miguel Sancho
 	- Fernando Verdejo
 
-Proyecto Amstrad CPC RA 2016
+--Proyecto Amstrad CPC RA 2016--
