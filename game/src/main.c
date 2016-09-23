@@ -87,7 +87,7 @@ void moverArriba() {
 }
 
 void moverAbajo() {
-		prota.y++;
+		prota.y++; // falta restringir
 		prota.mover  = SI;
 }
 
