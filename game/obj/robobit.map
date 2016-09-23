@@ -1,0 +1,176 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           cpct_sprites
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__HOME                         
+     00000000  l__INITIALIZED                  
+     00000000  l__INITIALIZER                  
+     00000000  l__g_tablatrans_                
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s__g_tablatrans_                
+     00000000  s__g_tablatrans_0               
+     00000009  l__DATA                         
+     00000100  l__g_tablatrans_0               
+     0000017F  l__CSEG                         
+     0000097D  l__CODE                         
+     00004000  s__CODE                         
+     0000497D  s__DATA                         
+     00004986  s__CSEG                         
+     00004986  s__GSFINAL                      
+     00004986  s__GSINIT                       
+     00004986  s__HOME                         
+     00004986  s__INITIALIZED                  
+     00004986  s__INITIALIZER                  
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00004000    0000097D =        2429. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004000  _g_map1                            map1
+     00004640  _g_tileset                         tiles
+     00004654  _g_tiles_00                        tiles
+     0000465C  _g_tiles_01                        tiles
+     00004664  _g_tiles_02                        tiles
+     0000466C  _g_tiles_03                        tiles
+     00004674  _g_tiles_04                        tiles
+     0000467C  _g_tiles_05                        tiles
+     00004684  _g_tiles_06                        tiles
+     0000468C  _g_tiles_07                        tiles
+     00004694  _g_tiles_08                        tiles
+     0000469C  _g_tiles_09                        tiles
+     000046A4  _g_palette                         hero
+     000046B4  _g_hero                            hero
+     0000478C  _cpct_setPalette                   cpct_video
+     0000478C  _dummy_cpct_transparentMaskTable   main
+     000047A3  _cpct_isKeyPressed                 cpct_keyboard
+     000047A3  cpct_isKeyPressed_asm              cpct_keyboard
+     000047AF  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     0000483E  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     0000483E  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     00004842  _cpct_keyboardStatusBuffer         cpct_keyboard
+     0000484C  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     00004853  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     00004855  dtr_restore_ptileset               cpct_easytilemaps
+     0000486D  _cpct_isAnyKeyPressed              cpct_keyboard
+     0000486D  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     0000487A  _cpct_scanKeyboard_if              cpct_keyboard
+     0000487A  cpct_scanKeyboard_if_asm           cpct_keyboard
+     000048E2  _cpct_setVideoMode                 cpct_video
+     000048F0  _cpct_disableFirmware              cpct_firmware
+     000048F0  _cpct_removeInterruptHandler       cpct_firmware
+     000048F0  cpct_disableFirmware_asm           cpct_firmware
+     000048F0  cpct_removeInterruptHandler_asm    cpct_firmware
+     00004900  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     00004921  _cpct_mode_rom_status              cpct_firmware
+     00004922  _cpct_getScreenPtr                 cpct_video
+     00004942  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               0000497D    00000009 =           9. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     0000497D  _prota                             main
+     00004984  _mapa                              main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_g_tablatrans_0                     00000000    00000100 =         256. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000100  _g_tablatrans                      main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CSEG                               00004986    0000017F =         383. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004986  _dibujarMapa                       main
+     0000499C  _dibujarProta                      main
+     000049C2  _borrarProta                       main
+     00004A26  _redibujarProta                    main
+     00004A3A  _moverIzquierda                    main
+     00004A49  _moverDerecha                      main
+     00004A59  _moverArriba                       main
+     00004A68  _moverAbajo                        main
+     00004A74  _comprobarTeclado                  main
+     00004AAA  _inicializar                       main
+     00004AEF  _main                              main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+
+Files Linked                              [ module(s) ]
+
+obj/map1.rel                              [ map1 ]
+obj/tiles.rel                             [ tiles ]
+obj/hero.rel                              [ hero ]
+obj/main.rel                              [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPalette_cbindings.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isKeyPressed.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_drawTileBox2x4_cbinding ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_setTileset2x4.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ keyboard.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_drawTileRow2x4.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isAnyKeyPressed.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_if.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMode_cbindings.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_removeInterruptHandler.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawTileAligned2x4_f_asmbin ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenPtr_cbindings.rel ]
+/Users/Miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteMaskedAlignedTabl ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+
+User Base Address Definitions
+
+_CODE = 0x4000
+_DATA = 0x0000
+
+
