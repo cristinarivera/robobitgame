@@ -7,8 +7,11 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
+  C _G_song                                                        0200 GR
   9 _borrarProta                                                   003C GR
   9 _comprobarTeclado                                              00EE GR
+    _cpct_akp_musicInit                                            **** GX
+    _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
@@ -28,7 +31,7 @@ Symbol Table
   8 _g_tablatrans                                                  0100 GR
     _g_tileset                                                     **** GX
   9 _inicializar                                                   0124 GR
-  9 _main                                                          0169 GR
+  9 _main                                                          0171 GR
   1 _mapa                                                          0007 GR
   9 _moverAbajo                                                    00E2 GR
   9 _moverArriba                                                   00D3 GR
@@ -51,7 +54,8 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  17F   flags    0
+   9 _CSEG                                      size  18A   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
+   C _CABS1                                     size   61   flags    8
 
