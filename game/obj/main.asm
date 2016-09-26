@@ -120,7 +120,7 @@ _dibujarMapa::
 	push	hl
 	ld	hl,#0xC000
 	push	hl
-	ld	hl,#0x2828
+	ld	hl,#0x282C
 	push	hl
 	ld	l, #0x00
 	push	hl
