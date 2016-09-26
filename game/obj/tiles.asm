@@ -63,14 +63,14 @@ _g_tileset:
 	.dw _g_tiles_08
 	.dw _g_tiles_09
 _g_tiles_00:
-	.db #0xFD	; 253
-	.db #0xFD	; 253
-	.db #0xFF	; 255
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFD	; 253
-	.db #0xFE	; 254
-	.db #0xFE	; 254
+	.db #0x03	; 3
+	.db #0x03	; 3
+	.db #0x42	; 66	'B'
+	.db #0x03	; 3
+	.db #0x03	; 3
+	.db #0x03	; 3
+	.db #0x03	; 3
+	.db #0x42	; 66	'B'
 _g_tiles_01:
 	.db #0x3C	; 60
 	.db #0x3C	; 60

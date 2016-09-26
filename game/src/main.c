@@ -20,11 +20,15 @@
 #include "hero.h"
 #include "map1.h"
 #include "tiles.h"
+#include "song.c"
 
 #define  SI 1
 #define  NO 0
 #define  ORIGEN_MAPA_Y	0
 #define  ORIGEN_MAPA  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
+
+#define ANCHO_PANTALLA	80
+#define LIMITE_DERECHO ANCHO_PANTALLA - G_HERO_W
 
 typedef struct {
 	u8  x, y;
@@ -69,9 +73,6 @@ void moverIzquierda() {
 	}
 }
 
-#define ANCHO_PANTALLA	80
-#define LIMITE_DERECHO ANCHO_PANTALLA - G_HERO_W
-
 void moverDerecha() {
 	if (prota.x < LIMITE_DERECHO) {
 		prota.x++;
@@ -87,7 +88,7 @@ void moverArriba() {
 }
 
 void moverAbajo() {
-		prota.y++; // falta restringir
+		prota.y++;
 		prota.mover  = SI;
 }
 
@@ -111,7 +112,7 @@ void inicializar() {
 	cpct_setVideoMode(0);
 	//cpct_setBorder(HW_BLACK);
 	cpct_setPalette(g_palette, 16);
-
+	cpct_akp_musicInit(G_song);
 	mapa = g_map1;
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
@@ -129,6 +130,7 @@ void main(void) {
 	inicializar();
    	while (1) {
    		comprobarTeclado();
+   		cpct_akp_musicPlay();
    		if (prota.mover) {
    			redibujarProta();
    			prota.mover = NO;
