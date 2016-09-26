@@ -40,7 +40,7 @@ typedef struct {
 TProta prota;
 u8* mapa;
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
+cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0);
 
 void dibujarMapa() {
 	cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
@@ -135,5 +135,6 @@ void main(void) {
    			redibujarProta();
    			prota.mover = NO;
    		}
+   		cpct_waitVSYNC();
    	}
 }

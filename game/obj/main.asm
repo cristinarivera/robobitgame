@@ -26,6 +26,7 @@
 	.globl _cpct_akp_musicInit
 	.globl _cpct_getScreenPtr
 	.globl _cpct_setPalette
+	.globl _cpct_waitVSYNC
 	.globl _cpct_setVideoMode
 	.globl _cpct_drawSpriteMaskedAlignedTable
 	.globl _cpct_isAnyKeyPressed
@@ -69,13 +70,13 @@ _mapa::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/main.c:43: cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
+;src/main.c:43: cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0);
 ;	---------------------------------
 ; Function dummy_cpct_transparentMaskTable0M0_container
 ; ---------------------------------
 _dummy_cpct_transparentMaskTable0M0_container::
 	.area _g_tablatrans_ (ABS) 
-	.org 0x0100 
+	.org 0x3F00 
 	 _g_tablatrans::
 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
@@ -416,14 +417,20 @@ _main::
 ;src/main.c:133: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
 ;src/main.c:134: if (prota.mover) {
-	ld	a, (#(_prota + 0x0006) + 0)
+	ld	bc,#_prota+6
+	ld	a,(bc)
 	or	a, a
-	jr	Z,00104$
+	jr	Z,00102$
 ;src/main.c:135: redibujarProta();
+	push	bc
 	call	_redibujarProta
+	pop	bc
 ;src/main.c:136: prota.mover = NO;
-	ld	hl,#(_prota + 0x0006)
-	ld	(hl),#0x00
+	xor	a, a
+	ld	(bc),a
+00102$:
+;src/main.c:138: cpct_waitVSYNC();
+	call	_cpct_waitVSYNC
 	jr	00104$
 	.area _CODE
 	.area _INITIALIZER
