@@ -26,23 +26,23 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000061  l__CABS0                        
      00000061  l__CABS1                        
      00000100  l__g_tablatrans_0               
-     0000018D  l__CSEG                         
-     0000124E  l__CODE                         
+     00000164  l__CSEG                         
+     00001257  l__CODE                         
      00004000  s__CODE                         
-     0000524E  s__DATA                         
-     00005257  s__CSEG                         
-     00005257  s__GSFINAL                      
-     00005257  s__GSINIT                       
-     00005257  s__HOME                         
-     00005257  s__INITIALIZED                  
-     00005257  s__INITIALIZER                  
+     00005257  s__DATA                         
+     00005260  s__CSEG                         
+     00005260  s__GSFINAL                      
+     00005260  s__GSINIT                       
+     00005260  s__HOME                         
+     00005260  s__INITIALIZED                  
+     00005260  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000124E =        4686. bytes (REL,CON)
+_CODE                               00004000    00001257 =        4695. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -60,71 +60,71 @@ _CODE                               00004000    0000124E =        4686. bytes (R
      0000473C  _g_tiles_09                        tiles
      00004744  _g_palette                         hero
      00004754  _g_hero                            hero
-     0000482C  _cpct_setPalette                   cpct_video
-     0000482C  _dummy_cpct_transparentMaskTable   main
-     00004843  _cpct_isKeyPressed                 cpct_keyboard
-     00004843  cpct_isKeyPressed_asm              cpct_keyboard
-     0000484F  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
-     000048DE  _cpct_etm_setTileset2x4            cpct_easytilemaps
-     000048DE  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
-     000048E2  _cpct_keyboardStatusBuffer         cpct_keyboard
-     000048EC  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     000048F3  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     000048F5  dtr_restore_ptileset               cpct_easytilemaps
-     0000490D  _cpct_isAnyKeyPressed              cpct_keyboard
-     0000490D  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     0000491A  _cpct_scanKeyboard_if              cpct_keyboard
-     0000491A  cpct_scanKeyboard_if_asm           cpct_keyboard
-     00004982  _cpct_waitVSYNC                    cpct_video
-     00004982  cpct_waitVSYNC_asm                 cpct_video
-     0000498A  _cpct_setVideoMode                 cpct_video
-     00004998  _cpct_akp_digidrumStatus           cpct_audio
-     00004999  _cpct_akp_songLoopTimes            cpct_audio
-     0000499A  _cpct_akp_musicPlay                cpct_audio
-     0000499A  cpct_akp_musicPlay_asm             cpct_audio
-     0000509D  _cpct_akp_musicInit                cpct_audio
-     000050A4  cpct_akp_musicInit_asm             cpct_audio
-     000050FD  _cpct_akp_stop                     cpct_audio
-     000050FD  cpct_akp_stop_asm                  cpct_audio
-     00005110  _cpct_akp_SFXGetInstrument         cpct_audio
-     00005115  cpct_akp_SFXGetInstrument_asm      cpct_audio
-     00005129  _cpct_akp_SFXInit                  cpct_audio
-     00005130  cpct_akp_SFXInit_asm               cpct_audio
-     00005137  _cpct_akp_SFXStopAll               cpct_audio
-     00005137  cpct_akp_SFXStopAll_asm            cpct_audio
-     00005144  _cpct_akp_SFXPlay                  cpct_audio
-     00005156  cpct_akp_SFXPlay_asm               cpct_audio
-     000051A3  _cpct_akp_SFXStop                  cpct_audio
-     000051A8  cpct_akp_SFXStop_asm               cpct_audio
+     00004835  _cpct_setPalette                   cpct_video
+     00004835  _dummy_cpct_transparentMaskTable   main
+     0000484C  _cpct_isKeyPressed                 cpct_keyboard
+     0000484C  cpct_isKeyPressed_asm              cpct_keyboard
+     00004858  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     000048E7  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     000048E7  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     000048EB  _cpct_keyboardStatusBuffer         cpct_keyboard
+     000048F5  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     000048FC  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     000048FE  dtr_restore_ptileset               cpct_easytilemaps
+     00004916  _cpct_isAnyKeyPressed              cpct_keyboard
+     00004916  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00004923  _cpct_scanKeyboard_if              cpct_keyboard
+     00004923  cpct_scanKeyboard_if_asm           cpct_keyboard
+     0000498B  _cpct_waitVSYNC                    cpct_video
+     0000498B  cpct_waitVSYNC_asm                 cpct_video
+     00004993  _cpct_setVideoMode                 cpct_video
+     000049A1  _cpct_akp_digidrumStatus           cpct_audio
+     000049A2  _cpct_akp_songLoopTimes            cpct_audio
+     000049A3  _cpct_akp_musicPlay                cpct_audio
+     000049A3  cpct_akp_musicPlay_asm             cpct_audio
+     000050A6  _cpct_akp_musicInit                cpct_audio
+     000050AD  cpct_akp_musicInit_asm             cpct_audio
+     00005106  _cpct_akp_stop                     cpct_audio
+     00005106  cpct_akp_stop_asm                  cpct_audio
+     00005119  _cpct_akp_SFXGetInstrument         cpct_audio
+     0000511E  cpct_akp_SFXGetInstrument_asm      cpct_audio
+     00005132  _cpct_akp_SFXInit                  cpct_audio
+     00005139  cpct_akp_SFXInit_asm               cpct_audio
+     00005140  _cpct_akp_SFXStopAll               cpct_audio
+     00005140  cpct_akp_SFXStopAll_asm            cpct_audio
+     0000514D  _cpct_akp_SFXPlay                  cpct_audio
+     0000515F  cpct_akp_SFXPlay_asm               cpct_audio
+     000051AC  _cpct_akp_SFXStop                  cpct_audio
+     000051B1  cpct_akp_SFXStop_asm               cpct_audio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000124E =        4686. bytes (REL,CON)
+_CODE                               00004000    00001257 =        4695. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000051C1  _cpct_disableFirmware              cpct_firmware
-     000051C1  _cpct_removeInterruptHandler       cpct_firmware
-     000051C1  cpct_disableFirmware_asm           cpct_firmware
-     000051C1  cpct_removeInterruptHandler_asm    cpct_firmware
-     000051D1  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     000051F2  _cpct_mode_rom_status              cpct_firmware
-     000051F3  _cpct_getScreenPtr                 cpct_video
-     00005213  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     000051CA  _cpct_disableFirmware              cpct_firmware
+     000051CA  _cpct_removeInterruptHandler       cpct_firmware
+     000051CA  cpct_disableFirmware_asm           cpct_firmware
+     000051CA  cpct_removeInterruptHandler_asm    cpct_firmware
+     000051DA  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     000051FB  _cpct_mode_rom_status              cpct_firmware
+     000051FC  _cpct_getScreenPtr                 cpct_video
+     0000521C  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               0000524E    00000009 =           9. bytes (REL,CON)
+_DATA                               00005257    00000009 =           9. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000524E  _prota                             main
-     00005255  _mapa                              main
+     00005257  _prota                             main
+     0000525E  _mapa                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
@@ -151,21 +151,21 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00005257    0000018D =         397. bytes (REL,CON)
+_CSEG                               00005260    00000164 =         356. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005257  _dibujarMapa                       main
-     0000526D  _dibujarProta                      main
-     00005293  _borrarProta                       main
-     000052F7  _redibujarProta                    main
-     0000530B  _moverIzquierda                    main
-     0000531A  _moverDerecha                      main
-     0000532A  _moverArriba                       main
-     00005339  _moverAbajo                        main
-     00005345  _comprobarTeclado                  main
-     0000537B  _inicializar                       main
-     000053C8  _main                              main
+     00005260  _dibujarMapa                       main
+     00005276  _dibujarProta                      main
+     0000529C  _borrarProta                       main
+     000052D7  _redibujarProta                    main
+     000052EB  _moverIzquierda                    main
+     000052FA  _moverDerecha                      main
+     0000530A  _moverArriba                       main
+     00005319  _moverAbajo                        main
+     00005325  _comprobarTeclado                  main
+     0000535B  _inicializar                       main
+     000053A8  _main                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]

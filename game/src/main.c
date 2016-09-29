@@ -15,6 +15,10 @@
 //  You should have received a copy of the GNU Lesser General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //------------------------------------------------------------------------------
+// colores del personaje
+// {54      44           4D       5C    40 o 41    4E       4A }
+// {negro, azul marino, magenta, marron, gris, naranja, amarillo}
+// { 0        1          8        3       13      15        24 }
 
 #include <cpctelera.h>
 #include "hero.h"
@@ -40,8 +44,8 @@ typedef struct {
 TProta prota;
 u8* mapa;
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0);
-
+cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0); // es el color 8 - 4D - FF00FF
+															// Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 void dibujarMapa() {
 	cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
 }
@@ -54,8 +58,12 @@ void dibujarProta() {
 }
 
 void borrarProta() {
-	u8 w = 4 + (prota.px & 1);
-	u8 h = 7 + (prota.py & 3 ? 1 : 0);
+	//u8 w = 4 + (prota.px & 1);
+	u8 w = 5;// 4 + (prota.px & 1 ? 0 : 1);
+
+	//u8 h = 7 + (prota.py & 3 ? 1 : 0);
+	u8 h = 8; // 7 + (prota.py & 3 ? 1 : 0);
+
 	cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 }
 

@@ -70,7 +70,7 @@ _mapa::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/main.c:43: cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0);
+;src/main.c:47: cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0); // es el color 8 - 4D - FF00FF
 ;	---------------------------------
 ; Function dummy_cpct_transparentMaskTable0M0_container
 ; ---------------------------------
@@ -111,12 +111,12 @@ _dummy_cpct_transparentMaskTable0M0_container::
 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 	.area _CSEG (REL, CON) 
-;src/main.c:45: void dibujarMapa() {
+;src/main.c:49: void dibujarMapa() {
 ;	---------------------------------
 ; Function dibujarMapa
 ; ---------------------------------
 _dibujarMapa::
-;src/main.c:46: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
+;src/main.c:50: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
 	ld	hl,(_mapa)
 	push	hl
 	ld	hl,#0xC000
@@ -130,12 +130,12 @@ _dibujarMapa::
 	inc	sp
 	call	_cpct_etm_drawTileBox2x4
 	ret
-;src/main.c:51: void dibujarProta() {
+;src/main.c:55: void dibujarProta() {
 ;	---------------------------------
 ; Function dibujarProta
 ; ---------------------------------
 _dibujarProta::
-;src/main.c:52: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
+;src/main.c:56: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
 	ld	hl, #_prota + 1
 	ld	d,(hl)
 	ld	hl, #_prota + 0
@@ -148,79 +148,52 @@ _dibujarProta::
 	push	hl
 	call	_cpct_getScreenPtr
 	ex	de,hl
-;src/main.c:53: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_W, G_HERO_H, g_tablatrans);
+;src/main.c:57: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_W, G_HERO_H, g_tablatrans);
 	ld	bc, (#_prota + 4)
 	ld	hl,#_g_tablatrans
 	push	hl
-	ld	hl,#0x1B08
+	ld	hl,#0x1909
 	push	hl
 	push	de
 	push	bc
 	call	_cpct_drawSpriteMaskedAlignedTable
 	ret
-;src/main.c:56: void borrarProta() {
+;src/main.c:60: void borrarProta() {
 ;	---------------------------------
 ; Function borrarProta
 ; ---------------------------------
 _borrarProta::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	dec	sp
-;src/main.c:57: u8 w = 4 + (prota.px & 1);
-	ld	hl, #_prota + 2
-	ld	c,(hl)
-	ld	a,c
-	and	a, #0x01
-	ld	b,a
-	inc	b
-	inc	b
-	inc	b
-	inc	b
-;src/main.c:58: u8 h = 7 + (prota.py & 3 ? 1 : 0);
+;src/main.c:67: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+	ld	bc,(_mapa)
 	ld	hl, #_prota + 3
 	ld	e,(hl)
-	ld	a,e
-	and	a, #0x03
-	jr	Z,00103$
-	ld	a,#0x01
-	jr	00104$
-00103$:
-	ld	a,#0x00
-00104$:
-	add	a, #0x07
-	ld	-1 (ix),a
-;src/main.c:59: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-	ld	iy,(_mapa)
 	ld	d,#0x00
 	ld	h,e
 	ld	l,d
 	bit	7, d
-	jr	Z,00105$
+	jr	Z,00103$
 	inc	de
 	inc	de
 	inc	de
 	ld	h,e
 	ld	l,d
-00105$:
+00103$:
 	ld	e, h
 	ld	d, l
 	sra	d
 	rr	e
 	sra	d
 	rr	e
-	ld	d,c
-	srl	d
-	push	iy
+	ld	a, (#_prota + 2)
+	srl	a
+	ld	d,a
+	push	bc
 	ld	hl,#0xC000
 	push	hl
-	ld	a,#0x28
+	ld	hl,#0x2808
+	push	hl
+	ld	a,#0x05
 	push	af
-	inc	sp
-	ld	a,-1 (ix)
-	push	af
-	inc	sp
-	push	bc
 	inc	sp
 	ld	a,e
 	push	af
@@ -228,208 +201,206 @@ _borrarProta::
 	push	de
 	inc	sp
 	call	_cpct_etm_drawTileBox2x4
-	inc	sp
-	pop	ix
 	ret
-;src/main.c:62: void redibujarProta() {
+;src/main.c:70: void redibujarProta() {
 ;	---------------------------------
 ; Function redibujarProta
 ; ---------------------------------
 _redibujarProta::
-;src/main.c:63: borrarProta();
+;src/main.c:71: borrarProta();
 	call	_borrarProta
-;src/main.c:64: prota.px = prota.x;
+;src/main.c:72: prota.px = prota.x;
 	ld	bc,#_prota + 2
 	ld	a, (#_prota + 0)
 	ld	(bc),a
-;src/main.c:65: prota.py = prota.y;
+;src/main.c:73: prota.py = prota.y;
 	ld	bc,#_prota + 3
 	ld	a, (#_prota + 1)
 	ld	(bc),a
-;src/main.c:66: dibujarProta();
+;src/main.c:74: dibujarProta();
 	jp  _dibujarProta
-;src/main.c:69: void moverIzquierda() {
+;src/main.c:77: void moverIzquierda() {
 ;	---------------------------------
 ; Function moverIzquierda
 ; ---------------------------------
 _moverIzquierda::
-;src/main.c:70: if (prota.x > 0) {
+;src/main.c:78: if (prota.x > 0) {
 	ld	bc,#_prota+0
 	ld	a,(bc)
 	or	a, a
 	ret	Z
-;src/main.c:71: prota.x--;
+;src/main.c:79: prota.x--;
 	add	a,#0xFF
 	ld	(bc),a
-;src/main.c:72: prota.mover  = SI;
+;src/main.c:80: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
 	ret
-;src/main.c:76: void moverDerecha() {
+;src/main.c:84: void moverDerecha() {
 ;	---------------------------------
 ; Function moverDerecha
 ; ---------------------------------
 _moverDerecha::
-;src/main.c:77: if (prota.x < LIMITE_DERECHO) {
+;src/main.c:85: if (prota.x < LIMITE_DERECHO) {
 	ld	hl,#_prota+0
 	ld	c,(hl)
 	ld	a,c
-	sub	a, #0x48
+	sub	a, #0x47
 	ret	NC
-;src/main.c:78: prota.x++;
+;src/main.c:86: prota.x++;
 	inc	c
 	ld	(hl),c
-;src/main.c:79: prota.mover  = SI;
+;src/main.c:87: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
 	ret
-;src/main.c:83: void moverArriba() {
+;src/main.c:91: void moverArriba() {
 ;	---------------------------------
 ; Function moverArriba
 ; ---------------------------------
 _moverArriba::
-;src/main.c:84: if (prota.y > 0) {
+;src/main.c:92: if (prota.y > 0) {
 	ld	bc,#_prota + 1
 	ld	a,(bc)
 	or	a, a
 	ret	Z
-;src/main.c:85: prota.y--;
+;src/main.c:93: prota.y--;
 	add	a,#0xFF
 	ld	(bc),a
-;src/main.c:86: prota.mover  = SI;
+;src/main.c:94: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
 	ret
-;src/main.c:90: void moverAbajo() {
+;src/main.c:98: void moverAbajo() {
 ;	---------------------------------
 ; Function moverAbajo
 ; ---------------------------------
 _moverAbajo::
-;src/main.c:91: prota.y++;
+;src/main.c:99: prota.y++;
 	ld	bc,#_prota + 1
 	ld	a,(bc)
 	inc	a
 	ld	(bc),a
-;src/main.c:92: prota.mover  = SI;
+;src/main.c:100: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
 	ret
-;src/main.c:95: void comprobarTeclado() {
+;src/main.c:103: void comprobarTeclado() {
 ;	---------------------------------
 ; Function comprobarTeclado
 ; ---------------------------------
 _comprobarTeclado::
-;src/main.c:96: cpct_scanKeyboard_if();
+;src/main.c:104: cpct_scanKeyboard_if();
 	call	_cpct_scanKeyboard_if
-;src/main.c:98: if (cpct_isAnyKeyPressed()) {
+;src/main.c:106: if (cpct_isAnyKeyPressed()) {
 	call	_cpct_isAnyKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/main.c:99: if (cpct_isKeyPressed(Key_CursorLeft))
+;src/main.c:107: if (cpct_isKeyPressed(Key_CursorLeft))
 	ld	hl,#0x0101
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:100: moverIzquierda();
+;src/main.c:108: moverIzquierda();
 	jp	NZ,_moverIzquierda
-;src/main.c:101: else if (cpct_isKeyPressed(Key_CursorRight))
+;src/main.c:109: else if (cpct_isKeyPressed(Key_CursorRight))
 	ld	hl,#0x0200
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:102: moverDerecha();
+;src/main.c:110: moverDerecha();
 	jp	NZ,_moverDerecha
-;src/main.c:103: else if (cpct_isKeyPressed(Key_CursorUp))
+;src/main.c:111: else if (cpct_isKeyPressed(Key_CursorUp))
 	ld	hl,#0x0100
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:104: moverArriba();
+;src/main.c:112: moverArriba();
 	jp	NZ,_moverArriba
-;src/main.c:105: else if (cpct_isKeyPressed(Key_CursorDown))
+;src/main.c:113: else if (cpct_isKeyPressed(Key_CursorDown))
 	ld	hl,#0x0400
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/main.c:106: moverAbajo();
+;src/main.c:114: moverAbajo();
 	jp  _moverAbajo
-;src/main.c:110: void inicializar() {
+;src/main.c:118: void inicializar() {
 ;	---------------------------------
 ; Function inicializar
 ; ---------------------------------
 _inicializar::
-;src/main.c:111: cpct_disableFirmware();
+;src/main.c:119: cpct_disableFirmware();
 	call	_cpct_disableFirmware
-;src/main.c:112: cpct_setVideoMode(0);
+;src/main.c:120: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
-;src/main.c:114: cpct_setPalette(g_palette, 16);
+;src/main.c:122: cpct_setPalette(g_palette, 16);
 	ld	hl,#0x0010
 	push	hl
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
-;src/main.c:115: cpct_akp_musicInit(G_song);
+;src/main.c:123: cpct_akp_musicInit(G_song);
 	ld	hl,#_G_song
 	push	hl
 	call	_cpct_akp_musicInit
 	pop	af
-;src/main.c:116: mapa = g_map1;
+;src/main.c:124: mapa = g_map1;
 	ld	hl,#_g_map1+0
 	ld	(_mapa),hl
-;src/main.c:117: cpct_etm_setTileset2x4(g_tileset);
+;src/main.c:125: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:118: dibujarMapa();
+;src/main.c:126: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:121: prota.x = prota.px = 15;
+;src/main.c:129: prota.x = prota.px = 15;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x0F
 	ld	hl,#_prota
 	ld	(hl),#0x0F
-;src/main.c:122: prota.y = prota.py = 120;
+;src/main.c:130: prota.y = prota.py = 120;
 	ld	hl,#(_prota + 0x0003)
 	ld	(hl),#0x78
 	ld	hl,#(_prota + 0x0001)
 	ld	(hl),#0x78
-;src/main.c:123: prota.mover  = NO;
+;src/main.c:131: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:124: prota.sprite = g_hero;
+;src/main.c:132: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:125: dibujarProta();
+;src/main.c:133: dibujarProta();
 	call	_dibujarProta
 	ret
-;src/main.c:129: void main(void) {
+;src/main.c:137: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:130: inicializar();
+;src/main.c:138: inicializar();
 	call	_inicializar
-;src/main.c:131: while (1) {
+;src/main.c:139: while (1) {
 00104$:
-;src/main.c:132: comprobarTeclado();
+;src/main.c:140: comprobarTeclado();
 	call	_comprobarTeclado
-;src/main.c:133: cpct_akp_musicPlay();
+;src/main.c:141: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
-;src/main.c:134: if (prota.mover) {
+;src/main.c:142: if (prota.mover) {
 	ld	bc,#_prota+6
 	ld	a,(bc)
 	or	a, a
 	jr	Z,00102$
-;src/main.c:135: redibujarProta();
+;src/main.c:143: redibujarProta();
 	push	bc
 	call	_redibujarProta
 	pop	bc
-;src/main.c:136: prota.mover = NO;
+;src/main.c:144: prota.mover = NO;
 	xor	a, a
 	ld	(bc),a
 00102$:
-;src/main.c:138: cpct_waitVSYNC();
+;src/main.c:146: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
 	jr	00104$
 	.area _CODE
