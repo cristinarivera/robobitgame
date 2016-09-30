@@ -1,5 +1,5 @@
 //
-// File assets/map1.tmx converted to csv using cpct_tmx2csv [20160923 17:19:16 CEST]
+// File assets/map1.tmx converted to csv using cpct_tmx2csv [20160930 17:49:51 CEST]
 //   * Width:  40 columns (40 bytes, 8 bits per column)
 //   * Height: 40 rows
 //   * Bytes:  1600 bytes (40 x 40)

@@ -17,6 +17,8 @@
 //------------------------------------------------------------------------------
 
 #include <cpctelera.h>
+#include "knifeX.h"
+#include "knifeY.h"
 #include "hero.h"
 #include "map1.h"
 #include "tiles.h"
@@ -28,19 +30,60 @@
 #define  ORIGEN_MAPA  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
 #define ANCHO_PANTALLA	80
-#define LIMITE_DERECHO ANCHO_PANTALLA - G_HERO_W
+#define ALTO_MAPA 160
+
+#define LIMITE_IZQUIERDO 0 + 4
+#define LIMITE_DERECHO ANCHO_PANTALLA - 4
+
+#define LIMITE_SUPERIOR 0 + 8
+#define LIMITE_INFERIOR ALTO_MAPA - 8
+
+
+
+enum {
+      M_derecha   = 0
+   ,  M_izquierda
+   ,  M_arriba
+   ,  M_abajo
+} EMirar;
+
+enum {
+      E_X   = 0
+   ,  E_Y
+} EEje;
+
 
 typedef struct {
 	u8  x, y;
 	u8  px, py;
 	u8* sprite;
 	u8  mover;
+	u8  mira;
 } TProta;
 
+
+typedef struct {
+	u8  x, y;
+	u8  px, py;
+	u8* sprite;
+	u8 lanzado;
+	u8 direccion;
+	u8 eje;
+} TKnife;
+
+
+
 TProta prota;
+
+TKnife cu;
+
+
 u8* mapa;
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
+u8 availableMicroSecs;
+u8 availableCycles; 
+
+cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0);
 
 void dibujarMapa() {
 	cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
@@ -67,29 +110,97 @@ void redibujarProta() {
 }
 
 void moverIzquierda() {
-	if (prota.x > 0) {
+	if (prota.x > LIMITE_IZQUIERDO) {
 		prota.x--;
 		prota.mover  = SI;
+		prota.mira=M_izquierda;
+		
 	}
 }
 
 void moverDerecha() {
-	if (prota.x < LIMITE_DERECHO) {
+	if (prota.x < LIMITE_DERECHO - G_HERO_W) {
 		prota.x++;
 		prota.mover  = SI;
+		prota.mira=M_derecha;
 	}
 }
 
 void moverArriba() {
-	if (prota.y > 0) {
+	if (prota.y > LIMITE_SUPERIOR) {
 		prota.y--;
 		prota.mover  = SI;
+		prota.mira = M_arriba;
 	}
 }
 
 void moverAbajo() {
+	if(prota.y < LIMITE_INFERIOR - G_HERO_H){
 		prota.y++;
 		prota.mover  = SI;
+		prota.mira = M_abajo;
+	}
+}
+
+void dibujarCuchillo(u8 eje) {
+	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, cu.x, cu.y);
+	if(eje == E_X){
+		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+	}
+	
+	else if(eje == E_Y){
+		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
+	}
+}
+
+void borrarCuchillo() {
+	u8 w = 2 + (cu.px & 1);
+	u8 h = 2 + (cu.py & 3 ? 1 : 0);
+	cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+}
+
+void redibujarCuchillo() {
+	borrarCuchillo();
+	cu.px = cu.x;
+	cu.py = cu.y;
+	dibujarCuchillo(cu.eje);
+}
+
+
+void lanzarCuchillo(){
+	cu.lanzado = SI;
+	if(prota.mira == M_derecha){
+		cu.direccion = M_derecha;
+		cu.x=prota.x + G_HERO_W;
+		cu.y=prota.y + G_HERO_H /2;	
+		cu.sprite=g_knifeX_0;
+		cu.eje = E_X;
+		dibujarCuchillo(cu.eje);
+	}
+	else if(prota.mira == M_izquierda){
+		cu.direccion = M_izquierda;
+		cu.x = prota.x - G_KNIFEX_0_W;
+		cu.y = prota.y + G_HERO_H /2;	
+		cu.sprite = g_knifeX_1;
+		cu.eje = E_X;
+		dibujarCuchillo(cu.eje);
+	}
+	else if(prota.mira == M_abajo){
+		cu.direccion = M_abajo;
+		cu.x = prota.x + G_HERO_W / 2;
+		cu.y = prota.y + G_HERO_H + 10;	
+		cu.sprite = g_knifeY_0;
+		cu.eje = E_Y;
+		dibujarCuchillo(cu.eje);
+	}
+	else if(prota.mira == M_arriba){
+		cu.direccion = M_arriba;
+		cu.x = prota.x + G_HERO_W / 2;
+		cu.y = prota.y;	
+		cu.sprite = g_knifeY_1;
+		cu.eje = E_Y;
+		dibujarCuchillo(cu.eje);
+	}
 }
 
 void comprobarTeclado() {
@@ -104,6 +215,51 @@ void comprobarTeclado() {
 			moverArriba();
 		else if (cpct_isKeyPressed(Key_CursorDown))
 			moverAbajo();
+		else if (cpct_isKeyPressed(Key_Space))
+			lanzarCuchillo();
+	}
+}
+
+
+
+void moverCuchillo(){
+	
+	if(cu.direccion == M_derecha){		
+		if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
+			cu.x++;
+			redibujarCuchillo();
+		}
+		else if(cu.x == LIMITE_DERECHO  - G_KNIFEX_0_W){
+			borrarCuchillo();
+			cu.lanzado = NO;
+		}
+	}
+	else if(cu.direccion == M_izquierda){
+		if(cu.x > LIMITE_IZQUIERDO){
+			cu.x--;
+			redibujarCuchillo();
+		}else if(cu.x == LIMITE_IZQUIERDO){
+			borrarCuchillo();
+			cu.lanzado = NO;
+		}
+	}
+	else if(cu.direccion == M_abajo){
+		if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+			cu.y++;
+			redibujarCuchillo();
+		}else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
+			borrarCuchillo();
+			cu.lanzado = NO;
+		}
+	}
+	else if(cu.direccion == M_arriba){
+		if(cu.y > LIMITE_SUPERIOR){
+			cu.y--;
+			redibujarCuchillo();
+		}else if(cu.y == LIMITE_SUPERIOR){
+			borrarCuchillo();
+			cu.lanzado = NO;
+		}
 	}
 }
 
@@ -118,20 +274,36 @@ void inicializar() {
 	dibujarMapa();
 
 
-	prota.x = prota.px = 15;
-	prota.y = prota.py = 120;
+	prota.x = prota.px = 0;
+	prota.y = prota.py = 80;
 	prota.mover  = NO;
+	prota.mira=M_derecha;
 	prota.sprite = g_hero;
+	cu.x = cu.px =0;
+	cu.x = cu.px = 0;
+	cu.lanzado=0;
+
 	dibujarProta();
 }
 
-
 void main(void) {
+
+
 	inicializar();
+   	cpct_akp_musicPlay();
+   	
+  
    	while (1) {
+   		
+   		
    		comprobarTeclado();
-   		cpct_akp_musicPlay();
+   		
+   		if(cu.lanzado){
+   			cpct_waitVSYNC();
+   			moverCuchillo();
+   		}
    		if (prota.mover) {
+   			cpct_waitVSYNC();
    			redibujarProta();
    			prota.mover = NO;
    		}
