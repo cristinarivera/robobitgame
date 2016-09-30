@@ -2,5 +2,9 @@ hex2bin v2.0, Copyright (C) 2015 Jacques Pelletier & contributors
 
 Binary file start = 00000200
 Records start     = 00000200
+<<<<<<< HEAD
 Highest address   = 000053C3
+=======
+Highest address   = 000055E2
+>>>>>>> disparo_principal
 Pad Byte          = 0
