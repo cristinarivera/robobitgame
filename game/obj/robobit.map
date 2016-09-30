@@ -26,23 +26,23 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000061  l__CABS0                        
      00000061  l__CABS1                        
      00000100  l__g_tablatrans_0               
-     000003CE  l__CSEG                         
-     00001281  l__CODE                         
+     000003F6  l__CSEG                         
+     0000123A  l__CODE                         
      00004000  s__CODE                         
-     00005281  s__DATA                         
-     00005296  s__CSEG                         
-     00005296  s__GSFINAL                      
-     00005296  s__GSINIT                       
-     00005296  s__HOME                         
-     00005296  s__INITIALIZED                  
-     00005296  s__INITIALIZER                  
+     0000523A  s__DATA                         
+     0000524F  s__CSEG                         
+     0000524F  s__GSFINAL                      
+     0000524F  s__GSINIT                       
+     0000524F  s__HOME                         
+     0000524F  s__INITIALIZED                  
+     0000524F  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00001281 =        4737. bytes (REL,CON)
+_CODE                               00004000    0000123A =        4666. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -64,85 +64,76 @@ _CODE                               00004000    00001281 =        4737. bytes (R
      00004766  _g_tiles_09                        tiles
      0000476E  _g_palette                         hero
      0000477E  _g_hero                            hero
-     0000485F  _cpct_setPalette                   cpct_video
-     0000485F  _dummy_cpct_transparentMaskTable   main
-     00004876  _cpct_isKeyPressed                 cpct_keyboard
-     00004876  cpct_isKeyPressed_asm              cpct_keyboard
-     00004882  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
-     00004911  _cpct_etm_setTileset2x4            cpct_easytilemaps
-     00004911  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
-     00004915  _cpct_keyboardStatusBuffer         cpct_keyboard
-     0000491F  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     00004926  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     00004928  dtr_restore_ptileset               cpct_easytilemaps
-     00004940  _cpct_isAnyKeyPressed              cpct_keyboard
-     00004940  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     0000494D  _cpct_scanKeyboard_if              cpct_keyboard
-     0000494D  cpct_scanKeyboard_if_asm           cpct_keyboard
-     000049B5  _cpct_waitVSYNC                    cpct_video
-     000049B5  cpct_waitVSYNC_asm                 cpct_video
-     000049BD  _cpct_setVideoMode                 cpct_video
-     000049CB  _cpct_akp_digidrumStatus           cpct_audio
-     000049CC  _cpct_akp_songLoopTimes            cpct_audio
-     000049CD  _cpct_akp_musicPlay                cpct_audio
-     000049CD  cpct_akp_musicPlay_asm             cpct_audio
-     000050D0  _cpct_akp_musicInit                cpct_audio
-     000050D7  cpct_akp_musicInit_asm             cpct_audio
-     00005130  _cpct_akp_stop                     cpct_audio
-     00005130  cpct_akp_stop_asm                  cpct_audio
-     00005143  _cpct_akp_SFXGetInstrument         cpct_audio
-     00005148  cpct_akp_SFXGetInstrument_asm      cpct_audio
-     0000515C  _cpct_akp_SFXInit                  cpct_audio
-     00005163  cpct_akp_SFXInit_asm               cpct_audio
-     0000516A  _cpct_akp_SFXStopAll               cpct_audio
-     0000516A  cpct_akp_SFXStopAll_asm            cpct_audio
+     00004818  _cpct_setPalette                   cpct_video
+     00004818  _dummy_cpct_transparentMaskTable   main
+     0000482F  _cpct_isKeyPressed                 cpct_keyboard
+     0000482F  cpct_isKeyPressed_asm              cpct_keyboard
+     0000483B  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     000048CA  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     000048CA  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     000048CE  _cpct_keyboardStatusBuffer         cpct_keyboard
+     000048D8  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     000048DF  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     000048E1  dtr_restore_ptileset               cpct_easytilemaps
+     000048F9  _cpct_isAnyKeyPressed              cpct_keyboard
+     000048F9  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00004906  _cpct_scanKeyboard_if              cpct_keyboard
+     00004906  cpct_scanKeyboard_if_asm           cpct_keyboard
+     0000496E  _cpct_waitVSYNC                    cpct_video
+     0000496E  cpct_waitVSYNC_asm                 cpct_video
+     00004976  _cpct_setVideoMode                 cpct_video
+     00004984  _cpct_akp_digidrumStatus           cpct_audio
+     00004985  _cpct_akp_songLoopTimes            cpct_audio
+     00004986  _cpct_akp_musicPlay                cpct_audio
+     00004986  cpct_akp_musicPlay_asm             cpct_audio
+     00005089  _cpct_akp_musicInit                cpct_audio
+     00005090  cpct_akp_musicInit_asm             cpct_audio
+     000050E9  _cpct_akp_stop                     cpct_audio
+     000050E9  cpct_akp_stop_asm                  cpct_audio
+     000050FC  _cpct_akp_SFXGetInstrument         cpct_audio
+     00005101  cpct_akp_SFXGetInstrument_asm      cpct_audio
+     00005115  _cpct_akp_SFXInit                  cpct_audio
+     0000511C  cpct_akp_SFXInit_asm               cpct_audio
+     00005123  _cpct_akp_SFXStopAll               cpct_audio
+     00005123  cpct_akp_SFXStopAll_asm            cpct_audio
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00001281 =        4737. bytes (REL,CON)
+_CODE                               00004000    0000123A =        4666. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005177  _cpct_akp_SFXPlay                  cpct_audio
-     00005189  cpct_akp_SFXPlay_asm               cpct_audio
-     000051D6  _cpct_akp_SFXStop                  cpct_audio
-     000051DB  cpct_akp_SFXStop_asm               cpct_audio
-     000051F4  _cpct_disableFirmware              cpct_firmware
-     000051F4  _cpct_removeInterruptHandler       cpct_firmware
-     000051F4  cpct_disableFirmware_asm           cpct_firmware
-     000051F4  cpct_removeInterruptHandler_asm    cpct_firmware
-     00005204  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     00005225  _cpct_mode_rom_status              cpct_firmware
-     00005226  _cpct_getScreenPtr                 cpct_video
-     00005246  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     00005130  _cpct_akp_SFXPlay                  cpct_audio
+     00005142  cpct_akp_SFXPlay_asm               cpct_audio
+     0000518F  _cpct_akp_SFXStop                  cpct_audio
+     00005194  cpct_akp_SFXStop_asm               cpct_audio
+     000051AD  _cpct_disableFirmware              cpct_firmware
+     000051AD  _cpct_removeInterruptHandler       cpct_firmware
+     000051AD  cpct_disableFirmware_asm           cpct_firmware
+     000051AD  cpct_removeInterruptHandler_asm    cpct_firmware
+     000051BD  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     000051DE  _cpct_mode_rom_status              cpct_firmware
+     000051DF  _cpct_getScreenPtr                 cpct_video
+     000051FF  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00005281    00000015 =          21. bytes (REL,CON)
+_DATA                               0000523A    00000015 =          21. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005281  _EMirar                            main
-     00005282  _EEje                              main
-     00005283  _prota                             main
-     0000528B  _cu                                main
-     00005294  _mapa                              main
+     0000523A  _EMirar                            main
+     0000523B  _EEje                              main
+     0000523C  _prota                             main
+     00005244  _cu                                main
+     0000524D  _mapa                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-_CABS0                              00000000    00000061 =          97. bytes (ABS,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -153,33 +144,33 @@ _g_tablatrans_0                     00000000    00000100 =         256. bytes (A
       -----  --------------------------------   ------------------------
      00003E00  _g_tablatrans                      main
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00005296    000003CE =         974. bytes (REL,CON)
+_CSEG                               0000524F    000003F6 =        1014. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00005296  _dibujarMapa                       main
-     000052AC  _dibujarProta                      main
-     000052D2  _borrarProta                       main
-     0000530D  _redibujarProta                    main
-     00005321  _moverIzquierda                    main
-     00005338  _moverDerecha                      main
-     0000534D  _moverArriba                       main
-     00005362  _moverAbajo                        main
-     00005377  _dibujarCuchillo                   main
-     000053D7  _borrarCuchillo                    main
-     00005439  _redibujarCuchillo                 main
-     00005453  _lanzarCuchillo                    main
-     00005512  _comprobarTeclado                  main
-     00005553  _moverCuchillo                     main
-     000055D1  _inicializar                       main
-     00005639  _main                              main
+     0000524F  _dibujarMapa                       main
+     00005265  _dibujarProta                      main
+     0000528B  _borrarProta                       main
+     000052EE  _redibujarProta                    main
+     00005302  _moverIzquierda                    main
+     00005319  _moverDerecha                      main
+     0000532E  _moverArriba                       main
+     00005343  _moverAbajo                        main
+     00005358  _dibujarCuchillo                   main
+     000053B8  _borrarCuchillo                    main
+     0000541A  _redibujarCuchillo                 main
+     00005434  _lanzarCuchillo                    main
+     000054F3  _comprobarTeclado                  main
+     00005534  _moverCuchillo                     main
+     000055B2  _inicializar                       main
+     0000561A  _main                              main
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -188,7 +179,16 @@ _CABS1                              00000000    00000061 =          97. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000200  _G_song                            main
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CABS0                              00000000    00000061 =          97. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000200  _G_song                            song
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 
@@ -199,43 +199,43 @@ obj/knifeY.rel                            [ knifeY ]
 obj/knifeX.rel                            [ knifeX ]
 obj/tiles.rel                             [ tiles ]
 obj/hero.rel                              [ hero ]
-obj/song.rel                              [ song ]
 obj/main.rel                              [ main ]
+obj/song.rel                              [ song ]
 
 
 Libraries Linked                          [ object file ]
 
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isKeyPressed.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileBox2x4_cbinding ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_setTileset2x4.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ keyboard.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileRow2x4.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isAnyKeyPressed.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard_if.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNC.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ arkostracker.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_removeInterruptHandler.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawTileAligned2x4_f_asmbin ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpc_mode_rom_status.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenPtr_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/cristina/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSpriteMaskedAlignedTabl ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.

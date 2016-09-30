@@ -6,9 +6,9 @@ u8* const g_tileset[10] = {
 // Tile g_tiles_00: 4x4 pixels, 2x4 bytes.
 const u8 g_tiles_00[2 * 4] = {
 	0x03, 0x03,
-	0x42, 0x03,
+	0x57, 0x03,
 	0x03, 0x03,
-	0x03, 0x42
+	0x03, 0x57
 };
 
 // Tile g_tiles_01: 4x4 pixels, 2x4 bytes.

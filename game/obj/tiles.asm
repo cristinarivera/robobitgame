@@ -65,12 +65,12 @@ _g_tileset:
 _g_tiles_00:
 	.db #0x03	; 3
 	.db #0x03	; 3
-	.db #0x42	; 66	'B'
+	.db #0x57	; 87	'W'
 	.db #0x03	; 3
 	.db #0x03	; 3
 	.db #0x03	; 3
 	.db #0x03	; 3
-	.db #0x42	; 66	'B'
+	.db #0x57	; 87	'W'
 _g_tiles_01:
 	.db #0xFC	; 252
 	.db #0xFC	; 252

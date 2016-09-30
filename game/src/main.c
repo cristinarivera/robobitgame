@@ -33,11 +33,11 @@
 #define  ORIGEN_MAPA_Y	0
 #define  ORIGEN_MAPA  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
-#define ANCHO_PANTALLA	80
-#define ALTO_MAPA 160
+#define ANCHO_PANTALLA	g_map1_W * 2  	// 2 bytes por tile
+#define ALTO_MAPA g_map1_H * 4 			// 4 bytes por tile
 
 #define LIMITE_IZQUIERDO 0 + 4
-#define LIMITE_DERECHO ANCHO_PANTALLA - 4
+#define LIMITE_DERECHO ANCHO_PANTALLA - 4 
 
 #define LIMITE_SUPERIOR 0 + 8
 #define LIMITE_INFERIOR ALTO_MAPA - 8
@@ -101,10 +101,10 @@ void dibujarProta() {
 
 void borrarProta() {
 	//u8 w = 4 + (prota.px & 1);
-	u8 w = 5;// 4 + (prota.px & 1 ? 0 : 1);
+	u8 w = 4 + (prota.px & 1);
 
 	//u8 h = 7 + (prota.py & 3 ? 1 : 0);
-	u8 h = 8; // 7 + (prota.py & 3 ? 1 : 0);
+	u8 h = 6 + (prota.py & 2 ? 1 : 0);
 
 	cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 }

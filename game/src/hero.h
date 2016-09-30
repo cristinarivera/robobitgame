@@ -5,8 +5,8 @@
 #include <types.h>
 extern const u8 g_palette[16];
 
-#define G_HERO_W 9
-#define G_HERO_H 25
-extern const u8 g_hero[9 * 25];
+#define G_HERO_W 7
+#define G_HERO_H 22
+extern const u8 g_hero[7 * 22];
 
 #endif

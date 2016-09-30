@@ -166,7 +166,7 @@ _dibujarProta::
 	ld	bc, (#_prota + 4)
 	ld	hl,#_g_tablatrans
 	push	hl
-	ld	hl,#0x1909
+	ld	hl,#0x1607
 	push	hl
 	push	de
 	push	bc
@@ -177,37 +177,63 @@ _dibujarProta::
 ; Function borrarProta
 ; ---------------------------------
 _borrarProta::
-;src/main.c:109: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-	ld	bc,(_mapa)
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	dec	sp
+;src/main.c:104: u8 w = 4 + (prota.px & 1);
+	ld	hl, #_prota + 2
+	ld	c,(hl)
+	ld	a,c
+	and	a, #0x01
+	ld	b,a
+	inc	b
+	inc	b
+	inc	b
+	inc	b
+;src/main.c:107: u8 h = 6 + (prota.py & 2 ? 1 : 0);
 	ld	hl, #_prota + 3
 	ld	e,(hl)
+	bit	1, e
+	jr	Z,00103$
+	ld	a,#0x01
+	jr	00104$
+00103$:
+	ld	a,#0x00
+00104$:
+	add	a, #0x06
+	ld	-1 (ix),a
+;src/main.c:109: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+	ld	iy,(_mapa)
 	ld	d,#0x00
 	ld	h,e
 	ld	l,d
 	bit	7, d
-	jr	Z,00103$
+	jr	Z,00105$
 	inc	de
 	inc	de
 	inc	de
 	ld	h,e
 	ld	l,d
-00103$:
+00105$:
 	ld	e, h
 	ld	d, l
 	sra	d
 	rr	e
 	sra	d
 	rr	e
-	ld	a, (#_prota + 2)
-	srl	a
-	ld	d,a
-	push	bc
+	ld	d,c
+	srl	d
+	push	iy
 	ld	hl,#0xC000
 	push	hl
-	ld	hl,#0x2808
-	push	hl
-	ld	a,#0x05
+	ld	a,#0x28
 	push	af
+	inc	sp
+	ld	a,-1 (ix)
+	push	af
+	inc	sp
+	push	bc
 	inc	sp
 	ld	a,e
 	push	af
@@ -215,6 +241,8 @@ _borrarProta::
 	push	de
 	inc	sp
 	call	_cpct_etm_drawTileBox2x4
+	inc	sp
+	pop	ix
 	ret
 ;src/main.c:112: void redibujarProta() {
 ;	---------------------------------
@@ -265,7 +293,7 @@ _moverDerecha::
 	ld	hl,#_prota+0
 	ld	c,(hl)
 	ld	a,c
-	sub	a, #0x43
+	sub	a, #0x45
 	ret	NC
 ;src/main.c:130: prota.x++;
 	inc	c
@@ -307,7 +335,7 @@ _moverAbajo::
 	ld	hl,#_prota + 1
 	ld	c,(hl)
 	ld	a,c
-	sub	a, #0x7F
+	sub	a, #0x92
 	ret	NC
 ;src/main.c:146: prota.y++;
 	inc	c
@@ -497,11 +525,11 @@ _lanzarCuchillo::
 	ld	(hl),#0x00
 ;src/main.c:181: cu.x=prota.x + G_HERO_W;
 	ld	a, (#_prota + 0)
-	add	a, #0x09
+	add	a, #0x07
 	ld	(de),a
 ;src/main.c:182: cu.y=prota.y + G_HERO_H /2;	
 	ld	a, (#(_prota + 0x0001) + 0)
-	add	a, #0x0C
+	add	a, #0x0B
 	ld	(#(_cu + 0x0001)),a
 ;src/main.c:183: cu.sprite=g_knifeX_0;
 	ld	hl,#_g_knifeX_0
@@ -531,7 +559,7 @@ _lanzarCuchillo::
 	ld	(de),a
 ;src/main.c:190: cu.y = prota.y + G_HERO_H /2;	
 	ld	a, (#(_prota + 0x0001) + 0)
-	add	a, #0x0C
+	add	a, #0x0B
 	ld	(#(_cu + 0x0001)),a
 ;src/main.c:191: cu.sprite = g_knifeX_1;
 	ld	hl,#_g_knifeX_1
@@ -557,11 +585,11 @@ _lanzarCuchillo::
 	ld	(hl),#0x03
 ;src/main.c:197: cu.x = prota.x + G_HERO_W / 2;
 	ld	a, (#_prota + 0)
-	add	a, #0x04
+	add	a, #0x03
 	ld	(de),a
 ;src/main.c:198: cu.y = prota.y + G_HERO_H + 10;	
 	ld	a, (#(_prota + 0x0001) + 0)
-	add	a, #0x23
+	add	a, #0x20
 	ld	(#(_cu + 0x0001)),a
 ;src/main.c:199: cu.sprite = g_knifeY_0;
 	ld	hl,#_g_knifeY_0
@@ -587,7 +615,7 @@ _lanzarCuchillo::
 	ld	(hl),#0x02
 ;src/main.c:205: cu.x = prota.x + G_HERO_W / 2;
 	ld	a, (#_prota + 0)
-	add	a, #0x04
+	add	a, #0x03
 	ld	(de),a
 ;src/main.c:206: cu.y = prota.y;	
 	ld	a, (#(_prota + 0x0001) + 0)
@@ -730,7 +758,7 @@ _moverCuchillo::
 ;src/main.c:254: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
 	ld	c,(hl)
 	ld	a,c
-	sub	a, #0x92
+	sub	a, #0xA2
 	jr	NC,00114$
 ;src/main.c:255: cu.y++;
 	inc	c
@@ -740,7 +768,7 @@ _moverCuchillo::
 00114$:
 ;src/main.c:257: }else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
 	ld	a,c
-	sub	a, #0x92
+	sub	a, #0xA2
 	ret	NZ
 ;src/main.c:258: borrarCuchillo();
 	call	_borrarCuchillo
