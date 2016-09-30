@@ -9,7 +9,7 @@ Symbol Table
     .__.H$L.                                                    =  0000 L
   C _G_song                                                        0200 GR
   9 _borrarProta                                                   003C GR
-  9 _comprobarTeclado                                              00EE GR
+  9 _comprobarTeclado                                              00C5 GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -22,23 +22,25 @@ Symbol Table
     _cpct_scanKeyboard_if                                          **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
+    _cpct_waitVSYNC                                                **** GX
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  0016 GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
     _g_hero                                                        **** GX
     _g_map1                                                        **** GX
     _g_palette                                                     **** GX
-  8 _g_tablatrans                                                  0100 GR
+  8 _g_tablatrans                                                  3F00 GR
     _g_tileset                                                     **** GX
-  9 _inicializar                                                   0124 GR
-  9 _main                                                          0171 GR
+  9 _inicializar                                                   00FB GR
+  9 _main                                                          0148 GR
   1 _mapa                                                          0007 GR
-  9 _moverAbajo                                                    00E2 GR
-  9 _moverArriba                                                   00D3 GR
-  9 _moverDerecha                                                  00C3 GR
-  9 _moverIzquierda                                                00B4 GR
+  9 _moverAbajo                                                    00B9 GR
+  9 _moverArriba                                                   00AA GR
+  9 _moverDerecha                                                  009A GR
+  9 _moverIzquierda                                                008B GR
   1 _prota                                                         0000 GR
-  9 _redibujarProta                                                00A0 GR
+  9 _redibujarProta                                                0077 GR
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
@@ -54,7 +56,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  18A   flags    0
+   9 _CSEG                                      size  164   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

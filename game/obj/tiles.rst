@@ -51,106 +51,106 @@
                              51 ;--------------------------------------------------------
                              52 	.area _CODE
                              53 	.area _CODE
-   4640                      54 _g_tileset:
-   4640 54 46                55 	.dw _g_tiles_00
-   4642 5C 46                56 	.dw _g_tiles_01
-   4644 64 46                57 	.dw _g_tiles_02
-   4646 6C 46                58 	.dw _g_tiles_03
-   4648 74 46                59 	.dw _g_tiles_04
-   464A 7C 46                60 	.dw _g_tiles_05
-   464C 84 46                61 	.dw _g_tiles_06
-   464E 8C 46                62 	.dw _g_tiles_07
-   4650 94 46                63 	.dw _g_tiles_08
-   4652 9C 46                64 	.dw _g_tiles_09
-   4654                      65 _g_tiles_00:
-   4654 03                   66 	.db #0x03	; 3
-   4655 03                   67 	.db #0x03	; 3
-   4656 42                   68 	.db #0x42	; 66	'B'
-   4657 03                   69 	.db #0x03	; 3
-   4658 03                   70 	.db #0x03	; 3
-   4659 03                   71 	.db #0x03	; 3
-   465A 03                   72 	.db #0x03	; 3
-   465B 42                   73 	.db #0x42	; 66	'B'
-   465C                      74 _g_tiles_01:
-   465C 3C                   75 	.db #0x3C	; 60
-   465D 3C                   76 	.db #0x3C	; 60
-   465E 3C                   77 	.db #0x3C	; 60
-   465F 2C                   78 	.db #0x2C	; 44
-   4660 3C                   79 	.db #0x3C	; 60
-   4661 2C                   80 	.db #0x2C	; 44
-   4662 3C                   81 	.db #0x3C	; 60
-   4663 3C                   82 	.db #0x3C	; 60
-   4664                      83 _g_tiles_02:
-   4664 3C                   84 	.db #0x3C	; 60
-   4665 3C                   85 	.db #0x3C	; 60
-   4666 1C                   86 	.db #0x1C	; 28
-   4667 3C                   87 	.db #0x3C	; 60
-   4668 1C                   88 	.db #0x1C	; 28
-   4669 3C                   89 	.db #0x3C	; 60
-   466A 3C                   90 	.db #0x3C	; 60
-   466B 3C                   91 	.db #0x3C	; 60
-   466C                      92 _g_tiles_03:
-   466C F0                   93 	.db #0xF0	; 240
-   466D 3C                   94 	.db #0x3C	; 60
-   466E B4                   95 	.db #0xB4	; 180
-   466F 78                   96 	.db #0x78	; 120	'x'
-   4670 3C                   97 	.db #0x3C	; 60
-   4671 3C                   98 	.db #0x3C	; 60
-   4672 78                   99 	.db #0x78	; 120	'x'
-   4673 78                  100 	.db #0x78	; 120	'x'
-   4674                     101 _g_tiles_04:
-   4674 3C                  102 	.db #0x3C	; 60
-   4675 F0                  103 	.db #0xF0	; 240
-   4676 B4                  104 	.db #0xB4	; 180
-   4677 78                  105 	.db #0x78	; 120	'x'
-   4678 3C                  106 	.db #0x3C	; 60
-   4679 3C                  107 	.db #0x3C	; 60
-   467A B4                  108 	.db #0xB4	; 180
-   467B B4                  109 	.db #0xB4	; 180
-   467C                     110 _g_tiles_05:
-   467C FF                  111 	.db #0xFF	; 255
-   467D FF                  112 	.db #0xFF	; 255
-   467E FF                  113 	.db #0xFF	; 255
-   467F FF                  114 	.db #0xFF	; 255
-   4680 FF                  115 	.db #0xFF	; 255
-   4681 FF                  116 	.db #0xFF	; 255
-   4682 FF                  117 	.db #0xFF	; 255
-   4683 FF                  118 	.db #0xFF	; 255
-   4684                     119 _g_tiles_06:
-   4684 3C                  120 	.db #0x3C	; 60
-   4685 3C                  121 	.db #0x3C	; 60
-   4686 3C                  122 	.db #0x3C	; 60
-   4687 2C                  123 	.db #0x2C	; 44
-   4688 3C                  124 	.db #0x3C	; 60
-   4689 2C                  125 	.db #0x2C	; 44
-   468A 3C                  126 	.db #0x3C	; 60
-   468B 3C                  127 	.db #0x3C	; 60
-   468C                     128 _g_tiles_07:
-   468C 3C                  129 	.db #0x3C	; 60
-   468D 3C                  130 	.db #0x3C	; 60
-   468E 1C                  131 	.db #0x1C	; 28
-   468F 3C                  132 	.db #0x3C	; 60
-   4690 1C                  133 	.db #0x1C	; 28
-   4691 3C                  134 	.db #0x3C	; 60
-   4692 3C                  135 	.db #0x3C	; 60
-   4693 3C                  136 	.db #0x3C	; 60
-   4694                     137 _g_tiles_08:
-   4694 78                  138 	.db #0x78	; 120	'x'
-   4695 78                  139 	.db #0x78	; 120	'x'
-   4696 3C                  140 	.db #0x3C	; 60
-   4697 3C                  141 	.db #0x3C	; 60
-   4698 B4                  142 	.db #0xB4	; 180
-   4699 78                  143 	.db #0x78	; 120	'x'
-   469A F0                  144 	.db #0xF0	; 240
-   469B 3C                  145 	.db #0x3C	; 60
-   469C                     146 _g_tiles_09:
-   469C B4                  147 	.db #0xB4	; 180
-   469D B4                  148 	.db #0xB4	; 180
-   469E 3C                  149 	.db #0x3C	; 60
-   469F 3C                  150 	.db #0x3C	; 60
-   46A0 B4                  151 	.db #0xB4	; 180
-   46A1 78                  152 	.db #0x78	; 120	'x'
-   46A2 3C                  153 	.db #0x3C	; 60
-   46A3 F0                  154 	.db #0xF0	; 240
+   46E0                      54 _g_tileset:
+   46E0 F4 46                55 	.dw _g_tiles_00
+   46E2 FC 46                56 	.dw _g_tiles_01
+   46E4 04 47                57 	.dw _g_tiles_02
+   46E6 0C 47                58 	.dw _g_tiles_03
+   46E8 14 47                59 	.dw _g_tiles_04
+   46EA 1C 47                60 	.dw _g_tiles_05
+   46EC 24 47                61 	.dw _g_tiles_06
+   46EE 2C 47                62 	.dw _g_tiles_07
+   46F0 34 47                63 	.dw _g_tiles_08
+   46F2 3C 47                64 	.dw _g_tiles_09
+   46F4                      65 _g_tiles_00:
+   46F4 03                   66 	.db #0x03	; 3
+   46F5 03                   67 	.db #0x03	; 3
+   46F6 42                   68 	.db #0x42	; 66	'B'
+   46F7 03                   69 	.db #0x03	; 3
+   46F8 03                   70 	.db #0x03	; 3
+   46F9 03                   71 	.db #0x03	; 3
+   46FA 03                   72 	.db #0x03	; 3
+   46FB 42                   73 	.db #0x42	; 66	'B'
+   46FC                      74 _g_tiles_01:
+   46FC FC                   75 	.db #0xFC	; 252
+   46FD FC                   76 	.db #0xFC	; 252
+   46FE FC                   77 	.db #0xFC	; 252
+   46FF AC                   78 	.db #0xAC	; 172
+   4700 FC                   79 	.db #0xFC	; 252
+   4701 AC                   80 	.db #0xAC	; 172
+   4702 FC                   81 	.db #0xFC	; 252
+   4703 FC                   82 	.db #0xFC	; 252
+   4704                      83 _g_tiles_02:
+   4704 FC                   84 	.db #0xFC	; 252
+   4705 FC                   85 	.db #0xFC	; 252
+   4706 5C                   86 	.db #0x5C	; 92
+   4707 FC                   87 	.db #0xFC	; 252
+   4708 5C                   88 	.db #0x5C	; 92
+   4709 FC                   89 	.db #0xFC	; 252
+   470A FC                   90 	.db #0xFC	; 252
+   470B FC                   91 	.db #0xFC	; 252
+   470C                      92 _g_tiles_03:
+   470C 3C                   93 	.db #0x3C	; 60
+   470D FC                   94 	.db #0xFC	; 252
+   470E 7C                   95 	.db #0x7C	; 124
+   470F BC                   96 	.db #0xBC	; 188
+   4710 FC                   97 	.db #0xFC	; 252
+   4711 FC                   98 	.db #0xFC	; 252
+   4712 BC                   99 	.db #0xBC	; 188
+   4713 BC                  100 	.db #0xBC	; 188
+   4714                     101 _g_tiles_04:
+   4714 FC                  102 	.db #0xFC	; 252
+   4715 3C                  103 	.db #0x3C	; 60
+   4716 7C                  104 	.db #0x7C	; 124
+   4717 BC                  105 	.db #0xBC	; 188
+   4718 FC                  106 	.db #0xFC	; 252
+   4719 FC                  107 	.db #0xFC	; 252
+   471A 7C                  108 	.db #0x7C	; 124
+   471B 7C                  109 	.db #0x7C	; 124
+   471C                     110 _g_tiles_05:
+   471C FF                  111 	.db #0xFF	; 255
+   471D FF                  112 	.db #0xFF	; 255
+   471E FF                  113 	.db #0xFF	; 255
+   471F FF                  114 	.db #0xFF	; 255
+   4720 FF                  115 	.db #0xFF	; 255
+   4721 FF                  116 	.db #0xFF	; 255
+   4722 FF                  117 	.db #0xFF	; 255
+   4723 FF                  118 	.db #0xFF	; 255
+   4724                     119 _g_tiles_06:
+   4724 FC                  120 	.db #0xFC	; 252
+   4725 FC                  121 	.db #0xFC	; 252
+   4726 FC                  122 	.db #0xFC	; 252
+   4727 AC                  123 	.db #0xAC	; 172
+   4728 FC                  124 	.db #0xFC	; 252
+   4729 AC                  125 	.db #0xAC	; 172
+   472A FC                  126 	.db #0xFC	; 252
+   472B FC                  127 	.db #0xFC	; 252
+   472C                     128 _g_tiles_07:
+   472C FC                  129 	.db #0xFC	; 252
+   472D FC                  130 	.db #0xFC	; 252
+   472E 5C                  131 	.db #0x5C	; 92
+   472F FC                  132 	.db #0xFC	; 252
+   4730 5C                  133 	.db #0x5C	; 92
+   4731 FC                  134 	.db #0xFC	; 252
+   4732 FC                  135 	.db #0xFC	; 252
+   4733 FC                  136 	.db #0xFC	; 252
+   4734                     137 _g_tiles_08:
+   4734 BC                  138 	.db #0xBC	; 188
+   4735 BC                  139 	.db #0xBC	; 188
+   4736 FC                  140 	.db #0xFC	; 252
+   4737 FC                  141 	.db #0xFC	; 252
+   4738 7C                  142 	.db #0x7C	; 124
+   4739 BC                  143 	.db #0xBC	; 188
+   473A 3C                  144 	.db #0x3C	; 60
+   473B FC                  145 	.db #0xFC	; 252
+   473C                     146 _g_tiles_09:
+   473C 7C                  147 	.db #0x7C	; 124
+   473D 7C                  148 	.db #0x7C	; 124
+   473E FC                  149 	.db #0xFC	; 252
+   473F FC                  150 	.db #0xFC	; 252
+   4740 7C                  151 	.db #0x7C	; 124
+   4741 BC                  152 	.db #0xBC	; 188
+   4742 FC                  153 	.db #0xFC	; 252
+   4743 3C                  154 	.db #0x3C	; 60
                             155 	.area _INITIALIZER
                             156 	.area _CABS (ABS)
