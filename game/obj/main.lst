@@ -11,534 +11,6 @@
                              11 	.globl _G_song
                              12 	.globl _main
                              13 	.globl _inicializar
-<<<<<<< HEAD
-                             14 	.globl _comprobarTeclado
-                             15 	.globl _moverAbajo
-                             16 	.globl _moverArriba
-                             17 	.globl _moverDerecha
-                             18 	.globl _moverIzquierda
-                             19 	.globl _redibujarProta
-                             20 	.globl _borrarProta
-                             21 	.globl _dibujarProta
-                             22 	.globl _dibujarMapa
-                             23 	.globl _cpct_etm_setTileset2x4
-                             24 	.globl _cpct_etm_drawTileBox2x4
-                             25 	.globl _cpct_akp_musicPlay
-                             26 	.globl _cpct_akp_musicInit
-                             27 	.globl _cpct_getScreenPtr
-                             28 	.globl _cpct_setPalette
-                             29 	.globl _cpct_waitVSYNC
-                             30 	.globl _cpct_setVideoMode
-                             31 	.globl _cpct_drawSpriteMaskedAlignedTable
-                             32 	.globl _cpct_isAnyKeyPressed
-                             33 	.globl _cpct_isKeyPressed
-                             34 	.globl _cpct_scanKeyboard_if
-                             35 	.globl _cpct_disableFirmware
-                             36 	.globl _mapa
-                             37 	.globl _prota
-                             38 ;--------------------------------------------------------
-                             39 ; special function registers
-                             40 ;--------------------------------------------------------
-                             41 ;--------------------------------------------------------
-                             42 ; ram data
-                             43 ;--------------------------------------------------------
-                             44 	.area _DATA
-   0000                      45 _prota::
-   0000                      46 	.ds 7
-   0007                      47 _mapa::
-   0007                      48 	.ds 2
-                             49 ;--------------------------------------------------------
-                             50 ; ram data
-                             51 ;--------------------------------------------------------
-                             52 	.area _INITIALIZED
-                             53 ;--------------------------------------------------------
-                             54 ; absolute external ram data
-                             55 ;--------------------------------------------------------
-                             56 	.area _DABS (ABS)
-                             57 ;--------------------------------------------------------
-                             58 ; global & static initialisations
-                             59 ;--------------------------------------------------------
-                             60 	.area _HOME
-                             61 	.area _GSINIT
-                             62 	.area _GSFINAL
-                             63 	.area _GSINIT
-                             64 ;--------------------------------------------------------
-                             65 ; Home
-                             66 ;--------------------------------------------------------
-                             67 	.area _HOME
-                             68 	.area _HOME
-                             69 ;--------------------------------------------------------
-                             70 ; code
-                             71 ;--------------------------------------------------------
-                             72 	.area _CODE
-                             73 ;src/main.c:47: cpctm_createTransparentMaskTable(g_tablatrans, 0x3F00, M0, 0); // es el color 8 - 4D - FF00FF
-                             74 ;	---------------------------------
-                             75 ; Function dummy_cpct_transparentMaskTable0M0_container
-                             76 ; ---------------------------------
-   0000                      77 _dummy_cpct_transparentMaskTable0M0_container::
-                             78 	.area _g_tablatrans_ (ABS) 
-   3F00                      79 	.org 0x3F00 
-   3F00                      80 	 _g_tablatrans::
-   3F00 FF AA 55 00 AA AA    81 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
-        00 00
-   3F08 55 00 55 00 00 00    82 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F10 AA AA 00 00 AA AA    83 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
-        00 00
-   3F18 00 00 00 00 00 00    84 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F20 55 00 55 00 00 00    85 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F28 55 00 55 00 00 00    86 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F30 00 00 00 00 00 00    87 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F38 00 00 00 00 00 00    88 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F40 AA AA 00 00 AA AA    89 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
-        00 00
-   3F48 00 00 00 00 00 00    90 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F50 AA AA 00 00 AA AA    91 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
-        00 00
-   3F58 00 00 00 00 00 00    92 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F60 00 00 00 00 00 00    93 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F68 00 00 00 00 00 00    94 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F70 00 00 00 00 00 00    95 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F78 00 00 00 00 00 00    96 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F80 55 00 55 00 00 00    97 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F88 55 00 55 00 00 00    98 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F90 00 00 00 00 00 00    99 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3F98 00 00 00 00 00 00   100 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FA0 55 00 55 00 00 00   101 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FA8 55 00 55 00 00 00   102 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FB0 00 00 00 00 00 00   103 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FB8 00 00 00 00 00 00   104 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FC0 00 00 00 00 00 00   105 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FC8 00 00 00 00 00 00   106 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FD0 00 00 00 00 00 00   107 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FD8 00 00 00 00 00 00   108 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FE0 00 00 00 00 00 00   109 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FE8 00 00 00 00 00 00   110 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FF0 00 00 00 00 00 00   111 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-   3FF8 00 00 00 00 00 00   112 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
-        00 00
-                            113 	.area _CSEG (REL, CON) 
-                            114 ;src/main.c:49: void dibujarMapa() {
-                            115 ;	---------------------------------
-                            116 ; Function dibujarMapa
-                            117 ; ---------------------------------
-   0000                     118 _dibujarMapa::
-                            119 ;src/main.c:50: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
-   0000 2Ar07r00      [16]  120 	ld	hl,(_mapa)
-   0003 E5            [11]  121 	push	hl
-   0004 21 00 C0      [10]  122 	ld	hl,#0xC000
-   0007 E5            [11]  123 	push	hl
-   0008 21 2C 28      [10]  124 	ld	hl,#0x282C
-   000B E5            [11]  125 	push	hl
-   000C 2E 00         [ 7]  126 	ld	l, #0x00
-   000E E5            [11]  127 	push	hl
-   000F AF            [ 4]  128 	xor	a, a
-   0010 F5            [11]  129 	push	af
-   0011 33            [ 6]  130 	inc	sp
-   0012 CDr00r00      [17]  131 	call	_cpct_etm_drawTileBox2x4
-   0015 C9            [10]  132 	ret
-                            133 ;src/main.c:55: void dibujarProta() {
-                            134 ;	---------------------------------
-                            135 ; Function dibujarProta
-                            136 ; ---------------------------------
-   0016                     137 _dibujarProta::
-                            138 ;src/main.c:56: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
-   0016 21r01r00      [10]  139 	ld	hl, #_prota + 1
-   0019 56            [ 7]  140 	ld	d,(hl)
-   001A 21r00r00      [10]  141 	ld	hl, #_prota + 0
-   001D 46            [ 7]  142 	ld	b,(hl)
-   001E D5            [11]  143 	push	de
-   001F 33            [ 6]  144 	inc	sp
-   0020 C5            [11]  145 	push	bc
-   0021 33            [ 6]  146 	inc	sp
-   0022 21 00 C0      [10]  147 	ld	hl,#0xC000
-   0025 E5            [11]  148 	push	hl
-   0026 CDr00r00      [17]  149 	call	_cpct_getScreenPtr
-   0029 EB            [ 4]  150 	ex	de,hl
-                            151 ;src/main.c:57: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_W, G_HERO_H, g_tablatrans);
-   002A ED 4Br04r00   [20]  152 	ld	bc, (#_prota + 4)
-   002E 21r00r3F      [10]  153 	ld	hl,#_g_tablatrans
-   0031 E5            [11]  154 	push	hl
-   0032 21 09 19      [10]  155 	ld	hl,#0x1909
-   0035 E5            [11]  156 	push	hl
-   0036 D5            [11]  157 	push	de
-   0037 C5            [11]  158 	push	bc
-   0038 CDr00r00      [17]  159 	call	_cpct_drawSpriteMaskedAlignedTable
-   003B C9            [10]  160 	ret
-                            161 ;src/main.c:60: void borrarProta() {
-                            162 ;	---------------------------------
-                            163 ; Function borrarProta
-                            164 ; ---------------------------------
-   003C                     165 _borrarProta::
-                            166 ;src/main.c:67: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-   003C ED 4Br07r00   [20]  167 	ld	bc,(_mapa)
-   0040 21r03r00      [10]  168 	ld	hl, #_prota + 3
-   0043 5E            [ 7]  169 	ld	e,(hl)
-   0044 16 00         [ 7]  170 	ld	d,#0x00
-   0046 63            [ 4]  171 	ld	h,e
-   0047 6A            [ 4]  172 	ld	l,d
-   0048 CB 7A         [ 8]  173 	bit	7, d
-   004A 28 05         [12]  174 	jr	Z,00103$
-   004C 13            [ 6]  175 	inc	de
-   004D 13            [ 6]  176 	inc	de
-   004E 13            [ 6]  177 	inc	de
-   004F 63            [ 4]  178 	ld	h,e
-   0050 6A            [ 4]  179 	ld	l,d
-   0051                     180 00103$:
-   0051 5C            [ 4]  181 	ld	e, h
-   0052 55            [ 4]  182 	ld	d, l
-   0053 CB 2A         [ 8]  183 	sra	d
-   0055 CB 1B         [ 8]  184 	rr	e
-   0057 CB 2A         [ 8]  185 	sra	d
-   0059 CB 1B         [ 8]  186 	rr	e
-   005B 3Ar02r00      [13]  187 	ld	a, (#_prota + 2)
-   005E CB 3F         [ 8]  188 	srl	a
-   0060 57            [ 4]  189 	ld	d,a
-   0061 C5            [11]  190 	push	bc
-   0062 21 00 C0      [10]  191 	ld	hl,#0xC000
-   0065 E5            [11]  192 	push	hl
-   0066 21 08 28      [10]  193 	ld	hl,#0x2808
-   0069 E5            [11]  194 	push	hl
-   006A 3E 05         [ 7]  195 	ld	a,#0x05
-   006C F5            [11]  196 	push	af
-   006D 33            [ 6]  197 	inc	sp
-   006E 7B            [ 4]  198 	ld	a,e
-   006F F5            [11]  199 	push	af
-   0070 33            [ 6]  200 	inc	sp
-   0071 D5            [11]  201 	push	de
-   0072 33            [ 6]  202 	inc	sp
-   0073 CDr00r00      [17]  203 	call	_cpct_etm_drawTileBox2x4
-   0076 C9            [10]  204 	ret
-                            205 ;src/main.c:70: void redibujarProta() {
-                            206 ;	---------------------------------
-                            207 ; Function redibujarProta
-                            208 ; ---------------------------------
-   0077                     209 _redibujarProta::
-                            210 ;src/main.c:71: borrarProta();
-   0077 CDr3Cr00      [17]  211 	call	_borrarProta
-                            212 ;src/main.c:72: prota.px = prota.x;
-   007A 01r02r00      [10]  213 	ld	bc,#_prota + 2
-   007D 3Ar00r00      [13]  214 	ld	a, (#_prota + 0)
-   0080 02            [ 7]  215 	ld	(bc),a
-                            216 ;src/main.c:73: prota.py = prota.y;
-   0081 01r03r00      [10]  217 	ld	bc,#_prota + 3
-   0084 3Ar01r00      [13]  218 	ld	a, (#_prota + 1)
-   0087 02            [ 7]  219 	ld	(bc),a
-                            220 ;src/main.c:74: dibujarProta();
-   0088 C3r16r00      [10]  221 	jp  _dibujarProta
-                            222 ;src/main.c:77: void moverIzquierda() {
-                            223 ;	---------------------------------
-                            224 ; Function moverIzquierda
-                            225 ; ---------------------------------
-   008B                     226 _moverIzquierda::
-                            227 ;src/main.c:78: if (prota.x > 0) {
-   008B 01r00r00      [10]  228 	ld	bc,#_prota+0
-   008E 0A            [ 7]  229 	ld	a,(bc)
-   008F B7            [ 4]  230 	or	a, a
-   0090 C8            [11]  231 	ret	Z
-                            232 ;src/main.c:79: prota.x--;
-   0091 C6 FF         [ 7]  233 	add	a,#0xFF
-   0093 02            [ 7]  234 	ld	(bc),a
-                            235 ;src/main.c:80: prota.mover  = SI;
-   0094 21r06r00      [10]  236 	ld	hl,#(_prota + 0x0006)
-   0097 36 01         [10]  237 	ld	(hl),#0x01
-   0099 C9            [10]  238 	ret
-                            239 ;src/main.c:84: void moverDerecha() {
-                            240 ;	---------------------------------
-                            241 ; Function moverDerecha
-                            242 ; ---------------------------------
-   009A                     243 _moverDerecha::
-                            244 ;src/main.c:85: if (prota.x < LIMITE_DERECHO) {
-   009A 21r00r00      [10]  245 	ld	hl,#_prota+0
-   009D 4E            [ 7]  246 	ld	c,(hl)
-   009E 79            [ 4]  247 	ld	a,c
-   009F D6 47         [ 7]  248 	sub	a, #0x47
-   00A1 D0            [11]  249 	ret	NC
-                            250 ;src/main.c:86: prota.x++;
-   00A2 0C            [ 4]  251 	inc	c
-   00A3 71            [ 7]  252 	ld	(hl),c
-                            253 ;src/main.c:87: prota.mover  = SI;
-   00A4 21r06r00      [10]  254 	ld	hl,#(_prota + 0x0006)
-   00A7 36 01         [10]  255 	ld	(hl),#0x01
-   00A9 C9            [10]  256 	ret
-                            257 ;src/main.c:91: void moverArriba() {
-                            258 ;	---------------------------------
-                            259 ; Function moverArriba
-                            260 ; ---------------------------------
-   00AA                     261 _moverArriba::
-                            262 ;src/main.c:92: if (prota.y > 0) {
-   00AA 01r01r00      [10]  263 	ld	bc,#_prota + 1
-   00AD 0A            [ 7]  264 	ld	a,(bc)
-   00AE B7            [ 4]  265 	or	a, a
-   00AF C8            [11]  266 	ret	Z
-                            267 ;src/main.c:93: prota.y--;
-   00B0 C6 FF         [ 7]  268 	add	a,#0xFF
-   00B2 02            [ 7]  269 	ld	(bc),a
-                            270 ;src/main.c:94: prota.mover  = SI;
-   00B3 21r06r00      [10]  271 	ld	hl,#(_prota + 0x0006)
-   00B6 36 01         [10]  272 	ld	(hl),#0x01
-   00B8 C9            [10]  273 	ret
-                            274 ;src/main.c:98: void moverAbajo() {
-                            275 ;	---------------------------------
-                            276 ; Function moverAbajo
-                            277 ; ---------------------------------
-   00B9                     278 _moverAbajo::
-                            279 ;src/main.c:99: prota.y++;
-   00B9 01r01r00      [10]  280 	ld	bc,#_prota + 1
-   00BC 0A            [ 7]  281 	ld	a,(bc)
-   00BD 3C            [ 4]  282 	inc	a
-   00BE 02            [ 7]  283 	ld	(bc),a
-                            284 ;src/main.c:100: prota.mover  = SI;
-   00BF 21r06r00      [10]  285 	ld	hl,#(_prota + 0x0006)
-   00C2 36 01         [10]  286 	ld	(hl),#0x01
-   00C4 C9            [10]  287 	ret
-                            288 ;src/main.c:103: void comprobarTeclado() {
-                            289 ;	---------------------------------
-                            290 ; Function comprobarTeclado
-                            291 ; ---------------------------------
-   00C5                     292 _comprobarTeclado::
-                            293 ;src/main.c:104: cpct_scanKeyboard_if();
-   00C5 CDr00r00      [17]  294 	call	_cpct_scanKeyboard_if
-                            295 ;src/main.c:106: if (cpct_isAnyKeyPressed()) {
-   00C8 CDr00r00      [17]  296 	call	_cpct_isAnyKeyPressed
-   00CB 7D            [ 4]  297 	ld	a,l
-   00CC B7            [ 4]  298 	or	a, a
-   00CD C8            [11]  299 	ret	Z
-                            300 ;src/main.c:107: if (cpct_isKeyPressed(Key_CursorLeft))
-   00CE 21 01 01      [10]  301 	ld	hl,#0x0101
-   00D1 CDr00r00      [17]  302 	call	_cpct_isKeyPressed
-   00D4 7D            [ 4]  303 	ld	a,l
-   00D5 B7            [ 4]  304 	or	a, a
-                            305 ;src/main.c:108: moverIzquierda();
-   00D6 C2r8Br00      [10]  306 	jp	NZ,_moverIzquierda
-                            307 ;src/main.c:109: else if (cpct_isKeyPressed(Key_CursorRight))
-   00D9 21 00 02      [10]  308 	ld	hl,#0x0200
-   00DC CDr00r00      [17]  309 	call	_cpct_isKeyPressed
-   00DF 7D            [ 4]  310 	ld	a,l
-   00E0 B7            [ 4]  311 	or	a, a
-                            312 ;src/main.c:110: moverDerecha();
-   00E1 C2r9Ar00      [10]  313 	jp	NZ,_moverDerecha
-                            314 ;src/main.c:111: else if (cpct_isKeyPressed(Key_CursorUp))
-   00E4 21 00 01      [10]  315 	ld	hl,#0x0100
-   00E7 CDr00r00      [17]  316 	call	_cpct_isKeyPressed
-   00EA 7D            [ 4]  317 	ld	a,l
-   00EB B7            [ 4]  318 	or	a, a
-                            319 ;src/main.c:112: moverArriba();
-   00EC C2rAAr00      [10]  320 	jp	NZ,_moverArriba
-                            321 ;src/main.c:113: else if (cpct_isKeyPressed(Key_CursorDown))
-   00EF 21 00 04      [10]  322 	ld	hl,#0x0400
-   00F2 CDr00r00      [17]  323 	call	_cpct_isKeyPressed
-   00F5 7D            [ 4]  324 	ld	a,l
-   00F6 B7            [ 4]  325 	or	a, a
-   00F7 C8            [11]  326 	ret	Z
-                            327 ;src/main.c:114: moverAbajo();
-   00F8 C3rB9r00      [10]  328 	jp  _moverAbajo
-                            329 ;src/main.c:118: void inicializar() {
-                            330 ;	---------------------------------
-                            331 ; Function inicializar
-                            332 ; ---------------------------------
-   00FB                     333 _inicializar::
-                            334 ;src/main.c:119: cpct_disableFirmware();
-   00FB CDr00r00      [17]  335 	call	_cpct_disableFirmware
-                            336 ;src/main.c:120: cpct_setVideoMode(0);
-   00FE 2E 00         [ 7]  337 	ld	l,#0x00
-   0100 CDr00r00      [17]  338 	call	_cpct_setVideoMode
-                            339 ;src/main.c:122: cpct_setPalette(g_palette, 16);
-   0103 21 10 00      [10]  340 	ld	hl,#0x0010
-   0106 E5            [11]  341 	push	hl
-   0107 21r00r00      [10]  342 	ld	hl,#_g_palette
-   010A E5            [11]  343 	push	hl
-   010B CDr00r00      [17]  344 	call	_cpct_setPalette
-                            345 ;src/main.c:123: cpct_akp_musicInit(G_song);
-   010E 21r00r02      [10]  346 	ld	hl,#_G_song
-   0111 E5            [11]  347 	push	hl
-   0112 CDr00r00      [17]  348 	call	_cpct_akp_musicInit
-   0115 F1            [10]  349 	pop	af
-                            350 ;src/main.c:124: mapa = g_map1;
-   0116 21r00r00      [10]  351 	ld	hl,#_g_map1+0
-   0119 22r07r00      [16]  352 	ld	(_mapa),hl
-                            353 ;src/main.c:125: cpct_etm_setTileset2x4(g_tileset);
-   011C 21r00r00      [10]  354 	ld	hl,#_g_tileset
-   011F CDr00r00      [17]  355 	call	_cpct_etm_setTileset2x4
-                            356 ;src/main.c:126: dibujarMapa();
-   0122 CDr00r00      [17]  357 	call	_dibujarMapa
-                            358 ;src/main.c:129: prota.x = prota.px = 15;
-   0125 21r02r00      [10]  359 	ld	hl,#(_prota + 0x0002)
-   0128 36 0F         [10]  360 	ld	(hl),#0x0F
-   012A 21r00r00      [10]  361 	ld	hl,#_prota
-   012D 36 0F         [10]  362 	ld	(hl),#0x0F
-                            363 ;src/main.c:130: prota.y = prota.py = 120;
-   012F 21r03r00      [10]  364 	ld	hl,#(_prota + 0x0003)
-   0132 36 78         [10]  365 	ld	(hl),#0x78
-   0134 21r01r00      [10]  366 	ld	hl,#(_prota + 0x0001)
-   0137 36 78         [10]  367 	ld	(hl),#0x78
-                            368 ;src/main.c:131: prota.mover  = NO;
-   0139 21r06r00      [10]  369 	ld	hl,#(_prota + 0x0006)
-   013C 36 00         [10]  370 	ld	(hl),#0x00
-                            371 ;src/main.c:132: prota.sprite = g_hero;
-   013E 21r00r00      [10]  372 	ld	hl,#_g_hero
-   0141 22r04r00      [16]  373 	ld	((_prota + 0x0004)), hl
-                            374 ;src/main.c:133: dibujarProta();
-   0144 CDr16r00      [17]  375 	call	_dibujarProta
-   0147 C9            [10]  376 	ret
-                            377 ;src/main.c:137: void main(void) {
-                            378 ;	---------------------------------
-                            379 ; Function main
-                            380 ; ---------------------------------
-   0148                     381 _main::
-                            382 ;src/main.c:138: inicializar();
-   0148 CDrFBr00      [17]  383 	call	_inicializar
-                            384 ;src/main.c:139: while (1) {
-   014B                     385 00104$:
-                            386 ;src/main.c:140: comprobarTeclado();
-   014B CDrC5r00      [17]  387 	call	_comprobarTeclado
-                            388 ;src/main.c:141: cpct_akp_musicPlay();
-   014E CDr00r00      [17]  389 	call	_cpct_akp_musicPlay
-                            390 ;src/main.c:142: if (prota.mover) {
-   0151 01r06r00      [10]  391 	ld	bc,#_prota+6
-   0154 0A            [ 7]  392 	ld	a,(bc)
-   0155 B7            [ 4]  393 	or	a, a
-   0156 28 07         [12]  394 	jr	Z,00102$
-                            395 ;src/main.c:143: redibujarProta();
-   0158 C5            [11]  396 	push	bc
-   0159 CDr77r00      [17]  397 	call	_redibujarProta
-   015C C1            [10]  398 	pop	bc
-                            399 ;src/main.c:144: prota.mover = NO;
-   015D AF            [ 4]  400 	xor	a, a
-   015E 02            [ 7]  401 	ld	(bc),a
-   015F                     402 00102$:
-                            403 ;src/main.c:146: cpct_waitVSYNC();
-   015F CDr00r00      [17]  404 	call	_cpct_waitVSYNC
-   0162 18 E7         [12]  405 	jr	00104$
-                            406 	.area _CODE
-                            407 	.area _INITIALIZER
-                            408 	.area _CABS (ABS)
-   0200                     409 	.org 0x0200
-   0200                     410 _G_song:
-   0200 41                  411 	.db #0x41	; 65	'A'
-   0201 54                  412 	.db #0x54	; 84	'T'
-   0202 31                  413 	.db #0x31	; 49	'1'
-   0203 30                  414 	.db #0x30	; 48	'0'
-   0204 01                  415 	.db #0x01	; 1
-   0205 40                  416 	.db #0x40	; 64
-   0206 42                  417 	.db #0x42	; 66	'B'
-   0207 0F                  418 	.db #0x0F	; 15
-   0208 02                  419 	.db #0x02	; 2
-   0209 06                  420 	.db #0x06	; 6
-   020A 1D                  421 	.db #0x1D	; 29
-   020B 00                  422 	.db #0x00	; 0
-   020C 10                  423 	.db #0x10	; 16
-   020D 40                  424 	.db #0x40	; 64
-   020E 19                  425 	.db #0x19	; 25
-   020F 40                  426 	.db #0x40	; 64
-   0210 00                  427 	.db #0x00	; 0
-   0211 00                  428 	.db #0x00	; 0
-   0212 00                  429 	.db #0x00	; 0
-   0213 00                  430 	.db #0x00	; 0
-   0214 00                  431 	.db #0x00	; 0
-   0215 00                  432 	.db #0x00	; 0
-   0216 0D                  433 	.db #0x0D	; 13
-   0217 12                  434 	.db #0x12	; 18
-   0218 40                  435 	.db #0x40	; 64
-   0219 01                  436 	.db #0x01	; 1
-   021A 00                  437 	.db #0x00	; 0
-   021B 7C                  438 	.db #0x7C	; 124
-   021C 18                  439 	.db #0x18	; 24
-   021D 78                  440 	.db #0x78	; 120	'x'
-   021E 0C                  441 	.db #0x0C	; 12
-   021F 34                  442 	.db #0x34	; 52	'4'
-   0220 30                  443 	.db #0x30	; 48	'0'
-   0221 2C                  444 	.db #0x2C	; 44
-   0222 28                  445 	.db #0x28	; 40
-   0223 24                  446 	.db #0x24	; 36
-   0224 20                  447 	.db #0x20	; 32
-   0225 1C                  448 	.db #0x1C	; 28
-   0226 0D                  449 	.db #0x0D	; 13
-   0227 25                  450 	.db #0x25	; 37
-   0228 40                  451 	.db #0x40	; 64
-   0229 20                  452 	.db #0x20	; 32
-   022A 00                  453 	.db #0x00	; 0
-   022B 00                  454 	.db #0x00	; 0
-   022C 00                  455 	.db #0x00	; 0
-   022D 39                  456 	.db #0x39	; 57	'9'
-   022E 40                  457 	.db #0x40	; 64
-   022F 00                  458 	.db #0x00	; 0
-   0230 57                  459 	.db #0x57	; 87	'W'
-   0231 40                  460 	.db #0x40	; 64
-   0232 3B                  461 	.db #0x3B	; 59
-   0233 40                  462 	.db #0x40	; 64
-   0234 57                  463 	.db #0x57	; 87	'W'
-   0235 40                  464 	.db #0x40	; 64
-   0236 01                  465 	.db #0x01	; 1
-   0237 2F                  466 	.db #0x2F	; 47
-   0238 40                  467 	.db #0x40	; 64
-   0239 19                  468 	.db #0x19	; 25
-   023A 00                  469 	.db #0x00	; 0
-   023B 76                  470 	.db #0x76	; 118	'v'
-   023C E1                  471 	.db #0xE1	; 225
-   023D 00                  472 	.db #0x00	; 0
-   023E 00                  473 	.db #0x00	; 0
-   023F 01                  474 	.db #0x01	; 1
-   0240 04                  475 	.db #0x04	; 4
-   0241 51                  476 	.db #0x51	; 81	'Q'
-   0242 04                  477 	.db #0x04	; 4
-   0243 37                  478 	.db #0x37	; 55	'7'
-   0244 04                  479 	.db #0x04	; 4
-   0245 4F                  480 	.db #0x4F	; 79	'O'
-   0246 04                  481 	.db #0x04	; 4
-   0247 37                  482 	.db #0x37	; 55	'7'
-   0248 02                  483 	.db #0x02	; 2
-   0249 4B                  484 	.db #0x4B	; 75	'K'
-   024A 02                  485 	.db #0x02	; 2
-   024B 37                  486 	.db #0x37	; 55	'7'
-   024C 04                  487 	.db #0x04	; 4
-   024D 4F                  488 	.db #0x4F	; 79	'O'
-   024E 04                  489 	.db #0x04	; 4
-   024F 37                  490 	.db #0x37	; 55	'7'
-   0250 04                  491 	.db #0x04	; 4
-   0251 4F                  492 	.db #0x4F	; 79	'O'
-   0252 04                  493 	.db #0x04	; 4
-   0253 37                  494 	.db #0x37	; 55	'7'
-   0254 02                  495 	.db #0x02	; 2
-   0255 4B                  496 	.db #0x4B	; 75	'K'
-   0256 00                  497 	.db #0x00	; 0
-   0257 42                  498 	.db #0x42	; 66	'B'
-   0258 60                  499 	.db #0x60	; 96
-   0259 00                  500 	.db #0x00	; 0
-   025A 42                  501 	.db #0x42	; 66	'B'
-   025B 80                  502 	.db #0x80	; 128
-   025C 00                  503 	.db #0x00	; 0
-   025D 00                  504 	.db #0x00	; 0
-   025E 42                  505 	.db #0x42	; 66	'B'
-   025F 00                  506 	.db #0x00	; 0
-   0260 00                  507 	.db #0x00	; 0
-=======
                              14 	.globl _moverCuchillo
                              15 	.globl _comprobarTeclado
                              16 	.globl _lanzarCuchillo
@@ -566,1009 +38,976 @@
                              38 	.globl _cpct_isKeyPressed
                              39 	.globl _cpct_scanKeyboard_if
                              40 	.globl _cpct_disableFirmware
-                             41 	.globl _availableCycles
-                             42 	.globl _availableMicroSecs
-                             43 	.globl _mapa
-                             44 	.globl _cu
-                             45 	.globl _prota
-                             46 	.globl _EEje
-                             47 	.globl _EMirar
+                             41 	.globl _mapa
+                             42 	.globl _cu
+                             43 	.globl _prota
+                             44 	.globl _EEje
+                             45 	.globl _EMirar
+                             46 ;--------------------------------------------------------
+                             47 ; special function registers
                              48 ;--------------------------------------------------------
-                             49 ; special function registers
-                             50 ;--------------------------------------------------------
+                             49 ;--------------------------------------------------------
+                             50 ; ram data
                              51 ;--------------------------------------------------------
-                             52 ; ram data
-                             53 ;--------------------------------------------------------
-                             54 	.area _DATA
-   0000                      55 _EMirar::
-   0000                      56 	.ds 1
-   0001                      57 _EEje::
-   0001                      58 	.ds 1
-   0002                      59 _prota::
-   0002                      60 	.ds 8
-   000A                      61 _cu::
-   000A                      62 	.ds 9
-   0013                      63 _mapa::
-   0013                      64 	.ds 2
-   0015                      65 _availableMicroSecs::
-   0015                      66 	.ds 1
-   0016                      67 _availableCycles::
-   0016                      68 	.ds 1
+                             52 	.area _DATA
+   0000                      53 _EMirar::
+   0000                      54 	.ds 1
+   0001                      55 _EEje::
+   0001                      56 	.ds 1
+   0002                      57 _prota::
+   0002                      58 	.ds 8
+   000A                      59 _cu::
+   000A                      60 	.ds 9
+   0013                      61 _mapa::
+   0013                      62 	.ds 2
+                             63 ;--------------------------------------------------------
+                             64 ; ram data
+                             65 ;--------------------------------------------------------
+                             66 	.area _INITIALIZED
+                             67 ;--------------------------------------------------------
+                             68 ; absolute external ram data
                              69 ;--------------------------------------------------------
-                             70 ; ram data
+                             70 	.area _DABS (ABS)
                              71 ;--------------------------------------------------------
-                             72 	.area _INITIALIZED
+                             72 ; global & static initialisations
                              73 ;--------------------------------------------------------
-                             74 ; absolute external ram data
-                             75 ;--------------------------------------------------------
-                             76 	.area _DABS (ABS)
-                             77 ;--------------------------------------------------------
-                             78 ; global & static initialisations
-                             79 ;--------------------------------------------------------
-                             80 	.area _HOME
-                             81 	.area _GSINIT
-                             82 	.area _GSFINAL
-                             83 	.area _GSINIT
-                             84 ;--------------------------------------------------------
-                             85 ; Home
-                             86 ;--------------------------------------------------------
-                             87 	.area _HOME
-                             88 	.area _HOME
-                             89 ;--------------------------------------------------------
-                             90 ; code
-                             91 ;--------------------------------------------------------
-                             92 	.area _CODE
-                             93 ;src/main.c:86: cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0);
-                             94 ;	---------------------------------
-                             95 ; Function dummy_cpct_transparentMaskTable0M0_container
-                             96 ; ---------------------------------
-   0000                      97 _dummy_cpct_transparentMaskTable0M0_container::
-                             98 	.area _g_tablatrans_ (ABS) 
-   3E00                      99 	.org 0x3E00 
-   3E00                     100 	 _g_tablatrans::
-   3E00 FF AA 55 00 AA AA   101 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+                             74 	.area _HOME
+                             75 	.area _GSINIT
+                             76 	.area _GSFINAL
+                             77 	.area _GSINIT
+                             78 ;--------------------------------------------------------
+                             79 ; Home
+                             80 ;--------------------------------------------------------
+                             81 	.area _HOME
+                             82 	.area _HOME
+                             83 ;--------------------------------------------------------
+                             84 ; code
+                             85 ;--------------------------------------------------------
+                             86 	.area _CODE
+                             87 ;src/main.c:88: cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 - 4D - FF00FF
+                             88 ;	---------------------------------
+                             89 ; Function dummy_cpct_transparentMaskTable0M0_container
+                             90 ; ---------------------------------
+   0000                      91 _dummy_cpct_transparentMaskTable0M0_container::
+                             92 	.area _g_tablatrans_ (ABS) 
+   3E00                      93 	.org 0x3E00 
+   3E00                      94 	 _g_tablatrans::
+   3E00 FF AA 55 00 AA AA    95 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   3E08 55 00 55 00 00 00   102 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E08 55 00 55 00 00 00    96 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E10 AA AA 00 00 AA AA   103 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   3E10 AA AA 00 00 AA AA    97 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   3E18 00 00 00 00 00 00   104 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E18 00 00 00 00 00 00    98 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E20 55 00 55 00 00 00   105 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E20 55 00 55 00 00 00    99 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E28 55 00 55 00 00 00   106 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E28 55 00 55 00 00 00   100 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E30 00 00 00 00 00 00   107 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E30 00 00 00 00 00 00   101 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E38 00 00 00 00 00 00   108 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E38 00 00 00 00 00 00   102 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E40 AA AA 00 00 AA AA   109 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   3E40 AA AA 00 00 AA AA   103 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   3E48 00 00 00 00 00 00   110 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E48 00 00 00 00 00 00   104 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E50 AA AA 00 00 AA AA   111 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   3E50 AA AA 00 00 AA AA   105 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   3E58 00 00 00 00 00 00   112 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E58 00 00 00 00 00 00   106 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E60 00 00 00 00 00 00   113 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E60 00 00 00 00 00 00   107 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E68 00 00 00 00 00 00   114 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E68 00 00 00 00 00 00   108 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E70 00 00 00 00 00 00   115 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E70 00 00 00 00 00 00   109 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E78 00 00 00 00 00 00   116 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E78 00 00 00 00 00 00   110 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E80 55 00 55 00 00 00   117 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E80 55 00 55 00 00 00   111 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E88 55 00 55 00 00 00   118 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E88 55 00 55 00 00 00   112 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E90 00 00 00 00 00 00   119 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E90 00 00 00 00 00 00   113 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3E98 00 00 00 00 00 00   120 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3E98 00 00 00 00 00 00   114 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EA0 55 00 55 00 00 00   121 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EA0 55 00 55 00 00 00   115 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EA8 55 00 55 00 00 00   122 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EA8 55 00 55 00 00 00   116 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EB0 00 00 00 00 00 00   123 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EB0 00 00 00 00 00 00   117 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EB8 00 00 00 00 00 00   124 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EB8 00 00 00 00 00 00   118 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EC0 00 00 00 00 00 00   125 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EC0 00 00 00 00 00 00   119 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EC8 00 00 00 00 00 00   126 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EC8 00 00 00 00 00 00   120 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3ED0 00 00 00 00 00 00   127 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3ED0 00 00 00 00 00 00   121 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3ED8 00 00 00 00 00 00   128 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3ED8 00 00 00 00 00 00   122 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EE0 00 00 00 00 00 00   129 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EE0 00 00 00 00 00 00   123 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EE8 00 00 00 00 00 00   130 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EE8 00 00 00 00 00 00   124 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EF0 00 00 00 00 00 00   131 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EF0 00 00 00 00 00 00   125 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   3EF8 00 00 00 00 00 00   132 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   3EF8 00 00 00 00 00 00   126 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-                            133 	.area _CSEG (REL, CON) 
-                            134 ;src/main.c:88: void dibujarMapa() {
-                            135 ;	---------------------------------
-                            136 ; Function dibujarMapa
-                            137 ; ---------------------------------
-   0000                     138 _dibujarMapa::
-                            139 ;src/main.c:89: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
-   0000 2Ar13r00      [16]  140 	ld	hl,(_mapa)
-   0003 E5            [11]  141 	push	hl
-   0004 21 00 C0      [10]  142 	ld	hl,#0xC000
-   0007 E5            [11]  143 	push	hl
-   0008 21 28 28      [10]  144 	ld	hl,#0x2828
-   000B E5            [11]  145 	push	hl
-   000C 2E 00         [ 7]  146 	ld	l, #0x00
-   000E E5            [11]  147 	push	hl
-   000F AF            [ 4]  148 	xor	a, a
-   0010 F5            [11]  149 	push	af
-   0011 33            [ 6]  150 	inc	sp
-   0012 CDr00r00      [17]  151 	call	_cpct_etm_drawTileBox2x4
-   0015 C9            [10]  152 	ret
-                            153 ;src/main.c:94: void dibujarProta() {
-                            154 ;	---------------------------------
-                            155 ; Function dibujarProta
-                            156 ; ---------------------------------
-   0016                     157 _dibujarProta::
-                            158 ;src/main.c:95: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
-   0016 21r03r00      [10]  159 	ld	hl, #_prota + 1
-   0019 56            [ 7]  160 	ld	d,(hl)
-   001A 21r02r00      [10]  161 	ld	hl, #_prota + 0
-   001D 46            [ 7]  162 	ld	b,(hl)
-   001E D5            [11]  163 	push	de
-   001F 33            [ 6]  164 	inc	sp
-   0020 C5            [11]  165 	push	bc
-   0021 33            [ 6]  166 	inc	sp
-   0022 21 00 C0      [10]  167 	ld	hl,#0xC000
-   0025 E5            [11]  168 	push	hl
-   0026 CDr00r00      [17]  169 	call	_cpct_getScreenPtr
-   0029 EB            [ 4]  170 	ex	de,hl
-                            171 ;src/main.c:96: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_W, G_HERO_H, g_tablatrans);
-   002A ED 4Br06r00   [20]  172 	ld	bc, (#_prota + 4)
-   002E 21r00r3E      [10]  173 	ld	hl,#_g_tablatrans
-   0031 E5            [11]  174 	push	hl
-   0032 21 08 1B      [10]  175 	ld	hl,#0x1B08
-   0035 E5            [11]  176 	push	hl
-   0036 D5            [11]  177 	push	de
-   0037 C5            [11]  178 	push	bc
-   0038 CDr00r00      [17]  179 	call	_cpct_drawSpriteMaskedAlignedTable
-   003B C9            [10]  180 	ret
-                            181 ;src/main.c:99: void borrarProta() {
-                            182 ;	---------------------------------
-                            183 ; Function borrarProta
-                            184 ; ---------------------------------
-   003C                     185 _borrarProta::
-   003C DD E5         [15]  186 	push	ix
-   003E DD 21 00 00   [14]  187 	ld	ix,#0
-   0042 DD 39         [15]  188 	add	ix,sp
-   0044 3B            [ 6]  189 	dec	sp
-                            190 ;src/main.c:100: u8 w = 4 + (prota.px & 1);
-   0045 21r04r00      [10]  191 	ld	hl, #_prota + 2
-   0048 4E            [ 7]  192 	ld	c,(hl)
-   0049 79            [ 4]  193 	ld	a,c
-   004A E6 01         [ 7]  194 	and	a, #0x01
-   004C 47            [ 4]  195 	ld	b,a
-   004D 04            [ 4]  196 	inc	b
-   004E 04            [ 4]  197 	inc	b
-   004F 04            [ 4]  198 	inc	b
-   0050 04            [ 4]  199 	inc	b
-                            200 ;src/main.c:101: u8 h = 7 + (prota.py & 3 ? 1 : 0);
-   0051 21r05r00      [10]  201 	ld	hl, #_prota + 3
-   0054 5E            [ 7]  202 	ld	e,(hl)
-   0055 7B            [ 4]  203 	ld	a,e
-   0056 E6 03         [ 7]  204 	and	a, #0x03
-   0058 28 04         [12]  205 	jr	Z,00103$
-   005A 3E 01         [ 7]  206 	ld	a,#0x01
-   005C 18 02         [12]  207 	jr	00104$
-   005E                     208 00103$:
-   005E 3E 00         [ 7]  209 	ld	a,#0x00
-   0060                     210 00104$:
-   0060 C6 07         [ 7]  211 	add	a, #0x07
-   0062 DD 77 FF      [19]  212 	ld	-1 (ix),a
-                            213 ;src/main.c:102: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-   0065 FD 2Ar13r00   [20]  214 	ld	iy,(_mapa)
-   0069 16 00         [ 7]  215 	ld	d,#0x00
-   006B 63            [ 4]  216 	ld	h,e
-   006C 6A            [ 4]  217 	ld	l,d
-   006D CB 7A         [ 8]  218 	bit	7, d
-   006F 28 05         [12]  219 	jr	Z,00105$
-   0071 13            [ 6]  220 	inc	de
-   0072 13            [ 6]  221 	inc	de
-   0073 13            [ 6]  222 	inc	de
-   0074 63            [ 4]  223 	ld	h,e
-   0075 6A            [ 4]  224 	ld	l,d
-   0076                     225 00105$:
-   0076 5C            [ 4]  226 	ld	e, h
-   0077 55            [ 4]  227 	ld	d, l
-   0078 CB 2A         [ 8]  228 	sra	d
-   007A CB 1B         [ 8]  229 	rr	e
-   007C CB 2A         [ 8]  230 	sra	d
-   007E CB 1B         [ 8]  231 	rr	e
-   0080 51            [ 4]  232 	ld	d,c
-   0081 CB 3A         [ 8]  233 	srl	d
-   0083 FD E5         [15]  234 	push	iy
-   0085 21 00 C0      [10]  235 	ld	hl,#0xC000
-   0088 E5            [11]  236 	push	hl
-   0089 3E 28         [ 7]  237 	ld	a,#0x28
-   008B F5            [11]  238 	push	af
-   008C 33            [ 6]  239 	inc	sp
-   008D DD 7E FF      [19]  240 	ld	a,-1 (ix)
-   0090 F5            [11]  241 	push	af
-   0091 33            [ 6]  242 	inc	sp
-   0092 C5            [11]  243 	push	bc
-   0093 33            [ 6]  244 	inc	sp
-   0094 7B            [ 4]  245 	ld	a,e
-   0095 F5            [11]  246 	push	af
-   0096 33            [ 6]  247 	inc	sp
-   0097 D5            [11]  248 	push	de
-   0098 33            [ 6]  249 	inc	sp
-   0099 CDr00r00      [17]  250 	call	_cpct_etm_drawTileBox2x4
-   009C 33            [ 6]  251 	inc	sp
-   009D DD E1         [14]  252 	pop	ix
-   009F C9            [10]  253 	ret
-                            254 ;src/main.c:105: void redibujarProta() {
-                            255 ;	---------------------------------
-                            256 ; Function redibujarProta
-                            257 ; ---------------------------------
-   00A0                     258 _redibujarProta::
-                            259 ;src/main.c:106: borrarProta();
-   00A0 CDr3Cr00      [17]  260 	call	_borrarProta
-                            261 ;src/main.c:107: prota.px = prota.x;
-   00A3 01r04r00      [10]  262 	ld	bc,#_prota + 2
-   00A6 3Ar02r00      [13]  263 	ld	a, (#_prota + 0)
-   00A9 02            [ 7]  264 	ld	(bc),a
-                            265 ;src/main.c:108: prota.py = prota.y;
-   00AA 01r05r00      [10]  266 	ld	bc,#_prota + 3
-   00AD 3Ar03r00      [13]  267 	ld	a, (#_prota + 1)
-   00B0 02            [ 7]  268 	ld	(bc),a
-                            269 ;src/main.c:109: dibujarProta();
-   00B1 C3r16r00      [10]  270 	jp  _dibujarProta
-                            271 ;src/main.c:112: void moverIzquierda() {
-                            272 ;	---------------------------------
-                            273 ; Function moverIzquierda
-                            274 ; ---------------------------------
-   00B4                     275 _moverIzquierda::
-                            276 ;src/main.c:113: if (prota.x > LIMITE_IZQUIERDO) {
-   00B4 01r02r00      [10]  277 	ld	bc,#_prota+0
-   00B7 0A            [ 7]  278 	ld	a,(bc)
-   00B8 5F            [ 4]  279 	ld	e,a
-   00B9 3E 04         [ 7]  280 	ld	a,#0x04
-   00BB 93            [ 4]  281 	sub	a, e
-   00BC D0            [11]  282 	ret	NC
-                            283 ;src/main.c:114: prota.x--;
-   00BD 1D            [ 4]  284 	dec	e
-   00BE 7B            [ 4]  285 	ld	a,e
-   00BF 02            [ 7]  286 	ld	(bc),a
-                            287 ;src/main.c:115: prota.mover  = SI;
-   00C0 21r08r00      [10]  288 	ld	hl,#(_prota + 0x0006)
-   00C3 36 01         [10]  289 	ld	(hl),#0x01
-                            290 ;src/main.c:116: prota.mira=M_izquierda;
-   00C5 21r09r00      [10]  291 	ld	hl,#(_prota + 0x0007)
-   00C8 36 01         [10]  292 	ld	(hl),#0x01
-   00CA C9            [10]  293 	ret
-                            294 ;src/main.c:121: void moverDerecha() {
-                            295 ;	---------------------------------
-                            296 ; Function moverDerecha
-                            297 ; ---------------------------------
-   00CB                     298 _moverDerecha::
-                            299 ;src/main.c:122: if (prota.x < LIMITE_DERECHO - G_HERO_W) {
-   00CB 21r02r00      [10]  300 	ld	hl,#_prota+0
-   00CE 4E            [ 7]  301 	ld	c,(hl)
-   00CF 79            [ 4]  302 	ld	a,c
-   00D0 D6 44         [ 7]  303 	sub	a, #0x44
-   00D2 D0            [11]  304 	ret	NC
-                            305 ;src/main.c:123: prota.x++;
-   00D3 0C            [ 4]  306 	inc	c
-   00D4 71            [ 7]  307 	ld	(hl),c
-                            308 ;src/main.c:124: prota.mover  = SI;
-   00D5 21r08r00      [10]  309 	ld	hl,#(_prota + 0x0006)
-   00D8 36 01         [10]  310 	ld	(hl),#0x01
-                            311 ;src/main.c:125: prota.mira=M_derecha;
-   00DA 21r09r00      [10]  312 	ld	hl,#(_prota + 0x0007)
-   00DD 36 00         [10]  313 	ld	(hl),#0x00
-   00DF C9            [10]  314 	ret
-                            315 ;src/main.c:129: void moverArriba() {
-                            316 ;	---------------------------------
-                            317 ; Function moverArriba
-                            318 ; ---------------------------------
-   00E0                     319 _moverArriba::
-                            320 ;src/main.c:130: if (prota.y > LIMITE_SUPERIOR) {
-   00E0 21r03r00      [10]  321 	ld	hl,#_prota + 1
-   00E3 4E            [ 7]  322 	ld	c,(hl)
-   00E4 3E 08         [ 7]  323 	ld	a,#0x08
-   00E6 91            [ 4]  324 	sub	a, c
-   00E7 D0            [11]  325 	ret	NC
-                            326 ;src/main.c:131: prota.y--;
-   00E8 0D            [ 4]  327 	dec	c
-   00E9 71            [ 7]  328 	ld	(hl),c
-                            329 ;src/main.c:132: prota.mover  = SI;
-   00EA 21r08r00      [10]  330 	ld	hl,#(_prota + 0x0006)
-   00ED 36 01         [10]  331 	ld	(hl),#0x01
-                            332 ;src/main.c:133: prota.mira = M_arriba;
-   00EF 21r09r00      [10]  333 	ld	hl,#(_prota + 0x0007)
-   00F2 36 02         [10]  334 	ld	(hl),#0x02
-   00F4 C9            [10]  335 	ret
-                            336 ;src/main.c:137: void moverAbajo() {
-                            337 ;	---------------------------------
-                            338 ; Function moverAbajo
-                            339 ; ---------------------------------
-   00F5                     340 _moverAbajo::
-                            341 ;src/main.c:138: if(prota.y < LIMITE_INFERIOR - G_HERO_H){
-   00F5 21r03r00      [10]  342 	ld	hl,#_prota + 1
-   00F8 4E            [ 7]  343 	ld	c,(hl)
-   00F9 79            [ 4]  344 	ld	a,c
-   00FA D6 7D         [ 7]  345 	sub	a, #0x7D
-   00FC D0            [11]  346 	ret	NC
-                            347 ;src/main.c:139: prota.y++;
-   00FD 0C            [ 4]  348 	inc	c
-   00FE 71            [ 7]  349 	ld	(hl),c
-                            350 ;src/main.c:140: prota.mover  = SI;
-   00FF 21r08r00      [10]  351 	ld	hl,#(_prota + 0x0006)
-   0102 36 01         [10]  352 	ld	(hl),#0x01
-                            353 ;src/main.c:141: prota.mira = M_abajo;
-   0104 21r09r00      [10]  354 	ld	hl,#(_prota + 0x0007)
-   0107 36 03         [10]  355 	ld	(hl),#0x03
-   0109 C9            [10]  356 	ret
-                            357 ;src/main.c:145: void dibujarCuchillo(u8 eje) {
-                            358 ;	---------------------------------
-                            359 ; Function dibujarCuchillo
-                            360 ; ---------------------------------
-   010A                     361 _dibujarCuchillo::
-   010A DD E5         [15]  362 	push	ix
-   010C DD 21 00 00   [14]  363 	ld	ix,#0
-   0110 DD 39         [15]  364 	add	ix,sp
-   0112 F5            [11]  365 	push	af
-                            366 ;src/main.c:146: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, cu.x, cu.y);
-   0113 21r0Br00      [10]  367 	ld	hl, #_cu + 1
-   0116 56            [ 7]  368 	ld	d,(hl)
-   0117 21r0Ar00      [10]  369 	ld	hl, #_cu + 0
-   011A 46            [ 7]  370 	ld	b,(hl)
-   011B D5            [11]  371 	push	de
-   011C 33            [ 6]  372 	inc	sp
-   011D C5            [11]  373 	push	bc
-   011E 33            [ 6]  374 	inc	sp
-   011F 21 00 C0      [10]  375 	ld	hl,#0xC000
-   0122 E5            [11]  376 	push	hl
-   0123 CDr00r00      [17]  377 	call	_cpct_getScreenPtr
-                            378 ;src/main.c:148: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
-   0126 33            [ 6]  379 	inc	sp
-   0127 33            [ 6]  380 	inc	sp
-   0128 E5            [11]  381 	push	hl
-                            382 ;src/main.c:147: if(eje == E_X){
-   0129 DD 7E 04      [19]  383 	ld	a,4 (ix)
-   012C B7            [ 4]  384 	or	a, a
-   012D 20 19         [12]  385 	jr	NZ,00104$
-                            386 ;src/main.c:148: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
-   012F 11r00r3E      [10]  387 	ld	de,#_g_tablatrans+0
-   0132 ED 4Br0Er00   [20]  388 	ld	bc, (#(_cu + 0x0004) + 0)
-   0136 D5            [11]  389 	push	de
-   0137 21 03 03      [10]  390 	ld	hl,#0x0303
-   013A E5            [11]  391 	push	hl
-   013B DD 6E FE      [19]  392 	ld	l,-2 (ix)
-   013E DD 66 FF      [19]  393 	ld	h,-1 (ix)
-   0141 E5            [11]  394 	push	hl
-   0142 C5            [11]  395 	push	bc
-   0143 CDr00r00      [17]  396 	call	_cpct_drawSpriteMaskedAlignedTable
-   0146 18 1D         [12]  397 	jr	00106$
-   0148                     398 00104$:
-                            399 ;src/main.c:151: else if(eje == E_Y){
-   0148 DD 7E 04      [19]  400 	ld	a,4 (ix)
-   014B 3D            [ 4]  401 	dec	a
-   014C 20 17         [12]  402 	jr	NZ,00106$
-                            403 ;src/main.c:152: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
-   014E 11r00r3E      [10]  404 	ld	de,#_g_tablatrans+0
-   0151 ED 4Br0Er00   [20]  405 	ld	bc, (#(_cu + 0x0004) + 0)
-   0155 D5            [11]  406 	push	de
-   0156 21 02 06      [10]  407 	ld	hl,#0x0602
-   0159 E5            [11]  408 	push	hl
-   015A DD 6E FE      [19]  409 	ld	l,-2 (ix)
-   015D DD 66 FF      [19]  410 	ld	h,-1 (ix)
-   0160 E5            [11]  411 	push	hl
-   0161 C5            [11]  412 	push	bc
-   0162 CDr00r00      [17]  413 	call	_cpct_drawSpriteMaskedAlignedTable
-   0165                     414 00106$:
-   0165 DD F9         [10]  415 	ld	sp, ix
-   0167 DD E1         [14]  416 	pop	ix
-   0169 C9            [10]  417 	ret
-                            418 ;src/main.c:156: void borrarCuchillo() {
-                            419 ;	---------------------------------
-                            420 ; Function borrarCuchillo
-                            421 ; ---------------------------------
-   016A                     422 _borrarCuchillo::
-   016A DD E5         [15]  423 	push	ix
-   016C DD 21 00 00   [14]  424 	ld	ix,#0
-   0170 DD 39         [15]  425 	add	ix,sp
-   0172 3B            [ 6]  426 	dec	sp
-                            427 ;src/main.c:157: u8 w = 2 + (cu.px & 1);
-   0173 21r0Cr00      [10]  428 	ld	hl, #_cu + 2
-   0176 4E            [ 7]  429 	ld	c,(hl)
-   0177 79            [ 4]  430 	ld	a,c
-   0178 E6 01         [ 7]  431 	and	a, #0x01
-   017A 47            [ 4]  432 	ld	b,a
-   017B 04            [ 4]  433 	inc	b
-   017C 04            [ 4]  434 	inc	b
-                            435 ;src/main.c:158: u8 h = 2 + (cu.py & 3 ? 1 : 0);
-   017D 21r0Dr00      [10]  436 	ld	hl, #_cu + 3
-   0180 5E            [ 7]  437 	ld	e,(hl)
-   0181 7B            [ 4]  438 	ld	a,e
-   0182 E6 03         [ 7]  439 	and	a, #0x03
-   0184 28 04         [12]  440 	jr	Z,00103$
-   0186 3E 01         [ 7]  441 	ld	a,#0x01
-   0188 18 02         [12]  442 	jr	00104$
-   018A                     443 00103$:
-   018A 3E 00         [ 7]  444 	ld	a,#0x00
-   018C                     445 00104$:
-   018C C6 02         [ 7]  446 	add	a, #0x02
-   018E DD 77 FF      [19]  447 	ld	-1 (ix),a
-                            448 ;src/main.c:159: cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-   0191 FD 2Ar13r00   [20]  449 	ld	iy,(_mapa)
-   0195 16 00         [ 7]  450 	ld	d,#0x00
-   0197 63            [ 4]  451 	ld	h,e
-   0198 6A            [ 4]  452 	ld	l,d
-   0199 CB 7A         [ 8]  453 	bit	7, d
-   019B 28 05         [12]  454 	jr	Z,00105$
-   019D 13            [ 6]  455 	inc	de
-   019E 13            [ 6]  456 	inc	de
-   019F 13            [ 6]  457 	inc	de
-   01A0 63            [ 4]  458 	ld	h,e
-   01A1 6A            [ 4]  459 	ld	l,d
-   01A2                     460 00105$:
-   01A2 5C            [ 4]  461 	ld	e, h
-   01A3 55            [ 4]  462 	ld	d, l
-   01A4 CB 2A         [ 8]  463 	sra	d
-   01A6 CB 1B         [ 8]  464 	rr	e
-   01A8 CB 2A         [ 8]  465 	sra	d
-   01AA CB 1B         [ 8]  466 	rr	e
-   01AC 51            [ 4]  467 	ld	d,c
-   01AD CB 3A         [ 8]  468 	srl	d
-   01AF FD E5         [15]  469 	push	iy
-   01B1 21 00 C0      [10]  470 	ld	hl,#0xC000
-   01B4 E5            [11]  471 	push	hl
-   01B5 3E 28         [ 7]  472 	ld	a,#0x28
-   01B7 F5            [11]  473 	push	af
-   01B8 33            [ 6]  474 	inc	sp
-   01B9 DD 7E FF      [19]  475 	ld	a,-1 (ix)
-   01BC F5            [11]  476 	push	af
-   01BD 33            [ 6]  477 	inc	sp
-   01BE C5            [11]  478 	push	bc
-   01BF 33            [ 6]  479 	inc	sp
-   01C0 7B            [ 4]  480 	ld	a,e
-   01C1 F5            [11]  481 	push	af
-   01C2 33            [ 6]  482 	inc	sp
-   01C3 D5            [11]  483 	push	de
-   01C4 33            [ 6]  484 	inc	sp
-   01C5 CDr00r00      [17]  485 	call	_cpct_etm_drawTileBox2x4
-   01C8 33            [ 6]  486 	inc	sp
-   01C9 DD E1         [14]  487 	pop	ix
-   01CB C9            [10]  488 	ret
-                            489 ;src/main.c:162: void redibujarCuchillo() {
-                            490 ;	---------------------------------
-                            491 ; Function redibujarCuchillo
-                            492 ; ---------------------------------
-   01CC                     493 _redibujarCuchillo::
-                            494 ;src/main.c:163: borrarCuchillo();
-   01CC CDr6Ar01      [17]  495 	call	_borrarCuchillo
-                            496 ;src/main.c:164: cu.px = cu.x;
-   01CF 3Ar0Ar00      [13]  497 	ld	a, (#_cu + 0)
-   01D2 32r0Cr00      [13]  498 	ld	(#(_cu + 0x0002)),a
-                            499 ;src/main.c:165: cu.py = cu.y;
-   01D5 3Ar0Br00      [13]  500 	ld	a, (#_cu + 1)
-   01D8 32r0Dr00      [13]  501 	ld	(#(_cu + 0x0003)),a
-                            502 ;src/main.c:166: dibujarCuchillo(cu.eje);
-   01DB 21r12r00      [10]  503 	ld	hl, #_cu + 8
-   01DE 46            [ 7]  504 	ld	b,(hl)
-   01DF C5            [11]  505 	push	bc
-   01E0 33            [ 6]  506 	inc	sp
-   01E1 CDr0Ar01      [17]  507 	call	_dibujarCuchillo
-   01E4 33            [ 6]  508 	inc	sp
-   01E5 C9            [10]  509 	ret
-                            510 ;src/main.c:170: void lanzarCuchillo(){
-                            511 ;	---------------------------------
-                            512 ; Function lanzarCuchillo
-                            513 ; ---------------------------------
-   01E6                     514 _lanzarCuchillo::
-                            515 ;src/main.c:171: cu.lanzado = SI;
-   01E6 11r0Ar00      [10]  516 	ld	de,#_cu+0
-   01E9 21r10r00      [10]  517 	ld	hl,#(_cu + 0x0006)
-   01EC 36 01         [10]  518 	ld	(hl),#0x01
-                            519 ;src/main.c:172: if(prota.mira == M_derecha){
-   01EE 21r09r00      [10]  520 	ld	hl, #_prota + 7
-   01F1 4E            [ 7]  521 	ld	c,(hl)
-                            522 ;src/main.c:173: cu.direccion = M_derecha;
-                            523 ;src/main.c:175: cu.y=prota.y + G_HERO_H /2;	
-                            524 ;src/main.c:176: cu.sprite=g_knifeX_0;
-                            525 ;src/main.c:177: cu.eje = E_X;
-                            526 ;src/main.c:172: if(prota.mira == M_derecha){
-   01F2 79            [ 4]  527 	ld	a,c
-   01F3 B7            [ 4]  528 	or	a, a
-   01F4 20 29         [12]  529 	jr	NZ,00110$
-                            530 ;src/main.c:173: cu.direccion = M_derecha;
-   01F6 21r11r00      [10]  531 	ld	hl,#(_cu + 0x0007)
-   01F9 36 00         [10]  532 	ld	(hl),#0x00
-                            533 ;src/main.c:174: cu.x=prota.x + G_HERO_W;
-   01FB 3Ar02r00      [13]  534 	ld	a, (#_prota + 0)
-   01FE C6 08         [ 7]  535 	add	a, #0x08
-   0200 12            [ 7]  536 	ld	(de),a
-                            537 ;src/main.c:175: cu.y=prota.y + G_HERO_H /2;	
-   0201 3Ar03r00      [13]  538 	ld	a, (#(_prota + 0x0001) + 0)
-   0204 C6 0D         [ 7]  539 	add	a, #0x0D
-   0206 32r0Br00      [13]  540 	ld	(#(_cu + 0x0001)),a
-                            541 ;src/main.c:176: cu.sprite=g_knifeX_0;
-   0209 21r00r00      [10]  542 	ld	hl,#_g_knifeX_0
-   020C 22r0Er00      [16]  543 	ld	((_cu + 0x0004)), hl
-                            544 ;src/main.c:177: cu.eje = E_X;
-   020F 21r12r00      [10]  545 	ld	hl,#(_cu + 0x0008)
-   0212 36 00         [10]  546 	ld	(hl),#0x00
-                            547 ;src/main.c:178: dibujarCuchillo(cu.eje);
-   0214 21r12r00      [10]  548 	ld	hl, #(_cu + 0x0008) + 0
-   0217 46            [ 7]  549 	ld	b,(hl)
-   0218 C5            [11]  550 	push	bc
-   0219 33            [ 6]  551 	inc	sp
-   021A CDr0Ar01      [17]  552 	call	_dibujarCuchillo
-   021D 33            [ 6]  553 	inc	sp
-   021E C9            [10]  554 	ret
-   021F                     555 00110$:
-                            556 ;src/main.c:180: else if(prota.mira == M_izquierda){
-   021F 79            [ 4]  557 	ld	a,c
-   0220 3D            [ 4]  558 	dec	a
-   0221 20 29         [12]  559 	jr	NZ,00107$
-                            560 ;src/main.c:181: cu.direccion = M_izquierda;
-   0223 21r11r00      [10]  561 	ld	hl,#(_cu + 0x0007)
-   0226 36 01         [10]  562 	ld	(hl),#0x01
-                            563 ;src/main.c:182: cu.x = prota.x - G_KNIFEX_0_W;
-   0228 3Ar02r00      [13]  564 	ld	a, (#_prota + 0)
-   022B C6 FD         [ 7]  565 	add	a,#0xFD
-   022D 12            [ 7]  566 	ld	(de),a
-                            567 ;src/main.c:183: cu.y = prota.y + G_HERO_H /2;	
-   022E 3Ar03r00      [13]  568 	ld	a, (#(_prota + 0x0001) + 0)
-   0231 C6 0D         [ 7]  569 	add	a, #0x0D
-   0233 32r0Br00      [13]  570 	ld	(#(_cu + 0x0001)),a
-                            571 ;src/main.c:184: cu.sprite = g_knifeX_1;
-   0236 21r00r00      [10]  572 	ld	hl,#_g_knifeX_1
-   0239 22r0Er00      [16]  573 	ld	((_cu + 0x0004)), hl
-                            574 ;src/main.c:185: cu.eje = E_X;
-   023C 21r12r00      [10]  575 	ld	hl,#(_cu + 0x0008)
-   023F 36 00         [10]  576 	ld	(hl),#0x00
-                            577 ;src/main.c:186: dibujarCuchillo(cu.eje);
-   0241 21r12r00      [10]  578 	ld	hl, #(_cu + 0x0008) + 0
-   0244 46            [ 7]  579 	ld	b,(hl)
-   0245 C5            [11]  580 	push	bc
-   0246 33            [ 6]  581 	inc	sp
-   0247 CDr0Ar01      [17]  582 	call	_dibujarCuchillo
-   024A 33            [ 6]  583 	inc	sp
-   024B C9            [10]  584 	ret
-   024C                     585 00107$:
-                            586 ;src/main.c:188: else if(prota.mira == M_abajo){
-   024C 79            [ 4]  587 	ld	a,c
-   024D D6 03         [ 7]  588 	sub	a, #0x03
-   024F 20 29         [12]  589 	jr	NZ,00104$
-                            590 ;src/main.c:189: cu.direccion = M_abajo;
-   0251 21r11r00      [10]  591 	ld	hl,#(_cu + 0x0007)
-   0254 36 03         [10]  592 	ld	(hl),#0x03
-                            593 ;src/main.c:190: cu.x = prota.x + G_HERO_W / 2;
-   0256 3Ar02r00      [13]  594 	ld	a, (#_prota + 0)
-   0259 C6 04         [ 7]  595 	add	a, #0x04
-   025B 12            [ 7]  596 	ld	(de),a
-                            597 ;src/main.c:191: cu.y = prota.y + G_HERO_H + 10;	
-   025C 3Ar03r00      [13]  598 	ld	a, (#(_prota + 0x0001) + 0)
-   025F C6 25         [ 7]  599 	add	a, #0x25
-   0261 32r0Br00      [13]  600 	ld	(#(_cu + 0x0001)),a
-                            601 ;src/main.c:192: cu.sprite = g_knifeY_0;
-   0264 21r00r00      [10]  602 	ld	hl,#_g_knifeY_0
-   0267 22r0Er00      [16]  603 	ld	((_cu + 0x0004)), hl
-                            604 ;src/main.c:193: cu.eje = E_Y;
-   026A 21r12r00      [10]  605 	ld	hl,#(_cu + 0x0008)
-   026D 36 01         [10]  606 	ld	(hl),#0x01
-                            607 ;src/main.c:194: dibujarCuchillo(cu.eje);
-   026F 21r12r00      [10]  608 	ld	hl, #(_cu + 0x0008) + 0
-   0272 46            [ 7]  609 	ld	b,(hl)
-   0273 C5            [11]  610 	push	bc
-   0274 33            [ 6]  611 	inc	sp
-   0275 CDr0Ar01      [17]  612 	call	_dibujarCuchillo
-   0278 33            [ 6]  613 	inc	sp
-   0279 C9            [10]  614 	ret
-   027A                     615 00104$:
-                            616 ;src/main.c:196: else if(prota.mira == M_arriba){
-   027A 79            [ 4]  617 	ld	a,c
-   027B D6 02         [ 7]  618 	sub	a, #0x02
-   027D C0            [11]  619 	ret	NZ
-                            620 ;src/main.c:197: cu.direccion = M_arriba;
-   027E 21r11r00      [10]  621 	ld	hl,#(_cu + 0x0007)
-   0281 36 02         [10]  622 	ld	(hl),#0x02
-                            623 ;src/main.c:198: cu.x = prota.x + G_HERO_W / 2;
-   0283 3Ar02r00      [13]  624 	ld	a, (#_prota + 0)
-   0286 C6 04         [ 7]  625 	add	a, #0x04
-   0288 12            [ 7]  626 	ld	(de),a
-                            627 ;src/main.c:199: cu.y = prota.y;	
-   0289 3Ar03r00      [13]  628 	ld	a, (#(_prota + 0x0001) + 0)
-   028C 32r0Br00      [13]  629 	ld	(#(_cu + 0x0001)),a
-                            630 ;src/main.c:200: cu.sprite = g_knifeY_1;
-   028F 21r00r00      [10]  631 	ld	hl,#_g_knifeY_1
-   0292 22r0Er00      [16]  632 	ld	((_cu + 0x0004)), hl
-                            633 ;src/main.c:201: cu.eje = E_Y;
-   0295 21r12r00      [10]  634 	ld	hl,#(_cu + 0x0008)
-   0298 36 01         [10]  635 	ld	(hl),#0x01
-                            636 ;src/main.c:202: dibujarCuchillo(cu.eje);
-   029A 21r12r00      [10]  637 	ld	hl, #(_cu + 0x0008) + 0
-   029D 46            [ 7]  638 	ld	b,(hl)
-   029E C5            [11]  639 	push	bc
-   029F 33            [ 6]  640 	inc	sp
-   02A0 CDr0Ar01      [17]  641 	call	_dibujarCuchillo
-   02A3 33            [ 6]  642 	inc	sp
-   02A4 C9            [10]  643 	ret
-                            644 ;src/main.c:206: void comprobarTeclado() {
-                            645 ;	---------------------------------
-                            646 ; Function comprobarTeclado
-                            647 ; ---------------------------------
-   02A5                     648 _comprobarTeclado::
-                            649 ;src/main.c:207: cpct_scanKeyboard_if();
-   02A5 CDr00r00      [17]  650 	call	_cpct_scanKeyboard_if
-                            651 ;src/main.c:209: if (cpct_isAnyKeyPressed()) {
-   02A8 CDr00r00      [17]  652 	call	_cpct_isAnyKeyPressed
-   02AB 7D            [ 4]  653 	ld	a,l
-   02AC B7            [ 4]  654 	or	a, a
-   02AD C8            [11]  655 	ret	Z
-                            656 ;src/main.c:210: if (cpct_isKeyPressed(Key_CursorLeft))
-   02AE 21 01 01      [10]  657 	ld	hl,#0x0101
-   02B1 CDr00r00      [17]  658 	call	_cpct_isKeyPressed
-   02B4 7D            [ 4]  659 	ld	a,l
-   02B5 B7            [ 4]  660 	or	a, a
-                            661 ;src/main.c:211: moverIzquierda();
-   02B6 C2rB4r00      [10]  662 	jp	NZ,_moverIzquierda
-                            663 ;src/main.c:212: else if (cpct_isKeyPressed(Key_CursorRight))
-   02B9 21 00 02      [10]  664 	ld	hl,#0x0200
-   02BC CDr00r00      [17]  665 	call	_cpct_isKeyPressed
-   02BF 7D            [ 4]  666 	ld	a,l
-   02C0 B7            [ 4]  667 	or	a, a
-                            668 ;src/main.c:213: moverDerecha();
-   02C1 C2rCBr00      [10]  669 	jp	NZ,_moverDerecha
-                            670 ;src/main.c:214: else if (cpct_isKeyPressed(Key_CursorUp))
-   02C4 21 00 01      [10]  671 	ld	hl,#0x0100
-   02C7 CDr00r00      [17]  672 	call	_cpct_isKeyPressed
-   02CA 7D            [ 4]  673 	ld	a,l
-   02CB B7            [ 4]  674 	or	a, a
-                            675 ;src/main.c:215: moverArriba();
-   02CC C2rE0r00      [10]  676 	jp	NZ,_moverArriba
-                            677 ;src/main.c:216: else if (cpct_isKeyPressed(Key_CursorDown))
-   02CF 21 00 04      [10]  678 	ld	hl,#0x0400
-   02D2 CDr00r00      [17]  679 	call	_cpct_isKeyPressed
-   02D5 7D            [ 4]  680 	ld	a,l
-   02D6 B7            [ 4]  681 	or	a, a
-                            682 ;src/main.c:217: moverAbajo();
-   02D7 C2rF5r00      [10]  683 	jp	NZ,_moverAbajo
-                            684 ;src/main.c:218: else if (cpct_isKeyPressed(Key_Space))
-   02DA 21 05 80      [10]  685 	ld	hl,#0x8005
-   02DD CDr00r00      [17]  686 	call	_cpct_isKeyPressed
-   02E0 7D            [ 4]  687 	ld	a,l
-   02E1 B7            [ 4]  688 	or	a, a
-   02E2 C8            [11]  689 	ret	Z
-                            690 ;src/main.c:219: lanzarCuchillo();
-   02E3 C3rE6r01      [10]  691 	jp  _lanzarCuchillo
-                            692 ;src/main.c:225: void moverCuchillo(){
-                            693 ;	---------------------------------
-                            694 ; Function moverCuchillo
-                            695 ; ---------------------------------
-   02E6                     696 _moverCuchillo::
-                            697 ;src/main.c:227: if(cu.direccion == M_derecha){		
-   02E6 01r0Ar00      [10]  698 	ld	bc,#_cu+0
-   02E9 21r11r00      [10]  699 	ld	hl, #_cu + 7
-   02EC 5E            [ 7]  700 	ld	e,(hl)
-                            701 ;src/main.c:234: cu.lanzado = NO;
-                            702 ;src/main.c:227: if(cu.direccion == M_derecha){		
-   02ED 7B            [ 4]  703 	ld	a,e
-   02EE B7            [ 4]  704 	or	a, a
-   02EF 20 19         [12]  705 	jr	NZ,00130$
-                            706 ;src/main.c:228: if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
-   02F1 0A            [ 7]  707 	ld	a,(bc)
-   02F2 5F            [ 4]  708 	ld	e,a
-   02F3 D6 49         [ 7]  709 	sub	a, #0x49
-   02F5 30 06         [12]  710 	jr	NC,00104$
-                            711 ;src/main.c:229: cu.x++;
-   02F7 1C            [ 4]  712 	inc	e
-   02F8 7B            [ 4]  713 	ld	a,e
-   02F9 02            [ 7]  714 	ld	(bc),a
-                            715 ;src/main.c:230: redibujarCuchillo();
-   02FA C3rCCr01      [10]  716 	jp  _redibujarCuchillo
-   02FD                     717 00104$:
-                            718 ;src/main.c:232: else if(cu.x == LIMITE_DERECHO  - G_KNIFEX_0_W){
-   02FD 7B            [ 4]  719 	ld	a,e
-   02FE D6 49         [ 7]  720 	sub	a, #0x49
-   0300 C0            [11]  721 	ret	NZ
-                            722 ;src/main.c:233: borrarCuchillo();
-   0301 CDr6Ar01      [17]  723 	call	_borrarCuchillo
-                            724 ;src/main.c:234: cu.lanzado = NO;
-   0304 21r10r00      [10]  725 	ld	hl,#(_cu + 0x0006)
-   0307 36 00         [10]  726 	ld	(hl),#0x00
-   0309 C9            [10]  727 	ret
-   030A                     728 00130$:
-                            729 ;src/main.c:237: else if(cu.direccion == M_izquierda){
-   030A 7B            [ 4]  730 	ld	a,e
-   030B 3D            [ 4]  731 	dec	a
-   030C 20 1A         [12]  732 	jr	NZ,00127$
-                            733 ;src/main.c:238: if(cu.x > LIMITE_IZQUIERDO){
-   030E 0A            [ 7]  734 	ld	a,(bc)
-   030F 5F            [ 4]  735 	ld	e,a
-   0310 3E 04         [ 7]  736 	ld	a,#0x04
-   0312 93            [ 4]  737 	sub	a, e
-   0313 30 06         [12]  738 	jr	NC,00109$
-                            739 ;src/main.c:239: cu.x--;
-   0315 1D            [ 4]  740 	dec	e
-   0316 7B            [ 4]  741 	ld	a,e
-   0317 02            [ 7]  742 	ld	(bc),a
-                            743 ;src/main.c:240: redibujarCuchillo();
-   0318 C3rCCr01      [10]  744 	jp  _redibujarCuchillo
-   031B                     745 00109$:
-                            746 ;src/main.c:241: }else if(cu.x == LIMITE_IZQUIERDO){
-   031B 7B            [ 4]  747 	ld	a,e
-   031C D6 04         [ 7]  748 	sub	a, #0x04
-   031E C0            [11]  749 	ret	NZ
-                            750 ;src/main.c:242: borrarCuchillo();
-   031F CDr6Ar01      [17]  751 	call	_borrarCuchillo
-                            752 ;src/main.c:243: cu.lanzado = NO;
-   0322 21r10r00      [10]  753 	ld	hl,#(_cu + 0x0006)
-   0325 36 00         [10]  754 	ld	(hl),#0x00
-   0327 C9            [10]  755 	ret
-   0328                     756 00127$:
-                            757 ;src/main.c:247: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
-   0328 69            [ 4]  758 	ld	l, c
-   0329 60            [ 4]  759 	ld	h, b
-   032A 23            [ 6]  760 	inc	hl
-                            761 ;src/main.c:246: else if(cu.direccion == M_abajo){
-   032B 7B            [ 4]  762 	ld	a,e
-   032C D6 03         [ 7]  763 	sub	a, #0x03
-   032E 20 18         [12]  764 	jr	NZ,00124$
-                            765 ;src/main.c:247: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
-   0330 4E            [ 7]  766 	ld	c,(hl)
-   0331 79            [ 4]  767 	ld	a,c
-   0332 D6 92         [ 7]  768 	sub	a, #0x92
-   0334 30 05         [12]  769 	jr	NC,00114$
-                            770 ;src/main.c:248: cu.y++;
-   0336 0C            [ 4]  771 	inc	c
-   0337 71            [ 7]  772 	ld	(hl),c
-                            773 ;src/main.c:249: redibujarCuchillo();
-   0338 C3rCCr01      [10]  774 	jp  _redibujarCuchillo
-   033B                     775 00114$:
-                            776 ;src/main.c:250: }else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
-   033B 79            [ 4]  777 	ld	a,c
-   033C D6 92         [ 7]  778 	sub	a, #0x92
-   033E C0            [11]  779 	ret	NZ
-                            780 ;src/main.c:251: borrarCuchillo();
-   033F CDr6Ar01      [17]  781 	call	_borrarCuchillo
-                            782 ;src/main.c:252: cu.lanzado = NO;
-   0342 21r10r00      [10]  783 	ld	hl,#(_cu + 0x0006)
-   0345 36 00         [10]  784 	ld	(hl),#0x00
-   0347 C9            [10]  785 	ret
-   0348                     786 00124$:
-                            787 ;src/main.c:255: else if(cu.direccion == M_arriba){
-   0348 7B            [ 4]  788 	ld	a,e
-   0349 D6 02         [ 7]  789 	sub	a, #0x02
-   034B C0            [11]  790 	ret	NZ
-                            791 ;src/main.c:256: if(cu.y > LIMITE_SUPERIOR){
-   034C 4E            [ 7]  792 	ld	c,(hl)
-   034D 3E 08         [ 7]  793 	ld	a,#0x08
-   034F 91            [ 4]  794 	sub	a, c
-   0350 30 05         [12]  795 	jr	NC,00119$
-                            796 ;src/main.c:257: cu.y--;
-   0352 0D            [ 4]  797 	dec	c
-   0353 71            [ 7]  798 	ld	(hl),c
-                            799 ;src/main.c:258: redibujarCuchillo();
-   0354 C3rCCr01      [10]  800 	jp  _redibujarCuchillo
-   0357                     801 00119$:
-                            802 ;src/main.c:259: }else if(cu.y == LIMITE_SUPERIOR){
-   0357 79            [ 4]  803 	ld	a,c
-   0358 D6 08         [ 7]  804 	sub	a, #0x08
-   035A C0            [11]  805 	ret	NZ
-                            806 ;src/main.c:260: borrarCuchillo();
-   035B CDr6Ar01      [17]  807 	call	_borrarCuchillo
-                            808 ;src/main.c:261: cu.lanzado = NO;
-   035E 21r10r00      [10]  809 	ld	hl,#(_cu + 0x0006)
-   0361 36 00         [10]  810 	ld	(hl),#0x00
-   0363 C9            [10]  811 	ret
-                            812 ;src/main.c:266: void inicializar() {
-                            813 ;	---------------------------------
-                            814 ; Function inicializar
-                            815 ; ---------------------------------
-   0364                     816 _inicializar::
-                            817 ;src/main.c:267: cpct_disableFirmware();
-   0364 CDr00r00      [17]  818 	call	_cpct_disableFirmware
-                            819 ;src/main.c:268: cpct_setVideoMode(0);
-   0367 2E 00         [ 7]  820 	ld	l,#0x00
-   0369 CDr00r00      [17]  821 	call	_cpct_setVideoMode
-                            822 ;src/main.c:270: cpct_setPalette(g_palette, 16);
-   036C 21 10 00      [10]  823 	ld	hl,#0x0010
-   036F E5            [11]  824 	push	hl
-   0370 21r00r00      [10]  825 	ld	hl,#_g_palette
-   0373 E5            [11]  826 	push	hl
-   0374 CDr00r00      [17]  827 	call	_cpct_setPalette
-                            828 ;src/main.c:271: cpct_akp_musicInit(G_song);
-   0377 21r00r02      [10]  829 	ld	hl,#_G_song
-   037A E5            [11]  830 	push	hl
-   037B CDr00r00      [17]  831 	call	_cpct_akp_musicInit
-   037E F1            [10]  832 	pop	af
-                            833 ;src/main.c:272: mapa = g_map1;
-   037F 21r00r00      [10]  834 	ld	hl,#_g_map1+0
-   0382 22r13r00      [16]  835 	ld	(_mapa),hl
-                            836 ;src/main.c:273: cpct_etm_setTileset2x4(g_tileset);
-   0385 21r00r00      [10]  837 	ld	hl,#_g_tileset
-   0388 CDr00r00      [17]  838 	call	_cpct_etm_setTileset2x4
-                            839 ;src/main.c:274: dibujarMapa();
-   038B CDr00r00      [17]  840 	call	_dibujarMapa
-                            841 ;src/main.c:277: prota.x = prota.px = 0;
-   038E 21r04r00      [10]  842 	ld	hl,#(_prota + 0x0002)
-   0391 36 00         [10]  843 	ld	(hl),#0x00
-   0393 21r02r00      [10]  844 	ld	hl,#_prota
-   0396 36 00         [10]  845 	ld	(hl),#0x00
-                            846 ;src/main.c:278: prota.y = prota.py = 80;
-   0398 21r05r00      [10]  847 	ld	hl,#(_prota + 0x0003)
-   039B 36 50         [10]  848 	ld	(hl),#0x50
-   039D 21r03r00      [10]  849 	ld	hl,#(_prota + 0x0001)
-   03A0 36 50         [10]  850 	ld	(hl),#0x50
-                            851 ;src/main.c:279: prota.mover  = NO;
-   03A2 21r08r00      [10]  852 	ld	hl,#(_prota + 0x0006)
-   03A5 36 00         [10]  853 	ld	(hl),#0x00
-                            854 ;src/main.c:280: prota.mira=M_derecha;
-   03A7 21r09r00      [10]  855 	ld	hl,#(_prota + 0x0007)
-   03AA 36 00         [10]  856 	ld	(hl),#0x00
-                            857 ;src/main.c:281: prota.sprite = g_hero;
-   03AC 21r00r00      [10]  858 	ld	hl,#_g_hero
-   03AF 22r06r00      [16]  859 	ld	((_prota + 0x0004)), hl
-                            860 ;src/main.c:282: cu.x = cu.px =0;
-   03B2 11r0Ar00      [10]  861 	ld	de,#_cu+0
-   03B5 01r0Cr00      [10]  862 	ld	bc,#_cu + 2
-   03B8 AF            [ 4]  863 	xor	a, a
-   03B9 02            [ 7]  864 	ld	(bc),a
-   03BA AF            [ 4]  865 	xor	a, a
-   03BB 12            [ 7]  866 	ld	(de),a
-                            867 ;src/main.c:283: cu.x = cu.px = 0;
-   03BC AF            [ 4]  868 	xor	a, a
-   03BD 02            [ 7]  869 	ld	(bc),a
-   03BE 21r0Ar00      [10]  870 	ld	hl,#_cu
-   03C1 36 00         [10]  871 	ld	(hl),#0x00
-                            872 ;src/main.c:284: cu.lanzado=0;
-   03C3 21r10r00      [10]  873 	ld	hl,#(_cu + 0x0006)
-   03C6 36 00         [10]  874 	ld	(hl),#0x00
-                            875 ;src/main.c:286: dibujarProta();
-   03C8 CDr16r00      [17]  876 	call	_dibujarProta
-   03CB C9            [10]  877 	ret
-                            878 ;src/main.c:289: void main(void) {
-                            879 ;	---------------------------------
-                            880 ; Function main
-                            881 ; ---------------------------------
-   03CC                     882 _main::
-                            883 ;src/main.c:292: inicializar();
-   03CC CDr64r03      [17]  884 	call	_inicializar
-                            885 ;src/main.c:293: cpct_akp_musicPlay();
-   03CF CDr00r00      [17]  886 	call	_cpct_akp_musicPlay
-                            887 ;src/main.c:296: while (1) {
-   03D2                     888 00106$:
-                            889 ;src/main.c:299: comprobarTeclado();
-   03D2 CDrA5r02      [17]  890 	call	_comprobarTeclado
-                            891 ;src/main.c:301: if(cu.lanzado){
-   03D5 3Ar10r00      [13]  892 	ld	a, (#(_cu + 0x0006) + 0)
-   03D8 B7            [ 4]  893 	or	a, a
-   03D9 28 06         [12]  894 	jr	Z,00102$
-                            895 ;src/main.c:302: cpct_waitVSYNC();
-   03DB CDr00r00      [17]  896 	call	_cpct_waitVSYNC
-                            897 ;src/main.c:303: moverCuchillo();
-   03DE CDrE6r02      [17]  898 	call	_moverCuchillo
-   03E1                     899 00102$:
-                            900 ;src/main.c:305: if (prota.mover) {
-   03E1 3Ar08r00      [13]  901 	ld	a, (#(_prota + 0x0006) + 0)
-   03E4 B7            [ 4]  902 	or	a, a
-   03E5 28 EB         [12]  903 	jr	Z,00106$
-                            904 ;src/main.c:306: cpct_waitVSYNC();
-   03E7 CDr00r00      [17]  905 	call	_cpct_waitVSYNC
-                            906 ;src/main.c:307: redibujarProta();
-   03EA CDrA0r00      [17]  907 	call	_redibujarProta
-                            908 ;src/main.c:308: prota.mover = NO;
-   03ED 21r08r00      [10]  909 	ld	hl,#(_prota + 0x0006)
-   03F0 36 00         [10]  910 	ld	(hl),#0x00
-   03F2 18 DE         [12]  911 	jr	00106$
-                            912 	.area _CODE
-                            913 	.area _INITIALIZER
-                            914 	.area _CABS (ABS)
-   0200                     915 	.org 0x0200
-   0200                     916 _G_song:
-   0200 41                  917 	.db #0x41	; 65	'A'
-   0201 54                  918 	.db #0x54	; 84	'T'
-   0202 31                  919 	.db #0x31	; 49	'1'
-   0203 30                  920 	.db #0x30	; 48	'0'
-   0204 01                  921 	.db #0x01	; 1
-   0205 40                  922 	.db #0x40	; 64
-   0206 42                  923 	.db #0x42	; 66	'B'
-   0207 0F                  924 	.db #0x0F	; 15
-   0208 02                  925 	.db #0x02	; 2
-   0209 06                  926 	.db #0x06	; 6
-   020A 1D                  927 	.db #0x1D	; 29
-   020B 00                  928 	.db #0x00	; 0
-   020C 10                  929 	.db #0x10	; 16
-   020D 40                  930 	.db #0x40	; 64
-   020E 19                  931 	.db #0x19	; 25
-   020F 40                  932 	.db #0x40	; 64
-   0210 00                  933 	.db #0x00	; 0
-   0211 00                  934 	.db #0x00	; 0
-   0212 00                  935 	.db #0x00	; 0
-   0213 00                  936 	.db #0x00	; 0
-   0214 00                  937 	.db #0x00	; 0
-   0215 00                  938 	.db #0x00	; 0
-   0216 0D                  939 	.db #0x0D	; 13
-   0217 12                  940 	.db #0x12	; 18
-   0218 40                  941 	.db #0x40	; 64
-   0219 01                  942 	.db #0x01	; 1
-   021A 00                  943 	.db #0x00	; 0
-   021B 7C                  944 	.db #0x7C	; 124
-   021C 18                  945 	.db #0x18	; 24
-   021D 78                  946 	.db #0x78	; 120	'x'
-   021E 0C                  947 	.db #0x0C	; 12
-   021F 34                  948 	.db #0x34	; 52	'4'
-   0220 30                  949 	.db #0x30	; 48	'0'
-   0221 2C                  950 	.db #0x2C	; 44
-   0222 28                  951 	.db #0x28	; 40
-   0223 24                  952 	.db #0x24	; 36
-   0224 20                  953 	.db #0x20	; 32
-   0225 1C                  954 	.db #0x1C	; 28
-   0226 0D                  955 	.db #0x0D	; 13
-   0227 25                  956 	.db #0x25	; 37
-   0228 40                  957 	.db #0x40	; 64
-   0229 20                  958 	.db #0x20	; 32
-   022A 00                  959 	.db #0x00	; 0
-   022B 00                  960 	.db #0x00	; 0
-   022C 00                  961 	.db #0x00	; 0
-   022D 39                  962 	.db #0x39	; 57	'9'
-   022E 40                  963 	.db #0x40	; 64
-   022F 00                  964 	.db #0x00	; 0
-   0230 57                  965 	.db #0x57	; 87	'W'
-   0231 40                  966 	.db #0x40	; 64
-   0232 3B                  967 	.db #0x3B	; 59
-   0233 40                  968 	.db #0x40	; 64
-   0234 57                  969 	.db #0x57	; 87	'W'
-   0235 40                  970 	.db #0x40	; 64
-   0236 01                  971 	.db #0x01	; 1
-   0237 2F                  972 	.db #0x2F	; 47
-   0238 40                  973 	.db #0x40	; 64
-   0239 19                  974 	.db #0x19	; 25
-   023A 00                  975 	.db #0x00	; 0
-   023B 76                  976 	.db #0x76	; 118	'v'
-   023C E1                  977 	.db #0xE1	; 225
-   023D 00                  978 	.db #0x00	; 0
-   023E 00                  979 	.db #0x00	; 0
-   023F 01                  980 	.db #0x01	; 1
-   0240 04                  981 	.db #0x04	; 4
-   0241 51                  982 	.db #0x51	; 81	'Q'
-   0242 04                  983 	.db #0x04	; 4
-   0243 37                  984 	.db #0x37	; 55	'7'
-   0244 04                  985 	.db #0x04	; 4
-   0245 4F                  986 	.db #0x4F	; 79	'O'
-   0246 04                  987 	.db #0x04	; 4
-   0247 37                  988 	.db #0x37	; 55	'7'
-   0248 02                  989 	.db #0x02	; 2
-   0249 4B                  990 	.db #0x4B	; 75	'K'
-   024A 02                  991 	.db #0x02	; 2
-   024B 37                  992 	.db #0x37	; 55	'7'
-   024C 04                  993 	.db #0x04	; 4
-   024D 4F                  994 	.db #0x4F	; 79	'O'
-   024E 04                  995 	.db #0x04	; 4
-   024F 37                  996 	.db #0x37	; 55	'7'
-   0250 04                  997 	.db #0x04	; 4
-   0251 4F                  998 	.db #0x4F	; 79	'O'
-   0252 04                  999 	.db #0x04	; 4
-   0253 37                 1000 	.db #0x37	; 55	'7'
-   0254 02                 1001 	.db #0x02	; 2
-   0255 4B                 1002 	.db #0x4B	; 75	'K'
-   0256 00                 1003 	.db #0x00	; 0
-   0257 42                 1004 	.db #0x42	; 66	'B'
-   0258 60                 1005 	.db #0x60	; 96
-   0259 00                 1006 	.db #0x00	; 0
-   025A 42                 1007 	.db #0x42	; 66	'B'
-   025B 80                 1008 	.db #0x80	; 128
-   025C 00                 1009 	.db #0x00	; 0
-   025D 00                 1010 	.db #0x00	; 0
-   025E 42                 1011 	.db #0x42	; 66	'B'
-   025F 00                 1012 	.db #0x00	; 0
-   0260 00                 1013 	.db #0x00	; 0
->>>>>>> disparo_principal
+                            127 	.area _CSEG (REL, CON) 
+                            128 ;src/main.c:91: void dibujarMapa() {
+                            129 ;	---------------------------------
+                            130 ; Function dibujarMapa
+                            131 ; ---------------------------------
+   0000                     132 _dibujarMapa::
+                            133 ;src/main.c:92: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
+   0000 2Ar13r00      [16]  134 	ld	hl,(_mapa)
+   0003 E5            [11]  135 	push	hl
+   0004 21 00 C0      [10]  136 	ld	hl,#0xC000
+   0007 E5            [11]  137 	push	hl
+   0008 21 2C 28      [10]  138 	ld	hl,#0x282C
+   000B E5            [11]  139 	push	hl
+   000C 2E 00         [ 7]  140 	ld	l, #0x00
+   000E E5            [11]  141 	push	hl
+   000F AF            [ 4]  142 	xor	a, a
+   0010 F5            [11]  143 	push	af
+   0011 33            [ 6]  144 	inc	sp
+   0012 CDr00r00      [17]  145 	call	_cpct_etm_drawTileBox2x4
+   0015 C9            [10]  146 	ret
+                            147 ;src/main.c:97: void dibujarProta() {
+                            148 ;	---------------------------------
+                            149 ; Function dibujarProta
+                            150 ; ---------------------------------
+   0016                     151 _dibujarProta::
+                            152 ;src/main.c:98: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
+   0016 21r03r00      [10]  153 	ld	hl, #_prota + 1
+   0019 56            [ 7]  154 	ld	d,(hl)
+   001A 21r02r00      [10]  155 	ld	hl, #_prota + 0
+   001D 46            [ 7]  156 	ld	b,(hl)
+   001E D5            [11]  157 	push	de
+   001F 33            [ 6]  158 	inc	sp
+   0020 C5            [11]  159 	push	bc
+   0021 33            [ 6]  160 	inc	sp
+   0022 21 00 C0      [10]  161 	ld	hl,#0xC000
+   0025 E5            [11]  162 	push	hl
+   0026 CDr00r00      [17]  163 	call	_cpct_getScreenPtr
+   0029 EB            [ 4]  164 	ex	de,hl
+                            165 ;src/main.c:99: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_W, G_HERO_H, g_tablatrans);
+   002A ED 4Br06r00   [20]  166 	ld	bc, (#_prota + 4)
+   002E 21r00r3E      [10]  167 	ld	hl,#_g_tablatrans
+   0031 E5            [11]  168 	push	hl
+   0032 21 09 19      [10]  169 	ld	hl,#0x1909
+   0035 E5            [11]  170 	push	hl
+   0036 D5            [11]  171 	push	de
+   0037 C5            [11]  172 	push	bc
+   0038 CDr00r00      [17]  173 	call	_cpct_drawSpriteMaskedAlignedTable
+   003B C9            [10]  174 	ret
+                            175 ;src/main.c:102: void borrarProta() {
+                            176 ;	---------------------------------
+                            177 ; Function borrarProta
+                            178 ; ---------------------------------
+   003C                     179 _borrarProta::
+                            180 ;src/main.c:109: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+   003C ED 4Br13r00   [20]  181 	ld	bc,(_mapa)
+   0040 21r05r00      [10]  182 	ld	hl, #_prota + 3
+   0043 5E            [ 7]  183 	ld	e,(hl)
+   0044 16 00         [ 7]  184 	ld	d,#0x00
+   0046 63            [ 4]  185 	ld	h,e
+   0047 6A            [ 4]  186 	ld	l,d
+   0048 CB 7A         [ 8]  187 	bit	7, d
+   004A 28 05         [12]  188 	jr	Z,00103$
+   004C 13            [ 6]  189 	inc	de
+   004D 13            [ 6]  190 	inc	de
+   004E 13            [ 6]  191 	inc	de
+   004F 63            [ 4]  192 	ld	h,e
+   0050 6A            [ 4]  193 	ld	l,d
+   0051                     194 00103$:
+   0051 5C            [ 4]  195 	ld	e, h
+   0052 55            [ 4]  196 	ld	d, l
+   0053 CB 2A         [ 8]  197 	sra	d
+   0055 CB 1B         [ 8]  198 	rr	e
+   0057 CB 2A         [ 8]  199 	sra	d
+   0059 CB 1B         [ 8]  200 	rr	e
+   005B 3Ar04r00      [13]  201 	ld	a, (#_prota + 2)
+   005E CB 3F         [ 8]  202 	srl	a
+   0060 57            [ 4]  203 	ld	d,a
+   0061 C5            [11]  204 	push	bc
+   0062 21 00 C0      [10]  205 	ld	hl,#0xC000
+   0065 E5            [11]  206 	push	hl
+   0066 21 08 28      [10]  207 	ld	hl,#0x2808
+   0069 E5            [11]  208 	push	hl
+   006A 3E 05         [ 7]  209 	ld	a,#0x05
+   006C F5            [11]  210 	push	af
+   006D 33            [ 6]  211 	inc	sp
+   006E 7B            [ 4]  212 	ld	a,e
+   006F F5            [11]  213 	push	af
+   0070 33            [ 6]  214 	inc	sp
+   0071 D5            [11]  215 	push	de
+   0072 33            [ 6]  216 	inc	sp
+   0073 CDr00r00      [17]  217 	call	_cpct_etm_drawTileBox2x4
+   0076 C9            [10]  218 	ret
+                            219 ;src/main.c:112: void redibujarProta() {
+                            220 ;	---------------------------------
+                            221 ; Function redibujarProta
+                            222 ; ---------------------------------
+   0077                     223 _redibujarProta::
+                            224 ;src/main.c:113: borrarProta();
+   0077 CDr3Cr00      [17]  225 	call	_borrarProta
+                            226 ;src/main.c:114: prota.px = prota.x;
+   007A 01r04r00      [10]  227 	ld	bc,#_prota + 2
+   007D 3Ar02r00      [13]  228 	ld	a, (#_prota + 0)
+   0080 02            [ 7]  229 	ld	(bc),a
+                            230 ;src/main.c:115: prota.py = prota.y;
+   0081 01r05r00      [10]  231 	ld	bc,#_prota + 3
+   0084 3Ar03r00      [13]  232 	ld	a, (#_prota + 1)
+   0087 02            [ 7]  233 	ld	(bc),a
+                            234 ;src/main.c:116: dibujarProta();
+   0088 C3r16r00      [10]  235 	jp  _dibujarProta
+                            236 ;src/main.c:119: void moverIzquierda() {
+                            237 ;	---------------------------------
+                            238 ; Function moverIzquierda
+                            239 ; ---------------------------------
+   008B                     240 _moverIzquierda::
+                            241 ;src/main.c:120: if (prota.x > LIMITE_IZQUIERDO) {
+   008B 01r02r00      [10]  242 	ld	bc,#_prota+0
+   008E 0A            [ 7]  243 	ld	a,(bc)
+   008F 5F            [ 4]  244 	ld	e,a
+   0090 3E 04         [ 7]  245 	ld	a,#0x04
+   0092 93            [ 4]  246 	sub	a, e
+   0093 D0            [11]  247 	ret	NC
+                            248 ;src/main.c:121: prota.x--;
+   0094 1D            [ 4]  249 	dec	e
+   0095 7B            [ 4]  250 	ld	a,e
+   0096 02            [ 7]  251 	ld	(bc),a
+                            252 ;src/main.c:122: prota.mover  = SI;
+   0097 21r08r00      [10]  253 	ld	hl,#(_prota + 0x0006)
+   009A 36 01         [10]  254 	ld	(hl),#0x01
+                            255 ;src/main.c:123: prota.mira=M_izquierda;
+   009C 21r09r00      [10]  256 	ld	hl,#(_prota + 0x0007)
+   009F 36 01         [10]  257 	ld	(hl),#0x01
+   00A1 C9            [10]  258 	ret
+                            259 ;src/main.c:128: void moverDerecha() {
+                            260 ;	---------------------------------
+                            261 ; Function moverDerecha
+                            262 ; ---------------------------------
+   00A2                     263 _moverDerecha::
+                            264 ;src/main.c:129: if (prota.x < LIMITE_DERECHO - G_HERO_W) {
+   00A2 21r02r00      [10]  265 	ld	hl,#_prota+0
+   00A5 4E            [ 7]  266 	ld	c,(hl)
+   00A6 79            [ 4]  267 	ld	a,c
+   00A7 D6 43         [ 7]  268 	sub	a, #0x43
+   00A9 D0            [11]  269 	ret	NC
+                            270 ;src/main.c:130: prota.x++;
+   00AA 0C            [ 4]  271 	inc	c
+   00AB 71            [ 7]  272 	ld	(hl),c
+                            273 ;src/main.c:131: prota.mover  = SI;
+   00AC 21r08r00      [10]  274 	ld	hl,#(_prota + 0x0006)
+   00AF 36 01         [10]  275 	ld	(hl),#0x01
+                            276 ;src/main.c:132: prota.mira=M_derecha;
+   00B1 21r09r00      [10]  277 	ld	hl,#(_prota + 0x0007)
+   00B4 36 00         [10]  278 	ld	(hl),#0x00
+   00B6 C9            [10]  279 	ret
+                            280 ;src/main.c:136: void moverArriba() {
+                            281 ;	---------------------------------
+                            282 ; Function moverArriba
+                            283 ; ---------------------------------
+   00B7                     284 _moverArriba::
+                            285 ;src/main.c:137: if (prota.y > LIMITE_SUPERIOR) {
+   00B7 21r03r00      [10]  286 	ld	hl,#_prota + 1
+   00BA 4E            [ 7]  287 	ld	c,(hl)
+   00BB 3E 08         [ 7]  288 	ld	a,#0x08
+   00BD 91            [ 4]  289 	sub	a, c
+   00BE D0            [11]  290 	ret	NC
+                            291 ;src/main.c:138: prota.y--;
+   00BF 0D            [ 4]  292 	dec	c
+   00C0 71            [ 7]  293 	ld	(hl),c
+                            294 ;src/main.c:139: prota.mover  = SI;
+   00C1 21r08r00      [10]  295 	ld	hl,#(_prota + 0x0006)
+   00C4 36 01         [10]  296 	ld	(hl),#0x01
+                            297 ;src/main.c:140: prota.mira = M_arriba;
+   00C6 21r09r00      [10]  298 	ld	hl,#(_prota + 0x0007)
+   00C9 36 02         [10]  299 	ld	(hl),#0x02
+   00CB C9            [10]  300 	ret
+                            301 ;src/main.c:144: void moverAbajo() {
+                            302 ;	---------------------------------
+                            303 ; Function moverAbajo
+                            304 ; ---------------------------------
+   00CC                     305 _moverAbajo::
+                            306 ;src/main.c:145: if(prota.y < LIMITE_INFERIOR - G_HERO_H){
+   00CC 21r03r00      [10]  307 	ld	hl,#_prota + 1
+   00CF 4E            [ 7]  308 	ld	c,(hl)
+   00D0 79            [ 4]  309 	ld	a,c
+   00D1 D6 7F         [ 7]  310 	sub	a, #0x7F
+   00D3 D0            [11]  311 	ret	NC
+                            312 ;src/main.c:146: prota.y++;
+   00D4 0C            [ 4]  313 	inc	c
+   00D5 71            [ 7]  314 	ld	(hl),c
+                            315 ;src/main.c:147: prota.mover  = SI;
+   00D6 21r08r00      [10]  316 	ld	hl,#(_prota + 0x0006)
+   00D9 36 01         [10]  317 	ld	(hl),#0x01
+                            318 ;src/main.c:148: prota.mira = M_abajo;
+   00DB 21r09r00      [10]  319 	ld	hl,#(_prota + 0x0007)
+   00DE 36 03         [10]  320 	ld	(hl),#0x03
+   00E0 C9            [10]  321 	ret
+                            322 ;src/main.c:152: void dibujarCuchillo(u8 eje) {
+                            323 ;	---------------------------------
+                            324 ; Function dibujarCuchillo
+                            325 ; ---------------------------------
+   00E1                     326 _dibujarCuchillo::
+   00E1 DD E5         [15]  327 	push	ix
+   00E3 DD 21 00 00   [14]  328 	ld	ix,#0
+   00E7 DD 39         [15]  329 	add	ix,sp
+   00E9 F5            [11]  330 	push	af
+                            331 ;src/main.c:153: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, cu.x, cu.y);
+   00EA 21r0Br00      [10]  332 	ld	hl, #_cu + 1
+   00ED 56            [ 7]  333 	ld	d,(hl)
+   00EE 21r0Ar00      [10]  334 	ld	hl, #_cu + 0
+   00F1 46            [ 7]  335 	ld	b,(hl)
+   00F2 D5            [11]  336 	push	de
+   00F3 33            [ 6]  337 	inc	sp
+   00F4 C5            [11]  338 	push	bc
+   00F5 33            [ 6]  339 	inc	sp
+   00F6 21 00 C0      [10]  340 	ld	hl,#0xC000
+   00F9 E5            [11]  341 	push	hl
+   00FA CDr00r00      [17]  342 	call	_cpct_getScreenPtr
+                            343 ;src/main.c:155: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+   00FD 33            [ 6]  344 	inc	sp
+   00FE 33            [ 6]  345 	inc	sp
+   00FF E5            [11]  346 	push	hl
+                            347 ;src/main.c:154: if(eje == E_X){
+   0100 DD 7E 04      [19]  348 	ld	a,4 (ix)
+   0103 B7            [ 4]  349 	or	a, a
+   0104 20 19         [12]  350 	jr	NZ,00104$
+                            351 ;src/main.c:155: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+   0106 11r00r3E      [10]  352 	ld	de,#_g_tablatrans+0
+   0109 ED 4Br0Er00   [20]  353 	ld	bc, (#(_cu + 0x0004) + 0)
+   010D D5            [11]  354 	push	de
+   010E 21 03 03      [10]  355 	ld	hl,#0x0303
+   0111 E5            [11]  356 	push	hl
+   0112 DD 6E FE      [19]  357 	ld	l,-2 (ix)
+   0115 DD 66 FF      [19]  358 	ld	h,-1 (ix)
+   0118 E5            [11]  359 	push	hl
+   0119 C5            [11]  360 	push	bc
+   011A CDr00r00      [17]  361 	call	_cpct_drawSpriteMaskedAlignedTable
+   011D 18 1D         [12]  362 	jr	00106$
+   011F                     363 00104$:
+                            364 ;src/main.c:158: else if(eje == E_Y){
+   011F DD 7E 04      [19]  365 	ld	a,4 (ix)
+   0122 3D            [ 4]  366 	dec	a
+   0123 20 17         [12]  367 	jr	NZ,00106$
+                            368 ;src/main.c:159: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
+   0125 11r00r3E      [10]  369 	ld	de,#_g_tablatrans+0
+   0128 ED 4Br0Er00   [20]  370 	ld	bc, (#(_cu + 0x0004) + 0)
+   012C D5            [11]  371 	push	de
+   012D 21 02 06      [10]  372 	ld	hl,#0x0602
+   0130 E5            [11]  373 	push	hl
+   0131 DD 6E FE      [19]  374 	ld	l,-2 (ix)
+   0134 DD 66 FF      [19]  375 	ld	h,-1 (ix)
+   0137 E5            [11]  376 	push	hl
+   0138 C5            [11]  377 	push	bc
+   0139 CDr00r00      [17]  378 	call	_cpct_drawSpriteMaskedAlignedTable
+   013C                     379 00106$:
+   013C DD F9         [10]  380 	ld	sp, ix
+   013E DD E1         [14]  381 	pop	ix
+   0140 C9            [10]  382 	ret
+                            383 ;src/main.c:163: void borrarCuchillo() {
+                            384 ;	---------------------------------
+                            385 ; Function borrarCuchillo
+                            386 ; ---------------------------------
+   0141                     387 _borrarCuchillo::
+   0141 DD E5         [15]  388 	push	ix
+   0143 DD 21 00 00   [14]  389 	ld	ix,#0
+   0147 DD 39         [15]  390 	add	ix,sp
+   0149 3B            [ 6]  391 	dec	sp
+                            392 ;src/main.c:164: u8 w = 2 + (cu.px & 1);
+   014A 21r0Cr00      [10]  393 	ld	hl, #_cu + 2
+   014D 4E            [ 7]  394 	ld	c,(hl)
+   014E 79            [ 4]  395 	ld	a,c
+   014F E6 01         [ 7]  396 	and	a, #0x01
+   0151 47            [ 4]  397 	ld	b,a
+   0152 04            [ 4]  398 	inc	b
+   0153 04            [ 4]  399 	inc	b
+                            400 ;src/main.c:165: u8 h = 2 + (cu.py & 3 ? 1 : 0);
+   0154 21r0Dr00      [10]  401 	ld	hl, #_cu + 3
+   0157 5E            [ 7]  402 	ld	e,(hl)
+   0158 7B            [ 4]  403 	ld	a,e
+   0159 E6 03         [ 7]  404 	and	a, #0x03
+   015B 28 04         [12]  405 	jr	Z,00103$
+   015D 3E 01         [ 7]  406 	ld	a,#0x01
+   015F 18 02         [12]  407 	jr	00104$
+   0161                     408 00103$:
+   0161 3E 00         [ 7]  409 	ld	a,#0x00
+   0163                     410 00104$:
+   0163 C6 02         [ 7]  411 	add	a, #0x02
+   0165 DD 77 FF      [19]  412 	ld	-1 (ix),a
+                            413 ;src/main.c:166: cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+   0168 FD 2Ar13r00   [20]  414 	ld	iy,(_mapa)
+   016C 16 00         [ 7]  415 	ld	d,#0x00
+   016E 63            [ 4]  416 	ld	h,e
+   016F 6A            [ 4]  417 	ld	l,d
+   0170 CB 7A         [ 8]  418 	bit	7, d
+   0172 28 05         [12]  419 	jr	Z,00105$
+   0174 13            [ 6]  420 	inc	de
+   0175 13            [ 6]  421 	inc	de
+   0176 13            [ 6]  422 	inc	de
+   0177 63            [ 4]  423 	ld	h,e
+   0178 6A            [ 4]  424 	ld	l,d
+   0179                     425 00105$:
+   0179 5C            [ 4]  426 	ld	e, h
+   017A 55            [ 4]  427 	ld	d, l
+   017B CB 2A         [ 8]  428 	sra	d
+   017D CB 1B         [ 8]  429 	rr	e
+   017F CB 2A         [ 8]  430 	sra	d
+   0181 CB 1B         [ 8]  431 	rr	e
+   0183 51            [ 4]  432 	ld	d,c
+   0184 CB 3A         [ 8]  433 	srl	d
+   0186 FD E5         [15]  434 	push	iy
+   0188 21 00 C0      [10]  435 	ld	hl,#0xC000
+   018B E5            [11]  436 	push	hl
+   018C 3E 28         [ 7]  437 	ld	a,#0x28
+   018E F5            [11]  438 	push	af
+   018F 33            [ 6]  439 	inc	sp
+   0190 DD 7E FF      [19]  440 	ld	a,-1 (ix)
+   0193 F5            [11]  441 	push	af
+   0194 33            [ 6]  442 	inc	sp
+   0195 C5            [11]  443 	push	bc
+   0196 33            [ 6]  444 	inc	sp
+   0197 7B            [ 4]  445 	ld	a,e
+   0198 F5            [11]  446 	push	af
+   0199 33            [ 6]  447 	inc	sp
+   019A D5            [11]  448 	push	de
+   019B 33            [ 6]  449 	inc	sp
+   019C CDr00r00      [17]  450 	call	_cpct_etm_drawTileBox2x4
+   019F 33            [ 6]  451 	inc	sp
+   01A0 DD E1         [14]  452 	pop	ix
+   01A2 C9            [10]  453 	ret
+                            454 ;src/main.c:169: void redibujarCuchillo() {
+                            455 ;	---------------------------------
+                            456 ; Function redibujarCuchillo
+                            457 ; ---------------------------------
+   01A3                     458 _redibujarCuchillo::
+                            459 ;src/main.c:170: borrarCuchillo();
+   01A3 CDr41r01      [17]  460 	call	_borrarCuchillo
+                            461 ;src/main.c:171: cu.px = cu.x;
+   01A6 3Ar0Ar00      [13]  462 	ld	a, (#_cu + 0)
+   01A9 32r0Cr00      [13]  463 	ld	(#(_cu + 0x0002)),a
+                            464 ;src/main.c:172: cu.py = cu.y;
+   01AC 3Ar0Br00      [13]  465 	ld	a, (#_cu + 1)
+   01AF 32r0Dr00      [13]  466 	ld	(#(_cu + 0x0003)),a
+                            467 ;src/main.c:173: dibujarCuchillo(cu.eje);
+   01B2 21r12r00      [10]  468 	ld	hl, #_cu + 8
+   01B5 46            [ 7]  469 	ld	b,(hl)
+   01B6 C5            [11]  470 	push	bc
+   01B7 33            [ 6]  471 	inc	sp
+   01B8 CDrE1r00      [17]  472 	call	_dibujarCuchillo
+   01BB 33            [ 6]  473 	inc	sp
+   01BC C9            [10]  474 	ret
+                            475 ;src/main.c:177: void lanzarCuchillo(){
+                            476 ;	---------------------------------
+                            477 ; Function lanzarCuchillo
+                            478 ; ---------------------------------
+   01BD                     479 _lanzarCuchillo::
+                            480 ;src/main.c:178: cu.lanzado = SI;
+   01BD 11r0Ar00      [10]  481 	ld	de,#_cu+0
+   01C0 21r10r00      [10]  482 	ld	hl,#(_cu + 0x0006)
+   01C3 36 01         [10]  483 	ld	(hl),#0x01
+                            484 ;src/main.c:179: if(prota.mira == M_derecha){
+   01C5 21r09r00      [10]  485 	ld	hl, #_prota + 7
+   01C8 4E            [ 7]  486 	ld	c,(hl)
+                            487 ;src/main.c:180: cu.direccion = M_derecha;
+                            488 ;src/main.c:182: cu.y=prota.y + G_HERO_H /2;	
+                            489 ;src/main.c:183: cu.sprite=g_knifeX_0;
+                            490 ;src/main.c:184: cu.eje = E_X;
+                            491 ;src/main.c:179: if(prota.mira == M_derecha){
+   01C9 79            [ 4]  492 	ld	a,c
+   01CA B7            [ 4]  493 	or	a, a
+   01CB 20 29         [12]  494 	jr	NZ,00110$
+                            495 ;src/main.c:180: cu.direccion = M_derecha;
+   01CD 21r11r00      [10]  496 	ld	hl,#(_cu + 0x0007)
+   01D0 36 00         [10]  497 	ld	(hl),#0x00
+                            498 ;src/main.c:181: cu.x=prota.x + G_HERO_W;
+   01D2 3Ar02r00      [13]  499 	ld	a, (#_prota + 0)
+   01D5 C6 09         [ 7]  500 	add	a, #0x09
+   01D7 12            [ 7]  501 	ld	(de),a
+                            502 ;src/main.c:182: cu.y=prota.y + G_HERO_H /2;	
+   01D8 3Ar03r00      [13]  503 	ld	a, (#(_prota + 0x0001) + 0)
+   01DB C6 0C         [ 7]  504 	add	a, #0x0C
+   01DD 32r0Br00      [13]  505 	ld	(#(_cu + 0x0001)),a
+                            506 ;src/main.c:183: cu.sprite=g_knifeX_0;
+   01E0 21r00r00      [10]  507 	ld	hl,#_g_knifeX_0
+   01E3 22r0Er00      [16]  508 	ld	((_cu + 0x0004)), hl
+                            509 ;src/main.c:184: cu.eje = E_X;
+   01E6 21r12r00      [10]  510 	ld	hl,#(_cu + 0x0008)
+   01E9 36 00         [10]  511 	ld	(hl),#0x00
+                            512 ;src/main.c:185: dibujarCuchillo(cu.eje);
+   01EB 21r12r00      [10]  513 	ld	hl, #(_cu + 0x0008) + 0
+   01EE 46            [ 7]  514 	ld	b,(hl)
+   01EF C5            [11]  515 	push	bc
+   01F0 33            [ 6]  516 	inc	sp
+   01F1 CDrE1r00      [17]  517 	call	_dibujarCuchillo
+   01F4 33            [ 6]  518 	inc	sp
+   01F5 C9            [10]  519 	ret
+   01F6                     520 00110$:
+                            521 ;src/main.c:187: else if(prota.mira == M_izquierda){
+   01F6 79            [ 4]  522 	ld	a,c
+   01F7 3D            [ 4]  523 	dec	a
+   01F8 20 29         [12]  524 	jr	NZ,00107$
+                            525 ;src/main.c:188: cu.direccion = M_izquierda;
+   01FA 21r11r00      [10]  526 	ld	hl,#(_cu + 0x0007)
+   01FD 36 01         [10]  527 	ld	(hl),#0x01
+                            528 ;src/main.c:189: cu.x = prota.x - G_KNIFEX_0_W;
+   01FF 3Ar02r00      [13]  529 	ld	a, (#_prota + 0)
+   0202 C6 FD         [ 7]  530 	add	a,#0xFD
+   0204 12            [ 7]  531 	ld	(de),a
+                            532 ;src/main.c:190: cu.y = prota.y + G_HERO_H /2;	
+   0205 3Ar03r00      [13]  533 	ld	a, (#(_prota + 0x0001) + 0)
+   0208 C6 0C         [ 7]  534 	add	a, #0x0C
+   020A 32r0Br00      [13]  535 	ld	(#(_cu + 0x0001)),a
+                            536 ;src/main.c:191: cu.sprite = g_knifeX_1;
+   020D 21r00r00      [10]  537 	ld	hl,#_g_knifeX_1
+   0210 22r0Er00      [16]  538 	ld	((_cu + 0x0004)), hl
+                            539 ;src/main.c:192: cu.eje = E_X;
+   0213 21r12r00      [10]  540 	ld	hl,#(_cu + 0x0008)
+   0216 36 00         [10]  541 	ld	(hl),#0x00
+                            542 ;src/main.c:193: dibujarCuchillo(cu.eje);
+   0218 21r12r00      [10]  543 	ld	hl, #(_cu + 0x0008) + 0
+   021B 46            [ 7]  544 	ld	b,(hl)
+   021C C5            [11]  545 	push	bc
+   021D 33            [ 6]  546 	inc	sp
+   021E CDrE1r00      [17]  547 	call	_dibujarCuchillo
+   0221 33            [ 6]  548 	inc	sp
+   0222 C9            [10]  549 	ret
+   0223                     550 00107$:
+                            551 ;src/main.c:195: else if(prota.mira == M_abajo){
+   0223 79            [ 4]  552 	ld	a,c
+   0224 D6 03         [ 7]  553 	sub	a, #0x03
+   0226 20 29         [12]  554 	jr	NZ,00104$
+                            555 ;src/main.c:196: cu.direccion = M_abajo;
+   0228 21r11r00      [10]  556 	ld	hl,#(_cu + 0x0007)
+   022B 36 03         [10]  557 	ld	(hl),#0x03
+                            558 ;src/main.c:197: cu.x = prota.x + G_HERO_W / 2;
+   022D 3Ar02r00      [13]  559 	ld	a, (#_prota + 0)
+   0230 C6 04         [ 7]  560 	add	a, #0x04
+   0232 12            [ 7]  561 	ld	(de),a
+                            562 ;src/main.c:198: cu.y = prota.y + G_HERO_H + 10;	
+   0233 3Ar03r00      [13]  563 	ld	a, (#(_prota + 0x0001) + 0)
+   0236 C6 23         [ 7]  564 	add	a, #0x23
+   0238 32r0Br00      [13]  565 	ld	(#(_cu + 0x0001)),a
+                            566 ;src/main.c:199: cu.sprite = g_knifeY_0;
+   023B 21r00r00      [10]  567 	ld	hl,#_g_knifeY_0
+   023E 22r0Er00      [16]  568 	ld	((_cu + 0x0004)), hl
+                            569 ;src/main.c:200: cu.eje = E_Y;
+   0241 21r12r00      [10]  570 	ld	hl,#(_cu + 0x0008)
+   0244 36 01         [10]  571 	ld	(hl),#0x01
+                            572 ;src/main.c:201: dibujarCuchillo(cu.eje);
+   0246 21r12r00      [10]  573 	ld	hl, #(_cu + 0x0008) + 0
+   0249 46            [ 7]  574 	ld	b,(hl)
+   024A C5            [11]  575 	push	bc
+   024B 33            [ 6]  576 	inc	sp
+   024C CDrE1r00      [17]  577 	call	_dibujarCuchillo
+   024F 33            [ 6]  578 	inc	sp
+   0250 C9            [10]  579 	ret
+   0251                     580 00104$:
+                            581 ;src/main.c:203: else if(prota.mira == M_arriba){
+   0251 79            [ 4]  582 	ld	a,c
+   0252 D6 02         [ 7]  583 	sub	a, #0x02
+   0254 C0            [11]  584 	ret	NZ
+                            585 ;src/main.c:204: cu.direccion = M_arriba;
+   0255 21r11r00      [10]  586 	ld	hl,#(_cu + 0x0007)
+   0258 36 02         [10]  587 	ld	(hl),#0x02
+                            588 ;src/main.c:205: cu.x = prota.x + G_HERO_W / 2;
+   025A 3Ar02r00      [13]  589 	ld	a, (#_prota + 0)
+   025D C6 04         [ 7]  590 	add	a, #0x04
+   025F 12            [ 7]  591 	ld	(de),a
+                            592 ;src/main.c:206: cu.y = prota.y;	
+   0260 3Ar03r00      [13]  593 	ld	a, (#(_prota + 0x0001) + 0)
+   0263 32r0Br00      [13]  594 	ld	(#(_cu + 0x0001)),a
+                            595 ;src/main.c:207: cu.sprite = g_knifeY_1;
+   0266 21r00r00      [10]  596 	ld	hl,#_g_knifeY_1
+   0269 22r0Er00      [16]  597 	ld	((_cu + 0x0004)), hl
+                            598 ;src/main.c:208: cu.eje = E_Y;
+   026C 21r12r00      [10]  599 	ld	hl,#(_cu + 0x0008)
+   026F 36 01         [10]  600 	ld	(hl),#0x01
+                            601 ;src/main.c:209: dibujarCuchillo(cu.eje);
+   0271 21r12r00      [10]  602 	ld	hl, #(_cu + 0x0008) + 0
+   0274 46            [ 7]  603 	ld	b,(hl)
+   0275 C5            [11]  604 	push	bc
+   0276 33            [ 6]  605 	inc	sp
+   0277 CDrE1r00      [17]  606 	call	_dibujarCuchillo
+   027A 33            [ 6]  607 	inc	sp
+   027B C9            [10]  608 	ret
+                            609 ;src/main.c:213: void comprobarTeclado() {
+                            610 ;	---------------------------------
+                            611 ; Function comprobarTeclado
+                            612 ; ---------------------------------
+   027C                     613 _comprobarTeclado::
+                            614 ;src/main.c:214: cpct_scanKeyboard_if();
+   027C CDr00r00      [17]  615 	call	_cpct_scanKeyboard_if
+                            616 ;src/main.c:216: if (cpct_isAnyKeyPressed()) {
+   027F CDr00r00      [17]  617 	call	_cpct_isAnyKeyPressed
+   0282 7D            [ 4]  618 	ld	a,l
+   0283 B7            [ 4]  619 	or	a, a
+   0284 C8            [11]  620 	ret	Z
+                            621 ;src/main.c:217: if (cpct_isKeyPressed(Key_CursorLeft))
+   0285 21 01 01      [10]  622 	ld	hl,#0x0101
+   0288 CDr00r00      [17]  623 	call	_cpct_isKeyPressed
+   028B 7D            [ 4]  624 	ld	a,l
+   028C B7            [ 4]  625 	or	a, a
+                            626 ;src/main.c:218: moverIzquierda();
+   028D C2r8Br00      [10]  627 	jp	NZ,_moverIzquierda
+                            628 ;src/main.c:219: else if (cpct_isKeyPressed(Key_CursorRight))
+   0290 21 00 02      [10]  629 	ld	hl,#0x0200
+   0293 CDr00r00      [17]  630 	call	_cpct_isKeyPressed
+   0296 7D            [ 4]  631 	ld	a,l
+   0297 B7            [ 4]  632 	or	a, a
+                            633 ;src/main.c:220: moverDerecha();
+   0298 C2rA2r00      [10]  634 	jp	NZ,_moverDerecha
+                            635 ;src/main.c:221: else if (cpct_isKeyPressed(Key_CursorUp))
+   029B 21 00 01      [10]  636 	ld	hl,#0x0100
+   029E CDr00r00      [17]  637 	call	_cpct_isKeyPressed
+   02A1 7D            [ 4]  638 	ld	a,l
+   02A2 B7            [ 4]  639 	or	a, a
+                            640 ;src/main.c:222: moverArriba();
+   02A3 C2rB7r00      [10]  641 	jp	NZ,_moverArriba
+                            642 ;src/main.c:223: else if (cpct_isKeyPressed(Key_CursorDown))
+   02A6 21 00 04      [10]  643 	ld	hl,#0x0400
+   02A9 CDr00r00      [17]  644 	call	_cpct_isKeyPressed
+   02AC 7D            [ 4]  645 	ld	a,l
+   02AD B7            [ 4]  646 	or	a, a
+                            647 ;src/main.c:224: moverAbajo();
+   02AE C2rCCr00      [10]  648 	jp	NZ,_moverAbajo
+                            649 ;src/main.c:225: else if (cpct_isKeyPressed(Key_Space))
+   02B1 21 05 80      [10]  650 	ld	hl,#0x8005
+   02B4 CDr00r00      [17]  651 	call	_cpct_isKeyPressed
+   02B7 7D            [ 4]  652 	ld	a,l
+   02B8 B7            [ 4]  653 	or	a, a
+   02B9 C8            [11]  654 	ret	Z
+                            655 ;src/main.c:226: lanzarCuchillo();
+   02BA C3rBDr01      [10]  656 	jp  _lanzarCuchillo
+                            657 ;src/main.c:232: void moverCuchillo(){
+                            658 ;	---------------------------------
+                            659 ; Function moverCuchillo
+                            660 ; ---------------------------------
+   02BD                     661 _moverCuchillo::
+                            662 ;src/main.c:234: if(cu.direccion == M_derecha){		
+   02BD 01r0Ar00      [10]  663 	ld	bc,#_cu+0
+   02C0 21r11r00      [10]  664 	ld	hl, #_cu + 7
+   02C3 5E            [ 7]  665 	ld	e,(hl)
+                            666 ;src/main.c:241: cu.lanzado = NO;
+                            667 ;src/main.c:234: if(cu.direccion == M_derecha){		
+   02C4 7B            [ 4]  668 	ld	a,e
+   02C5 B7            [ 4]  669 	or	a, a
+   02C6 20 19         [12]  670 	jr	NZ,00130$
+                            671 ;src/main.c:235: if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
+   02C8 0A            [ 7]  672 	ld	a,(bc)
+   02C9 5F            [ 4]  673 	ld	e,a
+   02CA D6 49         [ 7]  674 	sub	a, #0x49
+   02CC 30 06         [12]  675 	jr	NC,00104$
+                            676 ;src/main.c:236: cu.x++;
+   02CE 1C            [ 4]  677 	inc	e
+   02CF 7B            [ 4]  678 	ld	a,e
+   02D0 02            [ 7]  679 	ld	(bc),a
+                            680 ;src/main.c:237: redibujarCuchillo();
+   02D1 C3rA3r01      [10]  681 	jp  _redibujarCuchillo
+   02D4                     682 00104$:
+                            683 ;src/main.c:239: else if(cu.x == LIMITE_DERECHO  - G_KNIFEX_0_W){
+   02D4 7B            [ 4]  684 	ld	a,e
+   02D5 D6 49         [ 7]  685 	sub	a, #0x49
+   02D7 C0            [11]  686 	ret	NZ
+                            687 ;src/main.c:240: borrarCuchillo();
+   02D8 CDr41r01      [17]  688 	call	_borrarCuchillo
+                            689 ;src/main.c:241: cu.lanzado = NO;
+   02DB 21r10r00      [10]  690 	ld	hl,#(_cu + 0x0006)
+   02DE 36 00         [10]  691 	ld	(hl),#0x00
+   02E0 C9            [10]  692 	ret
+   02E1                     693 00130$:
+                            694 ;src/main.c:244: else if(cu.direccion == M_izquierda){
+   02E1 7B            [ 4]  695 	ld	a,e
+   02E2 3D            [ 4]  696 	dec	a
+   02E3 20 1A         [12]  697 	jr	NZ,00127$
+                            698 ;src/main.c:245: if(cu.x > LIMITE_IZQUIERDO){
+   02E5 0A            [ 7]  699 	ld	a,(bc)
+   02E6 5F            [ 4]  700 	ld	e,a
+   02E7 3E 04         [ 7]  701 	ld	a,#0x04
+   02E9 93            [ 4]  702 	sub	a, e
+   02EA 30 06         [12]  703 	jr	NC,00109$
+                            704 ;src/main.c:246: cu.x--;
+   02EC 1D            [ 4]  705 	dec	e
+   02ED 7B            [ 4]  706 	ld	a,e
+   02EE 02            [ 7]  707 	ld	(bc),a
+                            708 ;src/main.c:247: redibujarCuchillo();
+   02EF C3rA3r01      [10]  709 	jp  _redibujarCuchillo
+   02F2                     710 00109$:
+                            711 ;src/main.c:248: }else if(cu.x == LIMITE_IZQUIERDO){
+   02F2 7B            [ 4]  712 	ld	a,e
+   02F3 D6 04         [ 7]  713 	sub	a, #0x04
+   02F5 C0            [11]  714 	ret	NZ
+                            715 ;src/main.c:249: borrarCuchillo();
+   02F6 CDr41r01      [17]  716 	call	_borrarCuchillo
+                            717 ;src/main.c:250: cu.lanzado = NO;
+   02F9 21r10r00      [10]  718 	ld	hl,#(_cu + 0x0006)
+   02FC 36 00         [10]  719 	ld	(hl),#0x00
+   02FE C9            [10]  720 	ret
+   02FF                     721 00127$:
+                            722 ;src/main.c:254: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+   02FF 69            [ 4]  723 	ld	l, c
+   0300 60            [ 4]  724 	ld	h, b
+   0301 23            [ 6]  725 	inc	hl
+                            726 ;src/main.c:253: else if(cu.direccion == M_abajo){
+   0302 7B            [ 4]  727 	ld	a,e
+   0303 D6 03         [ 7]  728 	sub	a, #0x03
+   0305 20 18         [12]  729 	jr	NZ,00124$
+                            730 ;src/main.c:254: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+   0307 4E            [ 7]  731 	ld	c,(hl)
+   0308 79            [ 4]  732 	ld	a,c
+   0309 D6 92         [ 7]  733 	sub	a, #0x92
+   030B 30 05         [12]  734 	jr	NC,00114$
+                            735 ;src/main.c:255: cu.y++;
+   030D 0C            [ 4]  736 	inc	c
+   030E 71            [ 7]  737 	ld	(hl),c
+                            738 ;src/main.c:256: redibujarCuchillo();
+   030F C3rA3r01      [10]  739 	jp  _redibujarCuchillo
+   0312                     740 00114$:
+                            741 ;src/main.c:257: }else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
+   0312 79            [ 4]  742 	ld	a,c
+   0313 D6 92         [ 7]  743 	sub	a, #0x92
+   0315 C0            [11]  744 	ret	NZ
+                            745 ;src/main.c:258: borrarCuchillo();
+   0316 CDr41r01      [17]  746 	call	_borrarCuchillo
+                            747 ;src/main.c:259: cu.lanzado = NO;
+   0319 21r10r00      [10]  748 	ld	hl,#(_cu + 0x0006)
+   031C 36 00         [10]  749 	ld	(hl),#0x00
+   031E C9            [10]  750 	ret
+   031F                     751 00124$:
+                            752 ;src/main.c:262: else if(cu.direccion == M_arriba){
+   031F 7B            [ 4]  753 	ld	a,e
+   0320 D6 02         [ 7]  754 	sub	a, #0x02
+   0322 C0            [11]  755 	ret	NZ
+                            756 ;src/main.c:263: if(cu.y > LIMITE_SUPERIOR){
+   0323 4E            [ 7]  757 	ld	c,(hl)
+   0324 3E 08         [ 7]  758 	ld	a,#0x08
+   0326 91            [ 4]  759 	sub	a, c
+   0327 30 05         [12]  760 	jr	NC,00119$
+                            761 ;src/main.c:264: cu.y--;
+   0329 0D            [ 4]  762 	dec	c
+   032A 71            [ 7]  763 	ld	(hl),c
+                            764 ;src/main.c:265: redibujarCuchillo();
+   032B C3rA3r01      [10]  765 	jp  _redibujarCuchillo
+   032E                     766 00119$:
+                            767 ;src/main.c:266: }else if(cu.y == LIMITE_SUPERIOR){
+   032E 79            [ 4]  768 	ld	a,c
+   032F D6 08         [ 7]  769 	sub	a, #0x08
+   0331 C0            [11]  770 	ret	NZ
+                            771 ;src/main.c:267: borrarCuchillo();
+   0332 CDr41r01      [17]  772 	call	_borrarCuchillo
+                            773 ;src/main.c:268: cu.lanzado = NO;
+   0335 21r10r00      [10]  774 	ld	hl,#(_cu + 0x0006)
+   0338 36 00         [10]  775 	ld	(hl),#0x00
+   033A C9            [10]  776 	ret
+                            777 ;src/main.c:273: void inicializar() {
+                            778 ;	---------------------------------
+                            779 ; Function inicializar
+                            780 ; ---------------------------------
+   033B                     781 _inicializar::
+                            782 ;src/main.c:274: cpct_disableFirmware();
+   033B CDr00r00      [17]  783 	call	_cpct_disableFirmware
+                            784 ;src/main.c:275: cpct_setVideoMode(0);
+   033E 2E 00         [ 7]  785 	ld	l,#0x00
+   0340 CDr00r00      [17]  786 	call	_cpct_setVideoMode
+                            787 ;src/main.c:277: cpct_setPalette(g_palette, 16);
+   0343 21 10 00      [10]  788 	ld	hl,#0x0010
+   0346 E5            [11]  789 	push	hl
+   0347 21r00r00      [10]  790 	ld	hl,#_g_palette
+   034A E5            [11]  791 	push	hl
+   034B CDr00r00      [17]  792 	call	_cpct_setPalette
+                            793 ;src/main.c:278: cpct_akp_musicInit(G_song);
+   034E 21r00r02      [10]  794 	ld	hl,#_G_song
+   0351 E5            [11]  795 	push	hl
+   0352 CDr00r00      [17]  796 	call	_cpct_akp_musicInit
+   0355 F1            [10]  797 	pop	af
+                            798 ;src/main.c:279: mapa = g_map1;
+   0356 21r00r00      [10]  799 	ld	hl,#_g_map1+0
+   0359 22r13r00      [16]  800 	ld	(_mapa),hl
+                            801 ;src/main.c:280: cpct_etm_setTileset2x4(g_tileset);
+   035C 21r00r00      [10]  802 	ld	hl,#_g_tileset
+   035F CDr00r00      [17]  803 	call	_cpct_etm_setTileset2x4
+                            804 ;src/main.c:281: dibujarMapa();
+   0362 CDr00r00      [17]  805 	call	_dibujarMapa
+                            806 ;src/main.c:284: prota.x = prota.px = 0;
+   0365 21r04r00      [10]  807 	ld	hl,#(_prota + 0x0002)
+   0368 36 00         [10]  808 	ld	(hl),#0x00
+   036A 21r02r00      [10]  809 	ld	hl,#_prota
+   036D 36 00         [10]  810 	ld	(hl),#0x00
+                            811 ;src/main.c:285: prota.y = prota.py = 80;
+   036F 21r05r00      [10]  812 	ld	hl,#(_prota + 0x0003)
+   0372 36 50         [10]  813 	ld	(hl),#0x50
+   0374 21r03r00      [10]  814 	ld	hl,#(_prota + 0x0001)
+   0377 36 50         [10]  815 	ld	(hl),#0x50
+                            816 ;src/main.c:286: prota.mover  = NO;
+   0379 21r08r00      [10]  817 	ld	hl,#(_prota + 0x0006)
+   037C 36 00         [10]  818 	ld	(hl),#0x00
+                            819 ;src/main.c:287: prota.mira=M_derecha;
+   037E 21r09r00      [10]  820 	ld	hl,#(_prota + 0x0007)
+   0381 36 00         [10]  821 	ld	(hl),#0x00
+                            822 ;src/main.c:288: prota.sprite = g_hero;
+   0383 21r00r00      [10]  823 	ld	hl,#_g_hero
+   0386 22r06r00      [16]  824 	ld	((_prota + 0x0004)), hl
+                            825 ;src/main.c:289: cu.x = cu.px =0;
+   0389 11r0Ar00      [10]  826 	ld	de,#_cu+0
+   038C 01r0Cr00      [10]  827 	ld	bc,#_cu + 2
+   038F AF            [ 4]  828 	xor	a, a
+   0390 02            [ 7]  829 	ld	(bc),a
+   0391 AF            [ 4]  830 	xor	a, a
+   0392 12            [ 7]  831 	ld	(de),a
+                            832 ;src/main.c:290: cu.x = cu.px = 0;
+   0393 AF            [ 4]  833 	xor	a, a
+   0394 02            [ 7]  834 	ld	(bc),a
+   0395 21r0Ar00      [10]  835 	ld	hl,#_cu
+   0398 36 00         [10]  836 	ld	(hl),#0x00
+                            837 ;src/main.c:291: cu.lanzado=0;
+   039A 21r10r00      [10]  838 	ld	hl,#(_cu + 0x0006)
+   039D 36 00         [10]  839 	ld	(hl),#0x00
+                            840 ;src/main.c:293: dibujarProta();
+   039F CDr16r00      [17]  841 	call	_dibujarProta
+   03A2 C9            [10]  842 	ret
+                            843 ;src/main.c:296: void main(void) {
+                            844 ;	---------------------------------
+                            845 ; Function main
+                            846 ; ---------------------------------
+   03A3                     847 _main::
+                            848 ;src/main.c:299: inicializar();
+   03A3 CDr3Br03      [17]  849 	call	_inicializar
+                            850 ;src/main.c:300: cpct_akp_musicPlay();
+   03A6 CDr00r00      [17]  851 	call	_cpct_akp_musicPlay
+                            852 ;src/main.c:303: while (1) {
+   03A9                     853 00106$:
+                            854 ;src/main.c:306: comprobarTeclado();
+   03A9 CDr7Cr02      [17]  855 	call	_comprobarTeclado
+                            856 ;src/main.c:308: if(cu.lanzado){
+   03AC 3Ar10r00      [13]  857 	ld	a, (#(_cu + 0x0006) + 0)
+   03AF B7            [ 4]  858 	or	a, a
+   03B0 28 06         [12]  859 	jr	Z,00102$
+                            860 ;src/main.c:309: cpct_waitVSYNC();
+   03B2 CDr00r00      [17]  861 	call	_cpct_waitVSYNC
+                            862 ;src/main.c:310: moverCuchillo();
+   03B5 CDrBDr02      [17]  863 	call	_moverCuchillo
+   03B8                     864 00102$:
+                            865 ;src/main.c:312: if (prota.mover) {
+   03B8 3Ar08r00      [13]  866 	ld	a, (#(_prota + 0x0006) + 0)
+   03BB B7            [ 4]  867 	or	a, a
+   03BC 28 0B         [12]  868 	jr	Z,00104$
+                            869 ;src/main.c:313: cpct_waitVSYNC();
+   03BE CDr00r00      [17]  870 	call	_cpct_waitVSYNC
+                            871 ;src/main.c:314: redibujarProta();
+   03C1 CDr77r00      [17]  872 	call	_redibujarProta
+                            873 ;src/main.c:315: prota.mover = NO;
+   03C4 21r08r00      [10]  874 	ld	hl,#(_prota + 0x0006)
+   03C7 36 00         [10]  875 	ld	(hl),#0x00
+   03C9                     876 00104$:
+                            877 ;src/main.c:317: cpct_waitVSYNC();
+   03C9 CDr00r00      [17]  878 	call	_cpct_waitVSYNC
+   03CC 18 DB         [12]  879 	jr	00106$
+                            880 	.area _CODE
+                            881 	.area _INITIALIZER
+                            882 	.area _CABS (ABS)
+   0200                     883 	.org 0x0200
+   0200                     884 _G_song:
+   0200 41                  885 	.db #0x41	; 65	'A'
+   0201 54                  886 	.db #0x54	; 84	'T'
+   0202 31                  887 	.db #0x31	; 49	'1'
+   0203 30                  888 	.db #0x30	; 48	'0'
+   0204 01                  889 	.db #0x01	; 1
+   0205 40                  890 	.db #0x40	; 64
+   0206 42                  891 	.db #0x42	; 66	'B'
+   0207 0F                  892 	.db #0x0F	; 15
+   0208 02                  893 	.db #0x02	; 2
+   0209 06                  894 	.db #0x06	; 6
+   020A 1D                  895 	.db #0x1D	; 29
+   020B 00                  896 	.db #0x00	; 0
+   020C 10                  897 	.db #0x10	; 16
+   020D 40                  898 	.db #0x40	; 64
+   020E 19                  899 	.db #0x19	; 25
+   020F 40                  900 	.db #0x40	; 64
+   0210 00                  901 	.db #0x00	; 0
+   0211 00                  902 	.db #0x00	; 0
+   0212 00                  903 	.db #0x00	; 0
+   0213 00                  904 	.db #0x00	; 0
+   0214 00                  905 	.db #0x00	; 0
+   0215 00                  906 	.db #0x00	; 0
+   0216 0D                  907 	.db #0x0D	; 13
+   0217 12                  908 	.db #0x12	; 18
+   0218 40                  909 	.db #0x40	; 64
+   0219 01                  910 	.db #0x01	; 1
+   021A 00                  911 	.db #0x00	; 0
+   021B 7C                  912 	.db #0x7C	; 124
+   021C 18                  913 	.db #0x18	; 24
+   021D 78                  914 	.db #0x78	; 120	'x'
+   021E 0C                  915 	.db #0x0C	; 12
+   021F 34                  916 	.db #0x34	; 52	'4'
+   0220 30                  917 	.db #0x30	; 48	'0'
+   0221 2C                  918 	.db #0x2C	; 44
+   0222 28                  919 	.db #0x28	; 40
+   0223 24                  920 	.db #0x24	; 36
+   0224 20                  921 	.db #0x20	; 32
+   0225 1C                  922 	.db #0x1C	; 28
+   0226 0D                  923 	.db #0x0D	; 13
+   0227 25                  924 	.db #0x25	; 37
+   0228 40                  925 	.db #0x40	; 64
+   0229 20                  926 	.db #0x20	; 32
+   022A 00                  927 	.db #0x00	; 0
+   022B 00                  928 	.db #0x00	; 0
+   022C 00                  929 	.db #0x00	; 0
+   022D 39                  930 	.db #0x39	; 57	'9'
+   022E 40                  931 	.db #0x40	; 64
+   022F 00                  932 	.db #0x00	; 0
+   0230 57                  933 	.db #0x57	; 87	'W'
+   0231 40                  934 	.db #0x40	; 64
+   0232 3B                  935 	.db #0x3B	; 59
+   0233 40                  936 	.db #0x40	; 64
+   0234 57                  937 	.db #0x57	; 87	'W'
+   0235 40                  938 	.db #0x40	; 64
+   0236 01                  939 	.db #0x01	; 1
+   0237 2F                  940 	.db #0x2F	; 47
+   0238 40                  941 	.db #0x40	; 64
+   0239 19                  942 	.db #0x19	; 25
+   023A 00                  943 	.db #0x00	; 0
+   023B 76                  944 	.db #0x76	; 118	'v'
+   023C E1                  945 	.db #0xE1	; 225
+   023D 00                  946 	.db #0x00	; 0
+   023E 00                  947 	.db #0x00	; 0
+   023F 01                  948 	.db #0x01	; 1
+   0240 04                  949 	.db #0x04	; 4
+   0241 51                  950 	.db #0x51	; 81	'Q'
+   0242 04                  951 	.db #0x04	; 4
+   0243 37                  952 	.db #0x37	; 55	'7'
+   0244 04                  953 	.db #0x04	; 4
+   0245 4F                  954 	.db #0x4F	; 79	'O'
+   0246 04                  955 	.db #0x04	; 4
+   0247 37                  956 	.db #0x37	; 55	'7'
+   0248 02                  957 	.db #0x02	; 2
+   0249 4B                  958 	.db #0x4B	; 75	'K'
+   024A 02                  959 	.db #0x02	; 2
+   024B 37                  960 	.db #0x37	; 55	'7'
+   024C 04                  961 	.db #0x04	; 4
+   024D 4F                  962 	.db #0x4F	; 79	'O'
+   024E 04                  963 	.db #0x04	; 4
+   024F 37                  964 	.db #0x37	; 55	'7'
+   0250 04                  965 	.db #0x04	; 4
+   0251 4F                  966 	.db #0x4F	; 79	'O'
+   0252 04                  967 	.db #0x04	; 4
+   0253 37                  968 	.db #0x37	; 55	'7'
+   0254 02                  969 	.db #0x02	; 2
+   0255 4B                  970 	.db #0x4B	; 75	'K'
+   0256 00                  971 	.db #0x00	; 0
+   0257 42                  972 	.db #0x42	; 66	'B'
+   0258 60                  973 	.db #0x60	; 96
+   0259 00                  974 	.db #0x00	; 0
+   025A 42                  975 	.db #0x42	; 66	'B'
+   025B 80                  976 	.db #0x80	; 128
+   025C 00                  977 	.db #0x00	; 0
+   025D 00                  978 	.db #0x00	; 0
+   025E 42                  979 	.db #0x42	; 66	'B'
+   025F 00                  980 	.db #0x00	; 0
+   0260 00                  981 	.db #0x00	; 0
