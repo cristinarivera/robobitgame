@@ -37,20 +37,13 @@
 #define ALTO_MAPA g_map1_H * 4 			// 4 bytes por tile
 
 #define LIMITE_IZQUIERDO 0 + 4
-<<<<<<< HEAD
-#define LIMITE_DERECHO ANCHO_PANTALLA - 4 
-=======
 #define LIMITE_DERECHO ANCHO_PANTALLA - 4
->>>>>>> collisions
 
 #define LIMITE_SUPERIOR 0 + 8
 #define LIMITE_INFERIOR ALTO_MAPA - 8
 
-<<<<<<< HEAD
-=======
 #define ALTO_PROTA 22
 
->>>>>>> collisions
 
 
 enum {
@@ -134,8 +127,8 @@ u8 checkCollision(int direction) { // check optimization
 
    switch (direction) {
      case 0:
-        headTile = getTilePtr(prota.x + G_HERO_W, prota.y);
-        feetTile = getTilePtr(prota.x + G_HERO_W, prota.y + ALTO_PROTA);
+        headTile = getTilePtr(prota.x + G_HERO_W - 3, prota.y);
+        feetTile = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA);
         break;
     case 1:
         headTile = getTilePtr(prota.x - 1, prota.y);
@@ -159,64 +152,41 @@ u8 checkCollision(int direction) { // check optimization
 
 void moverIzquierda() {
 	if (prota.x > LIMITE_IZQUIERDO) {
-<<<<<<< HEAD
-		prota.x--;
-		prota.mover  = SI;
-		prota.mira=M_izquierda;
-		
-=======
     if (!checkCollision(M_izquierda)) {
   		prota.x--;
   		prota.mover = SI;
     }
 		prota.mira = M_izquierda;
 
->>>>>>> collisions
 	}
 }
 
 void moverDerecha() {
 	if (prota.x < LIMITE_DERECHO - G_HERO_W) {
-<<<<<<< HEAD
-		prota.x++;
-		prota.mover  = SI;
-		prota.mira=M_derecha;
-=======
     if (!checkCollision(M_derecha)) {
   		prota.x++;
   		prota.mover = SI;
     }
 		prota.mira = M_derecha;
->>>>>>> collisions
 	}
 }
 
 void moverArriba() {
 	if (prota.y > LIMITE_SUPERIOR) {
-<<<<<<< HEAD
-		prota.y--;
-		prota.mover  = SI;
-=======
     if (!checkCollision(M_arriba)) {
   		prota.y--;
   		prota.mover  = SI;
     }
->>>>>>> collisions
 		prota.mira = M_arriba;
 	}
 }
 
 void moverAbajo() {
 	if(prota.y < LIMITE_INFERIOR - G_HERO_H){
-<<<<<<< HEAD
-		prota.y++;
-		prota.mover  = SI;
-=======
     if (!checkCollision(M_abajo)) {
 		    prota.y++;
 		    prota.mover  = SI;
     }
->>>>>>> collisions
 		prota.mira = M_abajo;
 	}
 }
@@ -226,11 +196,7 @@ void dibujarCuchillo(u8 eje) {
 	if(eje == E_X){
 		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> collisions
 	else if(eje == E_Y){
 		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
 	}
@@ -255,11 +221,7 @@ void lanzarCuchillo(){
 	if(prota.mira == M_derecha){
 		cu.direccion = M_derecha;
 		cu.x=prota.x + G_HERO_W;
-<<<<<<< HEAD
-		cu.y=prota.y + G_HERO_H /2;	
-=======
 		cu.y=prota.y + G_HERO_H /2;
->>>>>>> collisions
 		cu.sprite=g_knifeX_0;
 		cu.eje = E_X;
 		dibujarCuchillo(cu.eje);
@@ -267,11 +229,7 @@ void lanzarCuchillo(){
 	else if(prota.mira == M_izquierda){
 		cu.direccion = M_izquierda;
 		cu.x = prota.x - G_KNIFEX_0_W;
-<<<<<<< HEAD
-		cu.y = prota.y + G_HERO_H /2;	
-=======
 		cu.y = prota.y + G_HERO_H /2;
->>>>>>> collisions
 		cu.sprite = g_knifeX_1;
 		cu.eje = E_X;
 		dibujarCuchillo(cu.eje);
@@ -279,11 +237,7 @@ void lanzarCuchillo(){
 	else if(prota.mira == M_abajo){
 		cu.direccion = M_abajo;
 		cu.x = prota.x + G_HERO_W / 2;
-<<<<<<< HEAD
-		cu.y = prota.y + G_HERO_H + 10;	
-=======
 		cu.y = prota.y + G_HERO_H + 10;
->>>>>>> collisions
 		cu.sprite = g_knifeY_0;
 		cu.eje = E_Y;
 		dibujarCuchillo(cu.eje);
@@ -291,11 +245,7 @@ void lanzarCuchillo(){
 	else if(prota.mira == M_arriba){
 		cu.direccion = M_arriba;
 		cu.x = prota.x + G_HERO_W / 2;
-<<<<<<< HEAD
-		cu.y = prota.y;	
-=======
 		cu.y = prota.y;
->>>>>>> collisions
 		cu.sprite = g_knifeY_1;
 		cu.eje = E_Y;
 		dibujarCuchillo(cu.eje);
@@ -322,13 +272,8 @@ void comprobarTeclado() {
 
 
 void moverCuchillo(){
-<<<<<<< HEAD
-	
-	if(cu.direccion == M_derecha){		
-=======
 
 	if(cu.direccion == M_derecha){
->>>>>>> collisions
 		if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
 			cu.x++;
 			redibujarCuchillo();
@@ -395,15 +340,6 @@ void main(void) {
 
 	inicializar();
    	cpct_akp_musicPlay();
-<<<<<<< HEAD
-   	
-  
-   	while (1) {
-   		
-   		
-   		comprobarTeclado();
-   		
-=======
 
 
    	while (1) {
@@ -411,7 +347,6 @@ void main(void) {
 
    		comprobarTeclado();
 
->>>>>>> collisions
    		if(cu.lanzado){
    			cpct_waitVSYNC();
    			moverCuchillo();
