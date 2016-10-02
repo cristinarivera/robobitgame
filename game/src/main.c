@@ -130,7 +130,7 @@ u8 checkCollision(int direction) {
         tile = getTilePtr(prota.x + G_HERO_W + 1, prota.y);
         break;
     case 1:
-        tile = getTilePtr(prota.x, prota.y - 1);
+        tile = getTilePtr(prota.x - 1, prota.y);
         break;
     case 2:
         tile = getTilePtr(prota.x, prota.y - 1);
