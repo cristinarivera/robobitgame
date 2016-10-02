@@ -122,25 +122,29 @@ u8* getTilePtr(u8 x, u8 y) {
    return mapa + (y-ORIGEN_MAPA_Y)/4*g_map1_W + x/2;
 }
 
-u8 checkCollision(int direction) {
-   u8* tile;
+u8 checkCollision(int direction) { // check optimization
+   u8 *headTile, *feetTile;
 
    switch (direction) {
      case 0:
-        tile = getTilePtr(prota.x + G_HERO_W + 1, prota.y);
+        headTile = getTilePtr(prota.x + G_HERO_W, prota.y);
+        feetTile = getTilePtr(prota.x + G_HERO_W, prota.y + ALTO_PROTA);
         break;
     case 1:
-        tile = getTilePtr(prota.x - 1, prota.y);
+        headTile = getTilePtr(prota.x - 1, prota.y);
+        feetTile = getTilePtr(prota.x - 1, prota.y + ALTO_PROTA);
         break;
     case 2:
-        tile = getTilePtr(prota.x, prota.y - 1);
+        headTile = getTilePtr(prota.x, prota.y - 1);
+        feetTile = getTilePtr(prota.x, prota.y - 1);
         break;
     case 3:
-        tile = getTilePtr(prota.x + 2, prota.y + ALTO_PROTA + 1);
+        headTile = getTilePtr(prota.x + 2, prota.y + ALTO_PROTA + 1);
+        feetTile = getTilePtr(prota.x + 2, prota.y + ALTO_PROTA + 1);
         break;
    }
 
-   if (*tile > 0)
+   if (*headTile > 0 || *feetTile > 0)
       return 1;
 
    return 0;
