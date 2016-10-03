@@ -10,10 +10,10 @@ Symbol Table
   1 _EEje                                                          0001 GR
   1 _EMirar                                                        0000 GR
   C _G_song                                                        3F00 GR
-  9 _borrarCuchillo                                                030A GR
+  9 _borrarCuchillo                                                0319 GR
   9 _borrarProta                                                   003C GR
   9 _checkCollision                                                00EF GR
-  9 _comprobarTeclado                                              054C GR
+  9 _comprobarTeclado                                              055B GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -28,7 +28,7 @@ Symbol Table
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            000A GR
-  9 _dibujarCuchillo                                               028D GR
+  9 _dibujarCuchillo                                               029C GR
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  0016 GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
@@ -42,17 +42,17 @@ Symbol Table
   8 _g_tablatrans                                                  3E00 GR
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    00B3 GR
-  9 _inicializar                                                   0685 GR
-  9 _lanzarCuchillo                                                03A5 GR
-  9 _main                                                          0708 GR
+  9 _inicializar                                                   0694 GR
+  9 _lanzarCuchillo                                                03B4 GR
+  9 _main                                                          0717 GR
   1 _mapa                                                          0064 GR
-  9 _moverAbajo                                                    0271 GR
-  9 _moverArriba                                                   0255 GR
-  9 _moverCuchillo                                                 058D GR
-  9 _moverDerecha                                                  0237 GR
-  9 _moverIzquierda                                                0218 GR
+  9 _moverAbajo                                                    0280 GR
+  9 _moverArriba                                                   0264 GR
+  9 _moverCuchillo                                                 059C GR
+  9 _moverDerecha                                                  0246 GR
+  9 _moverIzquierda                                                0227 GR
   1 _prota                                                         0002 GR
-  9 _redibujarCuchillo                                             0374 GR
+  9 _redibujarCuchillo                                             0383 GR
   9 _redibujarProta                                                009F GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -69,7 +69,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  727   flags    0
+   9 _CSEG                                      size  736   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

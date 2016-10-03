@@ -138,7 +138,7 @@ u8 checkCollision(int direction) { // check optimization
         break;
     case 2:
         headTile   = getTilePtr(prota.x, prota.y - 1);
-        *feetTile  = 0;
+        feetTile   = getTilePtr(prota.x + G_HERO_W - 4, prota.y - 1);
         *waistTile = 0;
         break;
     case 3:

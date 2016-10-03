@@ -433,21 +433,30 @@ _checkCollision::
 ;src/main.c:139: case 2:
 00103$:
 ;src/main.c:140: headTile   = getTilePtr(prota.x, prota.y - 1);
-	ld	a, (#_prota + 1)
-	add	a,#0xFF
-	ld	hl, #_prota + 0
+	ld	hl, #(_prota + 0x0001) + 0
 	ld	b,(hl)
-	push	af
-	inc	sp
+	dec	b
+	ld	hl, #_prota + 0
+	ld	c, (hl)
 	push	bc
-	inc	sp
 	call	_getTilePtr
 	pop	af
 	ld	-2 (ix),l
 	ld	-1 (ix),h
-;src/main.c:141: *feetTile  = 0;
-	xor	a, a
-	ld	(bc),a
+;src/main.c:141: feetTile   = getTilePtr(prota.x + G_HERO_W - 4, prota.y - 1);
+	ld	a, (#(_prota + 0x0001) + 0)
+	ld	b,a
+	dec	b
+	ld	a, (#_prota + 0)
+	add	a, #0x03
+	push	bc
+	inc	sp
+	push	af
+	inc	sp
+	call	_getTilePtr
+	pop	af
+	ld	c,l
+	ld	b,h
 ;src/main.c:142: *waistTile = 0;
 	xor	a, a
 	ld	(de),a
