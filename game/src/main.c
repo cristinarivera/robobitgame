@@ -154,10 +154,7 @@ u8 checkCollision(int direction) { // check optimization
         break;
    }
 
-   if (*headTile > 0 || *feetTile > 0 || *waistTile > 0)
-   	//if (*headTile != 0  || *headTile != 5 || *headTile != 10
-   	//	|| *feetTile != 0 || *feetTile != 5 || *feetTile != 10 
-   	//	|| *waistTile != 0 || *waistTile != 5 || *waistTile != 10)
+   if (*headTile > 2 || *feetTile > 2 || *waistTile > 2)
       return 1;
 
    return 0;
