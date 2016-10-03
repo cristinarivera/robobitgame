@@ -2,33 +2,22 @@
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.5 #9498 (Linux)
 ;--------------------------------------------------------
-	.module tiles
+	.module tiles2
 	.optsdcc -mz80
 	
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _g_tiles_19
-	.globl _g_tiles_18
-	.globl _g_tiles_17
-	.globl _g_tiles_16
-	.globl _g_tiles_15
-	.globl _g_tiles_14
-	.globl _g_tiles_13
-	.globl _g_tiles_12
-	.globl _g_tiles_11
-	.globl _g_tiles_10
-	.globl _g_tiles_09
-	.globl _g_tiles_08
-	.globl _g_tiles_07
-	.globl _g_tiles_06
-	.globl _g_tiles_05
-	.globl _g_tiles_04
-	.globl _g_tiles_03
-	.globl _g_tiles_02
-	.globl _g_tiles_01
-	.globl _g_tiles_00
-	.globl _g_tileset
+	.globl _g_tiles2_09
+	.globl _g_tiles2_08
+	.globl _g_tiles2_07
+	.globl _g_tiles2_06
+	.globl _g_tiles2_05
+	.globl _g_tiles2_04
+	.globl _g_tiles2_03
+	.globl _g_tiles2_02
+	.globl _g_tiles2_01
+	.globl _g_tiles2_00
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -61,118 +50,7 @@
 ;--------------------------------------------------------
 	.area _CODE
 	.area _CODE
-_g_tileset:
-	.dw _g_tiles_00
-	.dw _g_tiles_01
-	.dw _g_tiles_02
-	.dw _g_tiles_03
-	.dw _g_tiles_04
-	.dw _g_tiles_05
-	.dw _g_tiles_06
-	.dw _g_tiles_07
-	.dw _g_tiles_08
-	.dw _g_tiles_09
-	.dw _g_tiles_10
-	.dw _g_tiles_11
-	.dw _g_tiles_12
-	.dw _g_tiles_13
-	.dw _g_tiles_14
-	.dw _g_tiles_15
-	.dw _g_tiles_16
-	.dw _g_tiles_17
-	.dw _g_tiles_18
-	.dw _g_tiles_19
-_g_tiles_00:
-	.db #0x03	; 3
-	.db #0x03	; 3
-	.db #0x57	; 87	'W'
-	.db #0x03	; 3
-	.db #0x03	; 3
-	.db #0x03	; 3
-	.db #0x03	; 3
-	.db #0x57	; 87	'W'
-_g_tiles_01:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xAC	; 172
-	.db #0xFC	; 252
-	.db #0xAC	; 172
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-_g_tiles_02:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-_g_tiles_03:
-	.db #0x3C	; 60
-	.db #0xFC	; 252
-	.db #0x7C	; 124
-	.db #0xBC	; 188
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xBC	; 188
-	.db #0xBC	; 188
-_g_tiles_04:
-	.db #0xFC	; 252
-	.db #0x3C	; 60
-	.db #0x7C	; 124
-	.db #0xBC	; 188
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x7C	; 124
-	.db #0x7C	; 124
-_g_tiles_05:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-_g_tiles_06:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xAC	; 172
-	.db #0xFC	; 252
-	.db #0xAC	; 172
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-_g_tiles_07:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-_g_tiles_08:
-	.db #0xBC	; 188
-	.db #0xBC	; 188
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x7C	; 124
-	.db #0xBC	; 188
-	.db #0x3C	; 60
-	.db #0xFC	; 252
-_g_tiles_09:
-	.db #0x7C	; 124
-	.db #0x7C	; 124
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x7C	; 124
-	.db #0xBC	; 188
-	.db #0xFC	; 252
-	.db #0x3C	; 60
-_g_tiles_10:
+_g_tiles2_00:
 	.db #0xC3	; 195
 	.db #0xC3	; 195
 	.db #0xC6	; 198
@@ -181,7 +59,7 @@ _g_tiles_10:
 	.db #0xC3	; 195
 	.db #0xC3	; 195
 	.db #0xC6	; 198
-_g_tiles_11:
+_g_tiles2_01:
 	.db #0xCC	; 204
 	.db #0xCF	; 207
 	.db #0xCE	; 206
@@ -190,7 +68,7 @@ _g_tiles_11:
 	.db #0xCC	; 204
 	.db #0xCB	; 203
 	.db #0xCE	; 206
-_g_tiles_12:
+_g_tiles2_02:
 	.db #0xCE	; 206
 	.db #0xCD	; 205
 	.db #0xC7	; 199
@@ -199,7 +77,7 @@ _g_tiles_12:
 	.db #0xCE	; 206
 	.db #0xC9	; 201
 	.db #0xC7	; 199
-_g_tiles_13:
+_g_tiles2_03:
 	.db #0xCC	; 204
 	.db #0xCF	; 207
 	.db #0xCC	; 204
@@ -208,7 +86,7 @@ _g_tiles_13:
 	.db #0xCF	; 207
 	.db #0xCE	; 206
 	.db #0xCF	; 207
-_g_tiles_14:
+_g_tiles2_04:
 	.db #0xCF	; 207
 	.db #0xCC	; 204
 	.db #0xCC	; 204
@@ -217,16 +95,16 @@ _g_tiles_14:
 	.db #0xCD	; 205
 	.db #0xCF	; 207
 	.db #0xCD	; 205
-_g_tiles_15:
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-	.db #0x0C	; 12
-_g_tiles_16:
+_g_tiles2_05:
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+_g_tiles2_06:
 	.db #0xCB	; 203
 	.db #0xCF	; 207
 	.db #0xC9	; 201
@@ -235,7 +113,7 @@ _g_tiles_16:
 	.db #0xC3	; 195
 	.db #0xCE	; 206
 	.db #0xCF	; 207
-_g_tiles_17:
+_g_tiles2_07:
 	.db #0xCC	; 204
 	.db #0xC7	; 199
 	.db #0xCE	; 206
@@ -244,7 +122,7 @@ _g_tiles_17:
 	.db #0xCC	; 204
 	.db #0xCF	; 207
 	.db #0xCE	; 206
-_g_tiles_18:
+_g_tiles2_08:
 	.db #0xCE	; 206
 	.db #0xCF	; 207
 	.db #0xCE	; 206
@@ -253,7 +131,7 @@ _g_tiles_18:
 	.db #0xCC	; 204
 	.db #0xCC	; 204
 	.db #0xCF	; 207
-_g_tiles_19:
+_g_tiles2_09:
 	.db #0xCF	; 207
 	.db #0xCD	; 205
 	.db #0xCF	; 207

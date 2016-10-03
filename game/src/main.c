@@ -25,6 +25,8 @@
 #include "knifeY.h"
 #include "hero.h"
 #include "map1.h"
+#include "map2.h"
+#include "map3.h"
 #include "tiles.h"
 #include "song.c"
 
@@ -77,6 +79,9 @@ typedef struct {
 	u8 eje;
 } TKnife;
 
+// Mapas
+#define NUM_MAPAS 3
+u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 
 TProta prota;
@@ -85,6 +90,7 @@ TKnife cu[10];
 
 
 u8* mapa;
+u8  num_mapa;
 
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 - 4D - FF00FF
@@ -126,7 +132,7 @@ u8 checkCollision(int direction) { // check optimization
    u8 *headTile, *feetTile, *waistTile;
 
    switch (direction) {
-     case 0:
+    case 0:
         headTile  = getTilePtr(prota.x + G_HERO_W - 3, prota.y);
         feetTile  = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA);
         waistTile = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA/2);
@@ -149,9 +155,21 @@ u8 checkCollision(int direction) { // check optimization
    }
 
    if (*headTile > 0 || *feetTile > 0 || *waistTile > 0)
+   	//if (*headTile != 0  || *headTile != 5 || *headTile != 10
+   	//	|| *feetTile != 0 || *feetTile != 5 || *feetTile != 10 
+   	//	|| *waistTile != 0 || *waistTile != 5 || *waistTile != 10)
       return 1;
 
    return 0;
+}
+
+void avanzarMapa() {
+	if(num_mapa < NUM_MAPAS -1) {
+		mapa = mapas[++num_mapa];
+		prota.x = prota.px = 2;
+		prota.mover = SI;
+		dibujarMapa();
+	}
 }
 
 void moverIzquierda() {
@@ -167,7 +185,9 @@ void moverDerecha() {
 	if (!checkCollision(M_derecha)) {
   		prota.x++;
   		prota.mover = SI;
-    }
+    }else if ( prota.x > 68 && prota.y >72 && prota.y < 80){  //TODO que avance solo si estamos en el centro
+		avanzarMapa();
+	}
 }
 
 void moverArriba() {
@@ -357,6 +377,7 @@ void inicializar() {
 	cpct_setPalette(g_palette, 16);
 	cpct_akp_musicInit(G_song);
 	mapa = g_map1;
+	num_mapa = 0;
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 

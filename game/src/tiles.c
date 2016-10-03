@@ -1,7 +1,7 @@
 #include "tiles.h"
 // Data created with Img2CPC - (c) Retroworks - 2007-2015
-u8* const g_tileset[10] = { 
-	g_tiles_00, g_tiles_01, g_tiles_02, g_tiles_03, g_tiles_04, g_tiles_05, g_tiles_06, g_tiles_07, g_tiles_08, g_tiles_09
+u8* const g_tileset[20] = { 
+	g_tiles_00, g_tiles_01, g_tiles_02, g_tiles_03, g_tiles_04, g_tiles_05, g_tiles_06, g_tiles_07, g_tiles_08, g_tiles_09, g_tiles_10, g_tiles_11, g_tiles_12, g_tiles_13, g_tiles_14, g_tiles_15, g_tiles_16, g_tiles_17, g_tiles_18, g_tiles_19
 };
 // Tile g_tiles_00: 4x4 pixels, 2x4 bytes.
 const u8 g_tiles_00[2 * 4] = {
@@ -45,10 +45,10 @@ const u8 g_tiles_04[2 * 4] = {
 
 // Tile g_tiles_05: 4x4 pixels, 2x4 bytes.
 const u8 g_tiles_05[2 * 4] = {
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff
+	0xfc, 0xfc,
+	0xfc, 0xfc,
+	0xfc, 0xfc,
+	0xfc, 0xfc
 };
 
 // Tile g_tiles_06: 4x4 pixels, 2x4 bytes.
@@ -81,5 +81,85 @@ const u8 g_tiles_09[2 * 4] = {
 	0xfc, 0xfc,
 	0x7c, 0xbc,
 	0xfc, 0x3c
+};
+
+// Tile g_tiles_10: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_10[2 * 4] = {
+	0xc3, 0xc3,
+	0xc6, 0xc3,
+	0xc3, 0xc3,
+	0xc3, 0xc6
+};
+
+// Tile g_tiles_11: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_11[2 * 4] = {
+	0xcc, 0xcf,
+	0xce, 0xc9,
+	0xcb, 0xcc,
+	0xcb, 0xce
+};
+
+// Tile g_tiles_12: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_12[2 * 4] = {
+	0xce, 0xcd,
+	0xc7, 0xcc,
+	0xc3, 0xce,
+	0xc9, 0xc7
+};
+
+// Tile g_tiles_13: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_13[2 * 4] = {
+	0xcc, 0xcf,
+	0xcc, 0xcc,
+	0xce, 0xcf,
+	0xce, 0xcf
+};
+
+// Tile g_tiles_14: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_14[2 * 4] = {
+	0xcf, 0xcc,
+	0xcc, 0xcc,
+	0xcf, 0xcd,
+	0xcf, 0xcd
+};
+
+// Tile g_tiles_15: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_15[2 * 4] = {
+	0x0c, 0x0c,
+	0x0c, 0x0c,
+	0x0c, 0x0c,
+	0x0c, 0x0c
+};
+
+// Tile g_tiles_16: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_16[2 * 4] = {
+	0xcb, 0xcf,
+	0xc9, 0xc7,
+	0xcc, 0xc3,
+	0xce, 0xcf
+};
+
+// Tile g_tiles_17: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_17[2 * 4] = {
+	0xcc, 0xc7,
+	0xce, 0xcd,
+	0xc3, 0xcc,
+	0xcf, 0xce
+};
+
+// Tile g_tiles_18: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_18[2 * 4] = {
+	0xce, 0xcf,
+	0xce, 0xcf,
+	0xcc, 0xcc,
+	0xcc, 0xcf
+};
+
+// Tile g_tiles_19: 4x4 pixels, 2x4 bytes.
+const u8 g_tiles_19[2 * 4] = {
+	0xcf, 0xcd,
+	0xcf, 0xcd,
+	0xcc, 0xcc,
+	0xcf, 0xcc
 };
 

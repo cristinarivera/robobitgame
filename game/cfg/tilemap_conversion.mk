@@ -53,3 +53,5 @@
 ##
 
 $(eval $(call TMX2C,assets/map1.tmx,g_map1,src/))
+$(eval $(call TMX2C,assets/map2.tmx,g_map2,src/))
+$(eval $(call TMX2C,assets/map3.tmx,g_map3,src/))
