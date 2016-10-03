@@ -45,27 +45,27 @@
 _g_knifeY_0:
 	.db #0x00	; 0
 	.db #0x00	; 0
-	.db #0x44	; 68	'D'
 	.db #0x00	; 0
-	.db #0xCC	; 204
 	.db #0x88	; 136
-	.db #0x51	; 81	'Q'
+	.db #0x44	; 68	'D'
+	.db #0xCC	; 204
 	.db #0x00	; 0
-	.db #0x51	; 81	'Q'
+	.db #0xA2	; 162
 	.db #0x00	; 0
-	.db #0x51	; 81	'Q'
+	.db #0xA2	; 162
 	.db #0x00	; 0
+	.db #0xA2	; 162
 _g_knifeY_1:
-	.db #0x51	; 81	'Q'
 	.db #0x00	; 0
-	.db #0x51	; 81	'Q'
+	.db #0xA2	; 162
 	.db #0x00	; 0
-	.db #0x51	; 81	'Q'
+	.db #0xA2	; 162
 	.db #0x00	; 0
-	.db #0xCC	; 204
-	.db #0x88	; 136
+	.db #0xA2	; 162
 	.db #0x44	; 68	'D'
+	.db #0xCC	; 204
 	.db #0x00	; 0
+	.db #0x88	; 136
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.area _INITIALIZER

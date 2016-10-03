@@ -81,7 +81,7 @@ typedef struct {
 
 TProta prota;
 
-TKnife cu;
+TKnife cu[10];
 
 
 u8* mapa;
@@ -151,104 +151,131 @@ u8 checkCollision(int direction) { // check optimization
 }
 
 void moverIzquierda() {
-	if (prota.x > LIMITE_IZQUIERDO) {
+	
+	prota.mira = M_izquierda;
+	
     if (!checkCollision(M_izquierda)) {
   		prota.x--;
   		prota.mover = SI;
     }
-		prota.mira = M_izquierda;
+		
 
-	}
+	
 }
 
 void moverDerecha() {
-	if (prota.x < LIMITE_DERECHO - G_HERO_W) {
-    if (!checkCollision(M_derecha)) {
+	prota.mira = M_derecha;
+	
+	if (!checkCollision(M_derecha)) {
   		prota.x++;
   		prota.mover = SI;
     }
-		prota.mira = M_derecha;
-	}
+		
+	
 }
 
 void moverArriba() {
-	if (prota.y > LIMITE_SUPERIOR) {
-    if (!checkCollision(M_arriba)) {
+	prota.mira = M_arriba;
+	
+	if (!checkCollision(M_arriba)) {
   		prota.y--;
   		prota.mover  = SI;
     }
-		prota.mira = M_arriba;
-	}
+	
 }
 
 void moverAbajo() {
-	if(prota.y < LIMITE_INFERIOR - G_HERO_H){
-    if (!checkCollision(M_abajo)) {
+	prota.mira = M_abajo;
+	
+	if (!checkCollision(M_abajo)) {
 		    prota.y++;
 		    prota.mover  = SI;
     }
-		prota.mira = M_abajo;
+	
+}
+
+void dibujarCuchillo(TKnife* actual) {
+	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, actual->x, actual->y);
+	if(actual->eje == E_X){
+		cpct_drawSpriteMaskedAlignedTable (actual->sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+	}
+	
+	else if(actual->eje == E_Y){
+		cpct_drawSpriteMaskedAlignedTable (actual->sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
 	}
 }
 
-void dibujarCuchillo(u8 eje) {
-	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, cu.x, cu.y);
-	if(eje == E_X){
-		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
-	}
-
-	else if(eje == E_Y){
-		cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
-	}
+void borrarCuchillo(TKnife* actual) {
+	u8 w = 2 + (actual->px & 1);
+	u8 h = 2 + (actual->py & 3 ? 1 : 0);
+	cpct_etm_drawTileBox2x4 (actual->px / 2, (actual->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 }
 
-void borrarCuchillo() {
-	u8 w = 2 + (cu.px & 1);
-	u8 h = 2 + (cu.py & 3 ? 1 : 0);
-	cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-}
-
-void redibujarCuchillo() {
-	borrarCuchillo();
-	cu.px = cu.x;
-	cu.py = cu.y;
-	dibujarCuchillo(cu.eje);
+void redibujarCuchillo(TKnife* actual) {
+	borrarCuchillo(actual);
+	actual->px = actual->x;
+	actual->py = actual->y;
+	dibujarCuchillo(actual);
 }
 
 
 void lanzarCuchillo(){
-	cu.lanzado = SI;
-	if(prota.mira == M_derecha){
-		cu.direccion = M_derecha;
-		cu.x=prota.x + G_HERO_W;
-		cu.y=prota.y + G_HERO_H /2;
-		cu.sprite=g_knifeX_0;
-		cu.eje = E_X;
-		dibujarCuchillo(cu.eje);
+	
+	TKnife* actual = cu;
+	u8 i = 10 + 1;
+	--i;
+	while(i>0 && actual->lanzado){
+		--i;
+		actual++;
 	}
-	else if(prota.mira == M_izquierda){
-		cu.direccion = M_izquierda;
-		cu.x = prota.x - G_KNIFEX_0_W;
-		cu.y = prota.y + G_HERO_H /2;
-		cu.sprite = g_knifeX_1;
-		cu.eje = E_X;
-		dibujarCuchillo(cu.eje);
-	}
-	else if(prota.mira == M_abajo){
-		cu.direccion = M_abajo;
-		cu.x = prota.x + G_HERO_W / 2;
-		cu.y = prota.y + G_HERO_H + 10;
-		cu.sprite = g_knifeY_0;
-		cu.eje = E_Y;
-		dibujarCuchillo(cu.eje);
-	}
-	else if(prota.mira == M_arriba){
-		cu.direccion = M_arriba;
-		cu.x = prota.x + G_HERO_W / 2;
-		cu.y = prota.y;
-		cu.sprite = g_knifeY_1;
-		cu.eje = E_Y;
-		dibujarCuchillo(cu.eje);
+	
+	if(i>0 && !actual->lanzado){
+		
+		if(prota.mira == M_derecha){
+			if( (LIMITE_DERECHO - (prota.x + G_HERO_W) ) >= G_KNIFEX_0_W + 1){
+				actual->lanzado = SI;
+				actual->direccion = M_derecha;
+				actual->x=prota.x + G_HERO_W;
+				actual->y=prota.y + G_HERO_H /2;	
+				actual->sprite=g_knifeX_0;
+				actual->eje = E_X;
+				dibujarCuchillo(actual);
+			}
+		}
+		else if(prota.mira == M_izquierda){
+			if( (prota.x - 4 ) >= G_KNIFEX_1_W + 1){
+				actual->lanzado = SI;
+				actual->direccion = M_izquierda;
+				actual->x = prota.x - G_KNIFEX_0_W;
+				actual->y = prota.y + G_HERO_H /2;	
+				actual->sprite = g_knifeX_1;
+				actual->eje = E_X;
+				dibujarCuchillo(actual);
+			}
+		}
+		else if(prota.mira == M_abajo){
+			u8 valor = LIMITE_INFERIOR;
+			if((valor - (prota.y + G_HERO_H)) >= G_KNIFEY_0_H + 1){
+				actual->lanzado = SI;
+				actual->direccion = M_abajo;
+				actual->x = prota.x + G_HERO_W / 2;
+				actual->y = prota.y + G_HERO_H;	
+				actual->sprite = g_knifeY_0;
+				actual->eje = E_Y;
+				dibujarCuchillo(actual);
+			}
+		}
+		else if(prota.mira == M_arriba){
+			if((prota.y - 8)>= G_KNIFEY_0_H +1 ){
+				actual->lanzado = SI;
+				actual->direccion = M_arriba;
+				actual->x = prota.x + G_HERO_W / 2;
+				actual->y = prota.y;	
+				actual->sprite = g_knifeY_1;
+				actual->eje = E_Y;
+				dibujarCuchillo(actual);
+			}
+		}
 	}
 }
 
@@ -272,47 +299,66 @@ void comprobarTeclado() {
 
 
 void moverCuchillo(){
-
-	if(cu.direccion == M_derecha){
-		if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
-			cu.x++;
-			redibujarCuchillo();
+	
+	u8 i = 10 + 1;
+	TKnife* actual = cu;
+	
+	while(--i){
+		if(actual->lanzado){
+			if(actual->direccion == M_derecha){		
+				if(actual->x< LIMITE_DERECHO - G_KNIFEX_0_W){
+					actual->x++;
+					
+					redibujarCuchillo(actual);
+				}
+				else if(actual->x >= LIMITE_DERECHO  - G_KNIFEX_0_W){
+					borrarCuchillo(actual);
+					actual->lanzado = NO;
+				}
+			}
+			else if(actual->direccion == M_izquierda){
+				if(actual->x > LIMITE_IZQUIERDO){
+					actual->x--;
+				
+					redibujarCuchillo(actual);
+				}else if(actual->x <= LIMITE_IZQUIERDO){
+					borrarCuchillo(actual);
+					actual->lanzado = NO;
+				}
+			}
+			else if(actual->direccion == M_abajo){
+				if(actual->y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+					actual->y++;
+					actual->y++;
+					redibujarCuchillo(actual);
+					
+					
+				}else if(actual->y >= LIMITE_INFERIOR - G_KNIFEY_0_H ){
+					borrarCuchillo(actual);
+					actual->lanzado = NO;
+				}
+			}
+			else if(actual->direccion == M_arriba){
+				if(actual->y > LIMITE_SUPERIOR){
+					actual->y--;
+					actual->y--;
+					redibujarCuchillo(actual);
+				
+				}else if(actual->y <= LIMITE_SUPERIOR){
+					borrarCuchillo(actual);
+					actual->lanzado = NO;
+				}
+			}
 		}
-		else if(cu.x == LIMITE_DERECHO  - G_KNIFEX_0_W){
-			borrarCuchillo();
-			cu.lanzado = NO;
-		}
-	}
-	else if(cu.direccion == M_izquierda){
-		if(cu.x > LIMITE_IZQUIERDO){
-			cu.x--;
-			redibujarCuchillo();
-		}else if(cu.x == LIMITE_IZQUIERDO){
-			borrarCuchillo();
-			cu.lanzado = NO;
-		}
-	}
-	else if(cu.direccion == M_abajo){
-		if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
-			cu.y++;
-			redibujarCuchillo();
-		}else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
-			borrarCuchillo();
-			cu.lanzado = NO;
-		}
-	}
-	else if(cu.direccion == M_arriba){
-		if(cu.y > LIMITE_SUPERIOR){
-			cu.y--;
-			redibujarCuchillo();
-		}else if(cu.y == LIMITE_SUPERIOR){
-			borrarCuchillo();
-			cu.lanzado = NO;
-		}
+		++actual;
 	}
 }
 
 void inicializar() {
+	
+	u8 i;
+	TKnife* actual = cu;
+	
 	cpct_disableFirmware();
 	cpct_setVideoMode(0);
 	//cpct_setBorder(HW_BLACK);
@@ -323,39 +369,46 @@ void inicializar() {
 	dibujarMapa();
 
 
-	prota.x = prota.px = 0;
+	prota.x = prota.px = 4;
 	prota.y = prota.py = 80;
 	prota.mover  = NO;
 	prota.mira=M_derecha;
 	prota.sprite = g_hero;
-	cu.x = cu.px =0;
-	cu.x = cu.px = 0;
-	cu.lanzado=0;
-
+	
+	
+	i = 10 + 1;
+	
+	
+	while(--i){
+		actual->x = actual->px = 0;
+		actual->y = actual->py = 0;
+		actual->lanzado = 0;
+		++actual;
+	}
+	
+	
 	dibujarProta();
 }
 
 void main(void) {
-
+	
 
 	inicializar();
    	cpct_akp_musicPlay();
-
-
+   	
+  
    	while (1) {
-
-
+   		
+   		
    		comprobarTeclado();
-
-   		if(cu.lanzado){
-   			cpct_waitVSYNC();
-   			moverCuchillo();
-   		}
+   		
+		cpct_waitVSYNC();
+   		moverCuchillo();
+   		
    		if (prota.mover) {
-   			cpct_waitVSYNC();
+			
    			redibujarProta();
    			prota.mover = NO;
    		}
-   		cpct_waitVSYNC();
    	}
 }

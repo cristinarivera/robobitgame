@@ -43,7 +43,7 @@
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)
-	.org 0x0200
+	.org 0x3F00
 _G_song:
 	.db #0x41	; 65	'A'
 	.db #0x54	; 84	'T'

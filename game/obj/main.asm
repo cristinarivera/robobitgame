@@ -59,7 +59,7 @@ _EEje::
 _prota::
 	.ds 8
 _cu::
-	.ds 9
+	.ds 90
 _mapa::
 	.ds 2
 ;--------------------------------------------------------
@@ -486,14 +486,11 @@ _checkCollision::
 ; Function moverIzquierda
 ; ---------------------------------
 _moverIzquierda::
-;src/main.c:154: if (prota.x > LIMITE_IZQUIERDO) {
+;src/main.c:155: prota.mira = M_izquierda;
 	ld	bc,#_prota+0
-	ld	a,(bc)
-	ld	e,a
-	ld	a,#0x04
-	sub	a, e
-	ret	NC
-;src/main.c:155: if (!checkCollision(M_izquierda)) {
+	ld	hl,#(_prota + 0x0007)
+	ld	(hl),#0x01
+;src/main.c:157: if (!checkCollision(M_izquierda)) {
 	push	bc
 	ld	hl,#0x0001
 	push	hl
@@ -502,117 +499,93 @@ _moverIzquierda::
 	pop	bc
 	ld	a,l
 	or	a, a
-	jr	NZ,00102$
-;src/main.c:156: prota.x--;
+	ret	NZ
+;src/main.c:158: prota.x--;
 	ld	a,(bc)
 	add	a,#0xFF
 	ld	(bc),a
-;src/main.c:157: prota.mover = SI;
+;src/main.c:159: prota.mover = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-00102$:
-;src/main.c:159: prota.mira = M_izquierda;
-	ld	hl,#(_prota + 0x0007)
-	ld	(hl),#0x01
 	ret
-;src/main.c:164: void moverDerecha() {
+;src/main.c:166: void moverDerecha() {
 ;	---------------------------------
 ; Function moverDerecha
 ; ---------------------------------
 _moverDerecha::
-;src/main.c:165: if (prota.x < LIMITE_DERECHO - G_HERO_W) {
-	ld	hl,#_prota+0
-	ld	a, (hl)
-	sub	a, #0x45
-	ret	NC
-;src/main.c:166: if (!checkCollision(M_derecha)) {
-	push	hl
-	ld	bc,#0x0000
-	push	bc
-	call	_checkCollision
-	pop	af
-	ld	a,l
-	pop	hl
-	or	a, a
-	jr	NZ,00102$
-;src/main.c:167: prota.x++;
-	ld	c,(hl)
-	inc	c
-	ld	(hl),c
-;src/main.c:168: prota.mover = SI;
-	ld	hl,#(_prota + 0x0006)
-	ld	(hl),#0x01
-00102$:
-;src/main.c:170: prota.mira = M_derecha;
+;src/main.c:167: prota.mira = M_derecha;
+	ld	bc,#_prota+0
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
+;src/main.c:169: if (!checkCollision(M_derecha)) {
+	push	bc
+	ld	hl,#0x0000
+	push	hl
+	call	_checkCollision
+	pop	af
+	pop	bc
+	ld	a,l
+	or	a, a
+	ret	NZ
+;src/main.c:170: prota.x++;
+	ld	a,(bc)
+	inc	a
+	ld	(bc),a
+;src/main.c:171: prota.mover = SI;
+	ld	hl,#(_prota + 0x0006)
+	ld	(hl),#0x01
 	ret
-;src/main.c:174: void moverArriba() {
+;src/main.c:177: void moverArriba() {
 ;	---------------------------------
 ; Function moverArriba
 ; ---------------------------------
 _moverArriba::
-;src/main.c:175: if (prota.y > LIMITE_SUPERIOR) {
-	ld	hl,#_prota + 1
-	ld	c,(hl)
-	ld	a,#0x08
-	sub	a, c
-	ret	NC
-;src/main.c:176: if (!checkCollision(M_arriba)) {
+;src/main.c:178: prota.mira = M_arriba;
+	ld	hl,#(_prota + 0x0007)
+	ld	(hl),#0x02
+;src/main.c:180: if (!checkCollision(M_arriba)) {
+	ld	hl,#0x0002
 	push	hl
-	ld	bc,#0x0002
-	push	bc
 	call	_checkCollision
 	pop	af
 	ld	a,l
-	pop	hl
 	or	a, a
-	jr	NZ,00102$
-;src/main.c:177: prota.y--;
+	ret	NZ
+;src/main.c:181: prota.y--;
+	ld	hl,#_prota + 1
 	ld	c,(hl)
 	dec	c
 	ld	(hl),c
-;src/main.c:178: prota.mover  = SI;
+;src/main.c:182: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-00102$:
-;src/main.c:180: prota.mira = M_arriba;
-	ld	hl,#(_prota + 0x0007)
-	ld	(hl),#0x02
 	ret
-;src/main.c:184: void moverAbajo() {
+;src/main.c:187: void moverAbajo() {
 ;	---------------------------------
 ; Function moverAbajo
 ; ---------------------------------
 _moverAbajo::
-;src/main.c:185: if(prota.y < LIMITE_INFERIOR - G_HERO_H){
-	ld	hl,#_prota + 1
-	ld	a, (hl)
-	sub	a, #0x92
-	ret	NC
-;src/main.c:186: if (!checkCollision(M_abajo)) {
+;src/main.c:188: prota.mira = M_abajo;
+	ld	hl,#(_prota + 0x0007)
+	ld	(hl),#0x03
+;src/main.c:190: if (!checkCollision(M_abajo)) {
+	ld	hl,#0x0003
 	push	hl
-	ld	bc,#0x0003
-	push	bc
 	call	_checkCollision
 	pop	af
 	ld	a,l
-	pop	hl
 	or	a, a
-	jr	NZ,00102$
-;src/main.c:187: prota.y++;
-	ld	c,(hl)
-	inc	c
-	ld	(hl),c
-;src/main.c:188: prota.mover  = SI;
+	ret	NZ
+;src/main.c:191: prota.y++;
+	ld	bc,#_prota + 1
+	ld	a,(bc)
+	inc	a
+	ld	(bc),a
+;src/main.c:192: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-00102$:
-;src/main.c:190: prota.mira = M_abajo;
-	ld	hl,#(_prota + 0x0007)
-	ld	(hl),#0x03
 	ret
-;src/main.c:194: void dibujarCuchillo(u8 eje) {
+;src/main.c:197: void dibujarCuchillo(TKnife* actual) {
 ;	---------------------------------
 ; Function dibujarCuchillo
 ; ---------------------------------
@@ -621,29 +594,55 @@ _dibujarCuchillo::
 	ld	ix,#0
 	add	ix,sp
 	push	af
-;src/main.c:195: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, cu.x, cu.y);
-	ld	hl, #_cu + 1
-	ld	d,(hl)
-	ld	hl, #_cu + 0
+	push	af
+;src/main.c:198: u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, actual->x, actual->y);
+	ld	e,4 (ix)
+	ld	d,5 (ix)
+	ld	l, e
+	ld	h, d
+	inc	hl
 	ld	b,(hl)
+	ld	a,(de)
 	push	de
-	inc	sp
 	push	bc
+	inc	sp
+	push	af
 	inc	sp
 	ld	hl,#0xC000
 	push	hl
 	call	_cpct_getScreenPtr
-;src/main.c:197: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
-	inc	sp
-	inc	sp
+	pop	de
 	push	hl
-;src/main.c:196: if(eje == E_X){
-	ld	a,4 (ix)
+	pop	iy
+;src/main.c:199: if(actual->eje == E_X){
+	ld	l, e
+	ld	h, d
+	ld	bc, #0x0008
+	add	hl, bc
+	ld	c,(hl)
+;src/main.c:200: cpct_drawSpriteMaskedAlignedTable (actual->sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+	push	iy
+	pop	af
+	ld	-1 (ix),a
+	push	iy
+	dec	sp
+	pop	af
+	inc	sp
+	ld	-2 (ix),a
+	ld	hl,#0x0004
+	add	hl,de
+	ex	(sp), hl
+;src/main.c:199: if(actual->eje == E_X){
+	ld	a,c
 	or	a, a
 	jr	NZ,00104$
-;src/main.c:197: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
+;src/main.c:200: cpct_drawSpriteMaskedAlignedTable (actual->sprite, pvmem, G_KNIFEX_0_W, G_KNIFEX_0_H, g_tablatrans);
 	ld	de,#_g_tablatrans+0
-	ld	bc, (#(_cu + 0x0004) + 0)
+	pop	hl
+	push	hl
+	ld	c,(hl)
+	inc	hl
+	ld	b,(hl)
 	push	de
 	ld	hl,#0x0303
 	push	hl
@@ -654,13 +653,16 @@ _dibujarCuchillo::
 	call	_cpct_drawSpriteMaskedAlignedTable
 	jr	00106$
 00104$:
-;src/main.c:200: else if(eje == E_Y){
-	ld	a,4 (ix)
-	dec	a
+;src/main.c:203: else if(actual->eje == E_Y){
+	dec	c
 	jr	NZ,00106$
-;src/main.c:201: cpct_drawSpriteMaskedAlignedTable (cu.sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
+;src/main.c:204: cpct_drawSpriteMaskedAlignedTable (actual->sprite, pvmem, G_KNIFEY_0_W, G_KNIFEY_0_H, g_tablatrans);
 	ld	de,#_g_tablatrans+0
-	ld	bc, (#(_cu + 0x0004) + 0)
+	pop	hl
+	push	hl
+	ld	c,(hl)
+	inc	hl
+	ld	b,(hl)
 	push	de
 	ld	hl,#0x0602
 	push	hl
@@ -673,7 +675,7 @@ _dibujarCuchillo::
 	ld	sp, ix
 	pop	ix
 	ret
-;src/main.c:205: void borrarCuchillo() {
+;src/main.c:208: void borrarCuchillo(TKnife* actual) {
 ;	---------------------------------
 ; Function borrarCuchillo
 ; ---------------------------------
@@ -682,16 +684,24 @@ _borrarCuchillo::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/main.c:206: u8 w = 2 + (cu.px & 1);
-	ld	hl, #_cu + 2
+;src/main.c:209: u8 w = 2 + (actual->px & 1);
+	ld	e,4 (ix)
+	ld	d,5 (ix)
+	ld	l, e
+	ld	h, d
+	inc	hl
+	inc	hl
 	ld	c,(hl)
 	ld	a,c
 	and	a, #0x01
 	ld	b,a
 	inc	b
 	inc	b
-;src/main.c:207: u8 h = 2 + (cu.py & 3 ? 1 : 0);
-	ld	hl, #_cu + 3
+;src/main.c:210: u8 h = 2 + (actual->py & 3 ? 1 : 0);
+	ex	de,hl
+	inc	hl
+	inc	hl
+	inc	hl
 	ld	e,(hl)
 	ld	a,e
 	and	a, #0x03
@@ -703,7 +713,7 @@ _borrarCuchillo::
 00104$:
 	add	a, #0x02
 	ld	-1 (ix),a
-;src/main.c:208: cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+;src/main.c:211: cpct_etm_drawTileBox2x4 (actual->px / 2, (actual->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	d,#0x00
 	ld	h,e
@@ -744,436 +754,714 @@ _borrarCuchillo::
 	inc	sp
 	pop	ix
 	ret
-;src/main.c:211: void redibujarCuchillo() {
+;src/main.c:214: void redibujarCuchillo(TKnife* actual) {
 ;	---------------------------------
 ; Function redibujarCuchillo
 ; ---------------------------------
 _redibujarCuchillo::
-;src/main.c:212: borrarCuchillo();
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/main.c:215: borrarCuchillo(actual);
+	ld	l,4 (ix)
+	ld	h,5 (ix)
+	push	hl
 	call	_borrarCuchillo
-;src/main.c:213: cu.px = cu.x;
-	ld	a, (#_cu + 0)
-	ld	(#(_cu + 0x0002)),a
-;src/main.c:214: cu.py = cu.y;
-	ld	a, (#_cu + 1)
-	ld	(#(_cu + 0x0003)),a
-;src/main.c:215: dibujarCuchillo(cu.eje);
-	ld	hl, #_cu + 8
-	ld	b,(hl)
+	pop	af
+;src/main.c:216: actual->px = actual->x;
+	ld	c,4 (ix)
+	ld	b,5 (ix)
+	ld	e, c
+	ld	d, b
+	inc	de
+	inc	de
+	ld	a,(bc)
+	ld	(de),a
+;src/main.c:217: actual->py = actual->y;
+	ld	e, c
+	ld	d, b
+	inc	de
+	inc	de
+	inc	de
+	ld	l, c
+	ld	h, b
+	inc	hl
+	ld	a,(hl)
+	ld	(de),a
+;src/main.c:218: dibujarCuchillo(actual);
 	push	bc
-	inc	sp
 	call	_dibujarCuchillo
-	inc	sp
+	pop	af
+	pop	ix
 	ret
-;src/main.c:219: void lanzarCuchillo(){
+;src/main.c:222: void lanzarCuchillo(){
 ;	---------------------------------
 ; Function lanzarCuchillo
 ; ---------------------------------
 _lanzarCuchillo::
-;src/main.c:220: cu.lanzado = SI;
-	ld	de,#_cu+0
-	ld	hl,#(_cu + 0x0006)
-	ld	(hl),#0x01
-;src/main.c:221: if(prota.mira == M_derecha){
-	ld	hl, #_prota + 7
-	ld	c,(hl)
-;src/main.c:222: cu.direccion = M_derecha;
-;src/main.c:224: cu.y=prota.y + G_HERO_H /2;
-;src/main.c:225: cu.sprite=g_knifeX_0;
-;src/main.c:226: cu.eje = E_X;
-;src/main.c:221: if(prota.mira == M_derecha){
-	ld	a,c
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	hl,#-6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:224: TKnife* actual = cu;
+	ld	bc,#_cu+0
+;src/main.c:227: while(i>0 && actual->lanzado){
+	ld	e,#0x0A
+00102$:
+	ld	hl,#0x0006
+	add	hl,bc
+	ld	-2 (ix),l
+	ld	-1 (ix),h
+	ld	a,e
 	or	a, a
-	jr	NZ,00110$
-;src/main.c:222: cu.direccion = M_derecha;
-	ld	hl,#(_cu + 0x0007)
-	ld	(hl),#0x00
-;src/main.c:223: cu.x=prota.x + G_HERO_W;
+	jr	Z,00104$
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	a,(hl)
+	or	a, a
+	jr	Z,00104$
+;src/main.c:228: --i;
+	dec	e
+;src/main.c:229: actual++;
+	ld	hl,#0x0009
+	add	hl,bc
+	ld	c,l
+	ld	b,h
+	jr	00102$
+00104$:
+;src/main.c:232: if(i>0 && !actual->lanzado){
+	ld	a,e
+	or	a, a
+	jp	Z,00127$
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	a,(hl)
+	or	a, a
+	jp	NZ,00127$
+;src/main.c:234: if(prota.mira == M_derecha){
+	ld	hl, #_prota + 7
+	ld	l,(hl)
+;src/main.c:237: actual->direccion = M_derecha;
+	ld	iy,#0x0007
+	add	iy, bc
+;src/main.c:239: actual->y=prota.y + G_HERO_H /2;	
+	ld	e, c
+	ld	d, b
+	inc	de
+;src/main.c:240: actual->sprite=g_knifeX_0;
+	ld	a,c
+	add	a, #0x04
+	ld	-4 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-3 (ix),a
+;src/main.c:241: actual->eje = E_X;
+	ld	a,c
+	add	a, #0x08
+	ld	-6 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-5 (ix),a
+;src/main.c:234: if(prota.mira == M_derecha){
+	ld	a,l
+	or	a, a
+	jr	NZ,00122$
+;src/main.c:235: if( (LIMITE_DERECHO - (prota.x + G_HERO_W) ) >= G_KNIFEX_0_W + 1){
+	ld	hl, #_prota + 0
+	ld	l,(hl)
+	ld	h,#0x00
+	push	de
+	ld	de,#0x0007
+	add	hl, de
+	pop	de
+	ld	a,#0x4C
+	sub	a, l
+	ld	l,a
+	ld	a,#0x00
+	sbc	a, h
+	ld	h,a
+	ld	a,l
+	sub	a, #0x04
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jp	C,00127$
+;src/main.c:236: actual->lanzado = SI;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	(hl),#0x01
+;src/main.c:237: actual->direccion = M_derecha;
+	ld	0 (iy), #0x00
+;src/main.c:238: actual->x=prota.x + G_HERO_W;
 	ld	a, (#_prota + 0)
 	add	a, #0x07
-	ld	(de),a
-;src/main.c:224: cu.y=prota.y + G_HERO_H /2;
+	ld	(bc),a
+;src/main.c:239: actual->y=prota.y + G_HERO_H /2;	
 	ld	a, (#(_prota + 0x0001) + 0)
 	add	a, #0x0B
-	ld	(#(_cu + 0x0001)),a
-;src/main.c:225: cu.sprite=g_knifeX_0;
-	ld	hl,#_g_knifeX_0
-	ld	((_cu + 0x0004)), hl
-;src/main.c:226: cu.eje = E_X;
-	ld	hl,#(_cu + 0x0008)
+	ld	(de),a
+;src/main.c:240: actual->sprite=g_knifeX_0;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#<(_g_knifeX_0)
+	inc	hl
+	ld	(hl),#>(_g_knifeX_0)
+;src/main.c:241: actual->eje = E_X;
+	pop	hl
+	push	hl
 	ld	(hl),#0x00
-;src/main.c:227: dibujarCuchillo(cu.eje);
-	ld	hl, #(_cu + 0x0008) + 0
-	ld	b,(hl)
+;src/main.c:242: dibujarCuchillo(actual);
 	push	bc
-	inc	sp
 	call	_dibujarCuchillo
-	inc	sp
-	ret
-00110$:
-;src/main.c:229: else if(prota.mira == M_izquierda){
-	ld	a,c
+	pop	af
+	jp	00127$
+00122$:
+;src/main.c:245: else if(prota.mira == M_izquierda){
+	ld	a,l
 	dec	a
-	jr	NZ,00107$
-;src/main.c:230: cu.direccion = M_izquierda;
-	ld	hl,#(_cu + 0x0007)
+	jr	NZ,00119$
+;src/main.c:246: if( (prota.x - 4 ) >= G_KNIFEX_1_W + 1){
+	ld	hl, #_prota + 0
+	ld	l,(hl)
+	ld	h,#0x00
+	ld	a,l
+	add	a,#0xFC
+	ld	l,a
+	ld	a,h
+	adc	a,#0xFF
+	ld	h,a
+	ld	a,l
+	sub	a, #0x04
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jp	C,00127$
+;src/main.c:247: actual->lanzado = SI;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	(hl),#0x01
-;src/main.c:231: cu.x = prota.x - G_KNIFEX_0_W;
+;src/main.c:248: actual->direccion = M_izquierda;
+	ld	0 (iy), #0x01
+;src/main.c:249: actual->x = prota.x - G_KNIFEX_0_W;
 	ld	a, (#_prota + 0)
 	add	a,#0xFD
-	ld	(de),a
-;src/main.c:232: cu.y = prota.y + G_HERO_H /2;
+	ld	(bc),a
+;src/main.c:250: actual->y = prota.y + G_HERO_H /2;	
 	ld	a, (#(_prota + 0x0001) + 0)
 	add	a, #0x0B
-	ld	(#(_cu + 0x0001)),a
-;src/main.c:233: cu.sprite = g_knifeX_1;
-	ld	hl,#_g_knifeX_1
-	ld	((_cu + 0x0004)), hl
-;src/main.c:234: cu.eje = E_X;
-	ld	hl,#(_cu + 0x0008)
+	ld	(de),a
+;src/main.c:251: actual->sprite = g_knifeX_1;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#<(_g_knifeX_1)
+	inc	hl
+	ld	(hl),#>(_g_knifeX_1)
+;src/main.c:252: actual->eje = E_X;
+	pop	hl
+	push	hl
 	ld	(hl),#0x00
-;src/main.c:235: dibujarCuchillo(cu.eje);
-	ld	hl, #(_cu + 0x0008) + 0
-	ld	b,(hl)
+;src/main.c:253: dibujarCuchillo(actual);
 	push	bc
-	inc	sp
 	call	_dibujarCuchillo
-	inc	sp
-	ret
-00107$:
-;src/main.c:237: else if(prota.mira == M_abajo){
-	ld	a,c
+	pop	af
+	jp	00127$
+00119$:
+;src/main.c:256: else if(prota.mira == M_abajo){
+	ld	a,l
 	sub	a, #0x03
-	jr	NZ,00104$
-;src/main.c:238: cu.direccion = M_abajo;
-	ld	hl,#(_cu + 0x0007)
-	ld	(hl),#0x03
-;src/main.c:239: cu.x = prota.x + G_HERO_W / 2;
+	jr	NZ,00116$
+;src/main.c:258: if((valor - (prota.y + G_HERO_H)) >= G_KNIFEY_0_H + 1){
+	ld	hl, #(_prota + 0x0001) + 0
+	ld	l,(hl)
+	ld	h,#0x00
+	push	de
+	ld	de,#0x0016
+	add	hl, de
+	pop	de
+	ld	a,#0xA8
+	sub	a, l
+	ld	l,a
+	ld	a,#0x00
+	sbc	a, h
+	ld	h,a
+	ld	a,l
+	sub	a, #0x07
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jr	C,00127$
+;src/main.c:259: actual->lanzado = SI;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	(hl),#0x01
+;src/main.c:260: actual->direccion = M_abajo;
+	ld	0 (iy), #0x03
+;src/main.c:261: actual->x = prota.x + G_HERO_W / 2;
 	ld	a, (#_prota + 0)
 	add	a, #0x03
-	ld	(de),a
-;src/main.c:240: cu.y = prota.y + G_HERO_H + 10;
+	ld	(bc),a
+;src/main.c:262: actual->y = prota.y + G_HERO_H;	
 	ld	a, (#(_prota + 0x0001) + 0)
-	add	a, #0x20
-	ld	(#(_cu + 0x0001)),a
-;src/main.c:241: cu.sprite = g_knifeY_0;
-	ld	hl,#_g_knifeY_0
-	ld	((_cu + 0x0004)), hl
-;src/main.c:242: cu.eje = E_Y;
-	ld	hl,#(_cu + 0x0008)
+	add	a, #0x16
+	ld	(de),a
+;src/main.c:263: actual->sprite = g_knifeY_0;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#<(_g_knifeY_0)
+	inc	hl
+	ld	(hl),#>(_g_knifeY_0)
+;src/main.c:264: actual->eje = E_Y;
+	pop	hl
+	push	hl
 	ld	(hl),#0x01
-;src/main.c:243: dibujarCuchillo(cu.eje);
-	ld	hl, #(_cu + 0x0008) + 0
-	ld	b,(hl)
+;src/main.c:265: dibujarCuchillo(actual);
 	push	bc
-	inc	sp
 	call	_dibujarCuchillo
-	inc	sp
-	ret
-00104$:
-;src/main.c:245: else if(prota.mira == M_arriba){
-	ld	a,c
+	pop	af
+	jr	00127$
+00116$:
+;src/main.c:268: else if(prota.mira == M_arriba){
+	ld	a,l
 	sub	a, #0x02
-	ret	NZ
-;src/main.c:246: cu.direccion = M_arriba;
-	ld	hl,#(_cu + 0x0007)
-	ld	(hl),#0x02
-;src/main.c:247: cu.x = prota.x + G_HERO_W / 2;
+	jr	NZ,00127$
+;src/main.c:269: if((prota.y - 8)>= G_KNIFEY_0_H +1 ){
+	ld	hl, #(_prota + 0x0001) + 0
+	ld	l,(hl)
+	ld	h,#0x00
+	ld	a,l
+	add	a,#0xF8
+	ld	l,a
+	ld	a,h
+	adc	a,#0xFF
+	ld	h,a
+	ld	a,l
+	sub	a, #0x07
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jr	C,00127$
+;src/main.c:270: actual->lanzado = SI;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	(hl),#0x01
+;src/main.c:271: actual->direccion = M_arriba;
+	ld	0 (iy), #0x02
+;src/main.c:272: actual->x = prota.x + G_HERO_W / 2;
 	ld	a, (#_prota + 0)
 	add	a, #0x03
-	ld	(de),a
-;src/main.c:248: cu.y = prota.y;
+	ld	(bc),a
+;src/main.c:273: actual->y = prota.y;	
 	ld	a, (#(_prota + 0x0001) + 0)
-	ld	(#(_cu + 0x0001)),a
-;src/main.c:249: cu.sprite = g_knifeY_1;
-	ld	hl,#_g_knifeY_1
-	ld	((_cu + 0x0004)), hl
-;src/main.c:250: cu.eje = E_Y;
-	ld	hl,#(_cu + 0x0008)
+	ld	(de),a
+;src/main.c:274: actual->sprite = g_knifeY_1;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#<(_g_knifeY_1)
+	inc	hl
+	ld	(hl),#>(_g_knifeY_1)
+;src/main.c:275: actual->eje = E_Y;
+	pop	hl
+	push	hl
 	ld	(hl),#0x01
-;src/main.c:251: dibujarCuchillo(cu.eje);
-	ld	hl, #(_cu + 0x0008) + 0
-	ld	b,(hl)
+;src/main.c:276: dibujarCuchillo(actual);
 	push	bc
-	inc	sp
 	call	_dibujarCuchillo
-	inc	sp
+	pop	af
+00127$:
+	ld	sp, ix
+	pop	ix
 	ret
-;src/main.c:255: void comprobarTeclado() {
+;src/main.c:282: void comprobarTeclado() {
 ;	---------------------------------
 ; Function comprobarTeclado
 ; ---------------------------------
 _comprobarTeclado::
-;src/main.c:256: cpct_scanKeyboard_if();
+;src/main.c:283: cpct_scanKeyboard_if();
 	call	_cpct_scanKeyboard_if
-;src/main.c:258: if (cpct_isAnyKeyPressed()) {
+;src/main.c:285: if (cpct_isAnyKeyPressed()) {
 	call	_cpct_isAnyKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/main.c:259: if (cpct_isKeyPressed(Key_CursorLeft))
+;src/main.c:286: if (cpct_isKeyPressed(Key_CursorLeft))
 	ld	hl,#0x0101
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:260: moverIzquierda();
+;src/main.c:287: moverIzquierda();
 	jp	NZ,_moverIzquierda
-;src/main.c:261: else if (cpct_isKeyPressed(Key_CursorRight))
+;src/main.c:288: else if (cpct_isKeyPressed(Key_CursorRight))
 	ld	hl,#0x0200
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:262: moverDerecha();
+;src/main.c:289: moverDerecha();
 	jp	NZ,_moverDerecha
-;src/main.c:263: else if (cpct_isKeyPressed(Key_CursorUp))
+;src/main.c:290: else if (cpct_isKeyPressed(Key_CursorUp))
 	ld	hl,#0x0100
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:264: moverArriba();
+;src/main.c:291: moverArriba();
 	jp	NZ,_moverArriba
-;src/main.c:265: else if (cpct_isKeyPressed(Key_CursorDown))
+;src/main.c:292: else if (cpct_isKeyPressed(Key_CursorDown))
 	ld	hl,#0x0400
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-;src/main.c:266: moverAbajo();
+;src/main.c:293: moverAbajo();
 	jp	NZ,_moverAbajo
-;src/main.c:267: else if (cpct_isKeyPressed(Key_Space))
+;src/main.c:294: else if (cpct_isKeyPressed(Key_Space))
 	ld	hl,#0x8005
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/main.c:268: lanzarCuchillo();
+;src/main.c:295: lanzarCuchillo();
 	jp  _lanzarCuchillo
-;src/main.c:274: void moverCuchillo(){
+;src/main.c:301: void moverCuchillo(){
 ;	---------------------------------
 ; Function moverCuchillo
 ; ---------------------------------
 _moverCuchillo::
-;src/main.c:276: if(cu.direccion == M_derecha){
-	ld	bc,#_cu+0
-	ld	hl, #_cu + 7
-	ld	e,(hl)
-;src/main.c:283: cu.lanzado = NO;
-;src/main.c:276: if(cu.direccion == M_derecha){
-	ld	a,e
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	dec	sp
+;src/main.c:303: u8 i = 10 + 1;
+	ld	-1 (ix),#0x0B
+;src/main.c:304: TKnife* actual = cu;
+	ld	de,#_cu+0
+;src/main.c:306: while(--i){
+00134$:
+	dec	-1 (ix)
+	ld	a, -1 (ix)
+	or	a, a
+	jp	Z,00137$
+;src/main.c:307: if(actual->lanzado){
+	ld	hl,#0x0006
+	add	hl,de
+	ld	c,l
+	ld	b,h
+	ld	a,(bc)
+	or	a, a
+	jp	Z,00133$
+;src/main.c:308: if(actual->direccion == M_derecha){		
+	push	de
+	pop	iy
+	ld	l,7 (iy)
+	ld	a,l
 	or	a, a
 	jr	NZ,00130$
-;src/main.c:277: if(cu.x< LIMITE_DERECHO - G_KNIFEX_0_W){
-	ld	a,(bc)
-	ld	e,a
+;src/main.c:309: if(actual->x< LIMITE_DERECHO - G_KNIFEX_0_W){
+	ld	a,(de)
+	ld	l,a
 	sub	a, #0x49
-	jr	NC,00104$
-;src/main.c:278: cu.x++;
-	inc	e
-	ld	a,e
-	ld	(bc),a
-;src/main.c:279: redibujarCuchillo();
-	jp  _redibujarCuchillo
+	ld	a,#0x00
+	rla
+	or	a, a
+	jr	Z,00104$
+;src/main.c:310: actual->x++;
+	ld	a,l
+	inc	a
+	ld	(de),a
+;src/main.c:312: redibujarCuchillo(actual);
+	push	de
+	push	de
+	call	_redibujarCuchillo
+	pop	af
+	pop	de
+	jp	00133$
 00104$:
-;src/main.c:281: else if(cu.x == LIMITE_DERECHO  - G_KNIFEX_0_W){
-	ld	a,e
-	sub	a, #0x49
-	ret	NZ
-;src/main.c:282: borrarCuchillo();
+;src/main.c:314: else if(actual->x >= LIMITE_DERECHO  - G_KNIFEX_0_W){
+	or	a, a
+	jp	NZ,00133$
+;src/main.c:315: borrarCuchillo(actual);
+	push	bc
+	push	de
+	push	de
 	call	_borrarCuchillo
-;src/main.c:283: cu.lanzado = NO;
-	ld	hl,#(_cu + 0x0006)
-	ld	(hl),#0x00
-	ret
+	pop	af
+	pop	de
+	pop	bc
+;src/main.c:316: actual->lanzado = NO;
+	xor	a, a
+	ld	(bc),a
+	jp	00133$
 00130$:
-;src/main.c:286: else if(cu.direccion == M_izquierda){
-	ld	a,e
+;src/main.c:319: else if(actual->direccion == M_izquierda){
+	ld	a,l
 	dec	a
 	jr	NZ,00127$
-;src/main.c:287: if(cu.x > LIMITE_IZQUIERDO){
-	ld	a,(bc)
-	ld	e,a
+;src/main.c:309: if(actual->x< LIMITE_DERECHO - G_KNIFEX_0_W){
+	ld	a,(de)
+	ld	l,a
+;src/main.c:320: if(actual->x > LIMITE_IZQUIERDO){
 	ld	a,#0x04
-	sub	a, e
-	jr	NC,00109$
-;src/main.c:288: cu.x--;
-	dec	e
-	ld	a,e
-	ld	(bc),a
-;src/main.c:289: redibujarCuchillo();
-	jp  _redibujarCuchillo
+	sub	a, l
+	ld	a,#0x00
+	rla
+	or	a, a
+	jr	Z,00109$
+;src/main.c:321: actual->x--;
+	ld	c,l
+	dec	c
+	ld	a,c
+	ld	(de),a
+;src/main.c:323: redibujarCuchillo(actual);
+	push	de
+	push	de
+	call	_redibujarCuchillo
+	pop	af
+	pop	de
+	jp	00133$
 00109$:
-;src/main.c:290: }else if(cu.x == LIMITE_IZQUIERDO){
-	ld	a,e
-	sub	a, #0x04
-	ret	NZ
-;src/main.c:291: borrarCuchillo();
+;src/main.c:324: }else if(actual->x <= LIMITE_IZQUIERDO){
+	or	a, a
+	jr	NZ,00133$
+;src/main.c:325: borrarCuchillo(actual);
+	push	bc
+	push	de
+	push	de
 	call	_borrarCuchillo
-;src/main.c:292: cu.lanzado = NO;
-	ld	hl,#(_cu + 0x0006)
-	ld	(hl),#0x00
-	ret
+	pop	af
+	pop	de
+	pop	bc
+;src/main.c:326: actual->lanzado = NO;
+	xor	a, a
+	ld	(bc),a
+	jr	00133$
 00127$:
-;src/main.c:296: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
-	ld	l, c
-	ld	h, b
-	inc	hl
-;src/main.c:295: else if(cu.direccion == M_abajo){
-	ld	a,e
+;src/main.c:330: if(actual->y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+	push	de
+	pop	iy
+	inc	iy
+;src/main.c:329: else if(actual->direccion == M_abajo){
+	ld	a,l
 	sub	a, #0x03
 	jr	NZ,00124$
-;src/main.c:296: if(cu.y < LIMITE_INFERIOR - G_KNIFEY_0_H){
-	ld	c,(hl)
-	ld	a,c
+;src/main.c:330: if(actual->y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+	ld	l, 0 (iy)
+	ld	a,l
 	sub	a, #0xA2
-	jr	NC,00114$
-;src/main.c:297: cu.y++;
-	inc	c
-	ld	(hl),c
-;src/main.c:298: redibujarCuchillo();
-	jp  _redibujarCuchillo
+	ld	a,#0x00
+	rla
+	or	a, a
+	jr	Z,00114$
+;src/main.c:331: actual->y++;
+	inc	l
+	ld	0 (iy), l
+;src/main.c:332: actual->y++;
+	inc	l
+	ld	0 (iy), l
+;src/main.c:333: redibujarCuchillo(actual);
+	push	de
+	push	de
+	call	_redibujarCuchillo
+	pop	af
+	pop	de
+	jr	00133$
 00114$:
-;src/main.c:299: }else if(cu.y == LIMITE_INFERIOR - G_KNIFEY_0_H){
-	ld	a,c
-	sub	a, #0xA2
-	ret	NZ
-;src/main.c:300: borrarCuchillo();
+;src/main.c:336: }else if(actual->y >= LIMITE_INFERIOR - G_KNIFEY_0_H ){
+	or	a, a
+	jr	NZ,00133$
+;src/main.c:337: borrarCuchillo(actual);
+	push	bc
+	push	de
+	push	de
 	call	_borrarCuchillo
-;src/main.c:301: cu.lanzado = NO;
-	ld	hl,#(_cu + 0x0006)
-	ld	(hl),#0x00
-	ret
+	pop	af
+	pop	de
+	pop	bc
+;src/main.c:338: actual->lanzado = NO;
+	xor	a, a
+	ld	(bc),a
+	jr	00133$
 00124$:
-;src/main.c:304: else if(cu.direccion == M_arriba){
-	ld	a,e
+;src/main.c:341: else if(actual->direccion == M_arriba){
+	ld	a,l
 	sub	a, #0x02
-	ret	NZ
-;src/main.c:305: if(cu.y > LIMITE_SUPERIOR){
-	ld	c,(hl)
+	jr	NZ,00133$
+;src/main.c:330: if(actual->y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+	ld	l, 0 (iy)
+;src/main.c:342: if(actual->y > LIMITE_SUPERIOR){
 	ld	a,#0x08
-	sub	a, c
-	jr	NC,00119$
-;src/main.c:306: cu.y--;
-	dec	c
-	ld	(hl),c
-;src/main.c:307: redibujarCuchillo();
-	jp  _redibujarCuchillo
+	sub	a, l
+	ld	a,#0x00
+	rla
+	or	a, a
+	jr	Z,00119$
+;src/main.c:343: actual->y--;
+	dec	l
+	ld	0 (iy), l
+;src/main.c:344: actual->y--;
+	dec	l
+	ld	0 (iy), l
+;src/main.c:345: redibujarCuchillo(actual);
+	push	de
+	push	de
+	call	_redibujarCuchillo
+	pop	af
+	pop	de
+	jr	00133$
 00119$:
-;src/main.c:308: }else if(cu.y == LIMITE_SUPERIOR){
-	ld	a,c
-	sub	a, #0x08
-	ret	NZ
-;src/main.c:309: borrarCuchillo();
+;src/main.c:347: }else if(actual->y <= LIMITE_SUPERIOR){
+	or	a, a
+	jr	NZ,00133$
+;src/main.c:348: borrarCuchillo(actual);
+	push	bc
+	push	de
+	push	de
 	call	_borrarCuchillo
-;src/main.c:310: cu.lanzado = NO;
-	ld	hl,#(_cu + 0x0006)
-	ld	(hl),#0x00
+	pop	af
+	pop	de
+	pop	bc
+;src/main.c:349: actual->lanzado = NO;
+	xor	a, a
+	ld	(bc),a
+00133$:
+;src/main.c:353: ++actual;
+	ld	hl,#0x0009
+	add	hl,de
+	ex	de,hl
+	jp	00134$
+00137$:
+	inc	sp
+	pop	ix
 	ret
-;src/main.c:315: void inicializar() {
+;src/main.c:357: void inicializar() {
 ;	---------------------------------
 ; Function inicializar
 ; ---------------------------------
 _inicializar::
-;src/main.c:316: cpct_disableFirmware();
+;src/main.c:360: TKnife* actual = cu;
+;src/main.c:362: cpct_disableFirmware();
 	call	_cpct_disableFirmware
-;src/main.c:317: cpct_setVideoMode(0);
+;src/main.c:363: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
-;src/main.c:319: cpct_setPalette(g_palette, 16);
+;src/main.c:365: cpct_setPalette(g_palette, 16);
 	ld	hl,#0x0010
 	push	hl
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
-;src/main.c:320: cpct_akp_musicInit(G_song);
+;src/main.c:366: cpct_akp_musicInit(G_song);
 	ld	hl,#_G_song
 	push	hl
 	call	_cpct_akp_musicInit
 	pop	af
-;src/main.c:321: mapa = g_map1;
+;src/main.c:367: mapa = g_map1;
 	ld	hl,#_g_map1+0
 	ld	(_mapa),hl
-;src/main.c:322: cpct_etm_setTileset2x4(g_tileset);
+;src/main.c:368: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:323: dibujarMapa();
+;src/main.c:369: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:326: prota.x = prota.px = 0;
+;src/main.c:372: prota.x = prota.px = 4;
 	ld	hl,#(_prota + 0x0002)
-	ld	(hl),#0x00
+	ld	(hl),#0x04
 	ld	hl,#_prota
-	ld	(hl),#0x00
-;src/main.c:327: prota.y = prota.py = 80;
+	ld	(hl),#0x04
+;src/main.c:373: prota.y = prota.py = 80;
 	ld	hl,#(_prota + 0x0003)
 	ld	(hl),#0x50
 	ld	hl,#(_prota + 0x0001)
 	ld	(hl),#0x50
-;src/main.c:328: prota.mover  = NO;
+;src/main.c:374: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:329: prota.mira=M_derecha;
+;src/main.c:375: prota.mira=M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:330: prota.sprite = g_hero;
+;src/main.c:376: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:331: cu.x = cu.px =0;
-	ld	de,#_cu+0
-	ld	bc,#_cu + 2
-	xor	a, a
-	ld	(bc),a
+;src/main.c:379: i = 10 + 1;
+	ld	c,#0x0B
+;src/main.c:382: while(--i){
+	ld	de,#_cu
+00101$:
+	ld	b,c
+	dec	b
+	ld	a,b
+	ld	c,a
+	or	a, a
+	jr	Z,00103$
+;src/main.c:383: actual->x = actual->px = 0;
+	ld	l, e
+	ld	h, d
+	inc	hl
+	inc	hl
+	ld	(hl),#0x00
 	xor	a, a
 	ld	(de),a
-;src/main.c:332: cu.x = cu.px = 0;
-	xor	a, a
-	ld	(bc),a
-	ld	hl,#_cu
+;src/main.c:384: actual->y = actual->py = 0;
+	push	de
+	pop	iy
+	inc	iy
+	ld	l, e
+	ld	h, d
+	inc	hl
+	inc	hl
+	inc	hl
 	ld	(hl),#0x00
-;src/main.c:333: cu.lanzado=0;
-	ld	hl,#(_cu + 0x0006)
+	ld	0 (iy), #0x00
+;src/main.c:385: actual->lanzado = 0;
+	ld	hl,#0x0006
+	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:335: dibujarProta();
+;src/main.c:386: ++actual;
+	ld	hl,#0x0009
+	add	hl,de
+	ex	de,hl
+	jr	00101$
+00103$:
+;src/main.c:390: dibujarProta();
 	call	_dibujarProta
 	ret
-;src/main.c:338: void main(void) {
+;src/main.c:393: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:341: inicializar();
+;src/main.c:396: inicializar();
 	call	_inicializar
-;src/main.c:342: cpct_akp_musicPlay();
+;src/main.c:397: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
-;src/main.c:345: while (1) {
-00106$:
-;src/main.c:348: comprobarTeclado();
+;src/main.c:400: while (1) {
+00104$:
+;src/main.c:403: comprobarTeclado();
 	call	_comprobarTeclado
-;src/main.c:350: if(cu.lanzado){
-	ld	a, (#(_cu + 0x0006) + 0)
-	or	a, a
-	jr	Z,00102$
-;src/main.c:351: cpct_waitVSYNC();
+;src/main.c:405: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/main.c:352: moverCuchillo();
+;src/main.c:406: moverCuchillo();
 	call	_moverCuchillo
-00102$:
-;src/main.c:354: if (prota.mover) {
+;src/main.c:408: if (prota.mover) {
 	ld	a, (#(_prota + 0x0006) + 0)
 	or	a, a
 	jr	Z,00104$
-;src/main.c:355: cpct_waitVSYNC();
-	call	_cpct_waitVSYNC
-;src/main.c:356: redibujarProta();
+;src/main.c:410: redibujarProta();
 	call	_redibujarProta
-;src/main.c:357: prota.mover = NO;
+;src/main.c:411: prota.mover = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-00104$:
-;src/main.c:359: cpct_waitVSYNC();
-	call	_cpct_waitVSYNC
-	jr	00106$
+	jr	00104$
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)
-	.org 0x0200
+	.org 0x3F00
 _G_song:
 	.db #0x41	; 65	'A'
 	.db #0x54	; 84	'T'
