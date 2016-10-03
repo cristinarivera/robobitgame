@@ -95,20 +95,20 @@
    54FA FC                   95 	.db #0xFC	; 252
    54FB FC                   96 	.db #0xFC	; 252
    54FC FC                   97 	.db #0xFC	; 252
-   54FD AC                   98 	.db #0xAC	; 172
+   54FD FC                   98 	.db #0xFC	; 252
    54FE FC                   99 	.db #0xFC	; 252
-   54FF AC                  100 	.db #0xAC	; 172
+   54FF FC                  100 	.db #0xFC	; 252
    5500 FC                  101 	.db #0xFC	; 252
    5501 FC                  102 	.db #0xFC	; 252
    5502                     103 _g_tiles_02:
-   5502 FC                  104 	.db #0xFC	; 252
-   5503 FC                  105 	.db #0xFC	; 252
-   5504 5C                  106 	.db #0x5C	; 92
-   5505 FC                  107 	.db #0xFC	; 252
-   5506 5C                  108 	.db #0x5C	; 92
-   5507 FC                  109 	.db #0xFC	; 252
-   5508 FC                  110 	.db #0xFC	; 252
-   5509 FC                  111 	.db #0xFC	; 252
+   5502 C3                  104 	.db #0xC3	; 195
+   5503 C3                  105 	.db #0xC3	; 195
+   5504 C6                  106 	.db #0xC6	; 198
+   5505 C3                  107 	.db #0xC3	; 195
+   5506 C3                  108 	.db #0xC3	; 195
+   5507 C3                  109 	.db #0xC3	; 195
+   5508 C3                  110 	.db #0xC3	; 195
+   5509 C6                  111 	.db #0xC6	; 198
    550A                     112 _g_tiles_03:
    550A 3C                  113 	.db #0x3C	; 60
    550B FC                  114 	.db #0xFC	; 252
@@ -128,14 +128,14 @@
    5518 7C                  128 	.db #0x7C	; 124
    5519 7C                  129 	.db #0x7C	; 124
    551A                     130 _g_tiles_05:
-   551A FC                  131 	.db #0xFC	; 252
-   551B FC                  132 	.db #0xFC	; 252
-   551C FC                  133 	.db #0xFC	; 252
-   551D FC                  134 	.db #0xFC	; 252
-   551E FC                  135 	.db #0xFC	; 252
-   551F FC                  136 	.db #0xFC	; 252
-   5520 FC                  137 	.db #0xFC	; 252
-   5521 FC                  138 	.db #0xFC	; 252
+   551A FF                  131 	.db #0xFF	; 255
+   551B FF                  132 	.db #0xFF	; 255
+   551C FF                  133 	.db #0xFF	; 255
+   551D FF                  134 	.db #0xFF	; 255
+   551E FF                  135 	.db #0xFF	; 255
+   551F FF                  136 	.db #0xFF	; 255
+   5520 FF                  137 	.db #0xFF	; 255
+   5521 FF                  138 	.db #0xFF	; 255
    5522                     139 _g_tiles_06:
    5522 FC                  140 	.db #0xFC	; 252
    5523 FC                  141 	.db #0xFC	; 252
@@ -173,14 +173,14 @@
    5540 FC                  173 	.db #0xFC	; 252
    5541 3C                  174 	.db #0x3C	; 60
    5542                     175 _g_tiles_10:
-   5542 C3                  176 	.db #0xC3	; 195
-   5543 C3                  177 	.db #0xC3	; 195
-   5544 C6                  178 	.db #0xC6	; 198
-   5545 C3                  179 	.db #0xC3	; 195
-   5546 C3                  180 	.db #0xC3	; 195
-   5547 C3                  181 	.db #0xC3	; 195
-   5548 C3                  182 	.db #0xC3	; 195
-   5549 C6                  183 	.db #0xC6	; 198
+   5542 FF                  176 	.db #0xFF	; 255
+   5543 FF                  177 	.db #0xFF	; 255
+   5544 FF                  178 	.db #0xFF	; 255
+   5545 FF                  179 	.db #0xFF	; 255
+   5546 FF                  180 	.db #0xFF	; 255
+   5547 FF                  181 	.db #0xFF	; 255
+   5548 FF                  182 	.db #0xFF	; 255
+   5549 FF                  183 	.db #0xFF	; 255
    554A                     184 _g_tiles_11:
    554A CC                  185 	.db #0xCC	; 204
    554B CF                  186 	.db #0xCF	; 207

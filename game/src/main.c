@@ -167,6 +167,9 @@ void avanzarMapa() {
 		prota.mover = SI;
 		dibujarMapa();
 	}
+	else{
+		menuFin();
+	}
 }
 
 void moverIzquierda() {
@@ -363,6 +366,39 @@ void moverCuchillo(){
 	}
 }
 
+void menuFin(){
+	u8* memptr;
+	// borrar pantalla
+	cpct_clearScreen(0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 12, 90); // centrado en horizontal y arriba en vertical
+   	cpct_drawStringM0("FIN DE PARTIDA", memptr, 2, 3);
+
+   	
+   	// Esperar hasta pulsar intro 
+   	do{
+   		cpct_scanKeyboard_f();   		
+   	} while(!cpct_isKeyPressed(Key_I));   		
+}
+
+void menu(){
+	u8* memptr;
+	// borrar pantalla
+	cpct_clearScreen(0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 10); // centrado en horizontal y arriba en vertical
+   	cpct_drawStringM0("MENU", memptr, 2, 3);
+
+   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 180); // centrado en horizontal y abajo en vertical
+   	cpct_drawStringM0("PULSA I", memptr, 1, 0);
+
+   	// Esperar hasta pulsar intro 
+   	do{
+   		cpct_scanKeyboard_f();   		
+   	} while(!cpct_isKeyPressed(Key_I));   		
+}
+
+
 void inicializar() {
 
 	u8 i;
@@ -402,6 +438,7 @@ void inicializar() {
 
 void main(void) {
 
+	menu();
 
 	inicializar();
    	cpct_akp_musicPlay();

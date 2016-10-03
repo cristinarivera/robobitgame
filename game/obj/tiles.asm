@@ -95,20 +95,20 @@ _g_tiles_01:
 	.db #0xFC	; 252
 	.db #0xFC	; 252
 	.db #0xFC	; 252
-	.db #0xAC	; 172
 	.db #0xFC	; 252
-	.db #0xAC	; 172
+	.db #0xFC	; 252
+	.db #0xFC	; 252
 	.db #0xFC	; 252
 	.db #0xFC	; 252
 _g_tiles_02:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0x5C	; 92
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
+	.db #0xC3	; 195
+	.db #0xC3	; 195
+	.db #0xC6	; 198
+	.db #0xC3	; 195
+	.db #0xC3	; 195
+	.db #0xC3	; 195
+	.db #0xC3	; 195
+	.db #0xC6	; 198
 _g_tiles_03:
 	.db #0x3C	; 60
 	.db #0xFC	; 252
@@ -128,14 +128,14 @@ _g_tiles_04:
 	.db #0x7C	; 124
 	.db #0x7C	; 124
 _g_tiles_05:
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
-	.db #0xFC	; 252
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
 _g_tiles_06:
 	.db #0xFC	; 252
 	.db #0xFC	; 252
@@ -173,14 +173,14 @@ _g_tiles_09:
 	.db #0xFC	; 252
 	.db #0x3C	; 60
 _g_tiles_10:
-	.db #0xC3	; 195
-	.db #0xC3	; 195
-	.db #0xC6	; 198
-	.db #0xC3	; 195
-	.db #0xC3	; 195
-	.db #0xC3	; 195
-	.db #0xC3	; 195
-	.db #0xC6	; 198
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
+	.db #0xFF	; 255
 _g_tiles_11:
 	.db #0xCC	; 204
 	.db #0xCF	; 207

@@ -95,20 +95,20 @@
    0030 FC                   95 	.db #0xFC	; 252
    0031 FC                   96 	.db #0xFC	; 252
    0032 FC                   97 	.db #0xFC	; 252
-   0033 AC                   98 	.db #0xAC	; 172
+   0033 FC                   98 	.db #0xFC	; 252
    0034 FC                   99 	.db #0xFC	; 252
-   0035 AC                  100 	.db #0xAC	; 172
+   0035 FC                  100 	.db #0xFC	; 252
    0036 FC                  101 	.db #0xFC	; 252
    0037 FC                  102 	.db #0xFC	; 252
    0038                     103 _g_tiles_02:
-   0038 FC                  104 	.db #0xFC	; 252
-   0039 FC                  105 	.db #0xFC	; 252
-   003A 5C                  106 	.db #0x5C	; 92
-   003B FC                  107 	.db #0xFC	; 252
-   003C 5C                  108 	.db #0x5C	; 92
-   003D FC                  109 	.db #0xFC	; 252
-   003E FC                  110 	.db #0xFC	; 252
-   003F FC                  111 	.db #0xFC	; 252
+   0038 C3                  104 	.db #0xC3	; 195
+   0039 C3                  105 	.db #0xC3	; 195
+   003A C6                  106 	.db #0xC6	; 198
+   003B C3                  107 	.db #0xC3	; 195
+   003C C3                  108 	.db #0xC3	; 195
+   003D C3                  109 	.db #0xC3	; 195
+   003E C3                  110 	.db #0xC3	; 195
+   003F C6                  111 	.db #0xC6	; 198
    0040                     112 _g_tiles_03:
    0040 3C                  113 	.db #0x3C	; 60
    0041 FC                  114 	.db #0xFC	; 252
@@ -128,14 +128,14 @@
    004E 7C                  128 	.db #0x7C	; 124
    004F 7C                  129 	.db #0x7C	; 124
    0050                     130 _g_tiles_05:
-   0050 FC                  131 	.db #0xFC	; 252
-   0051 FC                  132 	.db #0xFC	; 252
-   0052 FC                  133 	.db #0xFC	; 252
-   0053 FC                  134 	.db #0xFC	; 252
-   0054 FC                  135 	.db #0xFC	; 252
-   0055 FC                  136 	.db #0xFC	; 252
-   0056 FC                  137 	.db #0xFC	; 252
-   0057 FC                  138 	.db #0xFC	; 252
+   0050 FF                  131 	.db #0xFF	; 255
+   0051 FF                  132 	.db #0xFF	; 255
+   0052 FF                  133 	.db #0xFF	; 255
+   0053 FF                  134 	.db #0xFF	; 255
+   0054 FF                  135 	.db #0xFF	; 255
+   0055 FF                  136 	.db #0xFF	; 255
+   0056 FF                  137 	.db #0xFF	; 255
+   0057 FF                  138 	.db #0xFF	; 255
    0058                     139 _g_tiles_06:
    0058 FC                  140 	.db #0xFC	; 252
    0059 FC                  141 	.db #0xFC	; 252
@@ -173,14 +173,14 @@
    0076 FC                  173 	.db #0xFC	; 252
    0077 3C                  174 	.db #0x3C	; 60
    0078                     175 _g_tiles_10:
-   0078 C3                  176 	.db #0xC3	; 195
-   0079 C3                  177 	.db #0xC3	; 195
-   007A C6                  178 	.db #0xC6	; 198
-   007B C3                  179 	.db #0xC3	; 195
-   007C C3                  180 	.db #0xC3	; 195
-   007D C3                  181 	.db #0xC3	; 195
-   007E C3                  182 	.db #0xC3	; 195
-   007F C6                  183 	.db #0xC6	; 198
+   0078 FF                  176 	.db #0xFF	; 255
+   0079 FF                  177 	.db #0xFF	; 255
+   007A FF                  178 	.db #0xFF	; 255
+   007B FF                  179 	.db #0xFF	; 255
+   007C FF                  180 	.db #0xFF	; 255
+   007D FF                  181 	.db #0xFF	; 255
+   007E FF                  182 	.db #0xFF	; 255
+   007F FF                  183 	.db #0xFF	; 255
    0080                     184 _g_tiles_11:
    0080 CC                  185 	.db #0xCC	; 204
    0081 CF                  186 	.db #0xCF	; 207

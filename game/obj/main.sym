@@ -10,26 +10,32 @@ Symbol Table
   1 _EEje                                                          0001 GR
   1 _EMirar                                                        0000 GR
   C _G_song                                                        3F00 GR
-  9 _avanzarMapa                                                   022D GR
-  9 _borrarCuchillo                                                0378 GR
+  9 ___str_0                                                       0729 R
+  9 ___str_1                                                       078F R
+  9 ___str_2                                                       0794 R
+  9 _avanzarMapa                                                   0235 GR
+  9 _borrarCuchillo                                                0375 GR
   9 _borrarProta                                                   0042 GR
   9 _checkCollision                                                00F5 GR
-  9 _comprobarTeclado                                              05AD GR
+  9 _comprobarTeclado                                              05B7 GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
+    _cpct_drawStringM0                                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
     _cpct_etm_setTileset2x4                                        **** GX
     _cpct_getScreenPtr                                             **** GX
     _cpct_isAnyKeyPressed                                          **** GX
     _cpct_isKeyPressed                                             **** GX
+    _cpct_memset                                                   **** GX
+    _cpct_scanKeyboard_f                                           **** GX
     _cpct_scanKeyboard_if                                          **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            000A GR
-  9 _dibujarCuchillo                                               02EE GR
+  9 _dibujarCuchillo                                               02F8 GR
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  001C GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
@@ -45,24 +51,26 @@ Symbol Table
   8 _g_tablatrans                                                  3E00 GR
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    00B9 GR
-  9 _inicializar                                                   06E6 GR
-  9 _lanzarCuchillo                                                0413 GR
-  9 _main                                                          076E GR
+  9 _inicializar                                                   079C GR
+  9 _lanzarCuchillo                                                0410 GR
+  9 _main                                                          0824 GR
   1 _mapa                                                          0064 GR
   9 _mapas                                                         0016 GR
-  9 _moverAbajo                                                    02D2 GR
-  9 _moverArriba                                                   02B6 GR
-  9 _moverCuchillo                                                 05EE GR
-  9 _moverDerecha                                                  0283 GR
-  9 _moverIzquierda                                                0264 GR
-  1 _num_mapa                                                      0066 GR
-  1 _prota                                                         0002 GR
-  9 _redibujarCuchillo                                             03E2 GR
+  9 _menu                                                          0738 GR
+  9 _menuFin                                                       06F0 GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
+  9 _moverAbajo                                                    02DC GR
+  9 _moverArriba                                                   02C0 GR
+  9 _moverCuchillo                                                 05F8 GR
+  9 _moverDerecha                                                  028D GR
+  9 _moverIzquierda                                                026E GR
+  1 _num_mapa                                                      0066 GR
+  1 _prota                                                         0002 GR
+  9 _redibujarCuchillo                                             03DF GR
   9 _redibujarProta                                                00A5 GR
 
 
@@ -80,7 +88,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  78D   flags    0
+   9 _CSEG                                      size  846   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8
