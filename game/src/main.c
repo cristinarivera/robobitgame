@@ -24,6 +24,9 @@
 #include "knifeX.h"
 #include "knifeY.h"
 #include "hero.h"
+#include "hero_down.h"
+#include "hero_up.h"
+#include "hero_left.h"
 #include "enemy.h"
 #include "map1.h"
 #include "map2.h"
@@ -243,8 +246,9 @@ void avanzarMapa() {
 void moverIzquierda() {
 	prota.mira = M_izquierda;
   if (!checkCollision(M_izquierda)) {
-  		prota.x--;
-      prota.mover = SI;
+  	prota.x--;
+    prota.mover = SI;
+  	prota.sprite = g_hero_left;
   }
 }
 
@@ -253,6 +257,7 @@ void moverDerecha() {
 	if (!checkCollision(M_derecha)) {
   		prota.x++;
   		prota.mover = SI;
+  		prota.sprite = g_hero;
     }else if ( prota.x > 68 && prota.y >72 && prota.y < 80){  //TODO que avance solo si estamos en el centro
 		avanzarMapa();
 	}
@@ -264,6 +269,7 @@ void moverArriba() {
   		prota.y--;
   		prota.y--;
   		prota.mover  = SI;
+  		prota.sprite = g_hero_up;
     }
 }
 
@@ -273,6 +279,7 @@ void moverAbajo() {
 	   prota.y++;
 	   prota.y++;
 	   prota.mover  = SI;
+  		prota.sprite = g_hero_down;
   }
 }
 
