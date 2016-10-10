@@ -10,15 +10,15 @@ Symbol Table
   1 _EEje                                                          0001 GR
   1 _EMirar                                                        0000 GR
   C _G_song                                                        3F00 GR
-  9 ___str_0                                                       0908 R
-  9 ___str_1                                                       096E R
-  9 ___str_2                                                       0973 R
+  9 ___str_0                                                       0914 R
+  9 ___str_1                                                       097A R
+  9 ___str_2                                                       097F R
   9 _avanzarMapa                                                   037F GR
-  9 _borrarCuchillo                                                04E9 GR
+  9 _borrarCuchillo                                                04F5 GR
   9 _borrarEnemigo                                                 0249 GR
   9 _borrarProta                                                   0042 GR
   9 _checkCollision                                                00E1 GR
-  9 _comprobarTeclado                                              0752 GR
+  9 _comprobarTeclado                                              075E GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -36,7 +36,7 @@ Symbol Table
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            0012 GR
-  9 _dibujarCuchillo                                               045F GR
+  9 _dibujarCuchillo                                               046B GR
   9 _dibujarEnemigo                                                0223 GR
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  001C GR
@@ -63,22 +63,22 @@ Hexadecimal [16-Bits]
 
 Symbol Table
 
-  9 _inicializar                                                   097B GR
-  9 _lanzarCuchillo                                                0584 GR
-  9 _main                                                          0A2A GR
+  9 _inicializar                                                   0987 GR
+  9 _lanzarCuchillo                                                0590 GR
+  9 _main                                                          0A40 GR
   1 _mapa                                                          006C GR
   9 _mapas                                                         0016 GR
-  9 _menu                                                          0917 GR
-  9 _menuFin                                                       08CF GR
-  9 _moverAbajo                                                    043B GR
-  9 _moverArriba                                                   0417 GR
-  9 _moverCuchillo                                                 0793 GR
+  9 _menu                                                          0923 GR
+  9 _menuFin                                                       08DB GR
+  9 _moverAbajo                                                    0447 GR
+  9 _moverArriba                                                   0423 GR
+  9 _moverCuchillo                                                 079F GR
   9 _moverDerecha                                                  03DD GR
   9 _moverEnemigo                                                  02C0 GR
   9 _moverIzquierda                                                03B8 GR
   1 _num_mapa                                                      006E GR
   1 _prota                                                         000A GR
-  9 _redibujarCuchillo                                             0553 GR
+  9 _redibujarCuchillo                                             055F GR
   9 _redibujarEnemigo                                              02AC GR
   9 _redibujarProta                                                00A5 GR
 
@@ -97,7 +97,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  A4F   flags    0
+   9 _CSEG                                      size  A65   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

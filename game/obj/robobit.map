@@ -26,7 +26,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000061  l__CABS1                        
      0000006F  l__DATA                         
      00000100  l__g_tablatrans_0               
-     00000A4F  l__CSEG                         
+     00000A65  l__CSEG                         
      00002473  l__CODE                         
      00004000  s__CODE                         
      00006473  s__DATA                         
@@ -213,7 +213,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               000064E2    00000A4F =        2639. bytes (REL,CON)
+_CSEG                               000064E2    00000A65 =        2661. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -231,18 +231,18 @@ _CSEG                               000064E2    00000A4F =        2639. bytes (R
      00006861  _avanzarMapa                       main
      0000689A  _moverIzquierda                    main
      000068BF  _moverDerecha                      main
-     000068F9  _moverArriba                       main
-     0000691D  _moverAbajo                        main
-     00006941  _dibujarCuchillo                   main
-     000069CB  _borrarCuchillo                    main
-     00006A35  _redibujarCuchillo                 main
-     00006A66  _lanzarCuchillo                    main
-     00006C34  _comprobarTeclado                  main
-     00006C75  _moverCuchillo                     main
-     00006DB1  _menuFin                           main
-     00006DF9  _menu                              main
-     00006E5D  _inicializar                       main
-     00006F0C  _main                              main
+     00006905  _moverArriba                       main
+     00006929  _moverAbajo                        main
+     0000694D  _dibujarCuchillo                   main
+     000069D7  _borrarCuchillo                    main
+     00006A41  _redibujarCuchillo                 main
+     00006A72  _lanzarCuchillo                    main
+     00006C40  _comprobarTeclado                  main
+     00006C81  _moverCuchillo                     main
+     00006DBD  _menuFin                           main
+     00006E05  _menu                              main
+     00006E69  _inicializar                       main
+     00006F22  _main                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]

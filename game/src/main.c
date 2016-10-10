@@ -39,8 +39,8 @@
 #define  ORIGEN_MAPA_Y	0
 #define  ORIGEN_MAPA  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
-#define ANCHO_PANTALLA	g_map1_W * 2  	// 2 bytes por tile
-#define ALTO_MAPA g_map1_H * 4 			// 4 bytes por tile
+#define ANCHO_PANTALLA	g_map1_W * 2  	// 2 bytes por tile de ancho
+#define ALTO_MAPA g_map1_H * 4 			// 4 bytes por tile de alto
 
 #define LIMITE_IZQUIERDO 0 + 4
 #define LIMITE_DERECHO ANCHO_PANTALLA - 4
@@ -234,7 +234,7 @@ void moverEnemigo(){
 void avanzarMapa() {
 	if(num_mapa < NUM_MAPAS -1) {
 		mapa = mapas[++num_mapa];
-		enemy.x = prota.px = 2;
+		prota.x = prota.px = 2;
 		prota.mover = SI;
 		dibujarMapa();
 	}
@@ -245,21 +245,23 @@ void avanzarMapa() {
 
 void moverIzquierda() {
 	prota.mira = M_izquierda;
-  if (!checkCollision(M_izquierda)) {
-  	prota.x--;
-    prota.mover = SI;
-  	prota.sprite = g_hero_left;
-  }
+  	if (!checkCollision(M_izquierda)) {
+  		prota.x--;
+    	prota.mover = SI;
+  		prota.sprite = g_hero_left;
+  	}
 }
 
 void moverDerecha() {
 	prota.mira = M_derecha;
-	if (!checkCollision(M_derecha)) {
+	if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
   		prota.x++;
   		prota.mover = SI;
   		prota.sprite = g_hero;
-    }else if ( prota.x > 68 && prota.y >72 && prota.y < 80){  //TODO que avance solo si estamos en el centro
+    //}else if ( prota.x > 68 && prota.y >= 72 && prota.y <= 80){  //TODO que avance solo si estamos en el centro
+	}else if( prota.x + G_HERO_W >= 80){
 		avanzarMapa();
+	
 	}
 }
 
@@ -276,9 +278,9 @@ void moverArriba() {
 void moverAbajo() {
 	prota.mira = M_abajo;
 	if (!checkCollision(M_abajo)) {
-	   prota.y++;
-	   prota.y++;
-	   prota.mover  = SI;
+		prota.y++;
+		prota.y++;
+		prota.mover  = SI;
   		prota.sprite = g_hero_down;
   }
 }
@@ -488,8 +490,8 @@ void inicializar() {
 	//cpct_setBorder(HW_BLACK);
 	cpct_setPalette(g_palette, 16);
 	cpct_akp_musicInit(G_song);
-	mapa = g_map1;
 	num_mapa = 0;
+	mapa = mapas[num_mapa];
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 
