@@ -24,6 +24,7 @@
 #include "knifeX.h"
 #include "knifeY.h"
 #include "hero.h"
+#include "enemy.h"
 #include "map1.h"
 #include "map2.h"
 #include "map3.h"
@@ -69,6 +70,14 @@ typedef struct {
 	u8  mira;
 } TProta;
 
+typedef struct {
+	u8  x, y;
+	u8  px, py;
+	u8* sprite;
+	u8  mover;
+	u8  mira;
+} TEnemy;
+
 
 typedef struct {
 	u8  x, y;
@@ -83,6 +92,8 @@ typedef struct {
 #define NUM_MAPAS 3
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
+
+TEnemy enemy;
 
 TProta prota;
 
@@ -117,6 +128,8 @@ void borrarProta() {
 	cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 }
 
+
+
 void redibujarProta() {
 	borrarProta();
 	prota.px = prota.x;
@@ -125,7 +138,7 @@ void redibujarProta() {
 }
 
 u8* getTilePtr(u8 x, u8 y) {
-   return mapa + (y-ORIGEN_MAPA_Y)/4*g_map1_W + x/2;
+   return mapa + (y/4)*g_map1_W + x/2;
 }
 
 u8 checkCollision(int direction) { // check optimization
@@ -134,22 +147,22 @@ u8 checkCollision(int direction) { // check optimization
    switch (direction) {
     case 0:
         headTile  = getTilePtr(prota.x + G_HERO_W - 3, prota.y);
-        feetTile  = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA);
+        feetTile  = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA - 2);
         waistTile = getTilePtr(prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA/2);
         break;
     case 1:
         headTile  = getTilePtr(prota.x - 1, prota.y);
-        feetTile  = getTilePtr(prota.x - 1, prota.y + ALTO_PROTA);
+        feetTile  = getTilePtr(prota.x - 1, prota.y + ALTO_PROTA - 2);
         waistTile = getTilePtr(prota.x - 1, prota.y + ALTO_PROTA/2);
         break;
     case 2:
-        headTile   = getTilePtr(prota.x, prota.y - 1);
-        feetTile   = getTilePtr(prota.x + G_HERO_W - 4, prota.y - 1);
+        headTile   = getTilePtr(prota.x, prota.y - 2);
+        feetTile   = getTilePtr(prota.x + G_HERO_W - 4, prota.y - 2);
         *waistTile = 0;
         break;
     case 3:
-        headTile  = getTilePtr(prota.x, prota.y + ALTO_PROTA + 1);
-        feetTile  = getTilePtr(prota.x + G_HERO_W - 4, prota.y + ALTO_PROTA + 1);
+        headTile  = getTilePtr(prota.x, prota.y + ALTO_PROTA  );
+        feetTile  = getTilePtr(prota.x + G_HERO_W - 4, prota.y + ALTO_PROTA );
         *waistTile = 0;
         break;
    }
@@ -160,10 +173,65 @@ u8 checkCollision(int direction) { // check optimization
    return 0;
 }
 
+
+void dibujarEnemigo() {
+	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy.x, enemy.y);
+	cpct_drawSpriteMaskedAlignedTable (enemy.sprite, pvmem, G_ENEMY_W, G_ENEMY_H, g_tablatrans);
+}
+
+void borrarEnemigo() {
+	//u8 w = 4 + (enemy.px & 1);
+	u8 w = 4 + (enemy.px & 1);
+
+	//u8 h = 7 + (enemy.py & 3 ? 1 : 0);
+	u8 h = 7 + (enemy.py & 2 ? 1 : 0);
+
+	cpct_etm_drawTileBox2x4 (enemy.px / 2, (enemy.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+}
+
+
+
+void redibujarEnemigo() {
+	borrarEnemigo();
+	enemy.px = enemy.x;
+	enemy.py = enemy.y;
+	dibujarEnemigo();
+}
+
+void moverEnemigo(){
+
+	if(enemy.mira == M_abajo){
+		if( *getTilePtr(enemy.x, enemy.y + G_ENEMY_H + 2) <= 2
+			 && *getTilePtr(enemy.x + G_ENEMY_W / 2, enemy.y + G_ENEMY_H + 2) <= 2
+			 	&& *getTilePtr(enemy.x + G_ENEMY_W, enemy.y + G_ENEMY_H + 2) <= 2)
+		{
+			
+			enemy.y++;
+			enemy.y++;
+			redibujarEnemigo();
+		}else{
+			enemy.mira = M_arriba;
+		}
+	}
+	else{
+		if( *getTilePtr(enemy.x, enemy.y - 2) <= 2
+			 && *getTilePtr(enemy.x + G_ENEMY_W / 2, enemy.y - 2) <= 2
+			 	&& *getTilePtr(enemy.x + G_ENEMY_W, enemy.y - 2) <= 2)
+		{
+			
+			enemy.y--;
+			enemy.y--;
+			redibujarEnemigo();
+		}else{
+			enemy.mira = M_abajo;
+		}
+	}
+}
+
 void avanzarMapa() {
 	if(num_mapa < NUM_MAPAS -1) {
 		mapa = mapas[++num_mapa];
-		prota.x = prota.px = 2;
+		enemy.x = prota.px = 2;
 		prota.mover = SI;
 		dibujarMapa();
 	}
@@ -194,6 +262,7 @@ void moverArriba() {
 	prota.mira = M_arriba;
 	if (!checkCollision(M_arriba)) {
   		prota.y--;
+  		prota.y--;
   		prota.mover  = SI;
     }
 }
@@ -201,6 +270,7 @@ void moverArriba() {
 void moverAbajo() {
 	prota.mira = M_abajo;
 	if (!checkCollision(M_abajo)) {
+	   prota.y++;
 	   prota.y++;
 	   prota.mover  = SI;
   }
@@ -244,7 +314,8 @@ void lanzarCuchillo(){
 	if(i>0 && !actual->lanzado){
 
 		if(prota.mira == M_derecha){
-			if( (LIMITE_DERECHO - (prota.x + G_HERO_W) ) >= G_KNIFEX_0_W + 1){
+
+			if( *getTilePtr(prota.x + G_HERO_W + G_KNIFEX_0_W + 1, prota.y + G_HERO_H /2) <= 2){
 				actual->lanzado = SI;
 				actual->direccion = M_derecha;
 				actual->x=prota.x + G_HERO_W;
@@ -255,7 +326,7 @@ void lanzarCuchillo(){
 			}
 		}
 		else if(prota.mira == M_izquierda){
-			if( (prota.x - 4 ) >= G_KNIFEX_1_W + 1){
+			if( *getTilePtr(prota.x - G_KNIFEX_0_W - 1 - G_KNIFEX_0_W - 1, prota.y + G_HERO_H /2) <= 2){
 				actual->lanzado = SI;
 				actual->direccion = M_izquierda;
 				actual->x = prota.x - G_KNIFEX_0_W;
@@ -267,7 +338,7 @@ void lanzarCuchillo(){
 		}
 		else if(prota.mira == M_abajo){
 			u8 valor = LIMITE_INFERIOR;
-			if((valor - (prota.y + G_HERO_H)) >= G_KNIFEY_0_H + 1){
+			if( *getTilePtr(prota.x + G_HERO_W / 2, prota.y + G_HERO_H + G_KNIFEY_0_H + 1) <= 2){
 				actual->lanzado = SI;
 				actual->direccion = M_abajo;
 				actual->x = prota.x + G_HERO_W / 2;
@@ -278,7 +349,7 @@ void lanzarCuchillo(){
 			}
 		}
 		else if(prota.mira == M_arriba){
-			if((prota.y - 8)>= G_KNIFEY_0_H +1 ){
+			if( *getTilePtr(prota.x + G_HERO_W / 2, prota.y - G_KNIFEY_0_H - 1) <= 2){
 				actual->lanzado = SI;
 				actual->direccion = M_arriba;
 				actual->x = prota.x + G_HERO_W / 2;
@@ -318,45 +389,46 @@ void moverCuchillo(){
 	while(--i){
 		if(actual->lanzado){
 			if(actual->direccion == M_derecha){
-				if(actual->x< LIMITE_DERECHO - G_KNIFEX_0_W){
+				
+				if( *getTilePtr(actual->x + G_KNIFEX_0_W + 1, actual->y) <= 2){
 					actual->x++;
 
 					redibujarCuchillo(actual);
 				}
-				else if(actual->x >= LIMITE_DERECHO  - G_KNIFEX_0_W){
+				else {
 					borrarCuchillo(actual);
 					actual->lanzado = NO;
 				}
 			}
 			else if(actual->direccion == M_izquierda){
-				if(actual->x > LIMITE_IZQUIERDO){
+				if(*getTilePtr(actual->x - 1, actual->y) <= 2){
 					actual->x--;
 
 					redibujarCuchillo(actual);
-				}else if(actual->x <= LIMITE_IZQUIERDO){
+				}else{
 					borrarCuchillo(actual);
 					actual->lanzado = NO;
 				}
 			}
 			else if(actual->direccion == M_abajo){
-				if(actual->y < LIMITE_INFERIOR - G_KNIFEY_0_H){
+				if(*getTilePtr(actual->x, actual->y + G_KNIFEY_0_H + 2) <= 2){
 					actual->y++;
 					actual->y++;
 					redibujarCuchillo(actual);
 
 
-				}else if(actual->y >= LIMITE_INFERIOR - G_KNIFEY_0_H ){
+				}else{
 					borrarCuchillo(actual);
 					actual->lanzado = NO;
 				}
 			}
 			else if(actual->direccion == M_arriba){
-				if(actual->y > LIMITE_SUPERIOR){
+				if(*getTilePtr(actual->x, actual->y - 2) <= 2){
 					actual->y--;
 					actual->y--;
 					redibujarCuchillo(actual);
 
-				}else if(actual->y <= LIMITE_SUPERIOR){
+				}else{
 					borrarCuchillo(actual);
 					actual->lanzado = NO;
 				}
@@ -421,6 +493,12 @@ void inicializar() {
 	prota.mira=M_derecha;
 	prota.sprite = g_hero;
 
+	enemy.x = enemy.px = 67;
+	enemy.y = enemy.py = 84;
+	enemy.mover  = NO;
+	enemy.mira=M_abajo;
+	enemy.sprite = g_enemy;
+
 
 	i = 10 + 1;
 
@@ -434,6 +512,7 @@ void inicializar() {
 
 
 	dibujarProta();
+	dibujarEnemigo();
 }
 
 void main(void) {
@@ -451,6 +530,7 @@ void main(void) {
 
 		cpct_waitVSYNC();
    		moverCuchillo();
+   		moverEnemigo();
 
    		if (prota.mover) {
 

@@ -44,23 +44,37 @@
 	.area _CODE
 _g_knifeX_0:
 	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x88	; 136
+	.db #0x00	; 0
 	.db #0x00	; 0
 	.db #0x44	; 68	'D'
 	.db #0xD9	; 217
 	.db #0xF3	; 243
 	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x88	; 136
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x00	; 0
 _g_knifeX_1:
 	.db #0x00	; 0
 	.db #0x44	; 68	'D'
 	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0xF3	; 243
 	.db #0xE6	; 230
 	.db #0x88	; 136
 	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x44	; 68	'D'
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0x00	; 0
 	.area _INITIALIZER
 	.area _CABS (ABS)
