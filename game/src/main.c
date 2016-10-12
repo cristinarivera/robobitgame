@@ -28,6 +28,7 @@
 #include "hero_up.h"
 #include "hero_left.h"
 #include "enemy.h"
+#include "heart.h"
 #include "map1.h"
 #include "map2.h"
 #include "map3.h"
@@ -237,6 +238,7 @@ void avanzarMapa() {
 		prota.x = prota.px = 2;
 		prota.mover = SI;
 		dibujarMapa();
+		//modificarPuntuacion();
 	}
 	else{
 		menuFin();
@@ -260,14 +262,13 @@ void moverDerecha() {
   		prota.sprite = g_hero;
     //}else if ( prota.x > 68 && prota.y >= 72 && prota.y <= 80){  //TODO que avance solo si estamos en el centro
 	}else if( prota.x + G_HERO_W >= 80){
-		avanzarMapa();
-	
+		avanzarMapa();	
 	}
 }
 
 void moverArriba() {
 	prota.mira = M_arriba;
-	if (!checkCollision(M_arriba)) {
+	if (!checkCollision(M_arriba) && (prota.y >= 0)) { // TODO: COMPROBAR
   		prota.y--;
   		prota.y--;
   		prota.mover  = SI;
@@ -277,7 +278,7 @@ void moverArriba() {
 
 void moverAbajo() {
 	prota.mira = M_abajo;
-	if (!checkCollision(M_abajo)) {
+	if (!checkCollision(M_abajo) && (prota.y + G_HERO_H < ALTO_MAPA)) { // TODO: COMPROBAR
 		prota.y++;
 		prota.y++;
 		prota.mover  = SI;
@@ -446,14 +447,43 @@ void moverCuchillo(){
 		++actual;
 	}
 }
+void barraPuntuacionInicial(){
+	u8* memptr;
+	int i;
+	
+   	//memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 176); // justo después del mapa
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 178); // 
+	cpct_drawStringM0("SCORE", memptr, 1, 0);
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 190); // puntuación inicial
+	cpct_drawStringM0("00000", memptr, 15, 0);
+   	//cpct_drawStringM0("", memptr, 15, 0);
+   	
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 190);
+	cpct_drawStringM0("ROBOBIT", memptr, 3, 0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 178); // 
+	cpct_drawStringM0("LIVES", memptr, 1, 0);
+	
+	for(i=0; i<5; i++){
+		memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 190); // dibuja 5 corazones
+		cpct_drawSprite (g_heart, memptr, G_HEART_W, G_HEART_H);
+	}	
+}
+
+void borrarPantallaAbajo(){
+	u8* memptr;
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 180); // posición para borrar 
+
+   	cpct_drawSolidBox(memptr, 0, 30, 7);  //borra el texto "PULSA I"
+}
 
 void menuFin(){
 	u8* memptr;
 	// borrar pantalla
 	cpct_clearScreen(0);
-
+º
 	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 12, 90); // centrado en horizontal y arriba en vertical
-   	cpct_drawStringM0("FIN DE PARTIDA", memptr, 2, 3);
+   	cpct_drawStringM0("FIN DE PARTIDA", memptr, 2, 0);
 
    	
    	// Esperar hasta pulsar intro 
@@ -462,15 +492,16 @@ void menuFin(){
    	} while(!cpct_isKeyPressed(Key_I));   		
 }
 
-void menu(){
+void menuInicio(){
 	u8* memptr;
+
 	// borrar pantalla
 	cpct_clearScreen(0);
 
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 10); // centrado en horizontal y arriba en vertical
-   	cpct_drawStringM0("MENU", memptr, 2, 3);
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 15); // centrado en horizontal y arriba en vertical
+   	cpct_drawStringM0("MENU", memptr, 2, 0);
 
-   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 180); // centrado en horizontal y abajo en vertical
+   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 160); // centrado en horizontal y abajo en vertical
    	cpct_drawStringM0("PULSA I", memptr, 1, 0);
 
    	// Esperar hasta pulsar intro 
@@ -479,21 +510,25 @@ void menu(){
    	} while(!cpct_isKeyPressed(Key_I));   		
 }
 
+void inicializarCPC() {
+	cpct_disableFirmware();
+	cpct_setVideoMode(0);
+	cpct_setBorder(HW_BLACK);
+	cpct_setPalette(g_palette, 16);
+	cpct_akp_musicInit(G_song);
+}
 
-void inicializar() {
+void inicializarJuego() {
 
 	u8 i;
 	TKnife* actual = cu;
 
-	cpct_disableFirmware();
-	cpct_setVideoMode(0);
-	//cpct_setBorder(HW_BLACK);
-	cpct_setPalette(g_palette, 16);
-	cpct_akp_musicInit(G_song);
 	num_mapa = 0;
 	mapa = mapas[num_mapa];
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
+	borrarPantallaAbajo();
+	barraPuntuacionInicial();
 
 
 	prota.x = prota.px = 4;
@@ -508,9 +543,7 @@ void inicializar() {
 	enemy.mira=M_abajo;
 	enemy.sprite = g_enemy;
 
-
 	i = 10 + 1;
-
 
 	while(--i){
 		actual->x = actual->px = 0;
@@ -519,19 +552,18 @@ void inicializar() {
 		++actual;
 	}
 
-
 	dibujarProta();
 	dibujarEnemigo();
 }
 
 void main(void) {
 
-	menu();
+	inicializarCPC();
+	menuInicio();
 
-	inicializar();
+	inicializarJuego();
    	cpct_akp_musicPlay();
-
-
+   	
    	while (1) {
 
 
