@@ -202,34 +202,105 @@ void redibujarEnemigo() {
 	dibujarEnemigo();
 }
 
-void moverEnemigo(){
+u8 checkEnemyCollision(int direction){
 
-	if(enemy.mira == M_abajo){
+	u8 colisiona = 1;
+
+	switch (direction) {
+    case 0:
+        
+        break;
+    case 1:
+        
+        break;
+    case 3:
+       
+
 		if( *getTilePtr(enemy.x, enemy.y + G_ENEMY_H + 2) <= 2
 			 && *getTilePtr(enemy.x + G_ENEMY_W / 2, enemy.y + G_ENEMY_H + 2) <= 2
-			 	&& *getTilePtr(enemy.x + G_ENEMY_W, enemy.y + G_ENEMY_H + 2) <= 2)
-		{
-			
-			enemy.y++;
-			enemy.y++;
-			redibujarEnemigo();
+			 	&& *getTilePtr(enemy.x + G_ENEMY_W, enemy.y + G_ENEMY_H + 2) <= 2)			  
+		{ // puede moverse, no colisiona con el mapa
+			if( (prota.x + G_HERO_W -4) < enemy.x || prota.x  > (enemy.x + G_ENEMY_W) ){
+				colisiona = 0;
+				 // el prota no esta ni arriba ni abajo
+			}else{ 
+				if(prota.y > enemy.y){ //si el prota esta abajo
+					if( prota.y - (enemy.y + G_ENEMY_H) > 2){ // si hay espacio entre el enemigo y el prota
+						colisiona = 0;
+						
+					}else{
+						enemy.mira = M_arriba;
+					}
+				}else{ // el prota esta arriba
+					colisiona = 0;
+				}
+			}
 		}else{
 			enemy.mira = M_arriba;
 		}
-	}
-	else{
-		if( *getTilePtr(enemy.x, enemy.y - 2) <= 2
+        break;
+    case 2:
+         if( *getTilePtr(enemy.x, enemy.y - 2) <= 2
 			 && *getTilePtr(enemy.x + G_ENEMY_W / 2, enemy.y - 2) <= 2
 			 	&& *getTilePtr(enemy.x + G_ENEMY_W, enemy.y - 2) <= 2)
 		{
+			if((prota.x + G_HERO_W -4) < enemy.x || prota.x  > (enemy.x + G_ENEMY_W)){
+				enemy.y--;
+				colisiona = 0;
+				
+			}else{
+				if(enemy.y>prota.y){
+					if(enemy.y - (prota.y + G_HERO_H -2) >= 2){
+						colisiona = 0;
+						
+					}else{
+						enemy.mira = M_abajo;
+					}
+				}else{
+					colisiona = 0;
+					
+				}
+			}
 			
-			enemy.y--;
-			enemy.y--;
-			redibujarEnemigo();
 		}else{
 			enemy.mira = M_abajo;
 		}
+   }
+   return colisiona;
+}
+
+void moverEnemigo(){
+
+	if(!checkEnemyCollision(enemy.mira)){
+		 
+	   switch (enemy.mira) {
+	    case 0:
+	        
+	        break;
+	    case 1:
+	        
+	        break;
+	    case 2:
+	        moverEnemigoArriba();
+	        break;
+	    case 3:
+	       	moverEnemigoAbajo();
+	        break;
+	   }
 	}
+	
+}
+
+void moverEnemigoArriba(){
+	enemy.y--;
+	enemy.y--;
+	redibujarEnemigo();
+}
+
+void moverEnemigoAbajo(){
+	enemy.y++;
+	enemy.y++;
+	redibujarEnemigo();
 }
 
 void avanzarMapa() {
