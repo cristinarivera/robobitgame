@@ -35,6 +35,7 @@
 #include "tiles.h"
 #include "song.c"
 #include "text.h"
+#include "explosion.h"
 
 #define  SI 1
 #define  NO 0
@@ -194,6 +195,21 @@ u8 checkCollision(int direction) { // check optimization
 void dibujarEnemigo(TEnemy *enemy) {
 	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy->x, enemy->y);
 	cpct_drawSpriteMaskedAlignedTable (enemy->sprite, pvmem, G_ENEMY_W, G_ENEMY_H, g_tablatrans);
+}
+
+void dibujarExplosion() {
+	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy->x, enemy->y);
+	cpct_drawSpriteMaskedAlignedTable (g_explosion, pvmem, G_EXPLOSION_W, G_EXPLOSION_H, g_tablatrans);
+}
+
+void borrarExplosion() {
+	u8 w = 4 + (enemy->px & 1);
+
+	//u8 h = 7 + (enemy->py & 3 ? 1 : 0);
+	u8 h = 7 + (enemy->py & 2 ? 1 : 0);
+
+	cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+
 }
 
 void borrarEnemigo(TEnemy *enemy) {
@@ -785,7 +801,11 @@ void main(void) {
    			redibujarEnemigo(actual);
    		}
    		if (enemy->muerto){
+
    			borrarEnemigo(actual);
+
+   			dibujarExplosion();
+   			borrarExplosion();
    		}
    	}
 }
