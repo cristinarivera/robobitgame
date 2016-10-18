@@ -84,6 +84,7 @@ typedef struct {
 	u8  mira;
 	u8  muerto;
   u8  patrol; //TODO check optimization
+  u8  colision;
 } TEnemy;
 
 
@@ -101,7 +102,9 @@ typedef struct {
 #define NUM_MAPAS 3
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
-
+// enemies
+u8 const spawnX[5] = {0, 40, 71, 20, 60};
+u8 const spawnY[5] = {0, 20, 90, 114, 114};
 TEnemy enemy[4];
 
 TProta prota;
@@ -702,27 +705,25 @@ void inicializarCPC() {
 }
 
 void inicializarEnemy() {
-u8 i = 4 + 1;
+//u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+u8 i = 4 + 1; // dibuja todos de prueba
 
 TEnemy* actual;
 
 actual = enemy;
   while(--i){
-    actual->x = actual->px = 71;
-    actual->y = actual->py = 84;
+    actual->x = actual->px = spawnX[i];
+    actual->y = actual->py = spawnY[i];
     actual->mover  = NO;
-    actual->mira=M_abajo;
+    actual->mira   = M_abajo;
     actual->sprite = g_enemy;
-    if(i!=4){
-      actual->muerto = SI;
-    }
-    else{
-      actual->muerto = NO;
-    }
+    actual->muerto = NO;
     actual->patrol = SI;
+    dibujarEnemigo(actual);
+
     actual++;
   }
-}  
+}
 
 void inicializarJuego() {
 
@@ -765,13 +766,13 @@ void main(void) {
 	inicializarCPC();
 	menuInicio();
 
-	
+
 
 	inicializarJuego();
-	
 
-  	
-  	
+
+
+
    	cpct_akp_musicPlay();
 
 
@@ -782,8 +783,8 @@ void main(void) {
    		cpct_waitVSYNC();
    		comprobarTeclado();
    		moverCuchillo();
-   		
-   		moverEnemigo(actual);
+
+   		//moverEnemigo(actual);
 
 		cpct_waitVSYNC();
 
@@ -801,9 +802,7 @@ void main(void) {
    			redibujarEnemigo(actual);
    		}
    		if (enemy->muerto){
-
    			borrarEnemigo(actual);
-
    			dibujarExplosion();
    			borrarExplosion();
    		}
