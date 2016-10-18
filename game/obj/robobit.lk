@@ -13,6 +13,7 @@ obj/map1.rel
 obj/knifeY.rel
 obj/knifeX.rel
 obj/tiles.rel
+obj/text.rel
 obj/heart.rel
 obj/enemy.rel
 obj/hero_down.rel
