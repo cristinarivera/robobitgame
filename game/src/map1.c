@@ -1,8 +1,8 @@
 //
-// File assets/map1.tmx converted to csv using cpct_tmx2csv [20161018 16:55:25 CEST]
-//   * Width:  40
-//   * Height: 44
-//   * Bytes:  1760 
+// File assets/map1.tmx converted to csv using cpct_tmx2csv [20161018 17:04:57 CEST]
+//   * Width:  40 columns (40 bytes, 8 bits per column)
+//   * Height: 44 rows
+//   * Bytes:  1760 bytes (40 x 44)
 //
 #include <types.h>
 

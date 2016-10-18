@@ -676,7 +676,7 @@ _borrarEnemigo::
 	ld	a,e
 	and	a, #0x01
 	add	a, #0x04
-	ld	-3 (ix),a
+	ld	-4 (ix),a
 ;src/main.c:204: u8 h = 7 + (enemy->py & 2 ? 1 : 0);
 	ld	l, c
 	ld	h, b
@@ -692,7 +692,7 @@ _borrarEnemigo::
 	ld	a,#0x00
 00104$:
 	add	a, #0x07
-	ld	-4 (ix),a
+	ld	-3 (ix),a
 ;src/main.c:206: cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	l,d
@@ -721,8 +721,8 @@ _borrarEnemigo::
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	h,-4 (ix)
-	ld	l,-3 (ix)
+	ld	h,-3 (ix)
+	ld	l,-4 (ix)
 	push	hl
 	push	de
 	call	_cpct_etm_drawTileBox2x4
@@ -809,8 +809,8 @@ _checkEnemyCollision::
 ;src/main.c:230: if( *getTilePtr(enemy->x, enemy->y - 2) <= 2
 	ld	hl,#0x0001
 	add	hl,bc
-	ld	-6 (ix),l
-	ld	-5 (ix),h
+	ld	-2 (ix),l
+	ld	-1 (ix),h
 ;src/main.c:222: switch (direction) {
 	ld	e,4 (ix)
 	ld	d,#0x00
@@ -833,8 +833,8 @@ _checkEnemyCollision::
 ;src/main.c:229: case 2:
 00103$:
 ;src/main.c:230: if( *getTilePtr(enemy->x, enemy->y - 2) <= 2
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	e,(hl)
 	ld	d,e
 	dec	d
@@ -853,8 +853,8 @@ _checkEnemyCollision::
 	sub	a, e
 	jp	C,00115$
 ;src/main.c:231: && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	d,(hl)
 	dec	d
 	dec	d
@@ -873,8 +873,8 @@ _checkEnemyCollision::
 	sub	a, e
 	jp	C,00115$
 ;src/main.c:232: && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	d,(hl)
 	dec	d
 	dec	d
@@ -898,14 +898,14 @@ _checkEnemyCollision::
 	ld	d,#0x00
 	ld	hl,#0x0003
 	add	hl,de
-	ld	-2 (ix),l
-	ld	-1 (ix),h
+	ld	-6 (ix),l
+	ld	-5 (ix),h
 	ld	a,(bc)
 	ld	l,a
 	ld	h,#0x00
-	ld	a,-2 (ix)
+	ld	a,-6 (ix)
 	sub	a, l
-	ld	a,-1 (ix)
+	ld	a,-5 (ix)
 	sbc	a, h
 	jp	PO, 00196$
 	xor	a, #0x80
@@ -929,8 +929,8 @@ _checkEnemyCollision::
 	jr	00119$
 00111$:
 ;src/main.c:239: if(enemy->y>prota.y){
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	e,(hl)
 	ld	hl, #(_prota + 0x0001) + 0
 	ld	l,(hl)
@@ -979,8 +979,8 @@ _checkEnemyCollision::
 ;src/main.c:256: case 3:
 00119$:
 ;src/main.c:259: if( *getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	d,a
@@ -998,8 +998,8 @@ _checkEnemyCollision::
 	sub	a, e
 	jp	C,00131$
 ;src/main.c:260: && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	d,a
@@ -1018,8 +1018,8 @@ _checkEnemyCollision::
 	sub	a, e
 	jp	C,00131$
 ;src/main.c:261: && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	d,a
@@ -1043,14 +1043,14 @@ _checkEnemyCollision::
 	ld	d,#0x00
 	ld	hl,#0x0003
 	add	hl,de
-	ld	-2 (ix),l
-	ld	-1 (ix),h
+	ld	-6 (ix),l
+	ld	-5 (ix),h
 	ld	a,(bc)
 	ld	c,a
 	ld	b,#0x00
-	ld	a,-2 (ix)
+	ld	a,-6 (ix)
 	sub	a, c
-	ld	a,-1 (ix)
+	ld	a,-5 (ix)
 	sbc	a, b
 	jp	PO, 00198$
 	xor	a, #0x80
@@ -1076,8 +1076,8 @@ _checkEnemyCollision::
 ;src/main.c:267: if(prota.y > enemy->y){ //si el prota esta abajo
 	ld	hl, #(_prota + 0x0001) + 0
 	ld	c,(hl)
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	e,(hl)
 	ld	a,e
 	sub	a, c
@@ -2609,47 +2609,68 @@ _inicializarCPC::
 ; ---------------------------------
 _inicializarEnemy::
 ;src/main.c:693: actual = enemy;
+	ld	bc,#_enemy+0
 ;src/main.c:694: while(--i){
-	ld	c,#0x05
+	ld	e,#0x05
 00104$:
-	dec c
+	dec e
 	ret	Z
-;src/main.c:695: enemy->x = enemy->px = 71;
-	ld	hl,#(_enemy + 0x0002)
+;src/main.c:695: actual->x = actual->px = 71;
+	ld	l, c
+	ld	h, b
+	inc	hl
+	inc	hl
 	ld	(hl),#0x47
-	ld	hl,#_enemy
-	ld	(hl),#0x47
-;src/main.c:696: enemy->y = enemy->py = 84;
-	ld	hl,#(_enemy + 0x0003)
+	ld	a,#0x47
+	ld	(bc),a
+;src/main.c:696: actual->y = actual->py = 84;
+	push	bc
+	pop	iy
+	inc	iy
+	ld	l, c
+	ld	h, b
+	inc	hl
+	inc	hl
+	inc	hl
 	ld	(hl),#0x54
-	ld	hl,#(_enemy + 0x0001)
-	ld	(hl),#0x54
-;src/main.c:697: enemy->mover  = NO;
-	ld	hl,#(_enemy + 0x0006)
+	ld	0 (iy), #0x54
+;src/main.c:697: actual->mover  = NO;
+	ld	hl,#0x0006
+	add	hl,bc
 	ld	(hl),#0x00
-;src/main.c:698: enemy->mira=M_abajo;
-	ld	hl,#(_enemy + 0x0007)
+;src/main.c:698: actual->mira=M_abajo;
+	ld	hl,#0x0007
+	add	hl,bc
 	ld	(hl),#0x03
-;src/main.c:699: enemy->sprite = g_enemy;
-	ld	hl,#_g_enemy
-	ld	((_enemy + 0x0004)), hl
-;src/main.c:701: enemy->muerto = SI;
-	ld	hl,#_enemy + 8
+;src/main.c:699: actual->sprite = g_enemy;
+	ld	hl,#0x0004
+	add	hl,bc
+	ld	(hl),#<(_g_enemy)
+	inc	hl
+	ld	(hl),#>(_g_enemy)
+;src/main.c:701: actual->muerto = SI;
+	ld	hl,#0x0008
+	add	hl,bc
 ;src/main.c:700: if(i!=4){
-	ld	a,c
+	ld	a,e
 	sub	a, #0x04
 	jr	Z,00102$
-;src/main.c:701: enemy->muerto = SI;
+;src/main.c:701: actual->muerto = SI;
 	ld	(hl),#0x01
 	jr	00103$
 00102$:
-;src/main.c:704: enemy->muerto = NO;
+;src/main.c:704: actual->muerto = NO;
 	ld	(hl),#0x00
 00103$:
-;src/main.c:706: enemy->patrol = SI;
-	ld	hl,#(_enemy + 0x0009)
+;src/main.c:706: actual->patrol = SI;
+	ld	hl,#0x0009
+	add	hl,bc
 	ld	(hl),#0x01
 ;src/main.c:707: actual++;
+	ld	hl,#0x000A
+	add	hl,bc
+	ld	c,l
+	ld	b,h
 	jr	00104$
 ;src/main.c:711: void inicializarJuego() {
 ;	---------------------------------
@@ -2657,10 +2678,10 @@ _inicializarEnemy::
 ; ---------------------------------
 _inicializarJuego::
 ;src/main.c:715: actual = enemy;
-;src/main.c:717: num_mapa = 0;
+;src/main.c:718: num_mapa = 0;
 	ld	hl,#_num_mapa + 0
 	ld	(hl), #0x00
-;src/main.c:718: mapa = mapas[num_mapa];
+;src/main.c:719: mapa = mapas[num_mapa];
 	ld	hl, #_mapas + 0
 	ld	a,(hl)
 	ld	iy,#_mapa
@@ -2668,101 +2689,107 @@ _inicializarJuego::
 	inc	hl
 	ld	a,(hl)
 	ld	(#_mapa + 1),a
-;src/main.c:719: cpct_etm_setTileset2x4(g_tileset);
+;src/main.c:720: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:720: dibujarMapa();
+;src/main.c:721: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:721: borrarPantallaAbajo();
+;src/main.c:722: borrarPantallaAbajo();
 	call	_borrarPantallaAbajo
-;src/main.c:722: barraPuntuacionInicial();
+;src/main.c:723: barraPuntuacionInicial();
 	call	_barraPuntuacionInicial
-;src/main.c:725: prota.x = prota.px = 4;
+;src/main.c:726: prota.x = prota.px = 4;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x04
 	ld	hl,#_prota
 	ld	(hl),#0x04
-;src/main.c:726: prota.y = prota.py = 80;
+;src/main.c:727: prota.y = prota.py = 80;
 	ld	hl,#(_prota + 0x0003)
 	ld	(hl),#0x50
 	ld	hl,#(_prota + 0x0001)
 	ld	(hl),#0x50
-;src/main.c:727: prota.mover  = NO;
+;src/main.c:728: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:728: prota.mira=M_derecha;
+;src/main.c:729: prota.mira=M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:729: prota.sprite = g_hero;
+;src/main.c:730: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:733: cu.x = cu.px = 0;
+;src/main.c:734: cu.x = cu.px = 0;
 	ld	hl,#(_cu + 0x0002)
 	ld	(hl),#0x00
 	ld	hl,#_cu
 	ld	(hl),#0x00
-;src/main.c:734: cu.y = cu.py = 0;
+;src/main.c:735: cu.y = cu.py = 0;
 	ld	hl,#(_cu + 0x0003)
 	ld	(hl),#0x00
 	ld	hl,#(_cu + 0x0001)
 	ld	(hl),#0x00
-;src/main.c:735: cu.lanzado = NO;
+;src/main.c:736: cu.lanzado = NO;
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:736: cu.mover = NO;
+;src/main.c:737: cu.mover = NO;
 	ld	hl,#(_cu + 0x0009)
 	ld	(hl),#0x00
-;src/main.c:740: dibujarProta();
+;src/main.c:739: inicializarEnemy();
+	call	_inicializarEnemy
+;src/main.c:741: dibujarProta();
 	call	_dibujarProta
-;src/main.c:741: dibujarEnemigo(actual);
+;src/main.c:742: dibujarEnemigo(actual);
 	ld	hl,#_enemy
 	push	hl
 	call	_dibujarEnemigo
 	pop	af
 	ret
-;src/main.c:744: void main(void) {
+;src/main.c:745: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:748: inicializarCPC();
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	dec	sp
+;src/main.c:749: inicializarCPC();
 	call	_inicializarCPC
-;src/main.c:749: menuInicio();
+;src/main.c:750: menuInicio();
 	call	_menuInicio
-;src/main.c:751: inicializarJuego();
+;src/main.c:754: inicializarJuego();
 	call	_inicializarJuego
-;src/main.c:752: inicializarEnemy();
-	call	_inicializarEnemy
-;src/main.c:753: cpct_akp_musicPlay();
+;src/main.c:759: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
-;src/main.c:756: actual = enemy;
-;src/main.c:758: while (1) {
+;src/main.c:762: actual = enemy;
+;src/main.c:764: while (1) {
 00115$:
-;src/main.c:760: comprobarTeclado();
+;src/main.c:766: cpct_waitVSYNC();
+	call	_cpct_waitVSYNC
+;src/main.c:767: comprobarTeclado();
 	call	_comprobarTeclado
-;src/main.c:761: moverCuchillo();
+;src/main.c:768: moverCuchillo();
 	call	_moverCuchillo
-;src/main.c:762: moverEnemigo(actual);
+;src/main.c:770: moverEnemigo(actual);
 	ld	hl,#_enemy
 	push	hl
 	call	_moverEnemigo
 	pop	af
-;src/main.c:764: cpct_waitVSYNC();
+;src/main.c:772: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/main.c:766: if (prota.mover) {
+;src/main.c:774: if (prota.mover) {
 	ld	bc,#_prota+6
 	ld	a,(bc)
 	or	a, a
 	jr	Z,00102$
-;src/main.c:767: redibujarProta();
+;src/main.c:775: redibujarProta();
 	push	bc
 	call	_redibujarProta
 	pop	bc
-;src/main.c:768: prota.mover = NO;
+;src/main.c:776: prota.mover = NO;
 	xor	a, a
 	ld	(bc),a
 00102$:
-;src/main.c:770: if(cu.lanzado && cu.mover){
+;src/main.c:778: if(cu.lanzado && cu.mover){
 	ld	hl,#_cu + 6
 	ld	c,(hl)
 	ld	de,#_cu + 9
@@ -2772,34 +2799,44 @@ _main::
 	ld	a,(de)
 	or	a, a
 	jr	Z,00107$
-;src/main.c:771: redibujarCuchillo();
+;src/main.c:779: redibujarCuchillo();
 	call	_redibujarCuchillo
 	jr	00108$
 00107$:
-;src/main.c:772: }else if (cu.lanzado && !cu.mover){
+;src/main.c:780: }else if (cu.lanzado && !cu.mover){
 	ld	a,c
 	or	a, a
 	jr	Z,00108$
 	ld	a,(de)
 	or	a, a
 	jr	NZ,00108$
-;src/main.c:773: borrarCuchillo();
+;src/main.c:781: borrarCuchillo();
 	call	_borrarCuchillo
 00108$:
-;src/main.c:776: if(enemy->mover){
+;src/main.c:784: if(enemy->mover){
 	ld	a, (#_enemy + 6)
 	or	a, a
 	jr	Z,00111$
-;src/main.c:777: redibujarEnemigo();
+;src/main.c:785: redibujarEnemigo(actual);
+	ld	hl,#_enemy
+	push	hl
 	call	_redibujarEnemigo
+	pop	af
 00111$:
-;src/main.c:779: if (enemy->muerto){
-	ld	a, (#_enemy + 8)
+;src/main.c:787: if (enemy->muerto){
+	ld	a,(#_enemy + 8)
+	ld	-1 (ix), a
 	or	a, a
 	jr	Z,00115$
-;src/main.c:780: borrarEnemigo();
+;src/main.c:788: borrarEnemigo(actual);
+	ld	hl,#_enemy
+	push	hl
 	call	_borrarEnemigo
+	pop	af
 	jr	00115$
+	inc	sp
+	pop	ix
+	ret
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)

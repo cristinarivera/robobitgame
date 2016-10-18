@@ -17,7 +17,7 @@ DEF l__DATA 0x3F
 DEF l__CABS0 0x61
 DEF l__CABS1 0x61
 DEF l__g_tablatrans_0 0x100
-DEF l__CSEG 0xE5B
+DEF l__CSEG 0xE8D
 DEF s__CODE 0x4000
 DEF l__CODE 0x489A
 DEF s__DATA 0x889A
@@ -64,6 +64,7 @@ DEF _g_hero_up 0x790C
 DEF _g_hero_left 0x79A6
 DEF _g_palette 0x7A40
 DEF _g_hero 0x7A50
+DEF _dummy_cpct_transparentMaskTable0M0_container 0x7AEA
 DEF _g_tiles2_00 0x7AEA
 DEF _g_tiles2_01 0x7AF2
 DEF _g_tiles2_02 0x7AFA
@@ -74,7 +75,6 @@ DEF _g_tiles2_06 0x7B1A
 DEF _g_tiles2_07 0x7B22
 DEF _g_tiles2_08 0x7B2A
 DEF _g_tiles2_09 0x7B32
-DEF _dummy_cpct_transparentMaskTable0M0_container 0x7B3A
 DEF _g_tiles3_00 0x7B3A
 DEF _g_tiles3_01 0x7B42
 DEF _g_tiles3_02 0x7B4A
@@ -186,7 +186,7 @@ DEF _borrarPantallaAbajo 0x94F0
 DEF _menuInicio 0x9525
 DEF _inicializarCPC 0x9601
 DEF _inicializarEnemy 0x9624
-DEF _inicializarJuego 0x9661
-DEF _main 0x96D3
+DEF _inicializarJuego 0x9676
+DEF _main 0x96EB
 DEF _G_song 0x3F00
 LOAD obj/robobit.ihx

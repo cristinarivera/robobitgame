@@ -692,18 +692,18 @@ TEnemy* actual;
 
 actual = enemy;
   while(--i){
-    enemy->x = enemy->px = 71;
-    enemy->y = enemy->py = 84;
-    enemy->mover  = NO;
-    enemy->mira=M_abajo;
-    enemy->sprite = g_enemy;
+    actual->x = actual->px = 71;
+    actual->y = actual->py = 84;
+    actual->mover  = NO;
+    actual->mira=M_abajo;
+    actual->sprite = g_enemy;
     if(i!=4){
-      enemy->muerto = SI;
+      actual->muerto = SI;
     }
     else{
-      enemy->muerto = NO;
+      actual->muerto = NO;
     }
-    enemy->patrol = SI;
+    actual->patrol = SI;
     actual++;
   }
 }  
@@ -713,6 +713,7 @@ void inicializarJuego() {
 
   TEnemy* actual;
   actual = enemy;
+
 
 	num_mapa = 0;
 	mapa = mapas[num_mapa];
@@ -735,7 +736,7 @@ void inicializarJuego() {
 	cu.lanzado = NO;
 	cu.mover = NO;
 
-
+	inicializarEnemy();
 
 	dibujarProta();
 	dibujarEnemigo(actual);
@@ -748,8 +749,13 @@ void main(void) {
 	inicializarCPC();
 	menuInicio();
 
+	
+
 	inicializarJuego();
-  inicializarEnemy();
+	
+
+  	
+  	
    	cpct_akp_musicPlay();
 
 
@@ -757,8 +763,10 @@ void main(void) {
 
    	while (1) {
 
+   		cpct_waitVSYNC();
    		comprobarTeclado();
    		moverCuchillo();
+   		
    		moverEnemigo(actual);
 
 		cpct_waitVSYNC();
@@ -774,10 +782,10 @@ void main(void) {
    		}
 
    		if(enemy->mover){
-   			redibujarEnemigo();
+   			redibujarEnemigo(actual);
    		}
    		if (enemy->muerto){
-   			borrarEnemigo();
+   			borrarEnemigo(actual);
    		}
    	}
 }
