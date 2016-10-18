@@ -22,20 +22,20 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__DABS                         
      00000000  s__g_tablatrans_                
      00000000  s__g_tablatrans_0               
+     00000020  l__DATA                         
      00000061  l__CABS0                        
      00000061  l__CABS1                        
-     0000006F  l__DATA                         
      00000100  l__g_tablatrans_0               
-     00000CD3  l__CSEG                         
+     00000C9F  l__CSEG                         
      000025EE  l__CODE                         
      00004000  s__CODE                         
      000065EE  s__DATA                         
-     0000665D  s__CSEG                         
-     0000665D  s__GSFINAL                      
-     0000665D  s__GSINIT                       
-     0000665D  s__HOME                         
-     0000665D  s__INITIALIZED                  
-     0000665D  s__INITIALIZER                  
+     0000660E  s__CSEG                         
+     0000660E  s__GSFINAL                      
+     0000660E  s__GSINIT                       
+     0000660E  s__HOME                         
+     0000660E  s__INITIALIZED                  
+     0000660E  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -180,17 +180,17 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000065EE    0000006F =         111. bytes (REL,CON)
+_DATA                               000065EE    00000020 =          32. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      000065EE  _EMirar                            main
      000065EF  _EEje                              main
      000065F0  _enemy                             main
-     000065F8  _prota                             main
-     00006600  _cu                                main
-     0000665A  _mapa                              main
-     0000665C  _num_mapa                          main
+     000065F9  _prota                             main
+     00006601  _cu                                main
+     0000660B  _mapa                              main
+     0000660D  _num_mapa                          main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
@@ -208,43 +208,43 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               0000665D    00000CD3 =        3283. bytes (REL,CON)
+_CSEG                               0000660E    00000C9F =        3231. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000665D  _dibujarMapa                       main
-     00006673  _mapas                             main
-     00006679  _dibujarProta                      main
-     0000669F  _borrarProta                       main
-     00006702  _redibujarProta                    main
-     00006716  _getTilePtr                        main
-     0000673E  _checkCollision                    main
-     00006880  _dibujarEnemigo                    main
-     000068A6  _borrarEnemigo                     main
-     00006909  _redibujarEnemigo                  main
-     0000691D  _checkEnemyCollision               main
-     00006B07  _moverEnemigo                      main
-     00006B37  _moverEnemigoArriba                main
-     00006B44  _moverEnemigoAbajo                 main
-     00006B4F  _avanzarMapa                       main
-     00006B88  _moverIzquierda                    main
-     00006BAD  _moverDerecha                      main
-     00006BF3  _moverArriba                       main
-     00006C17  _moverAbajo                        main
-     00006C50  _dibujarCuchillo                   main
-     00006CDA  _borrarCuchillo                    main
-     00006D44  _redibujarCuchillo                 main
-     00006D75  _lanzarCuchillo                    main
-     00006F3B  _comprobarTeclado                  main
-     00006F7C  _moverCuchillo                     main
-     000070B8  _barraPuntuacionInicial            main
-     0000717A  _borrarPantallaAbajo               main
-     00007196  _menuFin                           main
-     000071DE  _menuInicio                        main
-     00007242  _inicializarCPC                    main
-     00007265  _inicializarJuego                  main
-     00007308  _main                              main
-
+     0000660E  _dibujarMapa                       main
+     00006624  _mapas                             main
+     0000662A  _dibujarProta                      main
+     00006650  _borrarProta                       main
+     000066B3  _redibujarProta                    main
+     000066C7  _getTilePtr                        main
+     000066EF  _checkCollision                    main
+     00006831  _dibujarEnemigo                    main
+     00006857  _borrarEnemigo                     main
+     000068BF  _redibujarEnemigo                  main
+     000068D3  _checkEnemyCollision               main
+     00006A94  _moverEnemigo                      main
+     00006AC9  _moverEnemigoArriba                main
+     00006AD7  _moverEnemigoAbajo                 main
+     00006AE5  _avanzarMapa                       main
+     00006B1E  _moverIzquierda                    main
+     00006B43  _moverDerecha                      main
+     00006B89  _moverArriba                       main
+     00006BAD  _moverAbajo                        main
+     00006BE6  _dibujarCuchillo                   main
+     00006C4A  _borrarCuchillo                    main
+     00006CB7  _redibujarCuchillo                 main
+     00006CCB  _lanzarCuchillo                    main
+     00006DE7  _comprobarTeclado                  main
+     00006E28  _checkKnifeCollision               main
+     00006F26  _moverCuchillo                     main
+     00007012  _barraPuntuacionInicial            main
+     000070D4  _borrarPantallaAbajo               main
+     000070F0  _menuFin                           main
+     00007138  _menuInicio                        main
+     0000719C  _inicializarCPC                    main
+     000071BF  _inicializarJuego                  main
+     00007254  _main                              main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
