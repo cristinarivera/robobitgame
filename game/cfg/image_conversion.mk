@@ -74,6 +74,8 @@ $(eval $(call IMG2SPRITES,assets/enemy.png,0,g,16,27,$(PALETTE),,src/))
 
 $(eval $(call IMG2SPRITES,assets/heart.png,0,g,6,6,$(PALETTE),,src/))
 
+$(eval $(call IMG2SPRITES,assets/text.png,0,g,80,110,$(PALETTE),,src/))
+
 $(eval $(call IMG2SPRITES,assets/tiles.png,0,g,4,4,$(PALETTE),tileset,src/))
 
 $(eval $(call IMG2SPRITES,assets/knifeX.png,0,g,8,4,$(PALETTE),,src/))
