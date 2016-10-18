@@ -7,7 +7,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           cpct_sprites
+     00000000  .__.ABS.                           cpct_random
      00000000  l__CABS                         
      00000000  l__DABS                         
      00000000  l__GSFINAL                      
@@ -22,27 +22,27 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__DABS                         
      00000000  s__g_tablatrans_                
      00000000  s__g_tablatrans_0               
-     00000020  l__DATA                         
+     0000003F  l__DATA                         
      00000061  l__CABS0                        
      00000061  l__CABS1                        
      00000100  l__g_tablatrans_0               
-     00000C9F  l__CSEG                         
-     000025EE  l__CODE                         
+     00000DC8  l__CSEG                         
+     0000263A  l__CODE                         
      00004000  s__CODE                         
-     000065EE  s__DATA                         
-     0000660E  s__CSEG                         
-     0000660E  s__GSFINAL                      
-     0000660E  s__GSINIT                       
-     0000660E  s__HOME                         
-     0000660E  s__INITIALIZED                  
-     0000660E  s__INITIALIZER                  
+     0000663A  s__DATA                         
+     00006679  s__CSEG                         
+     00006679  s__GSFINAL                      
+     00006679  s__GSINIT                       
+     00006679  s__HOME                         
+     00006679  s__INITIALIZED                  
+     00006679  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000025EE =        9710. bytes (REL,CON)
+_CODE                               00004000    0000263A =        9786. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -81,7 +81,6 @@ _CODE                               00004000    000025EE =        9710. bytes (R
      00005746  _g_hero_left                       hero_left
      000057E0  _g_palette                         hero
      000057F0  _g_hero                            hero
-     0000588A  _dummy_cpct_transparentMaskTable   main
      0000588A  _g_tiles2_00                       tiles2
      00005892  _g_tiles2_01                       tiles2
      0000589A  _g_tiles2_02                       tiles2
@@ -92,6 +91,7 @@ _CODE                               00004000    000025EE =        9710. bytes (R
      000058C2  _g_tiles2_07                       tiles2
      000058CA  _g_tiles2_08                       tiles2
      000058D2  _g_tiles2_09                       tiles2
+     000058DA  _dummy_cpct_transparentMaskTable   main
      000058DA  _g_tiles3_00                       tiles3
      000058E2  _g_tiles3_01                       tiles3
      000058EA  _g_tiles3_02                       tiles3
@@ -101,7 +101,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000025EE =        9710. bytes (REL,CON)
+_CODE                               00004000    0000263A =        9786. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -161,7 +161,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000025EE =        9710. bytes (REL,CON)
+_CODE                               00004000    0000263A =        9786. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -169,30 +169,45 @@ _CODE                               00004000    000025EE =        9710. bytes (R
      000064A9  _cpct_removeInterruptHandler       cpct_firmware
      000064A9  cpct_disableFirmware_asm           cpct_firmware
      000064A9  cpct_removeInterruptHandler_asm    cpct_firmware
-     000064B9  _cpct_drawSolidBox                 cpct_sprites
-     00006571  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     00006592  _cpct_mode_rom_status              cpct_firmware
-     00006593  _cpct_getScreenPtr                 cpct_video
-     000065B3  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     000064B9  _cpct_getRandom_mxor_u8            cpct_random
+     000064B9  cpct_getRandom_mxor_u8             cpct_random
+     000064BA  cpct_randomIdx_mxor_u8             cpct_random
+     000064DE  _cpct_drawSolidBox                 cpct_sprites
+     00006596  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     000065B7  _cpct_mode_rom_status              cpct_firmware
+     000065B8  _cpct_getScreenPtr                 cpct_video
+     000065D8  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     00006613  _cpct_mxor32_seed                  cpct_random
+     00006617  _cpct_nextRandom_mxor_u32          cpct_random
+     00006617  cpct_nextRandom_mxor_u32_asm       cpct_random
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000065EE    00000020 =          32. bytes (REL,CON)
+_DATA                               0000663A    0000003F =          63. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000065EE  _EMirar                            main
-     000065EF  _EEje                              main
-     000065F0  _enemy                             main
-     000065F9  _prota                             main
-     00006601  _cu                                main
-     0000660B  _mapa                              main
-     0000660D  _num_mapa                          main
+     0000663A  _EMirar                            main
+     0000663B  _EEje                              main
+     0000663C  _enemy                             main
+     00006664  _prota                             main
+     0000666C  _cu                                main
+     00006676  _mapa                              main
+     00006678  _num_mapa                          main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CABS0                              00000000    00000061 =          97. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -203,49 +218,52 @@ _g_tablatrans_0                     00000000    00000100 =         256. bytes (A
       -----  --------------------------------   ------------------------
      00003E00  _g_tablatrans                      main
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               0000660E    00000C9F =        3231. bytes (REL,CON)
+_CSEG                               00006679    00000DC8 =        3528. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000660E  _dibujarMapa                       main
-     00006624  _mapas                             main
-     0000662A  _dibujarProta                      main
-     00006650  _borrarProta                       main
-     000066B3  _redibujarProta                    main
-     000066C7  _getTilePtr                        main
-     000066EF  _checkCollision                    main
-     00006831  _dibujarEnemigo                    main
-     00006857  _borrarEnemigo                     main
-     000068BF  _redibujarEnemigo                  main
-     000068D3  _checkEnemyCollision               main
-     00006A94  _moverEnemigo                      main
-     00006AC9  _moverEnemigoArriba                main
-     00006AD7  _moverEnemigoAbajo                 main
-     00006AE5  _avanzarMapa                       main
-     00006B1E  _moverIzquierda                    main
-     00006B43  _moverDerecha                      main
-     00006B89  _moverArriba                       main
-     00006BAD  _moverAbajo                        main
-     00006BE6  _dibujarCuchillo                   main
-     00006C4A  _borrarCuchillo                    main
-     00006CB7  _redibujarCuchillo                 main
-     00006CCB  _lanzarCuchillo                    main
-     00006DE7  _comprobarTeclado                  main
-     00006E28  _checkKnifeCollision               main
-     00006F26  _moverCuchillo                     main
-     00007012  _barraPuntuacionInicial            main
-     000070D4  _borrarPantallaAbajo               main
-     000070F0  _menuFin                           main
-     00007138  _menuInicio                        main
-     0000719C  _inicializarCPC                    main
-     000071BF  _inicializarJuego                  main
-     00007254  _main                              main
-ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+     00006679  _dibujarMapa                       main
+     0000668F  _mapas                             main
+     00006695  _dibujarProta                      main
+     000066BB  _borrarProta                       main
+     0000671E  _redibujarProta                    main
+     00006732  _getTilePtr                        main
+     0000675A  _checkCollision                    main
+     0000689C  _dibujarEnemigo                    main
+     000068D4  _borrarEnemigo                     main
+     00006952  _redibujarEnemigo                  main
+     00006983  _checkEnemyCollision               main
+     00006B9E  _moverEnemigoArriba                main
+     00006BBD  _moverEnemigoAbajo                 main
+     00006BDC  _moverEnemigo                      main
+     00006C32  _patrolDecision                    main
+     00006C57  _avanzarMapa                       main
+     00006C90  _moverIzquierda                    main
+     00006CB5  _moverDerecha                      main
+     00006CFB  _moverArriba                       main
+     00006D1F  _moverAbajo                        main
+     00006D58  _dibujarCuchillo                   main
+     00006DBC  _borrarCuchillo                    main
+     00006E29  _redibujarCuchillo                 main
+     00006E3D  _lanzarCuchillo                    main
+     00006F59  _comprobarTeclado                  main
+     00006F9A  _checkKnifeCollision               main
+     00007098  _moverCuchillo                     main
+     00007184  _barraPuntuacionInicial            main
+     00007246  _borrarPantallaAbajo               main
+     00007262  _menuFin                           main
+     000072AA  _menuInicio                        main
+     0000730E  _inicializarEnemy                  main
+     0000734B  _inicializarCPC                    main
+     0000736E  _inicializarJuego                  main
+     000073E0  _main                              main
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -254,16 +272,7 @@ _CABS1                              00000000    00000061 =          97. bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-_CABS0                              00000000    00000061 =          97. bytes (ABS,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-     00003F00  _G_song                            song
+     00003F00  _G_song                            main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 
@@ -281,62 +290,68 @@ obj/hero_down.rel                         [ hero_down ]
 obj/hero_up.rel                           [ hero_up ]
 obj/hero_left.rel                         [ hero_left ]
 obj/hero.rel                              [ hero ]
-obj/main.rel                              [ main ]
 obj/song.rel                              [ song ]
 obj/tiles2.rel                            [ tiles2 ]
+obj/main.rel                              [ main ]
 obj/tiles3.rel                            [ tiles3 ]
 
 
 Libraries Linked                          [ object file ]
 
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isKeyPressed.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard_f.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPALColour_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawStringM0.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSprite_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileBox2x4_cbinding ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_setTileset2x4.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawCharM0.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ keyboard.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileRow2x4.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isAnyKeyPressed.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_scanKeyboard_if.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_waitVSYNC.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_dc_mode0_ct.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_cbinding.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ arkostracker.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_removeInterruptHandler.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getRandom_mxor_u8.rel ]
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSolidBox_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawTileAligned2x4_f_asmbin ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpc_mode_rom_status.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenPtr_cbindings.rel ]
-/home/sstuff/cpctelera/cpctelera/cpctelera.lib
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSpriteMaskedAlignedTabl ]
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_mxor32_seed.rel ]
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_nextRandom_mxor_u32.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 
