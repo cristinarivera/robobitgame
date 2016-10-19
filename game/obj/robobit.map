@@ -22,20 +22,20 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__DABS                         
      00000000  s__g_tablatrans_                
      00000000  s__g_tablatrans_0               
-     00000043  l__DATA                         
+     00000047  l__DATA                         
      00000061  l__CABS0                        
      00000061  l__CABS1                        
      00000100  l__g_tablatrans_0               
-     00000F88  l__CSEG                         
+     00000FBB  l__CSEG                         
      00004000  s__CODE                         
      000048F2  l__CODE                         
      000088F2  s__DATA                         
-     00008935  s__CSEG                         
-     00008935  s__GSFINAL                      
-     00008935  s__GSINIT                       
-     00008935  s__HOME                         
-     00008935  s__INITIALIZED                  
-     00008935  s__INITIALIZER                  
+     00008939  s__CSEG                         
+     00008939  s__GSFINAL                      
+     00008939  s__GSINIT                       
+     00008939  s__HOME                         
+     00008939  s__INITIALIZED                  
+     00008939  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
@@ -189,17 +189,17 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000088F2    00000043 =          67. bytes (REL,CON)
+_DATA                               000088F2    00000047 =          71. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      000088F2  _EMirar                            main
      000088F3  _EEje                              main
      000088F4  _enemy                             main
-     00008920  _prota                             main
-     00008928  _cu                                main
-     00008932  _mapa                              main
-     00008934  _num_mapa                          main
+     00008924  _prota                             main
+     0000892C  _cu                                main
+     00008936  _mapa                              main
+     00008938  _num_mapa                          main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
@@ -217,49 +217,49 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00008935    00000F88 =        3976. bytes (REL,CON)
+_CSEG                               00008939    00000FBB =        4027. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00008935  _dibujarMapa                       main
-     0000894B  _mapas                             main
-     00008951  _spawnX                            main
-     00008956  _spawnY                            main
-     0000895B  _dibujarProta                      main
-     00008981  _borrarProta                       main
-     000089F5  _menuFin                           main
-     00008A2C  _redibujarProta                    main
-     00008A40  _getTilePtr                        main
-     00008A81  _checkCollision                    main
-     00008BD6  _dibujarEnemigo                    main
-     00008C0E  _dibujarExplosion                  main
-     00008C34  _borrarExplosion                   main
-     00008CA8  _borrarEnemigo                     main
-     00008D3C  _redibujarEnemigo                  main
-     00008D6D  _checkEnemyCollision               main
-     00008F88  _moverEnemigoArriba                main
-     00008FA7  _moverEnemigoAbajo                 main
-     00008FC6  _moverEnemigo                      main
-     0000901C  _patrolDecision                    main
-     00009041  _avanzarMapa                       main
-     0000907A  _moverIzquierda                    main
-     0000909F  _moverDerecha                      main
-     000090DB  _moverArriba                       main
-     000090FF  _moverAbajo                        main
-     00009123  _dibujarCuchillo                   main
-     00009187  _borrarCuchillo                    main
-     00009205  _redibujarCuchillo                 main
-     00009219  _lanzarCuchillo                    main
-     00009335  _comprobarTeclado                  main
-     00009376  _checkKnifeCollision               main
-     00009474  _moverCuchillo                     main
-     00009560  _barraPuntuacionInicial            main
-     00009622  _borrarPantallaArriba              main
-     00009657  _menuInicio                        main
-     00009733  _inicializarCPC                    main
-     00009756  _inicializarEnemy                  main
-     000097CF  _inicializarJuego                  main
-     00009844  _main                              main
+     00008939  _dibujarMapa                       main
+     0000894F  _mapas                             main
+     00008955  _spawnX                            main
+     0000895A  _spawnY                            main
+     0000895F  _dibujarProta                      main
+     00008985  _borrarProta                       main
+     000089F9  _menuFin                           main
+     00008A30  _redibujarProta                    main
+     00008A44  _getTilePtr                        main
+     00008A85  _checkCollision                    main
+     00008BDA  _dibujarEnemigo                    main
+     00008C12  _dibujarExplosion                  main
+     00008C46  _borrarExplosion                   main
+     00008CBA  _borrarEnemigo                     main
+     00008D4E  _redibujarEnemigo                  main
+     00008D7F  _checkEnemyCollision               main
+     00008FA3  _moverEnemigoArriba                main
+     00008FC2  _moverEnemigoAbajo                 main
+     00008FE1  _moverEnemigo                      main
+     00009037  _patrolDecision                    main
+     0000905C  _avanzarMapa                       main
+     00009095  _moverIzquierda                    main
+     000090BA  _moverDerecha                      main
+     000090F6  _moverArriba                       main
+     0000911A  _moverAbajo                        main
+     0000913E  _dibujarCuchillo                   main
+     000091A2  _borrarCuchillo                    main
+     00009220  _redibujarCuchillo                 main
+     00009234  _lanzarCuchillo                    main
+     00009350  _comprobarTeclado                  main
+     00009391  _checkKnifeCollision               main
+     0000946B  _moverCuchillo                     main
+     00009557  _barraPuntuacionInicial            main
+     00009619  _borrarPantallaArriba              main
+     0000964E  _menuInicio                        main
+     0000972A  _inicializarCPC                    main
+     0000974D  _inicializarEnemy                  main
+     000097CC  _inicializarJuego                  main
+     00009838  _main                              main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 

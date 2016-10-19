@@ -83,8 +83,9 @@ typedef struct {
 	u8  mover;
 	u8  mira;
 	u8  muerto;
-  u8  patrol; //TODO check optimization
-  u8  colision;
+  	u8  patrol; //TODO check optimization
+  	u8  colision;
+  	u8 	muertes;
 } TEnemy;
 
 
@@ -200,7 +201,7 @@ void dibujarEnemigo(TEnemy *enemy) {
 	cpct_drawSpriteMaskedAlignedTable (enemy->sprite, pvmem, G_ENEMY_W, G_ENEMY_H, g_tablatrans);
 }
 
-void dibujarExplosion() {
+void dibujarExplosion(TEnemy *enemy) {
 	u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy->x, enemy->y);
 	cpct_drawSpriteMaskedAlignedTable (g_explosion, pvmem, G_EXPLOSION_W, G_EXPLOSION_H, g_tablatrans);
 }
@@ -250,17 +251,18 @@ u8 checkEnemyCollision(int direction, TEnemy *enemy){
 			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
 			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
 		{
-			if((prota.x + G_HERO_W -4) < enemy->x || prota.x  > (enemy->x + G_ENEMY_W)){
+			if((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)){
 
 				colisiona = 0;
 
 			}else{
-				if(enemy->y>prota.y){
-					if(enemy->y - (prota.y + G_HERO_H -2) >= 2){
+				if(enemy->y>cu.y){
+					if(enemy->y - (cu.y + G_KNIFEY_0_H -2) >= 2){
 						colisiona = 0;
 
 					}else{
-						enemy->mira = M_abajo;
+						enemy->muerto = SI;
+						
 					}
 				}else{
 					colisiona = 0;
@@ -279,16 +281,17 @@ u8 checkEnemyCollision(int direction, TEnemy *enemy){
 			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
 			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
 		{ // puede moverse, no colisiona con el mapa
-			if( (prota.x + G_HERO_W -4) < enemy->x || prota.x  > (enemy->x + G_ENEMY_W) ){
+			if( (cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W) ){
 				colisiona = 0;
-				 // el prota no esta ni arriba ni abajo
+				 // el cu no esta ni arriba ni abajo
 			}else{
-				if(prota.y > enemy->y){ //si el prota esta abajo
-					if( prota.y - (enemy->y + G_ENEMY_H) > 2){ // si hay espacio entre el enemigo y el prota
+				if(cu.y > enemy->y){ //si el cu esta abajo
+					if( cu.y - (enemy->y + G_ENEMY_H) > 2){ // si hay espacio entre el enemigo y el cu
 						colisiona = 0;
 
 					}else{
-						enemy->mira = M_arriba;
+						enemy->muerto = SI;
+					
 					}
 				}else{ // el prota esta arriba
 					colisiona = 0;
@@ -528,7 +531,7 @@ u8 checkKnifeCollision(int direction){
 
 				}else{
 					colisiona=1;
-					enemy->muerto = SI;
+					
 				}
 			}else{
 				colisiona = 0;
@@ -545,7 +548,7 @@ u8 checkKnifeCollision(int direction){
 					colisiona = 0;
 				}else{
 					colisiona = 1;
-					enemy->muerto = SI;
+					
 				}
 			}else{
 				colisiona = 0;
@@ -718,19 +721,16 @@ actual = enemy;
     actual->mira   = M_abajo;
     actual->sprite = g_enemy;
     actual->muerto = NO;
+    actual->muertes = 0;
     actual->patrol = SI;
+
     dibujarEnemigo(actual);
 
-    actual++;
+    ++actual;
   }
 }
 
 void inicializarJuego() {
-
-
-  TEnemy* actual;
-  actual = enemy;
-
 
 	num_mapa = 0;
 	mapa = mapas[num_mapa];
@@ -758,13 +758,12 @@ void inicializarJuego() {
 	inicializarEnemy();
 
 	dibujarProta();
-	dibujarEnemigo(actual);
 }
 
 void main(void) {
 
   TEnemy* actual;
-
+  u8 i;
 	inicializarCPC();
 	menuInicio();
 
@@ -777,16 +776,20 @@ void main(void) {
 
    	cpct_akp_musicPlay();
 
-
-    actual = enemy;
-
    	while (1) {
 
-   		cpct_waitVSYNC();
+   		i = 4 + 1;
+   		actual = enemy;
+   		
    		comprobarTeclado();
    		moverCuchillo();
 
-   		//moverEnemigo(actual);
+  		while(--i){
+   			moverEnemigo(actual);
+   			++actual;
+   		}
+   		i = 4 + 1;
+   		actual = enemy;
 
 		cpct_waitVSYNC();
 
@@ -800,13 +803,20 @@ void main(void) {
    			borrarCuchillo();
    		}
 
-   		if(enemy->mover){
-   			redibujarEnemigo(actual);
+   		while(--i){
+	   		if(actual->mover){
+	   			redibujarEnemigo(actual);
+	   		}
+	   		if (actual->muerto && actual->muertes == 0){
+	   			borrarEnemigo(actual);
+	   			dibujarExplosion(actual);
+	   			
+	   			actual->muertes++;
+	   			actual->x = 0;
+	   			actual->y = 0;
+	   		}
+	   		++actual;
    		}
-   		if (enemy->muerto){
-   			borrarEnemigo(actual);
-   			dibujarExplosion();
-   			borrarExplosion();
-   		}
+   		cpct_waitVSYNC();
    	}
 }
