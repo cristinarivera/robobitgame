@@ -11,24 +11,24 @@ Symbol Table
   1 _EMirar                                                        0000 GR
   C _G_song                                                        3F00 GR
   9 ___str_0                                                       00ED R
-  9 ___str_1                                                       0D9A R
-  9 ___str_2                                                       0DA0 R
-  9 ___str_3                                                       0DA6 R
-  9 ___str_4                                                       0DAE R
-  9 ___str_5                                                       0E9C R
-  9 ___str_6                                                       0EA4 R
-  9 ___str_7                                                       0EB5 R
+  9 ___str_1                                                       0DA4 R
+  9 ___str_2                                                       0DAA R
+  9 ___str_3                                                       0DB0 R
+  9 ___str_4                                                       0DB8 R
+  9 ___str_5                                                       0EC4 R
+  9 ___str_6                                                       0ECC R
+  9 ___str_7                                                       0EDD R
   9 _avanzarMapa                                                   08F6 GR
-  9 _barraPuntuacionInicial                                        0CF2 GR
-  9 _borrarCuchillo                                                0A3C GR
+  9 _barraPuntuacionInicial                                        0CFC GR
+  9 _borrarCuchillo                                                0A46 GR
   9 _borrarEnemigo                                                 0381 GR
   9 _borrarExplosion                                               030D GR
-  9 _borrarPantallaArriba                                          0DB4 GR
+  9 _borrarPantallaArriba                                          0DBE GR
   9 _borrarProta                                                   004C GR
   9 _checkCollision                                                014C GR
   9 _checkEnemyCollision                                           0446 GR
-  9 _checkKnifeCollision                                           0C2B GR
-  9 _comprobarTeclado                                              0BEA GR
+  9 _checkKnifeCollision                                           0C35 GR
+  9 _comprobarTeclado                                              0BF4 GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -50,7 +50,7 @@ Symbol Table
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            003A GR
-  9 _dibujarCuchillo                                               09D8 GR
+  9 _dibujarCuchillo                                               09E2 GR
   9 _dibujarEnemigo                                                02A1 GR
   9 _dibujarExplosion                                              02D9 GR
   9 _dibujarMapa                                                   0000 GR
@@ -82,18 +82,18 @@ Symbol Table
     _g_text_1                                                      **** GX
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    010B GR
-  9 _inicializarCPC                                                0EC5 GR
-  9 _inicializarEnemy                                              0EE8 GR
-  9 _inicializarJuego                                              0F75 GR
-  9 _lanzarCuchillo                                                0ACE GR
-  9 _main                                                          0FE1 GR
+  9 _inicializarCPC                                                0EED GR
+  9 _inicializarEnemy                                              0F10 GR
+  9 _inicializarJuego                                              0F9D GR
+  9 _lanzarCuchillo                                                0AD8 GR
+  9 _main                                                          1013 GR
   1 _mapa                                                          0044 GR
   9 _mapas                                                         0016 GR
   9 _menuFin                                                       00C0 GR
-  9 _menuInicio                                                    0DE9 GR
-  9 _moverAbajo                                                    09B4 GR
-  9 _moverArriba                                                   0990 GR
-  9 _moverCuchillo                                                 0C4D GR
+  9 _menuInicio                                                    0E11 GR
+  9 _moverAbajo                                                    09BE GR
+  9 _moverArriba                                                   099A GR
+  9 _moverCuchillo                                                 0C57 GR
   9 _moverDerecha                                                  0954 GR
   9 _moverEnemigo                                                  0871 GR
   9 _moverEnemigoAbajo                                             0835 GR
@@ -104,7 +104,7 @@ Symbol Table
   1 _num_mapa                                                      0046 GR
   9 _patrolDecision                                                08D1 GR
   1 _prota                                                         0032 GR
-  9 _redibujarCuchillo                                             0ABA GR
+  9 _redibujarCuchillo                                             0AC4 GR
   9 _redibujarEnemigo                                              0415 GR
   9 _redibujarProta                                                00F7 GR
   9 _spawnX                                                        001C GR
@@ -125,7 +125,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 10B4   flags    0
+   9 _CSEG                                      size 10E6   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

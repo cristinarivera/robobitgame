@@ -433,7 +433,7 @@ void moverIzquierda() {
 
 void moverDerecha() {
 	prota.mira = M_derecha;
-	if (!checkCollision(M_derecha) ) {
+	if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
   		prota.x++;
   		prota.mover = SI;
   		prota.sprite = g_hero;
@@ -634,13 +634,13 @@ void barraPuntuacionInicial(){
 	}
 }
 
-void borrarPantallaArriba(){
+void borrarPantallaArriba(u8 x, u8 y, u8 ancho, u8 alto){  
 	u8* memptr;
 	// No se puede borrar todo de golpe.
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 0); // posición para borrar la mitad derecha
-   	cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad derecha
-   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 0); // posición para borrar la mitad izquierda
-   	cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad izquierda
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha 
+   	cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad derecha
+   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
+   	cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad izquierda
 }
 
 void menuInicio(){
@@ -740,7 +740,7 @@ void inicializarJuego() {
 
 	dibujarMapa();
 	
-	borrarPantallaArriba();
+	borrarPantallaArriba(0, 0, 40, 1);
 	barraPuntuacionInicial();
 
 

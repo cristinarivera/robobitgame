@@ -825,7 +825,7 @@ _borrarEnemigo::
 	ld	a,e
 	and	a, #0x01
 	add	a, #0x04
-	ld	-6 (ix),a
+	ld	-5 (ix),a
 ;src/main.c:224: u8 h = 7 + (enemy->py & 2 ? 1 : 0);
 	ld	l, c
 	ld	h, b
@@ -841,7 +841,7 @@ _borrarEnemigo::
 	ld	a,#0x00
 00104$:
 	add	a, #0x07
-	ld	-5 (ix),a
+	ld	-6 (ix),a
 ;src/main.c:226: cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	-2 (ix),d
@@ -875,8 +875,8 @@ _borrarEnemigo::
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	h,-5 (ix)
-	ld	l,-6 (ix)
+	ld	h,-6 (ix)
+	ld	l,-5 (ix)
 	push	hl
 	push	de
 	call	_cpct_etm_drawTileBox2x4
@@ -1839,32 +1839,15 @@ _moverDerecha::
 ;src/main.c:435: prota.mira = M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:436: if (!checkCollision(M_derecha) ) {
+;src/main.c:436: if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
 	ld	hl,#0x0000
 	push	hl
 	call	_checkCollision
 	pop	af
-	ld	c,l
-;src/main.c:437: prota.x++;
+	ld	b,l
 	ld	hl, #_prota + 0
-	ld	e,(hl)
-;src/main.c:436: if (!checkCollision(M_derecha) ) {
-	ld	a,c
-	or	a, a
-	jr	NZ,00104$
-;src/main.c:437: prota.x++;
-	inc	e
-	ld	hl,#_prota
-	ld	(hl),e
-;src/main.c:438: prota.mover = SI;
-	ld	hl,#(_prota + 0x0006)
-	ld	(hl),#0x01
-;src/main.c:439: prota.sprite = g_hero;
-	ld	hl,#_g_hero
-	ld	((_prota + 0x0004)), hl
-	ret
-00104$:
-;src/main.c:441: }else if( prota.x + G_HERO_W >= 80){
+	ld	c,(hl)
+	ld	e,c
 	ld	d,#0x00
 	ld	hl,#0x0007
 	add	hl,de
@@ -1874,7 +1857,30 @@ _moverDerecha::
 	rr	h
 	rr	l
 	sbc	hl, de
-	ret	C
+	ld	a,#0x00
+	rla
+	ld	e,a
+	ld	a,b
+	or	a,a
+	jr	NZ,00104$
+	or	a,e
+	jr	Z,00104$
+;src/main.c:437: prota.x++;
+	inc	c
+	ld	hl,#_prota
+	ld	(hl),c
+;src/main.c:438: prota.mover = SI;
+	ld	hl,#(_prota + 0x0006)
+	ld	(hl),#0x01
+;src/main.c:439: prota.sprite = g_hero;
+	ld	hl,#_g_hero
+	ld	((_prota + 0x0004)), hl
+	ret
+00104$:
+;src/main.c:441: }else if( prota.x + G_HERO_W >= 80){
+	ld	a,e
+	or	a, a
+	ret	NZ
 ;src/main.c:442: avanzarMapa();
 	jp  _avanzarMapa
 ;src/main.c:446: void moverArriba() {
@@ -2665,39 +2671,26 @@ ___str_3:
 ___str_4:
 	.ascii "LIVES"
 	.db 0x00
-;src/main.c:637: void borrarPantallaArriba(){
+;src/main.c:637: void borrarPantallaArriba(u8 x, u8 y, u8 ancho, u8 alto){  
 ;	---------------------------------
 ; Function borrarPantallaArriba
 ; ---------------------------------
 _borrarPantallaArriba::
-;src/main.c:640: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 0); // posición para borrar la mitad derecha
-	ld	hl,#0x0000
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/main.c:640: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha 
+	ld	h,5 (ix)
+	ld	l,4 (ix)
 	push	hl
-	ld	h, #0xC0
-	push	hl
-	call	_cpct_getScreenPtr
-	ld	c,l
-	ld	b,h
-;src/main.c:641: cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad derecha
-	ld	hl,#0x1828
-	push	hl
-	xor	a, a
-	push	af
-	inc	sp
-	push	bc
-	call	_cpct_drawSolidBox
-	pop	af
-;src/main.c:642: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 0); // posición para borrar la mitad izquierda
-	inc	sp
-	ld	hl,#0x0028
-	ex	(sp),hl
 	ld	hl,#0xC000
 	push	hl
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:643: cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad izquierda
-	ld	hl,#0x1828
+;src/main.c:641: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad derecha
+	ld	h,7 (ix)
+	ld	l,6 (ix)
 	push	hl
 	xor	a, a
 	push	af
@@ -2707,6 +2700,33 @@ _borrarPantallaArriba::
 	pop	af
 	pop	af
 	inc	sp
+;src/main.c:642: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
+	ld	a,4 (ix)
+	add	a, #0x28
+	ld	b,a
+	ld	a,5 (ix)
+	push	af
+	inc	sp
+	push	bc
+	inc	sp
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:643: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad izquierda
+	ld	h,7 (ix)
+	ld	l,6 (ix)
+	push	hl
+	xor	a, a
+	push	af
+	inc	sp
+	push	bc
+	call	_cpct_drawSolidBox
+	pop	af
+	pop	af
+	inc	sp
+	pop	ix
 	ret
 ;src/main.c:646: void menuInicio(){
 ;	---------------------------------
@@ -2991,8 +3011,14 @@ _inicializarJuego::
 	call	_cpct_etm_setTileset2x4
 ;src/main.c:741: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:743: borrarPantallaArriba();
+;src/main.c:743: borrarPantallaArriba(0, 0, 40, 1);
+	ld	hl,#0x0128
+	push	hl
+	ld	hl,#0x0000
+	push	hl
 	call	_borrarPantallaArriba
+	pop	af
+	pop	af
 ;src/main.c:744: barraPuntuacionInicial();
 	call	_barraPuntuacionInicial
 ;src/main.c:747: prota.x = prota.px = 4;
