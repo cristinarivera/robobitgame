@@ -14,7 +14,7 @@
 	.globl _inicializarEnemy
 	.globl _inicializarCPC
 	.globl _menuInicio
-	.globl _borrarPantallaAbajo
+	.globl _borrarPantallaArriba
 	.globl _barraPuntuacionInicial
 	.globl _moverCuchillo
 	.globl _checkKnifeCollision
@@ -169,7 +169,7 @@ _dibujarMapa::
 ;src/main.c:123: cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
 	ld	hl,(_mapa)
 	push	hl
-	ld	hl,#0xC000
+	ld	hl,#0xC0F0
 	push	hl
 	ld	hl,#0x282C
 	push	hl
@@ -191,11 +191,11 @@ _spawnX:
 	.db #0x14	; 20
 	.db #0x3C	; 60
 _spawnY:
-	.db #0x00	; 0
-	.db #0x14	; 20
-	.db #0x5A	; 90	'Z'
+	.db #0x18	; 24
+	.db #0x2C	; 44
 	.db #0x72	; 114	'r'
-	.db #0x72	; 114	'r'
+	.db #0x8A	; 138
+	.db #0x8A	; 138
 ;src/main.c:128: void dibujarProta() {
 ;	---------------------------------
 ; Function dibujarProta
@@ -232,6 +232,7 @@ _borrarProta::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
+	push	af
 	dec	sp
 ;src/main.c:135: u8 w = 4 + (prota.px & 1);
 	ld	hl, #_prota + 2
@@ -254,46 +255,47 @@ _borrarProta::
 	ld	a,#0x00
 00104$:
 	add	a, #0x06
-	ld	-1 (ix),a
+	ld	-3 (ix),a
 ;src/main.c:140: cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	d,#0x00
-	ld	h,e
-	ld	l,d
-	bit	7, d
+	ld	a,e
+	add	a,#0xE8
+	ld	-2 (ix),a
+	ld	a,d
+	adc	a,#0xFF
+	ld	-1 (ix),a
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	bit	7, -1 (ix)
 	jr	Z,00105$
-	inc	de
-	inc	de
-	inc	de
-	ld	h,e
-	ld	l,d
+	ld	hl,#0xFFEB
+	add	hl,de
 00105$:
-	ld	e, h
-	ld	d, l
-	sra	d
-	rr	e
-	sra	d
-	rr	e
-	ld	d,c
-	srl	d
+	sra	h
+	rr	l
+	sra	h
+	rr	l
+	ld	d,l
+	srl	c
 	push	iy
-	ld	hl,#0xC000
+	ld	hl,#0xC0F0
 	push	hl
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	a,-1 (ix)
+	ld	a,-3 (ix)
 	push	af
 	inc	sp
 	push	bc
 	inc	sp
-	ld	a,e
-	push	af
-	inc	sp
 	push	de
 	inc	sp
-	call	_cpct_etm_drawTileBox2x4
+	ld	a,c
+	push	af
 	inc	sp
+	call	_cpct_etm_drawTileBox2x4
+	ld	sp, ix
 	pop	ix
 	ret
 ;src/main.c:143: void menuFin(){
@@ -356,30 +358,47 @@ _redibujarProta::
 ; Function getTilePtr
 ; ---------------------------------
 _getTilePtr::
-;src/main.c:162: return mapa + (y/4)*g_map1_W + x/2;
-	ld	hl, #3+0
-	add	hl, sp
-	ld	c, (hl)
-	srl	c
-	srl	c
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/main.c:162: return mapa + ((y-ORIGEN_MAPA_Y)/4)*g_map1_W + x/2;
+	ld	c,5 (ix)
 	ld	b,#0x00
-	ld	l, c
-	ld	h, b
+	ld	a,c
+	add	a,#0xE8
+	ld	e,a
+	ld	a,b
+	adc	a,#0xFF
+	ld	d,a
+	ld	l, e
+	ld	h, d
+	bit	7, d
+	jr	Z,00103$
+	ld	hl,#0xFFEB
+	add	hl,bc
+00103$:
+	sra	h
+	rr	l
+	sra	h
+	rr	l
+	ld	c, l
+	ld	b, h
 	add	hl, hl
 	add	hl, hl
 	add	hl, bc
 	add	hl, hl
 	add	hl, hl
 	add	hl, hl
-	ld	de,(_mapa)
-	add	hl,de
-	ld	iy,#2
-	add	iy,sp
-	ld	c,0 (iy)
+	ld	c,l
+	ld	b,h
+	ld	hl,(_mapa)
+	add	hl,bc
+	ld	c,4 (ix)
 	srl	c
 	ld	e,c
 	ld	d,#0x00
 	add	hl,de
+	pop	ix
 	ret
 ;src/main.c:165: u8 checkCollision(int direction) { // check optimization
 ;	---------------------------------
@@ -708,6 +727,7 @@ _borrarExplosion::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
+	push	af
 	dec	sp
 ;src/main.c:209: u8 w = 4 + (enemy->px & 1);
 	ld	hl, #_enemy + 2
@@ -730,46 +750,47 @@ _borrarExplosion::
 	ld	a,#0x00
 00104$:
 	add	a, #0x07
-	ld	-1 (ix),a
+	ld	-3 (ix),a
 ;src/main.c:214: cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	d,#0x00
-	ld	h,e
-	ld	l,d
-	bit	7, d
+	ld	a,e
+	add	a,#0xE8
+	ld	-2 (ix),a
+	ld	a,d
+	adc	a,#0xFF
+	ld	-1 (ix),a
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	bit	7, -1 (ix)
 	jr	Z,00105$
-	inc	de
-	inc	de
-	inc	de
-	ld	h,e
-	ld	l,d
+	ld	hl,#0xFFEB
+	add	hl,de
 00105$:
-	ld	e, h
-	ld	d, l
-	sra	d
-	rr	e
-	sra	d
-	rr	e
-	ld	d,c
-	srl	d
+	sra	h
+	rr	l
+	sra	h
+	rr	l
+	ld	d,l
+	srl	c
 	push	iy
-	ld	hl,#0xC000
+	ld	hl,#0xC0F0
 	push	hl
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	a,-1 (ix)
+	ld	a,-3 (ix)
 	push	af
 	inc	sp
 	push	bc
 	inc	sp
-	ld	a,e
-	push	af
-	inc	sp
 	push	de
 	inc	sp
-	call	_cpct_etm_drawTileBox2x4
+	ld	a,c
+	push	af
 	inc	sp
+	call	_cpct_etm_drawTileBox2x4
+	ld	sp, ix
 	pop	ix
 	ret
 ;src/main.c:218: void borrarEnemigo(TEnemy *enemy) {
@@ -780,8 +801,9 @@ _borrarEnemigo::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	push	af
-	push	af
+	ld	hl,#-6
+	add	hl,sp
+	ld	sp,hl
 ;src/main.c:220: u8 w = 4 + (enemy->px & 1);
 	ld	c,4 (ix)
 	ld	b,5 (ix)
@@ -793,7 +815,7 @@ _borrarEnemigo::
 	ld	a,e
 	and	a, #0x01
 	add	a, #0x04
-	ld	-3 (ix),a
+	ld	-5 (ix),a
 ;src/main.c:223: u8 h = 7 + (enemy->py & 2 ? 1 : 0);
 	ld	l, c
 	ld	h, b
@@ -809,23 +831,28 @@ _borrarEnemigo::
 	ld	a,#0x00
 00104$:
 	add	a, #0x07
-	ld	-4 (ix),a
+	ld	-6 (ix),a
 ;src/main.c:225: cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
-	ld	l,d
-	ld	h,#0x00
-	ld	-2 (ix),l
-	ld	-1 (ix),h
-	bit	7, h
+	ld	-2 (ix),d
+	ld	-1 (ix),#0x00
+	ld	a,-2 (ix)
+	add	a,#0xE8
+	ld	-4 (ix),a
+	ld	a,-1 (ix)
+	adc	a,#0xFF
+	ld	-3 (ix),a
+	ld	d,-4 (ix)
+	ld	l,-3 (ix)
+	bit	7, -3 (ix)
 	jr	Z,00105$
-	inc	hl
-	inc	hl
-	inc	hl
-	ld	-2 (ix),l
-	ld	-1 (ix),h
+	ld	a,-2 (ix)
+	add	a, #0xEB
+	ld	d,a
+	ld	a,-1 (ix)
+	adc	a, #0xFF
+	ld	l,a
 00105$:
-	ld	d,-2 (ix)
-	ld	l,-1 (ix)
 	sra	l
 	rr	d
 	sra	l
@@ -833,13 +860,13 @@ _borrarEnemigo::
 	srl	e
 	push	bc
 	push	iy
-	ld	hl,#0xC000
+	ld	hl,#0xC0F0
 	push	hl
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	h,-4 (ix)
-	ld	l,-3 (ix)
+	ld	h,-6 (ix)
+	ld	l,-5 (ix)
 	push	hl
 	push	de
 	call	_cpct_etm_drawTileBox2x4
@@ -921,8 +948,8 @@ _checkEnemyCollision::
 ;src/main.c:263: enemy->mira = M_abajo;
 	ld	hl,#0x0007
 	add	hl,bc
-	ld	-2 (ix),l
-	ld	-1 (ix),h
+	ld	-6 (ix),l
+	ld	-5 (ix),h
 ;src/main.c:249: if( *getTilePtr(enemy->x, enemy->y - 2) <= 2
 	ld	hl,#0x0001
 	add	hl,bc
@@ -1015,14 +1042,14 @@ _checkEnemyCollision::
 	ld	d,#0x00
 	ld	hl,#0x0003
 	add	hl,de
-	ld	-6 (ix),l
-	ld	-5 (ix),h
+	ld	-2 (ix),l
+	ld	-1 (ix),h
 	ld	a,(bc)
 	ld	l,a
 	ld	h,#0x00
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	sub	a, l
-	ld	a,-5 (ix)
+	ld	a,-1 (ix)
 	sbc	a, h
 	jp	PO, 00196$
 	xor	a, #0x80
@@ -1080,8 +1107,8 @@ _checkEnemyCollision::
 	jr	00119$
 00105$:
 ;src/main.c:263: enemy->mira = M_abajo;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x03
 	jr	00119$
 00108$:
@@ -1090,8 +1117,8 @@ _checkEnemyCollision::
 	jr	00119$
 00115$:
 ;src/main.c:272: enemy->mira = M_abajo;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x03
 ;src/main.c:275: case 3:
 00119$:
@@ -1160,14 +1187,14 @@ _checkEnemyCollision::
 	ld	d,#0x00
 	ld	hl,#0x0003
 	add	hl,de
-	ld	-6 (ix),l
-	ld	-5 (ix),h
+	ld	-2 (ix),l
+	ld	-1 (ix),h
 	ld	a,(bc)
 	ld	c,a
 	ld	b,#0x00
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	sub	a, c
-	ld	a,-5 (ix)
+	ld	a,-1 (ix)
 	sbc	a, b
 	jp	PO, 00198$
 	xor	a, #0x80
@@ -1223,8 +1250,8 @@ _checkEnemyCollision::
 	jr	00135$
 00121$:
 ;src/main.c:291: enemy->mira = M_arriba;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x02
 	jr	00135$
 00124$:
@@ -1233,8 +1260,8 @@ _checkEnemyCollision::
 	jr	00135$
 00131$:
 ;src/main.c:298: enemy->mira = M_arriba;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x02
 ;src/main.c:301: }
 00135$:
@@ -1484,36 +1511,23 @@ _moverDerecha::
 ;src/main.c:380: prota.mira = M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:381: if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
+;src/main.c:381: if (!checkCollision(M_derecha) ) {
 	ld	hl,#0x0000
 	push	hl
 	call	_checkCollision
 	pop	af
-	ld	b,l
-	ld	hl, #_prota + 0
-	ld	c,(hl)
-	ld	e,c
-	ld	d,#0x00
-	ld	hl,#0x0007
-	add	hl,de
-	ld	de, #0x8050
-	add	hl, hl
-	ccf
-	rr	h
-	rr	l
-	sbc	hl, de
-	ld	a,#0x00
-	rla
-	ld	e,a
-	ld	a,b
-	or	a,a
-	jr	NZ,00104$
-	or	a,e
-	jr	Z,00104$
+	ld	c,l
 ;src/main.c:382: prota.x++;
-	inc	c
+	ld	hl, #_prota + 0
+	ld	e,(hl)
+;src/main.c:381: if (!checkCollision(M_derecha) ) {
+	ld	a,c
+	or	a, a
+	jr	NZ,00104$
+;src/main.c:382: prota.x++;
+	inc	e
 	ld	hl,#_prota
-	ld	(hl),c
+	ld	(hl),e
 ;src/main.c:383: prota.mover = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
@@ -1523,9 +1537,16 @@ _moverDerecha::
 	ret
 00104$:
 ;src/main.c:386: }else if( prota.x + G_HERO_W >= 80){
-	ld	a,e
-	or	a, a
-	ret	NZ
+	ld	d,#0x00
+	ld	hl,#0x0007
+	add	hl,de
+	ld	de, #0x8050
+	add	hl, hl
+	ccf
+	rr	h
+	rr	l
+	sbc	hl, de
+	ret	C
 ;src/main.c:387: avanzarMapa();
 	jp  _avanzarMapa
 ;src/main.c:391: void moverArriba() {
@@ -1536,7 +1557,7 @@ _moverArriba::
 ;src/main.c:392: prota.mira = M_arriba;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x02
-;src/main.c:393: if (!checkCollision(M_arriba) && (prota.y >= 0)) { // TODO: COMPROBAR
+;src/main.c:393: if (!checkCollision(M_arriba)) { // TODO: COMPROBAR
 	ld	hl,#0x0002
 	push	hl
 	call	_checkCollision
@@ -1567,7 +1588,7 @@ _moverAbajo::
 ;src/main.c:402: prota.mira = M_abajo;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x03
-;src/main.c:403: if (!checkCollision(M_abajo) && (prota.y + G_HERO_H < ALTO_MAPA)) { // TODO: COMPROBAR
+;src/main.c:403: if (!checkCollision(M_abajo) ) { // TODO: COMPROBAR
 	ld	hl,#0x0003
 	push	hl
 	call	_checkCollision
@@ -1575,25 +1596,9 @@ _moverAbajo::
 	ld	a,l
 	or	a, a
 	ret	NZ
+;src/main.c:404: prota.y++;
 	ld	bc,#_prota + 1
 	ld	a,(bc)
-	ld	e,a
-	ld	l,e
-	ld	h,#0x00
-	push	de
-	ld	de,#0x0016
-	add	hl, de
-	pop	de
-	ld	a,l
-	sub	a, #0xB0
-	ld	a,h
-	rla
-	ccf
-	rra
-	sbc	a, #0x80
-	ret	NC
-;src/main.c:404: prota.y++;
-	ld	a,e
 	inc	a
 	ld	(bc),a
 ;src/main.c:405: prota.y++;
@@ -1678,6 +1683,7 @@ _borrarCuchillo::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
+	push	af
 	dec	sp
 ;src/main.c:424: u8 w = 2 + (cu.px & 1);
 	ld	hl, #_cu + 2
@@ -1699,43 +1705,44 @@ _borrarCuchillo::
 	ld	a,#0x00
 00106$:
 	add	a, #0x02
-	ld	-1 (ix),a
+	ld	-3 (ix),a
 ;src/main.c:426: cpct_etm_drawTileBox2x4 (cu.px / 2, (cu.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
 	ld	d,#0x00
-	ld	h,e
-	ld	l,d
-	bit	7, d
+	ld	a,e
+	add	a,#0xE8
+	ld	-2 (ix),a
+	ld	a,d
+	adc	a,#0xFF
+	ld	-1 (ix),a
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	bit	7, -1 (ix)
 	jr	Z,00107$
-	inc	de
-	inc	de
-	inc	de
-	ld	h,e
-	ld	l,d
+	ld	hl,#0xFFEB
+	add	hl,de
 00107$:
-	ld	e, h
-	ld	d, l
-	sra	d
-	rr	e
-	sra	d
-	rr	e
-	ld	d,c
-	srl	d
+	sra	h
+	rr	l
+	sra	h
+	rr	l
+	ld	d,l
+	srl	c
 	push	iy
-	ld	hl,#0xC000
+	ld	hl,#0xC0F0
 	push	hl
 	ld	a,#0x28
 	push	af
 	inc	sp
-	ld	a,-1 (ix)
+	ld	a,-3 (ix)
 	push	af
 	inc	sp
 	push	bc
 	inc	sp
-	ld	a,e
-	push	af
-	inc	sp
 	push	de
+	inc	sp
+	ld	a,c
+	push	af
 	inc	sp
 	call	_cpct_etm_drawTileBox2x4
 ;src/main.c:427: if(!cu.mover){
@@ -1746,7 +1753,7 @@ _borrarCuchillo::
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
 00103$:
-	inc	sp
+	ld	sp, ix
 	pop	ix
 	ret
 ;src/main.c:432: void redibujarCuchillo( ) {
@@ -2404,8 +2411,8 @@ _moverCuchillo::
 ; Function barraPuntuacionInicial
 ; ---------------------------------
 _barraPuntuacionInicial::
-;src/main.c:619: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 178); //
-	ld	hl,#0xB200
+;src/main.c:619: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 2); //
+	ld	hl,#0x0200
 	push	hl
 	ld	h, #0xC0
 	push	hl
@@ -2422,8 +2429,8 @@ _barraPuntuacionInicial::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:621: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 190); // puntuación inicial
-	ld	hl,#0xBE00
+;src/main.c:621: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 14); // puntuación inicial
+	ld	hl,#0x0E00
 	push	hl
 	ld	h, #0xC0
 	push	hl
@@ -2440,8 +2447,8 @@ _barraPuntuacionInicial::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:625: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 190);
-	ld	hl,#0xBE1A
+;src/main.c:625: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 14);
+	ld	hl,#0x0E1A
 	push	hl
 	ld	hl,#0xC000
 	push	hl
@@ -2458,8 +2465,8 @@ _barraPuntuacionInicial::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:628: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 178); //
-	ld	hl,#0xB23C
+;src/main.c:628: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2); //
+	ld	hl,#0x023C
 	push	hl
 	ld	hl,#0xC000
 	push	hl
@@ -2479,14 +2486,14 @@ _barraPuntuacionInicial::
 ;src/main.c:631: for(i=0; i<5; i++){
 	ld	bc,#0x0000
 00102$:
-;src/main.c:632: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 190); // dibuja 5 corazones
+;src/main.c:632: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
 	ld	a,c
 	add	a, a
 	add	a, a
 	add	a, #0x3C
 	ld	d,a
 	push	bc
-	ld	a,#0xBE
+	ld	a,#0x0E
 	push	af
 	inc	sp
 	push	de
@@ -2525,21 +2532,21 @@ ___str_3:
 ___str_4:
 	.ascii "LIVES"
 	.db 0x00
-;src/main.c:637: void borrarPantallaAbajo(){
+;src/main.c:637: void borrarPantallaArriba(){
 ;	---------------------------------
-; Function borrarPantallaAbajo
+; Function borrarPantallaArriba
 ; ---------------------------------
-_borrarPantallaAbajo::
-;src/main.c:640: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 176); // posición para borrar la mitad derecha
-	ld	hl,#0xB000
+_borrarPantallaArriba::
+;src/main.c:640: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 0); // posición para borrar la mitad derecha
+	ld	hl,#0x0000
 	push	hl
 	ld	h, #0xC0
 	push	hl
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:641: cpct_drawSolidBox(memptr, 0, 40, 7);  //borra la mitad derecha
-	ld	hl,#0x0728
+;src/main.c:641: cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad derecha
+	ld	hl,#0x1828
 	push	hl
 	xor	a, a
 	push	af
@@ -2547,17 +2554,17 @@ _borrarPantallaAbajo::
 	push	bc
 	call	_cpct_drawSolidBox
 	pop	af
-;src/main.c:642: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 176); // posición para borrar la mitad izquierda
+;src/main.c:642: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 0); // posición para borrar la mitad izquierda
 	inc	sp
-	ld	hl,#0xB028
+	ld	hl,#0x0028
 	ex	(sp),hl
 	ld	hl,#0xC000
 	push	hl
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:643: cpct_drawSolidBox(memptr, 0, 40, 7);  //borra la mitad izquierda
-	ld	hl,#0x0728
+;src/main.c:643: cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad izquierda
+	ld	hl,#0x1828
 	push	hl
 	xor	a, a
 	push	af
@@ -2828,58 +2835,58 @@ _inicializarJuego::
 ;src/main.c:737: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:738: dibujarMapa();
+;src/main.c:739: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:739: borrarPantallaAbajo();
-	call	_borrarPantallaAbajo
-;src/main.c:740: barraPuntuacionInicial();
+;src/main.c:741: borrarPantallaArriba();
+	call	_borrarPantallaArriba
+;src/main.c:742: barraPuntuacionInicial();
 	call	_barraPuntuacionInicial
-;src/main.c:743: prota.x = prota.px = 4;
+;src/main.c:745: prota.x = prota.px = 4;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x04
 	ld	hl,#_prota
 	ld	(hl),#0x04
-;src/main.c:744: prota.y = prota.py = 80;
+;src/main.c:746: prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
 	ld	hl,#(_prota + 0x0003)
-	ld	(hl),#0x50
+	ld	(hl),#0x68
 	ld	hl,#(_prota + 0x0001)
-	ld	(hl),#0x50
-;src/main.c:745: prota.mover  = NO;
+	ld	(hl),#0x68
+;src/main.c:747: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:746: prota.mira=M_derecha;
+;src/main.c:748: prota.mira=M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:747: prota.sprite = g_hero;
+;src/main.c:749: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:751: cu.x = cu.px = 0;
+;src/main.c:753: cu.x = cu.px = 0;
 	ld	hl,#(_cu + 0x0002)
 	ld	(hl),#0x00
 	ld	hl,#_cu
 	ld	(hl),#0x00
-;src/main.c:752: cu.y = cu.py = 0;
+;src/main.c:754: cu.y = cu.py = 0;
 	ld	hl,#(_cu + 0x0003)
 	ld	(hl),#0x00
 	ld	hl,#(_cu + 0x0001)
 	ld	(hl),#0x00
-;src/main.c:753: cu.lanzado = NO;
+;src/main.c:755: cu.lanzado = NO;
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:754: cu.mover = NO;
+;src/main.c:756: cu.mover = NO;
 	ld	hl,#(_cu + 0x0009)
 	ld	(hl),#0x00
-;src/main.c:756: inicializarEnemy();
+;src/main.c:758: inicializarEnemy();
 	call	_inicializarEnemy
-;src/main.c:758: dibujarProta();
+;src/main.c:760: dibujarProta();
 	call	_dibujarProta
-;src/main.c:759: dibujarEnemigo(actual);
+;src/main.c:761: dibujarEnemigo(actual);
 	ld	hl,#_enemy
 	push	hl
 	call	_dibujarEnemigo
 	pop	af
 	ret
-;src/main.c:762: void main(void) {
+;src/main.c:764: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
@@ -2888,39 +2895,39 @@ _main::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/main.c:766: inicializarCPC();
+;src/main.c:768: inicializarCPC();
 	call	_inicializarCPC
-;src/main.c:767: menuInicio();
+;src/main.c:769: menuInicio();
 	call	_menuInicio
-;src/main.c:771: inicializarJuego();
+;src/main.c:773: inicializarJuego();
 	call	_inicializarJuego
-;src/main.c:776: cpct_akp_musicPlay();
+;src/main.c:778: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
-;src/main.c:779: actual = enemy;
-;src/main.c:781: while (1) {
+;src/main.c:781: actual = enemy;
+;src/main.c:783: while (1) {
 00115$:
-;src/main.c:783: cpct_waitVSYNC();
+;src/main.c:785: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/main.c:784: comprobarTeclado();
+;src/main.c:786: comprobarTeclado();
 	call	_comprobarTeclado
-;src/main.c:785: moverCuchillo();
+;src/main.c:787: moverCuchillo();
 	call	_moverCuchillo
-;src/main.c:789: cpct_waitVSYNC();
+;src/main.c:791: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/main.c:791: if (prota.mover) {
+;src/main.c:793: if (prota.mover) {
 	ld	bc,#_prota+6
 	ld	a,(bc)
 	or	a, a
 	jr	Z,00102$
-;src/main.c:792: redibujarProta();
+;src/main.c:794: redibujarProta();
 	push	bc
 	call	_redibujarProta
 	pop	bc
-;src/main.c:793: prota.mover = NO;
+;src/main.c:795: prota.mover = NO;
 	xor	a, a
 	ld	(bc),a
 00102$:
-;src/main.c:795: if(cu.lanzado && cu.mover){
+;src/main.c:797: if(cu.lanzado && cu.mover){
 	ld	hl,#_cu + 6
 	ld	c,(hl)
 	ld	de,#_cu + 9
@@ -2930,43 +2937,43 @@ _main::
 	ld	a,(de)
 	or	a, a
 	jr	Z,00107$
-;src/main.c:796: redibujarCuchillo();
+;src/main.c:798: redibujarCuchillo();
 	call	_redibujarCuchillo
 	jr	00108$
 00107$:
-;src/main.c:797: }else if (cu.lanzado && !cu.mover){
+;src/main.c:799: }else if (cu.lanzado && !cu.mover){
 	ld	a,c
 	or	a, a
 	jr	Z,00108$
 	ld	a,(de)
 	or	a, a
 	jr	NZ,00108$
-;src/main.c:798: borrarCuchillo();
+;src/main.c:800: borrarCuchillo();
 	call	_borrarCuchillo
 00108$:
-;src/main.c:801: if(enemy->mover){
+;src/main.c:803: if(enemy->mover){
 	ld	a, (#_enemy + 6)
 	or	a, a
 	jr	Z,00111$
-;src/main.c:802: redibujarEnemigo(actual);
+;src/main.c:804: redibujarEnemigo(actual);
 	ld	hl,#_enemy
 	push	hl
 	call	_redibujarEnemigo
 	pop	af
 00111$:
-;src/main.c:804: if (enemy->muerto){
+;src/main.c:806: if (enemy->muerto){
 	ld	a,(#_enemy + 8)
 	ld	-1 (ix), a
 	or	a, a
 	jr	Z,00115$
-;src/main.c:805: borrarEnemigo(actual);
+;src/main.c:807: borrarEnemigo(actual);
 	ld	hl,#_enemy
 	push	hl
 	call	_borrarEnemigo
 	pop	af
-;src/main.c:806: dibujarExplosion();
+;src/main.c:808: dibujarExplosion();
 	call	_dibujarExplosion
-;src/main.c:807: borrarExplosion();
+;src/main.c:809: borrarExplosion();
 	call	_borrarExplosion
 	jr	00115$
 	inc	sp

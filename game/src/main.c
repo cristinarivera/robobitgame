@@ -39,7 +39,7 @@
 
 #define  SI 1
 #define  NO 0
-#define  ORIGEN_MAPA_Y	0
+#define  ORIGEN_MAPA_Y	24
 #define  ORIGEN_MAPA  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
 #define ANCHO_PANTALLA	g_map1_W * 2  	// 2 bytes por tile de ancho
@@ -104,7 +104,7 @@ u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
 u8 const spawnX[5] = {0, 40, 71, 20, 60};
-u8 const spawnY[5] = {0, 20, 90, 114, 114};
+u8 const spawnY[5] = {0 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y};
 TEnemy enemy[4];
 
 TProta prota;
@@ -159,7 +159,7 @@ void redibujarProta() {
 }
 
 u8* getTilePtr(u8 x, u8 y) {
-   return mapa + (y/4)*g_map1_W + x/2;
+   return mapa + ((y-ORIGEN_MAPA_Y)/4)*g_map1_W + x/2;
 }
 
 u8 checkCollision(int direction) { // check optimization
@@ -378,7 +378,7 @@ void moverIzquierda() {
 
 void moverDerecha() {
 	prota.mira = M_derecha;
-	if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
+	if (!checkCollision(M_derecha) ) {
   		prota.x++;
   		prota.mover = SI;
   		prota.sprite = g_hero;
@@ -390,7 +390,7 @@ void moverDerecha() {
 
 void moverArriba() {
 	prota.mira = M_arriba;
-	if (!checkCollision(M_arriba) && (prota.y >= 0)) { // TODO: COMPROBAR
+	if (!checkCollision(M_arriba)) { // TODO: COMPROBAR
   		prota.y--;
   		prota.y--;
   		prota.mover  = SI;
@@ -400,7 +400,7 @@ void moverArriba() {
 
 void moverAbajo() {
 	prota.mira = M_abajo;
-	if (!checkCollision(M_abajo) && (prota.y + G_HERO_H < ALTO_MAPA)) { // TODO: COMPROBAR
+	if (!checkCollision(M_abajo) ) { // TODO: COMPROBAR
 		prota.y++;
 		prota.y++;
 		prota.mover  = SI;
@@ -616,31 +616,31 @@ void barraPuntuacionInicial(){
 	int i;
 
    	//memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 176); // justo después del mapa
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 178); //
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 2); //
 	cpct_drawStringM0("SCORE", memptr, 1, 0);
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 190); // puntuación inicial
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 14); // puntuación inicial
 	cpct_drawStringM0("00000", memptr, 15, 0);
    	//cpct_drawStringM0("", memptr, 15, 0);
 
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 190);
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 14);
 	cpct_drawStringM0("ROBOBIT", memptr, 3, 0);
 
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 178); //
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2); //
 	cpct_drawStringM0("LIVES", memptr, 1, 0);
 
 	for(i=0; i<5; i++){
-		memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 190); // dibuja 5 corazones
+		memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
 		cpct_drawSprite (g_heart, memptr, G_HEART_W, G_HEART_H);
 	}
 }
 
-void borrarPantallaAbajo(){
+void borrarPantallaArriba(){
 	u8* memptr;
 	// No se puede borrar todo de golpe.
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 176); // posición para borrar la mitad derecha
-   	cpct_drawSolidBox(memptr, 0, 40, 7);  //borra la mitad derecha
-   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 176); // posición para borrar la mitad izquierda
-   	cpct_drawSolidBox(memptr, 0, 40, 7);  //borra la mitad izquierda
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 0); // posición para borrar la mitad derecha
+   	cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad derecha
+   	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 40, 0); // posición para borrar la mitad izquierda
+   	cpct_drawSolidBox(memptr, 0, 40, 24);  //borra la mitad izquierda
 }
 
 void menuInicio(){
@@ -735,13 +735,15 @@ void inicializarJuego() {
 	num_mapa = 0;
 	mapa = mapas[num_mapa];
 	cpct_etm_setTileset2x4(g_tileset);
+
 	dibujarMapa();
-	borrarPantallaAbajo();
+	
+	borrarPantallaArriba();
 	barraPuntuacionInicial();
 
 
 	prota.x = prota.px = 4;
-	prota.y = prota.py = 80;
+	prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
 	prota.mover  = NO;
 	prota.mira=M_derecha;
 	prota.sprite = g_hero;
