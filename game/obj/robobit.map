@@ -26,7 +26,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000061  l__CABS0                        
      00000061  l__CABS1                        
      00000100  l__g_tablatrans_0               
-     00000FBB  l__CSEG                         
+     000010B4  l__CSEG                         
      00004000  s__CODE                         
      000048F2  l__CODE                         
      000088F2  s__DATA                         
@@ -217,7 +217,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00008939    00000FBB =        4027. bytes (REL,CON)
+_CSEG                               00008939    000010B4 =        4276. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -237,29 +237,32 @@ _CSEG                               00008939    00000FBB =        4027. bytes (R
      00008CBA  _borrarEnemigo                     main
      00008D4E  _redibujarEnemigo                  main
      00008D7F  _checkEnemyCollision               main
-     00008FA3  _moverEnemigoArriba                main
-     00008FC2  _moverEnemigoAbajo                 main
-     00008FE1  _moverEnemigo                      main
-     00009037  _patrolDecision                    main
-     0000905C  _avanzarMapa                       main
-     00009095  _moverIzquierda                    main
-     000090BA  _moverDerecha                      main
-     000090F6  _moverArriba                       main
-     0000911A  _moverAbajo                        main
-     0000913E  _dibujarCuchillo                   main
-     000091A2  _borrarCuchillo                    main
-     00009220  _redibujarCuchillo                 main
-     00009234  _lanzarCuchillo                    main
-     00009350  _comprobarTeclado                  main
-     00009391  _checkKnifeCollision               main
-     0000946B  _moverCuchillo                     main
-     00009557  _barraPuntuacionInicial            main
-     00009619  _borrarPantallaArriba              main
-     0000964E  _menuInicio                        main
-     0000972A  _inicializarCPC                    main
-     0000974D  _inicializarEnemy                  main
-     000097CC  _inicializarJuego                  main
-     00009838  _main                              main
+     0000914F  _moverEnemigoArriba                main
+     0000916E  _moverEnemigoAbajo                 main
+     0000918D  _moverEnemigoDerecha               main
+     0000919B  _moverEnemigoIzquierda             main
+     000091AA  _moverEnemigo                      main
+     0000920A  _patrolDecision                    main
+     0000922F  _avanzarMapa                       main
+     00009268  _moverIzquierda                    main
+     0000928D  _moverDerecha                      main
+     000092C9  _moverArriba                       main
+     000092ED  _moverAbajo                        main
+     00009311  _dibujarCuchillo                   main
+     00009375  _borrarCuchillo                    main
+     000093F3  _redibujarCuchillo                 main
+     00009407  _lanzarCuchillo                    main
+     00009523  _comprobarTeclado                  main
+     00009564  _checkKnifeCollision               main
+     00009586  _moverCuchillo                     main
+     0000962B  _barraPuntuacionInicial            main
+     000096ED  _borrarPantallaArriba              main
+     00009722  _menuInicio                        main
+     000097FE  _inicializarCPC                    main
+     00009821  _inicializarEnemy                  main
+     000098AE  _inicializarJuego                  main
+     0000991A  _main                              main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 Hexadecimal  [32-Bits]
 
