@@ -80,20 +80,6 @@ typedef struct {
   u8  x, y;
   u8  px, py;
   u8* sprite;
-  u8  mover;
-  u8  mira;
-  u8  muerto;
-  u8  patroling;  // si esta patrullando
-  u8  lastPatrol; // ultima direccion en la que patrullo
-  u8  colision;
-  u8 	muertes;
-} TEnemy;
-
-
-typedef struct {
-  u8  x, y;
-  u8  px, py;
-  u8* sprite;
   u8 lanzado;
   u8 direccion;
   u8 eje;
@@ -302,7 +288,7 @@ u8 checkEnemyCollision(int direction, TEnemy *enemy){
 
 					}else{
 						enemy->muerto = SI;
-						
+
 					}
 				}else{
 					colisiona = 0;
@@ -331,7 +317,7 @@ u8 checkEnemyCollision(int direction, TEnemy *enemy){
 
 					}else{
 						enemy->muerto = SI;
-					
+
 					}
 				}else{ // el prota esta arriba
 					colisiona = 0;
@@ -398,6 +384,7 @@ void avanzarMapa() {
     prota.x = prota.px = 2;
     prota.mover = SI;
     dibujarMapa();
+    inicializarEnemy();
     //modificarPuntuacion();
   }
   else{
@@ -416,7 +403,7 @@ void moverIzquierda() {
 
 void moverDerecha() {
   prota.mira = M_derecha;
-  if (!checkCollision(M_derecha)) {
+  if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
     prota.x++;
     prota.mover = SI;
     prota.sprite = g_hero;
@@ -562,8 +549,8 @@ void moverCuchillo(){
 			}
 		}
 		else if(cu.direccion == M_izquierda){
-			if(checkKnifeCollision(M_derecha, -1, 0)){			
-				cu.mover = SI;		
+			if(checkKnifeCollision(M_derecha, -1, 0)){
+				cu.mover = SI;
 				cu.x--;
 			}else{
 				cu.mover=NO;
@@ -574,7 +561,7 @@ void moverCuchillo(){
 				cu.mover = SI;
 				cu.y--;
 				cu.y--;
-				
+
 			}else{
 				cu.mover=NO;
 			}
@@ -584,7 +571,7 @@ void moverCuchillo(){
 				cu.mover = SI;
 				cu.y++;
 				cu.y++;
-				
+
 			}else{
 				cu.mover=NO;
 			}
@@ -688,7 +675,7 @@ void inicializarCPC() {
 
 void inicializarEnemy() {
   u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
- // u8 i = 4 + 1; // dibuja todos de prueba
+ // u8 i = 4 + 1; // sacar todos
 
   TEnemy* actual;
 
