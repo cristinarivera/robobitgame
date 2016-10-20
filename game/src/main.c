@@ -235,63 +235,115 @@ void redibujarEnemigo(TEnemy *enemy) {
 
 u8 checkEnemyCollision(int direction, TEnemy *enemy){
 
-  u8 colisiona = 1;
+	u8 colisiona = 1;
 
-  switch (direction) {
-      case 0:
-      break;
-      case 1:
-      break;
-      case 2:
-      if( *getTilePtr(enemy->x, enemy->y - 2) <= 2
-      && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-      && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
-      {
-        if((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)){
-          colisiona = 0;
-        }else{
-          if(enemy->y>cu.y){
-            if(enemy->y - (cu.y + G_KNIFEY_0_H -2) >= 2){
-              colisiona = 0;
-            }else{
-              enemy->muerto = SI;
-            }
-          }else{
-            colisiona = 0;
-          }
-        }
-      }else{
-        enemy->mira = M_abajo;
-      }
+	switch (direction) {
+    case 0:
+    	if( *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+			 && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+			 	&& *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2)
+		{ // puede moverse, no colisiona con el mapa
+			if( (cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
+				colisiona = 0;
+				 // el cu no esta ni arriba ni abajo
+			}else{
+				if(cu.x > enemy->x){ //si el cu esta abajo
+					if( cu.x - (enemy->x + G_ENEMY_W) > 1){ // si hay espacio entre el enemigo y el cu
+						colisiona = 0;
 
-      case 3:
-      if( *getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-      && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-      && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
-      { // puede moverse, no colisiona con el mapa
-        if( (cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W) ){
-          colisiona = 0;
-          // el cu no esta ni arriba ni abajo
-        }else{
-          if(cu.y > enemy->y){ //si el cu esta abajo
-            if( cu.y - (enemy->y + G_ENEMY_H) > 2){ // si hay espacio entre el enemigo y el cu
-              colisiona = 0;
+					}else{
+						enemy->muerto = SI;
+					}
+				}else{ // el prota esta arriba
+					colisiona = 0;
+				}
+			}
+		}else{
+			enemy->mira = M_izquierda;
+		}
+        break;
+    case 1:
+    	if( *getTilePtr(enemy->x - 1, enemy->y) <= 2
+			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2)
+		{ // puede moverse, no colisiona con el mapa
+			if( (cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
+				colisiona = 0;
+				 // el cu no esta ni arriba ni abajo
+			}else{
+				if(enemy->x > cu.x){ //si el cu esta abajo
+					if( enemy->x - (cu.x + G_KNIFEX_0_W) > 1){ // si hay espacio entre el enemigo y el cu
+						colisiona = 0;
 
-            }else{
-              enemy->muerto = SI;
+					}else{
+						enemy->muerto = SI;
+					}
+				}else{ // el prota esta arriba
+					colisiona = 0;
+				}
+			}
+		}else{
+			enemy->mira = M_derecha;
+		}
+        break;
+    case 2:
+         if( *getTilePtr(enemy->x, enemy->y - 2) <= 2
+			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
+		{
+			if((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)){
 
-            }
-          }else{ // el prota esta arriba
-            colisiona = 0;
-          }
-        }
-      }else{
-        enemy->mira = M_arriba;
-      }
-      break;
-    }
-    return colisiona;
-  }
+				colisiona = 0;
+
+			}else{
+				if(enemy->y>cu.y){
+					if(enemy->y - (cu.y + G_KNIFEY_0_H)  > 2){
+						colisiona = 0;
+
+					}else{
+						enemy->muerto = SI;
+						
+					}
+				}else{
+					colisiona = 0;
+
+				}
+			}
+
+		}else{
+			enemy->mira = M_abajo;
+		}
+
+	case 3:
+
+
+		if( *getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
+		{ // puede moverse, no colisiona con el mapa
+			if( (cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W) ){
+				colisiona = 0;
+				 // el cu no esta ni arriba ni abajo
+			}else{
+				if(cu.y > enemy->y){ //si el cu esta abajo
+					if( cu.y - (enemy->y + G_ENEMY_H)  > 2){ // si hay espacio entre el enemigo y el cu
+						colisiona = 0;
+
+					}else{
+						enemy->muerto = SI;
+					
+					}
+				}else{ // el prota esta arriba
+					colisiona = 0;
+				}
+			}
+		}else{
+			enemy->mira = M_arriba;
+		}
+        break;
+   }
+   return colisiona;
+}
 
 void moverEnemigoArriba(TEnemy *enemy){
   enemy->y--;
@@ -318,26 +370,26 @@ void moverEnemigoIzquierda(TEnemy *enemy){
 }
 
 void moverEnemigo(TEnemy *enemy){
-  if(!enemy->muerto){
-    if(!checkEnemyCollision(enemy->mira, enemy)){
+	if(!enemy->muerto){
+		if(!checkEnemyCollision(enemy->mira, enemy)){
 
-      switch (enemy->mira) {
+		   switch (enemy->mira) {
 
-        case 0:
-
-        break;
-        case 1:
-
-        break;
-        case 2:
-        moverEnemigoArriba(enemy);
-        break;
-        case 3:
-        moverEnemigoAbajo(enemy);
-        break;
-      }
-    }
-  }
+		    case 0:
+		    	moverEnemigoDerecha(enemy);
+		        break;
+		    case 1:
+		    	moverEnemigoIzquierda(enemy);
+		        break;
+		    case 2:
+		        moverEnemigoArriba(enemy);
+		        break;
+		    case 3:
+		       	moverEnemigoAbajo(enemy);
+		        break;
+		   }
+		}
+	}
 }
 
 void avanzarMapa() {
@@ -364,7 +416,7 @@ void moverIzquierda() {
 
 void moverDerecha() {
   prota.mira = M_derecha;
-  if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
+  if (!checkCollision(M_derecha)) {
     prota.x++;
     prota.mover = SI;
     prota.sprite = g_hero;
@@ -491,110 +543,53 @@ void comprobarTeclado() {
   }
 }
 
-u8 checkKnifeCollision(int direction){
+u8 checkKnifeCollision(int direction, u8 xoff, u8 yoff){
 
-  u8 colisiona = 1;
-
-  switch (direction) {
-    case 0:
-
-    break;
-    case 1:
-
-    break;
-    case 2:
-
-    if((enemy->x + G_ENEMY_W) < cu.x || enemy->x  > (cu.x + G_KNIFEX_0_W)){
-      colisiona = 0;
-    }else{
-      if(cu.y>enemy->y){
-        if(cu.y - (enemy->y + G_ENEMY_H) >= 2){
-          colisiona = 0;
-
-        }else{
-          colisiona=1;
-
-        }
-      }else{
-        colisiona = 0;
-      }
-    }
-
-    case 3:
-
-    if((enemy->x + G_ENEMY_W) < cu.x || enemy->x  > (cu.x + G_KNIFEX_0_W)){
-      colisiona = 0;
-    }else{
-      if(cu.y<enemy->y){
-        if(enemy->y - (cu.y + G_KNIFEX_0_H - 2) >= 2){
-          colisiona = 0;
-        }else{
-          colisiona = 1;
-
-        }
-      }else{
-        colisiona = 0;
-      }
-    }
-  }
-  return colisiona;
+   return *getTilePtr(cu.x + xoff, cu.y + yoff) <= 2;
 }
 
 void moverCuchillo(){
+	if(cu.lanzado){
+		cu.mover = SI;
+		if(cu.direccion == M_derecha){
 
-  if(cu.lanzado){
-    cu.mover = 1;
-    if(cu.direccion == M_derecha){
-
-      if( *getTilePtr(cu.x + G_KNIFEX_0_W + 1, cu.y) <= 2){
-        cu.x++;
-        cu.mover = SI;
-
-      }
-      else {
-        cu.mover=NO;
-      }
-    }
-    else if(cu.direccion == M_izquierda){
-      if(*getTilePtr(cu.x - 1, cu.y) <= 2){
-        cu.x--;
-        cu.mover = SI;
-
-      }else{
-        cu.mover=NO;
-      }
-    }
-    else if(cu.direccion == M_arriba){
-      if(*getTilePtr(cu.x, cu.y - 2) <= 2){
-        if(!checkKnifeCollision(M_arriba)){
-          cu.y--;
-          cu.y--;
-          cu.mover = SI;
-
-        }else{
-          cu.mover=NO;
-        }
-      }else{
-        cu.mover=NO;
-
-
-      }
-    }
-    else if(cu.direccion == M_abajo){
-      if(*getTilePtr(cu.x, cu.y + G_KNIFEY_0_H + 2) <= 2){
-        if(!checkKnifeCollision(M_abajo)){
-          cu.y++;
-          cu.y++;
-          cu.mover = SI;
-
-        }else{
-          cu.mover=NO;
-        }
-      }else{
-        cu.mover=NO;
-      }
-    }
-  }
+			if(checkKnifeCollision(M_derecha, G_KNIFEX_0_W + 1, 0)){
+				cu.mover = SI;
+				cu.x++;
+			}
+			else {
+				cu.mover=NO;
+			}
+		}
+		else if(cu.direccion == M_izquierda){
+			if(checkKnifeCollision(M_derecha, -1, 0)){			
+				cu.mover = SI;		
+				cu.x--;
+			}else{
+				cu.mover=NO;
+			}
+		}
+		else if(cu.direccion == M_arriba){
+			if(checkKnifeCollision(M_derecha, 0, -2)){
+				cu.mover = SI;
+				cu.y--;
+				cu.y--;
+				
+			}else{
+				cu.mover=NO;
+			}
+		}
+		else if(cu.direccion == M_abajo){
+			if(checkKnifeCollision(M_derecha, 0, G_KNIFEY_0_H + 2)){
+				cu.mover = SI;
+				cu.y++;
+				cu.y++;
+				
+			}else{
+				cu.mover=NO;
+			}
+		}
+	}
 }
 
 void barraPuntuacionInicial(){
@@ -692,8 +687,8 @@ void inicializarCPC() {
 }
 
 void inicializarEnemy() {
-  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
-  u8 i = 4 + 1; // dibuja todos de prueba
+  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+ // u8 i = 4 + 1; // dibuja todos de prueba
 
   TEnemy* actual;
 
@@ -756,7 +751,7 @@ void main(void) {
 
   while (1) {
 
-    i = 4 + 1;
+    i = (2 + num_mapa) + 1;
     actual = enemy;
 
     comprobarTeclado();
