@@ -294,11 +294,12 @@ obj/hero_down.rel                         [ hero_down ]
 obj/hero_up.rel                           [ hero_up ]
 obj/hero_left.rel                         [ hero_left ]
 obj/hero.rel                              [ hero ]
+obj/enemystruct.rel                       [ enemystruct ]
 obj/song.rel                              [ song ]
 obj/tiles2.rel                            [ tiles2 ]
 obj/main.rel                              [ main ]
-obj/tiles3.rel                            [ tiles3 ]
 obj/pathfinding.rel                       [ pathfinding ]
+obj/tiles3.rel                            [ tiles3 ]
 
 
 Libraries Linked                          [ object file ]

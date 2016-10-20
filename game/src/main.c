@@ -36,6 +36,7 @@
 #include "song.c"
 #include "text.h"
 #include "explosion.h"
+#include "enemystruct.h"
 
 #define  SI 1
 #define  NO 0
