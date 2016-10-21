@@ -14,7 +14,10 @@
 	.globl _inicializarEnemy
 	.globl _inicializarCPC
 	.globl _menuInicio
-	.globl _borrarPantallaArriba
+	.globl _menuOpciones
+	.globl _menuCreditos
+	.globl _menuInstrucciones
+	.globl _borrarPantalla
 	.globl _barraPuntuacionInicial
 	.globl _moverCuchillo
 	.globl _checkKnifeCollision
@@ -51,7 +54,6 @@
 	.globl _cpct_akp_musicPlay
 	.globl _cpct_akp_musicInit
 	.globl _cpct_getScreenPtr
-	.globl _cpct_setPALColour
 	.globl _cpct_setPalette
 	.globl _cpct_waitVSYNC
 	.globl _cpct_setVideoMode
@@ -842,22 +844,22 @@ _borrarEnemigo::
 	ld	-5 (ix),a
 ;src/main.c:211: cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	iy,(_mapa)
-	ld	-4 (ix),d
-	ld	-3 (ix),#0x00
-	ld	a,-4 (ix)
+	ld	-2 (ix),d
+	ld	-1 (ix),#0x00
+	ld	a,-2 (ix)
 	add	a,#0xE8
-	ld	-2 (ix),a
-	ld	a,-3 (ix)
+	ld	-4 (ix),a
+	ld	a,-1 (ix)
 	adc	a,#0xFF
-	ld	-1 (ix),a
-	ld	d,-2 (ix)
-	ld	l,-1 (ix)
-	bit	7, -1 (ix)
+	ld	-3 (ix),a
+	ld	d,-4 (ix)
+	ld	l,-3 (ix)
+	bit	7, -3 (ix)
 	jr	Z,00105$
-	ld	a,-4 (ix)
+	ld	a,-2 (ix)
 	add	a, #0xEB
 	ld	d,a
-	ld	a,-3 (ix)
+	ld	a,-1 (ix)
 	adc	a, #0xFF
 	ld	l,a
 00105$:
@@ -1854,7 +1856,7 @@ _moverArriba::
 ;src/main.c:418: prota.mira = M_arriba;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x02
-;src/main.c:419: if (!checkCollision(M_arriba)) { // TODO: COMPROBAR
+;src/main.c:419: if (!checkCollision(M_arriba)) { 
 	ld	hl,#0x0002
 	push	hl
 	call	_checkCollision
@@ -1885,7 +1887,7 @@ _moverAbajo::
 ;src/main.c:428: prota.mira = M_abajo;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x03
-;src/main.c:429: if (!checkCollision(M_abajo) ) { // TODO: COMPROBAR
+;src/main.c:429: if (!checkCollision(M_abajo) ) { 
 	ld	hl,#0x0003
 	push	hl
 	call	_checkCollision
@@ -2549,24 +2551,6 @@ _barraPuntuacionInicial::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:594: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 14);
-	ld	hl,#0x0E1A
-	push	hl
-	ld	hl,#0xC000
-	push	hl
-	call	_cpct_getScreenPtr
-	ld	c,l
-	ld	b,h
-;src/main.c:595: cpct_drawStringM0("ROBOBIT", memptr, 3, 0);
-	ld	hl,#0x0003
-	push	hl
-	push	bc
-	ld	hl,#___str_3
-	push	hl
-	call	_cpct_drawStringM0
-	ld	hl,#6
-	add	hl,sp
-	ld	sp,hl
 ;src/main.c:597: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2); //
 	ld	hl,#0x023C
 	push	hl
@@ -2579,7 +2563,7 @@ _barraPuntuacionInicial::
 	ld	hl,#0x0001
 	push	hl
 	push	bc
-	ld	hl,#___str_4
+	ld	hl,#___str_3
 	push	hl
 	call	_cpct_drawStringM0
 	ld	hl,#6
@@ -2629,20 +2613,25 @@ ___str_2:
 	.ascii "00000"
 	.db 0x00
 ___str_3:
-	.ascii "ROBOBIT"
-	.db 0x00
-___str_4:
 	.ascii "LIVES"
 	.db 0x00
-;src/main.c:606: void borrarPantallaArriba(u8 x, u8 y, u8 ancho, u8 alto){
+;src/main.c:606: void borrarPantalla(u8 x, u8 y, u8 ancho, u8 alto){
 ;	---------------------------------
-; Function borrarPantallaArriba
+; Function borrarPantalla
 ; ---------------------------------
-_borrarPantallaArriba::
+_borrarPantalla::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/main.c:609: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha
+;src/main.c:608: if (ancho <= 40){
+	ld	a,#0x28
+	sub	a, 6 (ix)
+	ld	a,#0x00
+	rla
+	ld	c,a
+	bit	0,c
+	jr	NZ,00104$
+;src/main.c:609: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar 
 	ld	h,5 (ix)
 	ld	l,4 (ix)
 	push	hl
@@ -2651,7 +2640,7 @@ _borrarPantallaArriba::
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:610: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad derecha
+;src/main.c:610: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra 
 	ld	h,7 (ix)
 	ld	l,6 (ix)
 	push	hl
@@ -2663,7 +2652,32 @@ _borrarPantallaArriba::
 	pop	af
 	pop	af
 	inc	sp
-;src/main.c:611: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
+	jr	00106$
+00104$:
+;src/main.c:612: else if (ancho > 40){
+	bit	0,c
+	jr	Z,00106$
+;src/main.c:614: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha
+	ld	h,5 (ix)
+	ld	l,4 (ix)
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:615: cpct_drawSolidBox(memptr, 0, 40, alto);  //borra la mitad derecha
+	ld	a,7 (ix)
+	push	af
+	inc	sp
+	ld	hl,#0x2800
+	push	hl
+	push	bc
+	call	_cpct_drawSolidBox
+	pop	af
+	pop	af
+	inc	sp
+;src/main.c:616: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
 	ld	a,4 (ix)
 	add	a, #0x28
 	ld	b,a
@@ -2677,10 +2691,15 @@ _borrarPantallaArriba::
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:612: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra la mitad izquierda
-	ld	h,7 (ix)
-	ld	l,6 (ix)
-	push	hl
+;src/main.c:617: cpct_drawSolidBox(memptr, 0, ancho-40, alto);  //borra la mitad izquierda
+	ld	a,6 (ix)
+	add	a,#0xD8
+	ld	d,a
+	ld	a,7 (ix)
+	push	af
+	inc	sp
+	push	de
+	inc	sp
 	xor	a, a
 	push	af
 	inc	sp
@@ -2689,32 +2708,49 @@ _borrarPantallaArriba::
 	pop	af
 	pop	af
 	inc	sp
+00106$:
 	pop	ix
 	ret
-;src/main.c:615: void menuInicio(){
+;src/main.c:621: void menuInstrucciones(){ // TODO TODO
 ;	---------------------------------
-; Function menuInicio
+; Function menuInstrucciones
 ; ---------------------------------
-_menuInicio::
-;src/main.c:619: cpct_clearScreen(0);
-	ld	hl,#0x4000
+_menuInstrucciones::
+;src/main.c:623: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+	ld	hl,#0x8250
 	push	hl
-	xor	a, a
-	push	af
-	inc	sp
-	ld	h, #0xC0
+	ld	hl,#0x1E00
 	push	hl
-	call	_cpct_memset
-;src/main.c:621: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 15); // centrado en horizontal y arriba en vertical
-	ld	hl,#0x0F1A
+	call	_borrarPantalla
+	pop	af
+;src/main.c:626: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 16, 85); // centrado en horizontal y abajo en vertical
+	ld	hl, #0x5510
+	ex	(sp),hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:627: cpct_drawStringM0("INSTRUCTIONS", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_4
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:629: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 115); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x7308
 	push	hl
 	ld	hl,#0xC000
 	push	hl
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:622: cpct_drawStringM0("ROBOBIT", memptr, 4, 0);
-	ld	hl,#0x0004
+;src/main.c:630: cpct_drawStringM0("-> <- || TO MOVE", memptr, 2, 0);
+	ld	hl,#0x0002
 	push	hl
 	push	bc
 	ld	hl,#___str_5
@@ -2723,32 +2759,16 @@ _menuInicio::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:624: cpct_drawSprite(g_text_0, cpctm_screenPtr(CPCT_VMEM_START,  0, 30), G_TEXT_0_W, G_TEXT_0_H); // imagen
-	ld	hl,#0x6E28
-	push	hl
-	ld	hl,#0xF0F0
-	push	hl
-	ld	hl,#_g_text_0
-	push	hl
-	call	_cpct_drawSprite
-;src/main.c:625: cpct_drawSprite(g_text_1, cpctm_screenPtr(CPCT_VMEM_START, 40, 30), G_TEXT_0_W, G_TEXT_0_H);
-	ld	hl,#0x6E28
-	push	hl
-	ld	hl,#0xF118
-	push	hl
-	ld	hl,#_g_text_1
-	push	hl
-	call	_cpct_drawSprite
-;src/main.c:648: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 160); // centrado en horizontal y abajo en vertical
-	ld	hl,#0xA008
+;src/main.c:632: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 4, 130); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x8204
 	push	hl
 	ld	hl,#0xC000
 	push	hl
 	call	_cpct_getScreenPtr
 	ld	c,l
 	ld	b,h
-;src/main.c:649: cpct_drawStringM0("TO START PRESS S", memptr, 4, 0);
-	ld	hl,#0x0004
+;src/main.c:633: cpct_drawStringM0("SPACE BAR TO SHOOT", memptr, 2, 0);
+	ld	hl,#0x0002
 	push	hl
 	push	bc
 	ld	hl,#___str_6
@@ -2757,46 +2777,20 @@ _menuInicio::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:651: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 170); // centrado en horizontal y abajo en vertical
-	ld	hl,#0xAA0A
-	push	hl
-	ld	hl,#0xC000
-	push	hl
-	call	_cpct_getScreenPtr
-	ld	c,l
-	ld	b,h
-;src/main.c:652: cpct_drawStringM0("TO MENU PRESS M", memptr, 4, 0);
-	ld	hl,#0x0004
-	push	hl
-	push	bc
-	ld	hl,#___str_7
-	push	hl
-	call	_cpct_drawStringM0
-	ld	hl,#6
-	add	hl,sp
-	ld	sp,hl
-;src/main.c:655: do{
-00106$:
-;src/main.c:656: cpct_scanKeyboard_f();
+;src/main.c:635: do{
+00104$:
+;src/main.c:636: cpct_scanKeyboard_f(); 
 	call	_cpct_scanKeyboard_f
-;src/main.c:660: if(cpct_isKeyPressed(Key_M)){
+;src/main.c:637: if(cpct_isKeyPressed(Key_M)){
 	ld	hl,#0x4004
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-	jr	Z,00107$
-;src/main.c:661: cpct_scanKeyboard_f();
-	call	_cpct_scanKeyboard_f
-;src/main.c:662: do{
-00101$:
-;src/main.c:664: } while(!cpct_isKeyPressed(Key_S));
-	ld	hl,#0x1007
-	call	_cpct_isKeyPressed
-	ld	a,l
-	or	a, a
-	jr	Z,00101$
-00107$:
-;src/main.c:666: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+	jr	Z,00105$
+;src/main.c:638: menuOpciones();
+	call	_menuOpciones
+00105$:
+;src/main.c:641: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
 	ld	hl,#0x1007
 	call	_cpct_isKeyPressed
 	ld	a,l
@@ -2806,44 +2800,404 @@ _menuInicio::
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-	jr	Z,00106$
+	jr	Z,00104$
 	ret
+___str_4:
+	.ascii "INSTRUCTIONS"
+	.db 0x00
 ___str_5:
-	.ascii "ROBOBIT"
+	.ascii "-> <- || TO MOVE"
 	.db 0x00
 ___str_6:
+	.ascii "SPACE BAR TO SHOOT"
+	.db 0x00
+;src/main.c:644: void menuCreditos(){ // TODO TODO
+;	---------------------------------
+; Function menuCreditos
+; ---------------------------------
+_menuCreditos::
+;src/main.c:646: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+	ld	hl,#0x8250
+	push	hl
+	ld	hl,#0x1E00
+	push	hl
+	call	_borrarPantalla
+	pop	af
+;src/main.c:649: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 70); // centrado en horizontal y abajo en vertical
+	ld	hl, #0x461A
+	ex	(sp),hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:650: cpct_drawStringM0("CREDITS", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_7
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:652: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 100); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x640A
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:653: cpct_drawStringM0("Cristina Rivera", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_8
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:655: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 115); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x730E
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:656: cpct_drawStringM0("Miguel Sancho", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_9
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:658: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 130); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x8208
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:659: cpct_drawStringM0("Fernando Verdejo", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_10
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:661: do{
+00104$:
+;src/main.c:662: cpct_scanKeyboard_f(); 
+	call	_cpct_scanKeyboard_f
+;src/main.c:663: if(cpct_isKeyPressed(Key_M)){
+	ld	hl,#0x4004
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00105$
+;src/main.c:664: menuOpciones();
+	call	_menuOpciones
+00105$:
+;src/main.c:667: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+	ld	hl,#0x1007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	NZ
+	ld	hl,#0x4004
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00104$
+	ret
+___str_7:
+	.ascii "CREDITS"
+	.db 0x00
+___str_8:
+	.ascii "Cristina Rivera"
+	.db 0x00
+___str_9:
+	.ascii "Miguel Sancho"
+	.db 0x00
+___str_10:
+	.ascii "Fernando Verdejo"
+	.db 0x00
+;src/main.c:671: void menuOpciones(){ // TODO TODO
+;	---------------------------------
+; Function menuOpciones
+; ---------------------------------
+_menuOpciones::
+;src/main.c:673: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+	ld	hl,#0x8250
+	push	hl
+	ld	hl,#0x1E00
+	push	hl
+	call	_borrarPantalla
+	pop	af
+;src/main.c:676: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 100); // centrado en horizontal y abajo en vertical
+	ld	hl, #0x6420
+	ex	(sp),hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:677: cpct_drawStringM0("MENU", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_11
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:679: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 130); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x8200
+	push	hl
+	ld	h, #0xC0
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:680: cpct_drawStringM0("INSTRUCTIONS PRESS I", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_12
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:682: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 145); // centrado en horizontal y abajo en vertical
+	ld	hl,#0x910A
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:683: cpct_drawStringM0("CREDITS PRESS C", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_13
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:685: do{
+00108$:
+;src/main.c:686: cpct_scanKeyboard_f(); 
+	call	_cpct_scanKeyboard_f
+;src/main.c:691: if(cpct_isKeyPressed(Key_I)){
+	ld	hl,#0x0804
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00104$
+;src/main.c:692: menuInstrucciones();
+	call	_menuInstrucciones
+	jr	00109$
+00104$:
+;src/main.c:696: else if(cpct_isKeyPressed(Key_C)){
+	ld	hl,#0x4007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00109$
+;src/main.c:697: menuCreditos();
+	call	_menuCreditos
+00109$:
+;src/main.c:705: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_I) && !cpct_isKeyPressed(Key_C));
+	ld	hl,#0x1007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	NZ
+	ld	hl,#0x0804
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	NZ
+	ld	hl,#0x4007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00108$
+	ret
+___str_11:
+	.ascii "MENU"
+	.db 0x00
+___str_12:
+	.ascii "INSTRUCTIONS PRESS I"
+	.db 0x00
+___str_13:
+	.ascii "CREDITS PRESS C"
+	.db 0x00
+;src/main.c:708: void menuInicio(){
+;	---------------------------------
+; Function menuInicio
+; ---------------------------------
+_menuInicio::
+;src/main.c:712: cpct_clearScreen(0);
+	ld	hl,#0x4000
+	push	hl
+	xor	a, a
+	push	af
+	inc	sp
+	ld	h, #0xC0
+	push	hl
+	call	_cpct_memset
+;src/main.c:714: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 15); // centrado en horizontal y arriba en vertical
+	ld	hl,#0x0F1A
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:715: cpct_drawStringM0("ROBOBIT", memptr, 4, 0);
+	ld	hl,#0x0004
+	push	hl
+	push	bc
+	ld	hl,#___str_14
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:717: cpct_drawSprite(g_text_0, cpctm_screenPtr(CPCT_VMEM_START,  0, 30), G_TEXT_0_W, G_TEXT_0_H); // imagen
+	ld	hl,#0x6E28
+	push	hl
+	ld	hl,#0xF0F0
+	push	hl
+	ld	hl,#_g_text_0
+	push	hl
+	call	_cpct_drawSprite
+;src/main.c:718: cpct_drawSprite(g_text_1, cpctm_screenPtr(CPCT_VMEM_START, 40, 30), G_TEXT_0_W, G_TEXT_0_H);
+	ld	hl,#0x6E28
+	push	hl
+	ld	hl,#0xF118
+	push	hl
+	ld	hl,#_g_text_1
+	push	hl
+	call	_cpct_drawSprite
+;src/main.c:720: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 160); // centrado en horizontal y abajo en vertical
+	ld	hl,#0xA008
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:721: cpct_drawStringM0("TO START PRESS S", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_15
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:723: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 175); // centrado en horizontal y abajo en vertical
+	ld	hl,#0xAF0A
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+;src/main.c:724: cpct_drawStringM0("TO MENU PRESS M", memptr, 2, 0);
+	ld	hl,#0x0002
+	push	hl
+	push	bc
+	ld	hl,#___str_16
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:727: do{
+00107$:
+;src/main.c:728: cpct_scanKeyboard_f();
+	call	_cpct_scanKeyboard_f
+;src/main.c:732: if(cpct_isKeyPressed(Key_M)){
+	ld	hl,#0x4004
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00108$
+;src/main.c:733: cpct_scanKeyboard_f();
+	call	_cpct_scanKeyboard_f
+;src/main.c:734: do{
+00101$:
+;src/main.c:736: menuOpciones();
+	call	_menuOpciones
+;src/main.c:741: } while(!cpct_isKeyPressed(Key_S));
+	ld	hl,#0x1007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00101$
+00108$:
+;src/main.c:743: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+	ld	hl,#0x1007
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	NZ
+	ld	hl,#0x4004
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00107$
+	ret
+___str_14:
+	.ascii "ROBOBIT"
+	.db 0x00
+___str_15:
 	.ascii "TO START PRESS S"
 	.db 0x00
-___str_7:
+___str_16:
 	.ascii "TO MENU PRESS M"
 	.db 0x00
-;src/main.c:669: void inicializarCPC() {
+;src/main.c:746: void inicializarCPC() {
 ;	---------------------------------
 ; Function inicializarCPC
 ; ---------------------------------
 _inicializarCPC::
-;src/main.c:670: cpct_disableFirmware();
+;src/main.c:747: cpct_disableFirmware();
 	call	_cpct_disableFirmware
-;src/main.c:671: cpct_setVideoMode(0);
+;src/main.c:748: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
-;src/main.c:672: cpct_setBorder(HW_BLACK);
-	ld	hl,#0x1410
-	push	hl
-	call	_cpct_setPALColour
-;src/main.c:673: cpct_setPalette(g_palette, 16);
+;src/main.c:750: cpct_setPalette(g_palette, 16);
 	ld	hl,#0x0010
 	push	hl
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
-;src/main.c:674: cpct_akp_musicInit(G_song);
+;src/main.c:751: cpct_akp_musicInit(G_song);
 	ld	hl,#_G_song
 	push	hl
 	call	_cpct_akp_musicInit
 	pop	af
 	ret
-;src/main.c:677: void inicializarEnemy() {
+;src/main.c:754: void inicializarEnemy() {
 ;	---------------------------------
 ; Function inicializarEnemy
 ; ---------------------------------
@@ -2852,19 +3206,19 @@ _inicializarEnemy::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/main.c:678: u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+;src/main.c:755: u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
 	ld	a,(#_num_mapa + 0)
 	add	a, #0x03
 	ld	-1 (ix),a
-;src/main.c:683: actual = enemy;
+;src/main.c:760: actual = enemy;
 	ld	de,#_enemy+0
-;src/main.c:684: while(--i){
+;src/main.c:761: while(--i){
 00101$:
 	dec	-1 (ix)
 	ld	a,-1 (ix)
 	or	a, a
 	jr	Z,00104$
-;src/main.c:685: actual->x = actual->px = spawnX[i];
+;src/main.c:762: actual->x = actual->px = spawnX[i];
 	ld	c, e
 	ld	b, d
 	inc	bc
@@ -2878,7 +3232,7 @@ _inicializarEnemy::
 	ld	a,(hl)
 	ld	(bc),a
 	ld	(de),a
-;src/main.c:686: actual->y = actual->py = spawnY[i];
+;src/main.c:763: actual->y = actual->py = spawnY[i];
 	push	de
 	pop	iy
 	inc	iy
@@ -2896,39 +3250,39 @@ _inicializarEnemy::
 	ld	a,(hl)
 	ld	(bc),a
 	ld	0 (iy), a
-;src/main.c:687: actual->mover  = NO;
+;src/main.c:764: actual->mover  = NO;
 	ld	hl,#0x0006
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:688: actual->mira   = M_abajo;
+;src/main.c:765: actual->mira   = M_abajo;
 	ld	hl,#0x0007
 	add	hl,de
 	ld	(hl),#0x03
-;src/main.c:689: actual->sprite = g_enemy;
+;src/main.c:766: actual->sprite = g_enemy;
 	ld	hl,#0x0004
 	add	hl,de
 	ld	(hl),#<(_g_enemy)
 	inc	hl
 	ld	(hl),#>(_g_enemy)
-;src/main.c:690: actual->muerto = NO;
+;src/main.c:767: actual->muerto = NO;
 	ld	hl,#0x0008
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:691: actual->muertes = 0;
+;src/main.c:768: actual->muertes = 0;
 	ld	hl,#0x000C
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:692: actual->patroling = SI;
+;src/main.c:769: actual->patroling = SI;
 	ld	hl,#0x0009
 	add	hl,de
 	ld	(hl),#0x01
-;src/main.c:694: dibujarEnemigo(actual);
+;src/main.c:771: dibujarEnemigo(actual);
 	push	de
 	push	de
 	call	_dibujarEnemigo
 	pop	af
 	pop	de
-;src/main.c:696: ++actual;
+;src/main.c:773: ++actual;
 	ld	hl,#0x000D
 	add	hl,de
 	ex	de,hl
@@ -2937,15 +3291,15 @@ _inicializarEnemy::
 	inc	sp
 	pop	ix
 	ret
-;src/main.c:700: void inicializarJuego() {
+;src/main.c:777: void inicializarJuego() {
 ;	---------------------------------
 ; Function inicializarJuego
 ; ---------------------------------
 _inicializarJuego::
-;src/main.c:702: num_mapa = 0;
+;src/main.c:779: num_mapa = 0;
 	ld	hl,#_num_mapa + 0
 	ld	(hl), #0x00
-;src/main.c:703: mapa = mapas[num_mapa];
+;src/main.c:780: mapa = mapas[num_mapa];
 	ld	hl, #_mapas + 0
 	ld	a,(hl)
 	ld	iy,#_mapa
@@ -2953,93 +3307,85 @@ _inicializarJuego::
 	inc	hl
 	ld	a,(hl)
 	ld	(#_mapa + 1),a
-;src/main.c:704: cpct_etm_setTileset2x4(g_tileset);
+;src/main.c:781: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:706: dibujarMapa();
+;src/main.c:783: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:708: borrarPantallaArriba(0, 0, 40, 1);
-	ld	hl,#0x0128
-	push	hl
-	ld	hl,#0x0000
-	push	hl
-	call	_borrarPantallaArriba
-	pop	af
-	pop	af
-;src/main.c:709: barraPuntuacionInicial();
+;src/main.c:786: barraPuntuacionInicial();
 	call	_barraPuntuacionInicial
-;src/main.c:712: prota.x = prota.px = 4;
+;src/main.c:789: prota.x = prota.px = 4;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x04
 	ld	hl,#_prota
 	ld	(hl),#0x04
-;src/main.c:713: prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
+;src/main.c:790: prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
 	ld	hl,#(_prota + 0x0003)
 	ld	(hl),#0x68
 	ld	hl,#(_prota + 0x0001)
 	ld	(hl),#0x68
-;src/main.c:714: prota.mover  = NO;
+;src/main.c:791: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:715: prota.mira=M_derecha;
+;src/main.c:792: prota.mira=M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:716: prota.sprite = g_hero;
+;src/main.c:793: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:720: cu.x = cu.px = 0;
+;src/main.c:797: cu.x = cu.px = 0;
 	ld	hl,#(_cu + 0x0002)
 	ld	(hl),#0x00
 	ld	hl,#_cu
 	ld	(hl),#0x00
-;src/main.c:721: cu.y = cu.py = 0;
+;src/main.c:798: cu.y = cu.py = 0;
 	ld	hl,#(_cu + 0x0003)
 	ld	(hl),#0x00
 	ld	hl,#(_cu + 0x0001)
 	ld	(hl),#0x00
-;src/main.c:722: cu.lanzado = NO;
+;src/main.c:799: cu.lanzado = NO;
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:723: cu.mover = NO;
+;src/main.c:800: cu.mover = NO;
 	ld	hl,#(_cu + 0x0009)
 	ld	(hl),#0x00
-;src/main.c:725: inicializarEnemy();
+;src/main.c:802: inicializarEnemy();
 	call	_inicializarEnemy
-;src/main.c:727: dibujarProta();
+;src/main.c:804: dibujarProta();
 	jp  _dibujarProta
-;src/main.c:730: void main(void) {
+;src/main.c:807: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:734: inicializarCPC();
+;src/main.c:811: inicializarCPC();
 	call	_inicializarCPC
-;src/main.c:735: menuInicio();
+;src/main.c:812: menuInicio();
 	call	_menuInicio
-;src/main.c:737: inicializarJuego();
+;src/main.c:814: inicializarJuego();
 	call	_inicializarJuego
-;src/main.c:738: cpct_akp_musicPlay();
+;src/main.c:815: cpct_akp_musicPlay();
 	call	_cpct_akp_musicPlay
-;src/main.c:740: while (1) {
+;src/main.c:817: while (1) {
 00122$:
-;src/main.c:742: i = (2 + num_mapa) + 1;
+;src/main.c:819: i = (2 + num_mapa) + 1;
 	ld	hl,#_num_mapa + 0
 	ld	c, (hl)
 	inc	c
 	inc	c
 	inc	c
-;src/main.c:743: actual = enemy;
-;src/main.c:745: comprobarTeclado();
+;src/main.c:820: actual = enemy;
+;src/main.c:822: comprobarTeclado();
 	push	bc
 	call	_comprobarTeclado
 	call	_moverCuchillo
 	pop	bc
-;src/main.c:748: while(--i){
+;src/main.c:825: while(--i){
 	ld	de,#_enemy
 00101$:
 	dec c
 	jr	Z,00103$
-;src/main.c:749: moverEnemigo(actual);
+;src/main.c:826: moverEnemigo(actual);
 	push	bc
 	push	de
 	push	de
@@ -3047,35 +3393,35 @@ _main::
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:750: ++actual;
+;src/main.c:827: ++actual;
 	ld	hl,#0x000D
 	add	hl,de
 	ld	e,l
 	ld	d,h
 	jr	00101$
 00103$:
-;src/main.c:753: actual = enemy;
+;src/main.c:830: actual = enemy;
 	ld	bc,#_enemy
-;src/main.c:755: cpct_waitVSYNC();
+;src/main.c:832: cpct_waitVSYNC();
 	push	bc
 	call	_cpct_waitVSYNC
 	pop	bc
-;src/main.c:757: if (prota.mover) {
+;src/main.c:834: if (prota.mover) {
 	ld	de,#_prota+6
 	ld	a,(de)
 	or	a, a
 	jr	Z,00105$
-;src/main.c:758: redibujarProta();
+;src/main.c:835: redibujarProta();
 	push	bc
 	push	de
 	call	_redibujarProta
 	pop	de
 	pop	bc
-;src/main.c:759: prota.mover = NO;
+;src/main.c:836: prota.mover = NO;
 	xor	a, a
 	ld	(de),a
 00105$:
-;src/main.c:761: if(cu.lanzado && cu.mover){
+;src/main.c:838: if(cu.lanzado && cu.mover){
 	ld	hl,#_cu + 6
 	ld	e,(hl)
 	ld	hl,#_cu + 9
@@ -3085,24 +3431,24 @@ _main::
 	ld	a,(hl)
 	or	a, a
 	jr	Z,00110$
-;src/main.c:762: redibujarCuchillo();
+;src/main.c:839: redibujarCuchillo();
 	push	bc
 	call	_redibujarCuchillo
 	pop	bc
 	jr	00137$
 00110$:
-;src/main.c:763: }else if (cu.lanzado && !cu.mover){
+;src/main.c:840: }else if (cu.lanzado && !cu.mover){
 	ld	a,e
 	or	a, a
 	jr	Z,00137$
 	ld	a,(hl)
 	or	a, a
 	jr	NZ,00137$
-;src/main.c:764: borrarCuchillo();
+;src/main.c:841: borrarCuchillo();
 	push	bc
 	call	_borrarCuchillo
 	pop	bc
-;src/main.c:767: while(--i){
+;src/main.c:844: while(--i){
 00137$:
 	ld	e,#0x05
 00118$:
@@ -3110,13 +3456,13 @@ _main::
 	ld	a,e
 	or	a, a
 	jr	Z,00120$
-;src/main.c:768: if(actual->mover){
+;src/main.c:845: if(actual->mover){
 	push	bc
 	pop	iy
 	ld	a,6 (iy)
 	or	a, a
 	jr	Z,00114$
-;src/main.c:769: redibujarEnemigo(actual);
+;src/main.c:846: redibujarEnemigo(actual);
 	push	bc
 	push	de
 	push	bc
@@ -3125,7 +3471,7 @@ _main::
 	pop	de
 	pop	bc
 00114$:
-;src/main.c:771: if (actual->muerto && actual->muertes == 0){
+;src/main.c:848: if (actual->muerto && actual->muertes == 0){
 	push	bc
 	pop	iy
 	ld	a,8 (iy)
@@ -3136,7 +3482,7 @@ _main::
 	ld	a,(hl)
 	or	a, a
 	jr	NZ,00116$
-;src/main.c:772: borrarEnemigo(actual);
+;src/main.c:849: borrarEnemigo(actual);
 	push	hl
 	push	bc
 	push	de
@@ -3153,27 +3499,27 @@ _main::
 	pop	de
 	pop	bc
 	pop	hl
-;src/main.c:775: actual->muertes++;
+;src/main.c:852: actual->muertes++;
 	ld	d,(hl)
 	inc	d
 	ld	(hl),d
-;src/main.c:776: actual->x = 0;
+;src/main.c:853: actual->x = 0;
 	xor	a, a
 	ld	(bc),a
-;src/main.c:777: actual->y = 0;
+;src/main.c:854: actual->y = 0;
 	ld	l, c
 	ld	h, b
 	inc	hl
 	ld	(hl),#0x00
 00116$:
-;src/main.c:779: ++actual;
+;src/main.c:856: ++actual;
 	ld	hl,#0x000D
 	add	hl,bc
 	ld	c,l
 	ld	b,h
 	jr	00118$
 00120$:
-;src/main.c:781: cpct_waitVSYNC();
+;src/main.c:858: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
 	jp	00122$
 	.area _CODE

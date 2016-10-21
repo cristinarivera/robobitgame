@@ -11,19 +11,28 @@ Symbol Table
   1 _EMirar                                                        0000 GR
   C _G_song                                                        3F00 GR
   9 ___str_0                                                       00ED R
-  9 ___str_1                                                       0D8A R
-  9 ___str_2                                                       0D90 R
-  9 ___str_3                                                       0D96 R
-  9 ___str_4                                                       0D9E R
-  9 ___str_5                                                       0EAA R
+  9 ___str_1                                                       0D6C R
+  9 ___str_10                                                      0F93 R
+  9 ___str_11                                                      1045 R
+  9 ___str_12                                                      104A R
+  9 ___str_13                                                      105F R
+  9 ___str_14                                                      1125 R
+  9 ___str_15                                                      112D R
+  9 ___str_16                                                      113E R
+  9 ___str_2                                                       0D72 R
+  9 ___str_3                                                       0D78 R
+  9 ___str_4                                                       0E94 R
+  9 ___str_5                                                       0EA1 R
   9 ___str_6                                                       0EB2 R
-  9 ___str_7                                                       0EC3 R
+  9 ___str_7                                                       0F6D R
+  9 ___str_8                                                       0F75 R
+  9 ___str_9                                                       0F85 R
   9 _avanzarMapa                                                   08D6 GR
   9 _barraPuntuacionInicial                                        0CE2 GR
   9 _borrarCuchillo                                                0A2C GR
   9 _borrarEnemigo                                                 0381 GR
   9 _borrarExplosion                                               030D GR
-  9 _borrarPantallaArriba                                          0DA4 GR
+  9 _borrarPantalla                                                0D7E GR
   9 _borrarProta                                                   004C GR
   9 _checkCollision                                                014C GR
   9 _checkEnemyCollision                                           0446 GR
@@ -44,12 +53,16 @@ Symbol Table
     _cpct_memset                                                   **** GX
     _cpct_scanKeyboard_f                                           **** GX
     _cpct_scanKeyboard_if                                          **** GX
-    _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            003E GR
   9 _dibujarCuchillo                                               09C8 GR
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
   9 _dibujarEnemigo                                                02A1 GR
   9 _dibujarExplosion                                              02D9 GR
   9 _dibujarMapa                                                   0000 GR
@@ -58,11 +71,6 @@ Symbol Table
   1 _enemy                                                         0002 GR
     _g_enemy                                                       **** GX
     _g_explosion                                                   **** GX
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
-Hexadecimal [16-Bits]
-
-Symbol Table
-
     _g_heart                                                       **** GX
     _g_hero                                                        **** GX
     _g_hero_down                                                   **** GX
@@ -81,15 +89,18 @@ Symbol Table
     _g_text_1                                                      **** GX
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    010B GR
-  9 _inicializarCPC                                                0ED3 GR
-  9 _inicializarEnemy                                              0EF6 GR
-  9 _inicializarJuego                                              0F78 GR
+  9 _inicializarCPC                                                114E GR
+  9 _inicializarEnemy                                              116A GR
+  9 _inicializarJuego                                              11EC GR
   9 _lanzarCuchillo                                                0ABE GR
-  9 _main                                                          0FEE GR
+  9 _main                                                          1255 GR
   1 _mapa                                                          0048 GR
   9 _mapas                                                         0016 GR
+  9 _menuCreditos                                                  0EC5 GR
   9 _menuFin                                                       00C0 GR
-  9 _menuInicio                                                    0DF7 GR
+  9 _menuInicio                                                    106F GR
+  9 _menuInstrucciones                                             0E0A GR
+  9 _menuOpciones                                                  0FA4 GR
   9 _moverAbajo                                                    09A4 GR
   9 _moverArriba                                                   0980 GR
   9 _moverCuchillo                                                 0C3D GR
@@ -107,8 +118,14 @@ Symbol Table
   9 _redibujarProta                                                00F7 GR
   9 _spawnX                                                        001C GR
   9 _spawnY                                                        0021 GR
-
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 4.
 Hexadecimal [16-Bits]
 
 Area Table
@@ -122,7 +139,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 10B1   flags    0
+   9 _CSEG                                      size 1318   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8
