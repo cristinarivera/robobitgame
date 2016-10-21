@@ -7,6 +7,16 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
+  0 _abs                                                           0000 GR
+  0 _adjacentTiles                                                 0153 GR
+  0 _anyadirALista                                                 0115 GR
+  0 _bitWeights                                                    0040 GR
+  1 _camino                                                        06E1 GR
+  0 _getBit                                                        0050 GR
+  0 _pathFinding                                                   0664 GR
+  0 _setBit                                                        009B GR
+  1 _sol_matriz                                                    0001 GR
+  1 _sol_tam                                                       0000 GR
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -14,8 +24,8 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size    0   flags    0
-   1 _DATA                                      size    0   flags    0
+   0 _CODE                                      size  9B9   flags    0
+   1 _DATA                                      size  727   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0

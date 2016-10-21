@@ -37,6 +37,7 @@
 #include "text.h"
 #include "explosion.h"
 #include "enemystruct.h"
+#include "pathfinding.h"
 
 #define  SI 1
 #define  NO 0
@@ -92,7 +93,7 @@ typedef struct {
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[5] = {0, 40, 71, 20, 60};
+u8 const spawnX[5] = {0, 60, 71, 20, 60};
 u8 const spawnY[5] = {0, 20 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y};
 TEnemy enemy[4];
 
@@ -100,12 +101,12 @@ TProta prota;
 
 TKnife cu;
 
-
+u8  iter;
 u8* mapa;
 u8  num_mapa;
 
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 - 4D - FF00FF
+cpctm_createTransparentMaskTable(g_tablatrans, 0x1E00, M0, 0); // es el color 8 - 4D - FF00FF
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 
 void dibujarMapa() {
@@ -357,25 +358,22 @@ void moverEnemigoIzquierda(TEnemy *enemy){
 }
 
 void moverEnemigo(TEnemy *enemy){
+
+   
 	if(!enemy->muerto){
-		if(!checkEnemyCollision(enemy->mira, enemy)){
-
-		   switch (enemy->mira) {
-
-		    case 0:
-		    	moverEnemigoDerecha(enemy);
-		        break;
-		    case 1:
-		    	moverEnemigoIzquierda(enemy);
-		        break;
-		    case 2:
-		        moverEnemigoArriba(enemy);
-		        break;
-		    case 3:
-		       	moverEnemigoAbajo(enemy);
-		        break;
-		   }
-		}
+		//if(!checkEnemyCollision(enemy->mira, enemy)){
+      if(iter < enemy->longitud_camino - 8){
+        enemy->x = enemy->camino[iter];
+        iter++;
+        enemy->y = enemy->camino[iter];
+        iter++;
+        enemy->mover = SI;
+      }
+      else{
+        iter = 0;
+        enemy->longitud_camino = 0;
+      }
+    //}
 	}
 }
 
@@ -675,10 +673,15 @@ void inicializarCPC() {
 }
 
 void inicializarEnemy() {
-  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
  // u8 i = 4 + 1; // sacar todos
-
+  u8 i = 1 + 1;
   TEnemy* actual;
+
+  u8 aux0, aux1, k;
+
+  aux0 = 0;
+  aux1 = 0;
 
   actual = enemy;
   while(--i){
@@ -690,7 +693,29 @@ void inicializarEnemy() {
     actual->muerto = NO;
     actual->muertes = 0;
     actual->patroling = SI;
+    pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+    /*actual->longitud_camino = 100;
+    for (k = 0; k<100; k++){
+      if(k % 2 == 0 && aux0 == 0){
+        actual->camino[k] = actual->x + 1;
+        actual->x++;
+        aux0=1;  
+      }else if(k % 2 == 0 && aux0 == 1){
+        actual->camino[k] = actual->x;
+        aux0=0;
+      }else if(k % 2 != 0 && aux1 == 0){
+        actual->camino[k] = actual->y;
+        aux1=1;
+      }else if(k % 2 != 0 && aux1 == 1){
+        actual->camino[k] = actual->y + 1;
+        actual->y++;
+        aux1=0;
+      }
+      
+    }
 
+    actual->x = actual->px = spawnX[i];
+    actual->y = actual->py = spawnY[i];*/
     dibujarEnemigo(actual);
 
     ++actual;
@@ -699,6 +724,7 @@ void inicializarEnemy() {
 
 void inicializarJuego() {
 
+  iter = 0;
   num_mapa = 0;
   mapa = mapas[num_mapa];
   cpct_etm_setTileset2x4(g_tileset);
@@ -709,8 +735,8 @@ void inicializarJuego() {
   barraPuntuacionInicial();
 
 
-  prota.x = prota.px = 4;
-  prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
+  prota.x = prota.px = 50;
+  prota.y = prota.py = 76 + ORIGEN_MAPA_Y;
   prota.mover  = NO;
   prota.mira=M_derecha;
   prota.sprite = g_hero;
@@ -729,6 +755,7 @@ void inicializarJuego() {
 
 void main(void) {
 
+  u8 j;
   TEnemy* actual;
   u8 i;
   inicializarCPC();
@@ -736,20 +763,28 @@ void main(void) {
 
   inicializarJuego();
   cpct_akp_musicPlay();
-
+  j=0;
   while (1) {
-
-    i = (2 + num_mapa) + 1;
+    j++;
+    //i = (2 + num_mapa) + 1;
+    i = 1 + 1;
     actual = enemy;
 
     comprobarTeclado();
     moverCuchillo();
 
     while(--i){
-      moverEnemigo(actual);
-      ++actual;
+        if(j % 50 == 0 && actual->longitud_camino == 0){
+          pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+         j = 0;
+        }else{
+          moverEnemigo(actual);  
+        }
+        
+        ++actual;
     }
-    i = 4 + 1;
+    //i = (2 + num_mapa) + 1;
+    i = 1 + 1;
     actual = enemy;
 
     cpct_waitVSYNC();
@@ -777,6 +812,7 @@ void main(void) {
         actual->y = 0;
       }
       ++actual;
+
     }
     cpct_waitVSYNC();
   }

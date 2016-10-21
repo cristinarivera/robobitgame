@@ -14,6 +14,8 @@ typedef struct {
   u8  lastPatrol; // ultima direccion en la que patrullo
   u8  colision;
   u8 	muertes;
+  u8  camino[300];
+  u8  longitud_camino;
 } TEnemy;
 
 #endif
