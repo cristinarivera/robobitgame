@@ -9,7 +9,7 @@ Symbol Table
     .__.H$L.                                                    =  0000 L
   1 _EEje                                                          0001 GR
   1 _EMirar                                                        0000 GR
-  C _G_song                                                        1F00 GR
+  C _G_song                                                        0F00 GR
   9 ___str_0                                                       00ED R
   9 ___str_1                                                       0DAB R
   9 ___str_2                                                       0DB1 R
@@ -77,7 +77,7 @@ Symbol Table
     _g_map2                                                        **** GX
     _g_map3                                                        **** GX
     _g_palette                                                     **** GX
-  8 _g_tablatrans                                                  1E00 GR
+  8 _g_tablatrans                                                  0E00 GR
     _g_text_0                                                      **** GX
     _g_text_1                                                      **** GX
     _g_tileset                                                     **** GX

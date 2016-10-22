@@ -1,6 +1,6 @@
 -mjwx
 -i obj/robobit.ihx
--b _CODE = 0x2000
+-b _CODE = 0x1000
 -b _DATA = 0x0000
 -u
 -k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80

@@ -15,7 +15,7 @@ typedef struct {
   u8  colision;
   u8 	muertes;
   u8  camino[300];
-  u8  longitud_camino;
+  u8 longitud_camino;
 } TEnemy;
 
 #endif

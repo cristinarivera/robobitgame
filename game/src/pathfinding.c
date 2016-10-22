@@ -1,11 +1,12 @@
 #include "pathfinding.h"
+#define  ORIGEN_MAPA_Y	24
 
 
 const unsigned int bitWeights[8] = {1,2,4,8,16,32,64,128};
 
 
 u8 sol_tam;
-u8 sol_matriz[(40*2*44*4)/8];
+u8 sol_matriz[(44*2*48*4)/8];
 
 u8 camino[70];
 
@@ -70,6 +71,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 	i16 dist3 = 0;
 	i16 dist4 = 0;
 
+
 	i16 heu_derecha = 0;
 	i16 heu_izquierda = 0;
 	i16 heu_arriba = 0;
@@ -80,9 +82,9 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 	if(x == f_x){
 
 		if(s_x < x){
-			setBit(sol_matriz, (y-24) * 44*4 + (x-1), 1);
+			setBit(sol_matriz, (y-ORIGEN_MAPA_Y) * 40*2 + (x-1), 1);
 		}else{
-			setBit(sol_matriz, (y-24) * 44*4 + (x+1), 1);
+			setBit(sol_matriz, (y-ORIGEN_MAPA_Y) * 40*2 + (x+1), 1);
 			
 		}
 
@@ -95,10 +97,10 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 	}else if(y == f_y){
 
 		if(s_y < y){
-			setBit(sol_matriz, ((y-24)-1) * 44*4 + x, 1);
+			setBit(sol_matriz, ((y-ORIGEN_MAPA_Y)-2) * 40*2 + x, 1);
 		}
 		else{
-			setBit(sol_matriz, ((y-24)+1) * 44*4 + x, 1);
+			setBit(sol_matriz, ((y-ORIGEN_MAPA_Y)+2) * 40*2 + x, 1);
 		}
 
 		if(x < f_x)
@@ -128,13 +130,13 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 
 	}
 
-	if( /* *(matriz + (( (y - 1) - 24)/4)*40 + x/2) <=2 &&*/ getBit(sol_matriz, ((y-1)-24) * 44*4 + x) != 1){
-		dist1 = abs(f_x - x) + abs(f_y - (y-1)) + heu_arriba;
+	if(  *(matriz + (( (y - 2) - ORIGEN_MAPA_Y)/4)*40 + x/2) <=2 && getBit(sol_matriz, ((y-2)-ORIGEN_MAPA_Y) * 40*2 + x) != 1){
+		dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
 		resultado = 0;
 	}
 
-	if(  /**(matriz + (( (y + 1) - 24)/4)*40 + x/2) <=2 &&*/ getBit(sol_matriz, ((y+1)-24) * 44*4 + x) != 1){
-		dist2 = abs(f_x - x) + abs(f_y - (y+1)) + heu_abajo;
+	if(  *(matriz + (( (y + 2) - ORIGEN_MAPA_Y)/4)*40 + x/2) <=2 && getBit(sol_matriz, ((y+2)-ORIGEN_MAPA_Y) * 40*2 + x) != 1){
+		dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
 		if(resultado == 0){
 			if(dist1 > dist2)
 				resultado = 1;	
@@ -143,7 +145,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if( /* *(matriz + ((y-24)/4)*40 + (x-1)/2) <=2 && */getBit(sol_matriz, (y-24) * 44*4 + (x-1)) != 1){
+	if(  *(matriz + ((y-ORIGEN_MAPA_Y)/4)*40 + (x-1)/2) <=2 && getBit(sol_matriz, (y-ORIGEN_MAPA_Y) * 40*2 + (x-1)) != 1){
 		dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
 		if(resultado == 0){
 			if(dist1 >= dist3)
@@ -156,7 +158,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if( /* *(matriz + ((y - 24)/4)*40 + (x+1)/2)  <=2 &&*/ getBit(sol_matriz, (y-24) * 44*4 + (x+1)) != 1){
+	if(  *(matriz + ((y - ORIGEN_MAPA_Y)/4)*40 + (x+1)/2)  <=2 && getBit(sol_matriz, (y-ORIGEN_MAPA_Y) * 40*2 + (x+1)) != 1){
 		dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
 		if(resultado == 0){
 			if(dist1 >= dist4)
@@ -188,10 +190,10 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 	u8 y;
 	u8* memptr;
 
-	u16 down = ((y-24)+1)*44*4 + x;
-	u16 up = ((y-24)-1)*44*4 + x;
-	u16 right = (y-24) * 44*4 + (x+1);
-	u16 left = (y-24) * 44*4 + (x-1);
+	u16 down = ((y-ORIGEN_MAPA_Y)+2)*40*2 + x;
+	u16 up = ((y-ORIGEN_MAPA_Y)-2)*40*2 + x;
+	u16 right = (y-ORIGEN_MAPA_Y) * 40*2 + (x+1);
+	u16 left = (y-ORIGEN_MAPA_Y) * 40*2 + (x-1);
 
 	u8 problem = 0;
 
@@ -206,7 +208,7 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 	memset(sol_matriz, 0, (40*2*44*4)/8);
 	enemy->longitud_camino = 0;
 	sol_tam = 1;
-	setBit(sol_matriz, (y-24)*44*4 + x, 1);
+	setBit(sol_matriz, (y-ORIGEN_MAPA_Y)*40*2 + x, 1);
 	inserted = anyadirALista(x, y);
 
 
@@ -224,16 +226,16 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 
 			switch(movimiento){
 				case 0:
-				 ¡
+				 
 					setBit(sol_matriz, up, 1);
-					inserted = anyadirALista(x, y-1);
+					inserted = anyadirALista(x, y-2);
 					y = y-1;
 					k = k+2;
 					break;
 				case 1:
 				 
 					setBit(sol_matriz, down, 1);
-					inserted = anyadirALista(x, y+1);
+					inserted = anyadirALista(x, y+2);
 					y = y+1;
 					k = k+2;
 					break;
@@ -254,7 +256,7 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 
 				case 4:
 					 
-					setBit(sol_matriz, (y*44*4 + x), 1);
+					setBit(sol_matriz, (y-ORIGEN_MAPA_Y*40*2 + x), 1);
 
 					sol_tam = sol_tam - 2;
 					k--;

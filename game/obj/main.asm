@@ -124,13 +124,13 @@ _num_mapa::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/main.c:109: cpctm_createTransparentMaskTable(g_tablatrans, 0x1E00, M0, 0); // es el color 8 - 4D - FF00FF
+;src/main.c:109: cpctm_createTransparentMaskTable(g_tablatrans, 0x0E00, M0, 0); // es el color 8 - 4D - FF00FF
 ;	---------------------------------
 ; Function dummy_cpct_transparentMaskTable0M0_container
 ; ---------------------------------
 _dummy_cpct_transparentMaskTable0M0_container::
 	.area _g_tablatrans_ (ABS) 
-	.org 0x1E00 
+	.org 0x0E00 
 	 _g_tablatrans::
 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
@@ -3077,9 +3077,9 @@ _main::
 	ld	a,-4 (ix)
 	or	a, a
 	jr	Z,00107$
-;src/main.c:777: if(j % 50 == 0 && actual->longitud_camino == 0){
+;src/main.c:777: if(j % 100 == 0 && actual->longitud_camino == 0){
 	push	bc
-	ld	a,#0x32
+	ld	a,#0x64
 	push	af
 	inc	sp
 	ld	a,-3 (ix)
@@ -3264,7 +3264,7 @@ _main::
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)
-	.org 0x1F00
+	.org 0x0F00
 _G_song:
 	.db #0x41	; 65	'A'
 	.db #0x54	; 84	'T'

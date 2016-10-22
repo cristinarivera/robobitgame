@@ -106,7 +106,7 @@ u8* mapa;
 u8  num_mapa;
 
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x1E00, M0, 0); // es el color 8 - 4D - FF00FF
+cpctm_createTransparentMaskTable(g_tablatrans, 0x0E00, M0, 0); // es el color 8 - 4D - FF00FF
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 
 void dibujarMapa() {
@@ -774,7 +774,7 @@ void main(void) {
     moverCuchillo();
 
     while(--i){
-        if(j % 50 == 0 && actual->longitud_camino == 0){
+        if(j % 100 == 0 && actual->longitud_camino == 0){
           pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
          j = 0;
         }else{
