@@ -33,10 +33,10 @@
 #include "maps/map2.h"
 #include "maps/map3.h"
 #include "maps/tiles.h"
-#include "song.c"
-#include "enemystruct.h"
 #include "menu/menu.h"
 #include "score/score.h"
+#include "song.c"
+#include "enemystruct.h"
 
 #define  SI 1
 #define  NO 0
@@ -107,6 +107,9 @@ u8  num_mapa = 0;
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 - 4D - FF00FF
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
+
+u8 puntuacion = 0;
+u8 vidas = 5;
 
 void dibujarMapa() {
   cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
@@ -398,10 +401,9 @@ void avanzarMapa() {
     prota.mover = SI;
     dibujarMapa();
     inicializarEnemy();
-    //modificarPuntuacion();
   }
   else{
-    menuFin();
+    menuFin(puntuacion);
   }
 }
 
@@ -634,7 +636,9 @@ void main(void) {
 
   TEnemy* actual;
   u8 i;
+  u16 puntuacion_aux = 0;
   inicializarCPC();
+
   menuInicio();
 
   inicializarJuego();
@@ -674,6 +678,9 @@ void main(void) {
       if (actual->muerto && actual->muertes == 0){
         borrarEnemigo(actual);
         dibujarExplosion(actual);
+        puntuacion_aux = puntuacion;
+        puntuacion = aumentarPuntuacion(puntuacion_aux);
+        modificarPuntuacion(puntuacion);
 
         actual->muertes++;
         actual->x = 0;
@@ -684,3 +691,12 @@ void main(void) {
     cpct_waitVSYNC();
   }
 }
+
+/* TODO TODO
+
+vidas = quitarVidas(vidas);
+if (vidas == 0) menuFin(puntuacion);
+
+
+
+*/

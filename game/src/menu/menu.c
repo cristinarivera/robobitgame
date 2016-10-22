@@ -1,14 +1,35 @@
 #include "menu.h"
+//#include <stdio.h>
+//#include <cpctelera.h>
 #include "../assets/arrows.h"
 #include "../assets/text.h"
 
-void menuFin(){
-  u8* memptr;
-  // borrar pantalla
-  cpct_clearScreen(0);
+void menuFin(u16 puntuacion) __z88dk_fastcall {
+	u8* memptr;
+	u16 puntuacion_aux;
+	puntuacion_aux = puntuacion/10000;
+	
+	// borrar pantalla
+	cpct_clearScreen(0);
 
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
-  cpct_drawStringM0("GAME OVER", memptr, 2, 0);
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
+	cpct_drawStringM0("GAME OVER", memptr, 2, 0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 20, 120); // centrado en horizontal y arriba en vertical
+	cpct_drawStringM0("SCORE: ", memptr, 2, 0);
+	
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 45, 120); // centrado en horizontal y arriba en vertical
+	
+  	cpct_drawCharM0(memptr, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 1000;
+  	cpct_drawCharM0(memptr+4, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 100;
+  	cpct_drawCharM0(memptr+8, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 10;
+  	cpct_drawCharM0(memptr+12, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion;
+	cpct_drawCharM0(memptr+16, 2, 0, (puntuacion_aux%10) + 48);
+
 
   while(1){}
 }
@@ -128,9 +149,8 @@ void menuOpciones(){ // TODO TODO
 	} while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_I) && !cpct_isKeyPressed(Key_C));
 }
 
-void menuInicio(){
+void menuInicio() {
 	u8* memptr;
-
 	// borrar pantalla
 	cpct_clearScreen(0);
 

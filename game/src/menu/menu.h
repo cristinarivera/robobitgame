@@ -4,7 +4,7 @@
 #include <types.h>
 #include <cpctelera.h>
 
-void menuFin();
+void menuFin(u16 puntuacion) __z88dk_fastcall ;
 
 void borrarPantalla(u8 x, u8 y, u8 ancho, u8 alto);
 
@@ -14,6 +14,6 @@ void menuCreditos();
 
 void menuOpciones();
 
-void menuInicio();
+void menuInicio() ;
 
 #endif
