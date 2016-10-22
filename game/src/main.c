@@ -21,22 +21,22 @@
 // { 0        1          8        3       13      15        24 }
 
 #include <cpctelera.h>
-#include "knifeX.h"
-#include "knifeY.h"
-#include "hero.h"
-#include "hero_down.h"
-#include "hero_up.h"
-#include "hero_left.h"
-#include "enemy.h"
-#include "heart.h"
-#include "map1.h"
-#include "map2.h"
-#include "map3.h"
-#include "tiles.h"
+#include "assets/knifeX.h"
+#include "assets/knifeY.h"
+#include "assets/hero.h"
+#include "assets/hero_down.h"
+#include "assets/hero_up.h"
+#include "assets/hero_left.h"
+#include "assets/enemy.h"
+#include "assets/explosion.h"
+#include "maps/map1.h"
+#include "maps/map2.h"
+#include "maps/map3.h"
+#include "maps/tiles.h"
 #include "song.c"
-#include "text.h"
-#include "explosion.h"
 #include "enemystruct.h"
+#include "menu/menu.h"
+#include "score/score.h"
 
 #define  SI 1
 #define  NO 0
@@ -101,8 +101,8 @@ TProta prota;
 TKnife cu;
 
 
-u8* mapa;
-u8  num_mapa;
+u8* mapa = 0;
+u8  num_mapa = 0;
 
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 - 4D - FF00FF
@@ -125,17 +125,6 @@ void borrarProta() {
   u8 h = 6 + (prota.py & 2 ? 1 : 0);
 
   cpct_etm_drawTileBox2x4 (prota.px / 2, (prota.py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-}
-
-void menuFin(){
-  u8* memptr;
-  // borrar pantalla
-  cpct_clearScreen(0);
-
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
-  cpct_drawStringM0("GAME OVER", memptr, 2, 0);
-
-  while(1){}
 }
 
 void redibujarProta() {
@@ -379,6 +368,29 @@ void moverEnemigo(TEnemy *enemy){
 	}
 }
 
+void inicializarEnemy() {
+  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+ // u8 i = 4 + 1; // sacar todos
+
+  TEnemy* actual;
+
+  actual = enemy;
+  while(--i){
+    actual->x = actual->px = spawnX[i];
+    actual->y = actual->py = spawnY[i];
+    actual->mover  = NO;
+    actual->mira   = M_abajo;
+    actual->sprite = g_enemy;
+    actual->muerto = NO;
+    actual->muertes = 0;
+    actual->patroling = SI;
+
+    dibujarEnemigo(actual);
+
+    ++actual;
+  }
+}
+
 void avanzarMapa() {
   if(num_mapa < NUM_MAPAS -1) {
     mapa = mapas[++num_mapa];
@@ -531,7 +543,7 @@ void comprobarTeclado() {
   }
 }
 
-u8 checkKnifeCollision(int direction, u8 xoff, u8 yoff){
+u8 checkKnifeCollision(int direction, u8 xoff, u8 yoff){ // TODO: el parámetro direction no se usa
 
    return *getTilePtr(cu.x + xoff, cu.y + yoff) <= 2;
 }
@@ -580,189 +592,12 @@ void moverCuchillo(){
 	}
 }
 
-void barraPuntuacionInicial(){
-  u8* memptr;
-  int i;
-
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 2); //
-  cpct_drawStringM0("SCORE", memptr, 1, 0);
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 14); // puntuación inicial
-  cpct_drawStringM0("00000", memptr, 15, 0);
-  
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2); //
-  cpct_drawStringM0("LIVES", memptr, 1, 0);
-
-  for(i=0; i<5; i++){
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
-    cpct_drawSprite (g_heart, memptr, G_HEART_W, G_HEART_H);
-  }
-}
-
-void borrarPantalla(u8 x, u8 y, u8 ancho, u8 alto){
-  u8* memptr;
-  if (ancho <= 40){
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar 
-    cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra 
-  }
-  else if (ancho > 40){
-    // No se puede borrar todo de golpe.
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha
-    cpct_drawSolidBox(memptr, 0, 40, alto);  //borra la mitad derecha
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
-    cpct_drawSolidBox(memptr, 0, ancho-40, alto);  //borra la mitad izquierda
-  }
-}
-
-void menuInstrucciones(){ // TODO TODO
-	u8* memptr;
-	borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
-	//borrarPantalla(0, 160, 80, 20);//borra los accesos a los menús
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 16, 85); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("INSTRUCTIONS", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 115); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("-> <- || TO MOVE", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 4, 130); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("SPACE BAR TO SHOOT", memptr, 2, 0);
-
-	do{
-	    cpct_scanKeyboard_f(); 
-	    if(cpct_isKeyPressed(Key_M)){
-	    	menuOpciones();
-	    }
-
-  	} while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
-}
-
-void menuCreditos(){ // TODO TODO
-	u8* memptr;
-	borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
-	//borrarPantalla(0, 160, 80, 20);//borra los accesos a los menús
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 70); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("CREDITS", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 100); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("Cristina Rivera", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 115); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("Miguel Sancho", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 130); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("Fernando Verdejo", memptr, 2, 0);
-
-	do{
-	    cpct_scanKeyboard_f(); 
-	    if(cpct_isKeyPressed(Key_M)){
-	    	menuOpciones();
-	    }
-
-  	} while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
-
-}
-
-void menuOpciones(){ // TODO TODO
-	u8* memptr;
-	borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
-	//borrarPantalla(0, 160, 80, 20);//borra los accesos a los menús
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 100); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("MENU", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 130); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("INSTRUCTIONS PRESS I", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 145); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("CREDITS PRESS C", memptr, 2, 0);
-
-	do{
-		cpct_scanKeyboard_f(); 
-		/*if(cpct_isKeyPressed(Key_S)){
-		// al juego ...
-		}
-		else */ 
-		if(cpct_isKeyPressed(Key_I)){
-			menuInstrucciones();
-			//instrucciones
-			//jugar o volver al menu 
-		}
-		else if(cpct_isKeyPressed(Key_C)){
-			menuCreditos();
-			// créditos
-			// jugar o volver al menu
-	}
-
-
-
-
-	} while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_I) && !cpct_isKeyPressed(Key_C));
-}
-
-void menuInicio(){
-	u8* memptr;
-
-	// borrar pantalla
-	cpct_clearScreen(0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 15); // centrado en horizontal y arriba en vertical
-	cpct_drawStringM0("ROBOBIT", memptr, 4, 0);
-
-	cpct_drawSprite(g_text_0, cpctm_screenPtr(CPCT_VMEM_START,  0, 30), G_TEXT_0_W, G_TEXT_0_H); // imagen
-	cpct_drawSprite(g_text_1, cpctm_screenPtr(CPCT_VMEM_START, 40, 30), G_TEXT_0_W, G_TEXT_0_H);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 160); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("TO START PRESS S", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 175); // centrado en horizontal y abajo en vertical
-	cpct_drawStringM0("TO MENU PRESS M", memptr, 2, 0);
-
-	// Esperar hasta pulsar S
-	do{
-		cpct_scanKeyboard_f();
-	/*if (cpct_isKeyPressed(Key_S)){
-	  }
-	  else */
-		if(cpct_isKeyPressed(Key_M)){
-		  cpct_scanKeyboard_f();
-		  do{
-		    menuOpciones();
-
-		  } while(!cpct_isKeyPressed(Key_S));
-		}
-	} while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
-}
-
 void inicializarCPC() {
   cpct_disableFirmware();
   cpct_setVideoMode(0);
   cpct_setBorder(HW_BLACK);
   cpct_setPalette(g_palette, 16);
   cpct_akp_musicInit(G_song);
-}
-
-void inicializarEnemy() {
-  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
- // u8 i = 4 + 1; // sacar todos
-
-  TEnemy* actual;
-
-  actual = enemy;
-  while(--i){
-    actual->x = actual->px = spawnX[i];
-    actual->y = actual->py = spawnY[i];
-    actual->mover  = NO;
-    actual->mira   = M_abajo;
-    actual->sprite = g_enemy;
-    actual->muerto = NO;
-    actual->muertes = 0;
-    actual->patroling = SI;
-
-    dibujarEnemigo(actual);
-
-    ++actual;
-  }
 }
 
 void inicializarJuego() {

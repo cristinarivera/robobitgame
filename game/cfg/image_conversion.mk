@@ -65,21 +65,23 @@ PALETTE={0 1 2 3 6 8 9 10 11 13 15 18 20 24 25 26}
 ##    The palette used for conversion is given through the PALETTE variable and
 ##    a pre_palette[16] array will be generated with the 16 palette colours as
 ##	  hardware colour values.
-$(eval $(call IMG2SPRITES,assets/hero.png,0,g,14,22,$(PALETTE),,src/,hwpalette))
-$(eval $(call IMG2SPRITES,assets/hero_left.png,0,g,14,22,$(PALETTE),,src/))
-$(eval $(call IMG2SPRITES,assets/hero_up.png,0,g,14,22,$(PALETTE),,src/))
-$(eval $(call IMG2SPRITES,assets/hero_down.png,0,g,14,22,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/hero.png,0,g,14,22,$(PALETTE),,src/assets/,hwpalette))
+$(eval $(call IMG2SPRITES,assets/hero_left.png,0,g,14,22,$(PALETTE),,src/assets/))
+$(eval $(call IMG2SPRITES,assets/hero_up.png,0,g,14,22,$(PALETTE),,src/assets/))
+$(eval $(call IMG2SPRITES,assets/hero_down.png,0,g,14,22,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/enemy.png,0,g,8,22,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/enemy.png,0,g,8,22,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/heart.png,0,g,6,6,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/heart.png,0,g,6,6,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/text.png,0,g,80,110,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/text.png,0,g,80,110,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/explosion.png,0,g,8,22,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/explosion.png,0,g,8,22,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/tiles.png,0,g,4,4,$(PALETTE),tileset,src/))
+$(eval $(call IMG2SPRITES,assets/arrows.png,0,g,10,10,$(PALETTE),,src/assets/))
 
-$(eval $(call IMG2SPRITES,assets/knifeX.png,0,g,8,4,$(PALETTE),,src/))
-$(eval $(call IMG2SPRITES,assets/knifeY.png,0,g,4,8,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES,assets/tiles.png,0,g,4,4,$(PALETTE),tileset,src/maps/))
+
+$(eval $(call IMG2SPRITES,assets/knifeX.png,0,g,8,4,$(PALETTE),,src/assets/))
+$(eval $(call IMG2SPRITES,assets/knifeY.png,0,g,4,8,$(PALETTE),,src/assets/))
 
