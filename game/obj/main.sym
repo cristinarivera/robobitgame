@@ -11,25 +11,25 @@ Symbol Table
   1 _EMirar                                                        0000 GR
   C _G_song                                                        0F00 GR
   9 ___str_0                                                       00ED R
-  9 ___str_1                                                       0DAB R
-  9 ___str_2                                                       0DB1 R
-  9 ___str_3                                                       0DB7 R
-  9 ___str_4                                                       0DBF R
-  9 ___str_5                                                       0ECB R
-  9 ___str_6                                                       0ED3 R
-  9 ___str_7                                                       0EE4 R
-    __moduchar                                                     **** GX
-  9 _avanzarMapa                                                   08F7 GR
-  9 _barraPuntuacionInicial                                        0D03 GR
-  9 _borrarCuchillo                                                0A4D GR
+  9 ___str_1                                                       100F R
+  9 ___str_2                                                       1015 R
+  9 ___str_3                                                       101B R
+  9 ___str_4                                                       1023 R
+  9 ___str_5                                                       112F R
+  9 ___str_6                                                       1137 R
+  9 ___str_7                                                       1148 R
+    _abs                                                           **** GX
+  9 _avanzarMapa                                                   0B5B GR
+  9 _barraPuntuacionInicial                                        0F67 GR
+  9 _borrarCuchillo                                                0CB1 GR
   9 _borrarEnemigo                                                 0381 GR
   9 _borrarExplosion                                               030D GR
-  9 _borrarPantallaArriba                                          0DC5 GR
+  9 _borrarPantallaArriba                                          1029 GR
   9 _borrarProta                                                   004C GR
   9 _checkCollision                                                014C GR
   9 _checkEnemyCollision                                           0446 GR
-  9 _checkKnifeCollision                                           0C3C GR
-  9 _comprobarTeclado                                              0BFB GR
+  9 _checkKnifeCollision                                           0EA0 GR
+  9 _comprobarTeclado                                              0E5F GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -49,8 +49,8 @@ Symbol Table
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
-  1 _cu                                                            04F2 GR
-  9 _dibujarCuchillo                                               09E9 GR
+  1 _cu                                                            0516 GR
+  9 _dibujarCuchillo                                               0C4D GR
   9 _dibujarEnemigo                                                02A1 GR
   9 _dibujarExplosion                                              02D9 GR
   9 _dibujarMapa                                                   0000 GR
@@ -82,34 +82,39 @@ Symbol Table
     _g_text_1                                                      **** GX
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    010B GR
-  9 _inicializarCPC                                                0EF4 GR
-  9 _inicializarEnemy                                              0F17 GR
-  9 _inicializarJuego                                              0FC9 GR
-  1 _iter                                                          04FC GR
-  9 _lanzarCuchillo                                                0ADF GR
-  9 _main                                                          1044 GR
-  1 _mapa                                                          04FD GR
+  9 _inicializarCPC                                                1158 GR
+  9 _inicializarEnemy                                              117B GR
+  9 _inicializarJuego                                              1244 GR
+  1 _iter                                                          0520 GR
+  9 _lanzarCuchillo                                                0D43 GR
+  9 _lookFor                                                       0A12 GR
+  9 _main                                                          12BF GR
+  1 _mapa                                                          0521 GR
   9 _mapas                                                         0016 GR
   9 _menuFin                                                       00C0 GR
-  9 _menuInicio                                                    0E18 GR
-  9 _moverAbajo                                                    09C5 GR
-  9 _moverArriba                                                   09A1 GR
-  9 _moverCuchillo                                                 0C5E GR
-  9 _moverDerecha                                                  095B GR
-  9 _moverEnemigo                                                  0876 GR
+  9 _menuInicio                                                    107C GR
+  9 _moverAbajo                                                    0C29 GR
+  9 _moverArriba                                                   0C05 GR
+  9 _moverCuchillo                                                 0EC2 GR
+  9 _moverDerecha                                                  0BBF GR
+  9 _moverEnemigo                                                  09B2 GR
   9 _moverEnemigoAbajo                                             0835 GR
   9 _moverEnemigoArriba                                            0816 GR
   9 _moverEnemigoDerecha                                           0854 GR
   9 _moverEnemigoIzquierda                                         0864 GR
-  9 _moverIzquierda                                                0936 GR
-  1 _num_mapa                                                      04FF GR
+  9 _moverEnemigoPathfinding                                       0876 GR
+  9 _moverIzquierda                                                0B9A GR
+  1 _num_mapa                                                      0523 GR
     _pathFinding                                                   **** GX
-  1 _prota                                                         04EA GR
-  9 _redibujarCuchillo                                             0ACB GR
+  9 _patrol                                                        0A84 GR
+  1 _prota                                                         050E GR
+  9 _redibujarCuchillo                                             0D2F GR
   9 _redibujarEnemigo                                              0415 GR
   9 _redibujarProta                                                00F7 GR
   9 _spawnX                                                        001C GR
   9 _spawnY                                                        0021 GR
+  9 _updateEnemies                                                 0A96 GR
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
@@ -117,7 +122,7 @@ Hexadecimal [16-Bits]
 Area Table
 
    0 _CODE                                      size    0   flags    0
-   1 _DATA                                      size  500   flags    0
+   1 _DATA                                      size  524   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
@@ -125,7 +130,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 116A   flags    0
+   9 _CSEG                                      size 136A   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

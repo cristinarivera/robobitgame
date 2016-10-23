@@ -357,24 +357,122 @@ void moverEnemigoIzquierda(TEnemy *enemy){
   enemy->mover = SI;
 }
 
-void moverEnemigo(TEnemy *enemy){
-
-   
+void moverEnemigoPathfinding(TEnemy *enemy){
 	if(!enemy->muerto){
 		//if(!checkEnemyCollision(enemy->mira, enemy)){
-      if(iter < enemy->longitud_camino - 8){
-        enemy->x = enemy->camino[iter];
-        iter++;
-        enemy->y = enemy->camino[iter];
-        iter++;
+    if (!enemy->reversePatrol) {
+      if(enemy->iter < enemy->longitud_camino - 8){
+        enemy->x = enemy->camino[enemy->iter];
+        enemy->iter++;
+        enemy->y = enemy->camino[enemy->iter];
+        enemy->iter++;
         enemy->mover = SI;
       }
       else{
-        iter = 0;
-        enemy->longitud_camino = 0;
+        enemy->lastIter = enemy->iter - 1;
+        //enemy->iter = 0;
+        //enemy->longitud_camino = 0;
+        enemy->reversePatrol = 1;
       }
+    } else {
+      if(enemy->lastIter > 1){
+        enemy->y = enemy->camino[enemy->lastIter];
+        enemy->lastIter--;
+        enemy->x = enemy->camino[enemy->lastIter];
+        enemy->lastIter--;
+        enemy->mover = SI;
+      }
+      else{
+        enemy->iter = 0;
+        //enemy->longitud_camino = 0;
+        enemy->reversePatrol = 0;
+      }
+    }
     //}
 	}
+}
+
+void moverEnemigo(TEnemy *enemy){
+	if(!enemy->muerto){
+		if(!checkEnemyCollision(enemy->mira, enemy)){
+
+		   switch (enemy->mira) {
+
+		    case 0:
+		        moverEnemigoDerecha(enemy);
+		        break;
+		    case 1:
+		        moverEnemigoIzquierda(enemy);
+		        break;
+		    case 2:
+		        moverEnemigoArriba(enemy);
+		        break;
+		    case 3:
+		       	moverEnemigoAbajo(enemy);
+		        break;
+		   }
+		}
+	}
+}
+
+void lookFor(TEnemy *enemy) {
+  u8 dist = 0;
+
+  u8 difx = abs(enemy->x - prota.x);
+  u8 dify = abs(enemy->y - prota.y);
+  dist = difx + dify; // manhattan
+
+  if (dist <= 5) {// te tiene en rango
+    enemy->seen = 1;
+    enemy->inRange = 1;
+  } else if(dist < 10) { // te ve pero no estas en rango (hay que arreglar la vision)
+    enemy->seen = 1;
+    enemy->inRange = 0;
+  } else {
+    enemy->seen = 0;
+    enemy->inRange = 0;
+  }
+}
+
+void patrol(TEnemy *enemy) {
+  if (enemy->onPathPatrol) {
+    moverEnemigoPathfinding(enemy);
+  }
+}
+
+void updateEnemies() {
+  //u8 i = (2 + num_mapa) + 1;
+  u8 i = 1 + 1;
+
+  TEnemy* actual;
+  actual = enemy;
+
+  while (--i) {
+    //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    if (actual->patrolling) { // esta patrullando
+      if (!actual->seen) {
+        patrol(actual);
+      } else if (actual->seen) {
+        //seek(actual);
+        actual->patrolling = 0;
+        actual->onPathPatrol = 0;
+      } else if (actual->inRange) {
+        //engage();
+        actual->patrolling = 0;
+        actual->onPathPatrol = 0;
+      }
+    } else if (actual->seek) { // esta buscando
+      if (!actual->found && actual->seekTimer <= 5) {
+        //seek(actual); // buscar en posiciones cercanas a la actual
+      } else if (actual->inRange) {
+        //engage();
+      } else if (actual->engage) {
+
+      }
+      //if (actual->inRange)
+      // shoot()
+    }
+  }
 }
 
 void avanzarMapa() {
@@ -692,14 +790,20 @@ void inicializarEnemy() {
     actual->sprite = g_enemy;
     actual->muerto = NO;
     actual->muertes = 0;
-    actual->patroling = SI;
-    pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+    actual->patrolling = SI;
+    actual->onPathPatrol = SI;
+    actual->reversePatrol = NO;
+    actual->iter = 0;
+    actual->lastIter = 0;
+    actual->seen = 0;
+    actual->found = 0;
+    pathFinding(actual->x, actual->y, 40, 44, actual, mapa); // calculo rutas de patrulla
     /*actual->longitud_camino = 100;
     for (k = 0; k<100; k++){
       if(k % 2 == 0 && aux0 == 0){
         actual->camino[k] = actual->x + 1;
         actual->x++;
-        aux0=1;  
+        aux0=1;
       }else if(k % 2 == 0 && aux0 == 1){
         actual->camino[k] = actual->x;
         aux0=0;
@@ -711,7 +815,7 @@ void inicializarEnemy() {
         actual->y++;
         aux1=0;
       }
-      
+
     }
 
     actual->x = actual->px = spawnX[i];
@@ -772,19 +876,21 @@ void main(void) {
 
     comprobarTeclado();
     moverCuchillo();
+    updateEnemies();
 
-    while(--i){
+    /*while(--i){
         if(j % 100 == 0 && actual->longitud_camino == 0){
           pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
          j = 0;
         }else{
-          moverEnemigo(actual);  
+          moverEnemigo(actual);
         }
-        
+
         ++actual;
     }
     //i = (2 + num_mapa) + 1;
     i = 1 + 1;
+    */
     actual = enemy;
 
     cpct_waitVSYNC();
