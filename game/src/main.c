@@ -474,92 +474,132 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
   u8 dify = abs(enemy->y - prota.y);
   u8 dist = difx + dify; // manhattan
 
-  if (enemy->y == dy) { // alineado en el eje y
+  u8 movX = 0;
+  u8 movY = 0;
+  u8 mov = 0;
+
+  if (enemy->y == dy) { // alineado en el eje x
     //shoot(); // dispara
-    if (dist > 20) {
-    if (dx < enemy->x) {
-      if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
-			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
-        moverEnemigoIzquierda(enemy);
-      }else {
-        if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
-          if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-      			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-      			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
-            moverEnemigoAbajo(enemy);
-          else
-            moverEnemigoArriba(enemy);
-        } else {
-          if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
-        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-         && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
-            moverEnemigoArriba(enemy);
-          else
-            moverEnemigoAbajo(enemy);
+    if (dist > 10) {
+      if (dx < enemy->x) { // izquierda
+        if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+        && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoIzquierda(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      } else { // derecha
+        if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoDerecha(enemy);
+          movX = 1;
+          mov = 1;
         }
       }
     }
-  }
   }
   else if (enemy->x == dx) {
     // shoot();
-    if (dist > 20) {
-    if (dy < enemy->y) {
-      if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
-    && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-     && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
-        moverEnemigoArriba(enemy);
+    if (dist > 10) {
+      if (dy < enemy->y) {
+        if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+          moverEnemigoArriba(enemy);
+          movY = 1;
+          mov = 1;
+        }
       } else {
-        if (enemy->x < ANCHO_PANTALLA/2) {
-          if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
-    			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-    			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2)
-            moverEnemigoIzquierda(enemy);
-          else
-            moverEnemigoDerecha(enemy);
-        } else {
-          if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-    			 && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-    			 	&& *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2)
-            moverEnemigoDerecha(enemy);
-          else
-            moverEnemigoIzquierda(enemy);
+        if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+          moverEnemigoAbajo(enemy);
+          movY = 1;
+          mov = 1;
         }
       }
     }
   }
-  }
-  else {
+  else { // heuristica
     if (dist > 20) {
-    if (dx < enemy->x) {
-      if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
-			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
-        moverEnemigoIzquierda(enemy);
+      if (dx < enemy->x) {
+        if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+        && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoIzquierda(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      } else {
+        if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoDerecha(enemy);
+          movX = 1;
+          mov = 1;
+        }
       }
-    } else {
-      if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-			 && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-			 	&& *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
-        moverEnemigoDerecha(enemy);
+      if (dy < enemy->y) {
+        if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+          moverEnemigoArriba(enemy);
+          movY = 1;
+          mov = 1;
+        }
+      } else {
+        if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+          moverEnemigoAbajo(enemy);
+          movY = 1;
+          mov = 1;
+        }
       }
-    }
-    if (dy < enemy->y) {
-      if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
-    && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-     && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
-        moverEnemigoArriba(enemy);
-      }
-    } else {
-      if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-  			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-  			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
-        moverEnemigoAbajo(enemy);
+      if (!mov) {
+        if (!movX) {
+          if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
+            if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
+            moverEnemigoAbajo(enemy);
+            else
+            moverEnemigoArriba(enemy);
+          } else {
+            if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
+            moverEnemigoArriba(enemy);
+            else
+            moverEnemigoAbajo(enemy);
+          }
+        }
+
+        if (!movY) {
+          if (enemy->x < ANCHO_PANTALLA/2) {
+            if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+            && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+              moverEnemigoIzquierda(enemy);
+            } else {
+              moverEnemigoDerecha(enemy);
+            }
+          } else {
+            if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+              moverEnemigoDerecha(enemy);
+            }
+            else {
+              moverEnemigoIzquierda(enemy);
+            }
+          }
+        }
       }
     }
   }
-}
 }
 
 void updateEnemies() {

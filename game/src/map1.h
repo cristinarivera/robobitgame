@@ -1,5 +1,5 @@
 //
-// File assets/map1.tmx converted to csv using cpct_tmx2csv [20161023 18:53:25 CEST]
+// File assets/map1.tmx converted to csv using cpct_tmx2csv [20161023 20:09:11 CEST]
 //   * Width:  40
 //   * Height: 44
 //   * Bytes:  1760 
