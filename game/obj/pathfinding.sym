@@ -13,7 +13,7 @@ Symbol Table
   0 _bitWeights                                                    0040 GR
   1 _camino                                                        0841 GR
   0 _getBit                                                        0050 GR
-  0 _pathFinding                                                   08CC GR
+  0 _pathFinding                                                   08D0 GR
   0 _setBit                                                        009B GR
   1 _sol_matriz                                                    0001 GR
   1 _sol_tam                                                       0000 GR
@@ -24,7 +24,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size  C17   flags    0
+   0 _CODE                                      size  C1E   flags    0
    1 _DATA                                      size  887   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

@@ -459,11 +459,15 @@ void lookFor(TEnemy* enemy){
   }
 }
 
-
 void patrol(TEnemy *enemy) {
   if (enemy->onPathPatrol) {
     moverEnemigoPathfinding(enemy);
   }
+}
+
+void seek(TEnemy* actual){
+
+  moverEnemigoPathfinding(enemy);
 }
 
 void updateEnemies() {
@@ -479,7 +483,10 @@ void updateEnemies() {
       if (!actual->seen) {
         patrol(actual);
       } else if (actual->seen) {
-        //seek(actual);
+        pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+        actual->seek = 1;
+        actual->iter=0;
+        actual->reversePatrol = NO;
         actual->patrolling = 0;
         actual->onPathPatrol = 0;
       } else if (actual->inRange) {
@@ -488,8 +495,8 @@ void updateEnemies() {
         actual->onPathPatrol = 0;
       }
     } else if (actual->seek) { // esta buscando
-      if (!actual->found && actual->seekTimer <= 5) {
-        //seek(actual); // buscar en posiciones cercanas a la actual
+      if (!actual->found /*&& actual->seekTimer <= 5*/) {
+        seek(actual); // buscar en posiciones cercanas a la actual
       } else if (actual->inRange) {
         //engage();
       } else if (actual->engage) {
