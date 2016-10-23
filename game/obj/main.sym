@@ -9,7 +9,6 @@ Symbol Table
     .__.H$L.                                                    =  0000 L
   1 _EEje                                                          0001 GR
   1 _EMirar                                                        0000 GR
-  C _G_song                                                        3F00 GR
   A __xinit__mapa                                                  0000 R
   A __xinit__num_mapa                                              0002 R
   A __xinit__puntuacion                                            0003 R
@@ -35,6 +34,7 @@ Symbol Table
     _cpct_isAnyKeyPressed                                          **** GX
     _cpct_isKeyPressed                                             **** GX
     _cpct_scanKeyboard_if                                          **** GX
+    _cpct_setInterruptHandler                                      **** GX
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
@@ -66,14 +66,17 @@ Symbol Table
     _g_map2                                                        **** GX
     _g_map3                                                        **** GX
     _g_palette                                                     **** GX
+    _g_song                                                        **** GX
   8 _g_tablatrans                                                  3E00 GR
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    00D4 GR
-  9 _inicializarCPC                                                0D35 GR
+  1 _i                                                             0048 GR
+  9 _inicializarCPC                                                0D48 GR
   9 _inicializarEnemy                                              089F GR
-  9 _inicializarJuego                                              0D58 GR
+  9 _inicializarJuego                                              0D71 GR
+  9 _intHandler                                                    0D35 GR
   9 _lanzarCuchillo                                                0B11 GR
-  9 _main                                                          0DC1 GR
+  9 _main                                                          0DDA GR
   2 _mapa                                                          0000 GR
   9 _mapas                                                         0016 GR
     _menuFin                                                       **** GX
@@ -90,6 +93,7 @@ Symbol Table
   9 _moverEnemigoIzquierda                                         082D GR
   9 _moverIzquierda                                                0968 GR
   2 _num_mapa                                                      0002 GR
+    _play                                                          **** GX
   1 _prota                                                         0036 GR
   2 _puntuacion                                                    0003 GR
   9 _redibujarCuchillo                                             0AFD GR
@@ -99,13 +103,14 @@ Symbol Table
   9 _spawnY                                                        0021 GR
   2 _vidas                                                         0004 GR
 
+
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
 
 Area Table
 
    0 _CODE                                      size    0   flags    0
-   1 _DATA                                      size   48   flags    0
+   1 _DATA                                      size   49   flags    0
    2 _INITIALIZED                               size    5   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
@@ -113,8 +118,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  EB0   flags    0
+   9 _CSEG                                      size  ED9   flags    0
    A _INITIALIZER                               size    5   flags    0
    B _CABS                                      size    0   flags    8
-   C _CABS1                                     size   61   flags    8
 

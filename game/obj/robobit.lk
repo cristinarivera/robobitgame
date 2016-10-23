@@ -22,11 +22,12 @@ obj/assets/hero_down.rel
 obj/assets/hero_up.rel
 obj/assets/hero_left.rel
 obj/assets/hero.rel
+obj/song/song.rel
 obj/enemystruct.rel
-obj/song.rel
 obj/main.rel
 obj/pathfinding.rel
 obj/menu/menu.rel
 obj/score/score.rel
+obj/play.rel
 
 -e

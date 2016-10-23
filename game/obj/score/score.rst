@@ -59,7 +59,7 @@
    81AD E5            [11]   59 	push	hl
    81AE 26 C0         [ 7]   60 	ld	h, #0xC0
    81B0 E5            [11]   61 	push	hl
-   81B1 CD 5F 90      [17]   62 	call	_cpct_getScreenPtr
+   81B1 CD 6F 90      [17]   62 	call	_cpct_getScreenPtr
    81B4 4D            [ 4]   63 	ld	c,l
    81B5 44            [ 4]   64 	ld	b,h
                              65 ;src/score/score.c:11: cpct_drawStringM0("SCORE", memptr, 1, 0);
@@ -68,7 +68,7 @@
    81BA C5            [11]   68 	push	bc
    81BB 21 34 82      [10]   69 	ld	hl,#___str_0
    81BE E5            [11]   70 	push	hl
-   81BF CD 78 84      [17]   71 	call	_cpct_drawStringM0
+   81BF CD 88 84      [17]   71 	call	_cpct_drawStringM0
    81C2 21 06 00      [10]   72 	ld	hl,#6
    81C5 39            [11]   73 	add	hl,sp
    81C6 F9            [ 6]   74 	ld	sp,hl
@@ -77,7 +77,7 @@
    81CA E5            [11]   77 	push	hl
    81CB 26 C0         [ 7]   78 	ld	h, #0xC0
    81CD E5            [11]   79 	push	hl
-   81CE CD 5F 90      [17]   80 	call	_cpct_getScreenPtr
+   81CE CD 6F 90      [17]   80 	call	_cpct_getScreenPtr
    81D1 4D            [ 4]   81 	ld	c,l
    81D2 44            [ 4]   82 	ld	b,h
                              83 ;src/score/score.c:13: cpct_drawStringM0("00000", memptr, 15, 0);
@@ -86,7 +86,7 @@
    81D7 C5            [11]   86 	push	bc
    81D8 21 3A 82      [10]   87 	ld	hl,#___str_1
    81DB E5            [11]   88 	push	hl
-   81DC CD 78 84      [17]   89 	call	_cpct_drawStringM0
+   81DC CD 88 84      [17]   89 	call	_cpct_drawStringM0
    81DF 21 06 00      [10]   90 	ld	hl,#6
    81E2 39            [11]   91 	add	hl,sp
    81E3 F9            [ 6]   92 	ld	sp,hl
@@ -95,7 +95,7 @@
    81E7 E5            [11]   95 	push	hl
    81E8 21 00 C0      [10]   96 	ld	hl,#0xC000
    81EB E5            [11]   97 	push	hl
-   81EC CD 5F 90      [17]   98 	call	_cpct_getScreenPtr
+   81EC CD 6F 90      [17]   98 	call	_cpct_getScreenPtr
    81EF 4D            [ 4]   99 	ld	c,l
    81F0 44            [ 4]  100 	ld	b,h
                             101 ;src/score/score.c:16: cpct_drawStringM0("LIVES", memptr, 1, 0);
@@ -104,7 +104,7 @@
    81F5 C5            [11]  104 	push	bc
    81F6 21 40 82      [10]  105 	ld	hl,#___str_2
    81F9 E5            [11]  106 	push	hl
-   81FA CD 78 84      [17]  107 	call	_cpct_drawStringM0
+   81FA CD 88 84      [17]  107 	call	_cpct_drawStringM0
    81FD 21 06 00      [10]  108 	ld	hl,#6
    8200 39            [11]  109 	add	hl,sp
    8201 F9            [ 6]  110 	ld	sp,hl
@@ -125,14 +125,14 @@
    8211 33            [ 6]  125 	inc	sp
    8212 21 00 C0      [10]  126 	ld	hl,#0xC000
    8215 E5            [11]  127 	push	hl
-   8216 CD 5F 90      [17]  128 	call	_cpct_getScreenPtr
+   8216 CD 6F 90      [17]  128 	call	_cpct_getScreenPtr
    8219 EB            [ 4]  129 	ex	de,hl
    821A 21 03 06      [10]  130 	ld	hl,#0x0603
    821D E5            [11]  131 	push	hl
    821E D5            [11]  132 	push	de
    821F 21 28 79      [10]  133 	ld	hl,#_g_heart
    8222 E5            [11]  134 	push	hl
-   8223 CD 9C 84      [17]  135 	call	_cpct_drawSprite
+   8223 CD AC 84      [17]  135 	call	_cpct_drawSprite
    8226 C1            [10]  136 	pop	bc
                             137 ;src/score/score.c:18: for(i=0; i<5; i++){
    8227 03            [ 6]  138 	inc	bc
@@ -179,7 +179,7 @@
    8266 E5            [11]  179 	push	hl
    8267 26 C0         [ 7]  180 	ld	h, #0xC0
    8269 E5            [11]  181 	push	hl
-   826A CD 5F 90      [17]  182 	call	_cpct_getScreenPtr
+   826A CD 6F 90      [17]  182 	call	_cpct_getScreenPtr
    826D 4D            [ 4]  183 	ld	c,l
    826E 44            [ 4]  184 	ld	b,h
    826F D1            [10]  185 	pop	de
@@ -189,7 +189,7 @@
    8272 21 0A 00      [10]  189 	ld	hl,#0x000A
    8275 E5            [11]  190 	push	hl
    8276 D5            [11]  191 	push	de
-   8277 CD 54 90      [17]  192 	call	__moduint
+   8277 CD 64 90      [17]  192 	call	__moduint
    827A F1            [10]  193 	pop	af
    827B F1            [10]  194 	pop	af
    827C D1            [10]  195 	pop	de
@@ -207,7 +207,7 @@
    828E 21 02 00      [10]  207 	ld	hl,#0x0002
    8291 E5            [11]  208 	push	hl
    8292 FD E5         [15]  209 	push	iy
-   8294 CD D0 85      [17]  210 	call	_cpct_drawCharM0
+   8294 CD E0 85      [17]  210 	call	_cpct_drawCharM0
    8297 F1            [10]  211 	pop	af
    8298 F1            [10]  212 	pop	af
    8299 33            [ 6]  213 	inc	sp
@@ -215,13 +215,13 @@
    829B 21 E8 03      [10]  215 	ld	hl,#0x03E8
    829E E5            [11]  216 	push	hl
    829F D5            [11]  217 	push	de
-   82A0 CD 9E 83      [17]  218 	call	__divuint
+   82A0 CD AE 83      [17]  218 	call	__divuint
    82A3 F1            [10]  219 	pop	af
    82A4 F1            [10]  220 	pop	af
    82A5 11 0A 00      [10]  221 	ld	de,#0x000A
    82A8 D5            [11]  222 	push	de
    82A9 E5            [11]  223 	push	hl
-   82AA CD 54 90      [17]  224 	call	__moduint
+   82AA CD 64 90      [17]  224 	call	__moduint
    82AD F1            [10]  225 	pop	af
    82AE F1            [10]  226 	pop	af
    82AF C1            [10]  227 	pop	bc
@@ -240,7 +240,7 @@
    82BF 21 02 00      [10]  240 	ld	hl,#0x0002
    82C2 E5            [11]  241 	push	hl
    82C3 D5            [11]  242 	push	de
-   82C4 CD D0 85      [17]  243 	call	_cpct_drawCharM0
+   82C4 CD E0 85      [17]  243 	call	_cpct_drawCharM0
    82C7 F1            [10]  244 	pop	af
    82C8 33            [ 6]  245 	inc	sp
    82C9 21 64 00      [10]  246 	ld	hl,#0x0064
@@ -248,13 +248,13 @@
    82CD DD 6E 04      [19]  248 	ld	l,4 (ix)
    82D0 DD 66 05      [19]  249 	ld	h,5 (ix)
    82D3 E5            [11]  250 	push	hl
-   82D4 CD 9E 83      [17]  251 	call	__divuint
+   82D4 CD AE 83      [17]  251 	call	__divuint
    82D7 F1            [10]  252 	pop	af
    82D8 F1            [10]  253 	pop	af
    82D9 11 0A 00      [10]  254 	ld	de,#0x000A
    82DC D5            [11]  255 	push	de
    82DD E5            [11]  256 	push	hl
-   82DE CD 54 90      [17]  257 	call	__moduint
+   82DE CD 64 90      [17]  257 	call	__moduint
    82E1 F1            [10]  258 	pop	af
    82E2 F1            [10]  259 	pop	af
    82E3 C1            [10]  260 	pop	bc
@@ -273,7 +273,7 @@
    82F3 21 02 00      [10]  273 	ld	hl,#0x0002
    82F6 E5            [11]  274 	push	hl
    82F7 D5            [11]  275 	push	de
-   82F8 CD D0 85      [17]  276 	call	_cpct_drawCharM0
+   82F8 CD E0 85      [17]  276 	call	_cpct_drawCharM0
    82FB F1            [10]  277 	pop	af
    82FC 33            [ 6]  278 	inc	sp
    82FD 21 0A 00      [10]  279 	ld	hl,#0x000A
@@ -281,13 +281,13 @@
    8301 DD 6E 04      [19]  281 	ld	l,4 (ix)
    8304 DD 66 05      [19]  282 	ld	h,5 (ix)
    8307 E5            [11]  283 	push	hl
-   8308 CD 9E 83      [17]  284 	call	__divuint
+   8308 CD AE 83      [17]  284 	call	__divuint
    830B F1            [10]  285 	pop	af
    830C F1            [10]  286 	pop	af
    830D 11 0A 00      [10]  287 	ld	de,#0x000A
    8310 D5            [11]  288 	push	de
    8311 E5            [11]  289 	push	hl
-   8312 CD 54 90      [17]  290 	call	__moduint
+   8312 CD 64 90      [17]  290 	call	__moduint
    8315 F1            [10]  291 	pop	af
    8316 F1            [10]  292 	pop	af
    8317 C1            [10]  293 	pop	bc
@@ -306,7 +306,7 @@
    8327 21 02 00      [10]  306 	ld	hl,#0x0002
    832A E5            [11]  307 	push	hl
    832B D5            [11]  308 	push	de
-   832C CD D0 85      [17]  309 	call	_cpct_drawCharM0
+   832C CD E0 85      [17]  309 	call	_cpct_drawCharM0
    832F F1            [10]  310 	pop	af
    8330 F1            [10]  311 	pop	af
    8331 33            [ 6]  312 	inc	sp
@@ -322,7 +322,7 @@
    833E 21 02 00      [10]  322 	ld	hl,#0x0002
    8341 E5            [11]  323 	push	hl
    8342 C5            [11]  324 	push	bc
-   8343 CD D0 85      [17]  325 	call	_cpct_drawCharM0
+   8343 CD E0 85      [17]  325 	call	_cpct_drawCharM0
    8346 F1            [10]  326 	pop	af
    8347 F1            [10]  327 	pop	af
    8348 33            [ 6]  328 	inc	sp
@@ -352,14 +352,14 @@
    835E 33            [ 6]  352 	inc	sp
    835F 21 00 C0      [10]  353 	ld	hl,#0xC000
    8362 E5            [11]  354 	push	hl
-   8363 CD 5F 90      [17]  355 	call	_cpct_getScreenPtr
+   8363 CD 6F 90      [17]  355 	call	_cpct_getScreenPtr
    8366 EB            [ 4]  356 	ex	de,hl
    8367 21 03 06      [10]  357 	ld	hl,#0x0603
    836A E5            [11]  358 	push	hl
    836B D5            [11]  359 	push	de
    836C 21 28 79      [10]  360 	ld	hl,#_g_heart
    836F E5            [11]  361 	push	hl
-   8370 CD 9C 84      [17]  362 	call	_cpct_drawSprite
+   8370 CD AC 84      [17]  362 	call	_cpct_drawSprite
    8373 C1            [10]  363 	pop	bc
                             364 ;src/score/score.c:46: for(i=0; i<5; i++){
    8374 03            [ 6]  365 	inc	bc

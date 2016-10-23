@@ -35,7 +35,7 @@
 #include "maps/tiles.h"
 #include "menu/menu.h"
 #include "score/score.h"
-#include "song.c"
+#include "song/song.h"
 #include "enemystruct.h"
 
 #define  SI 1
@@ -110,6 +110,8 @@ cpctm_createTransparentMaskTable(g_tablatrans, 0x3E00, M0, 0); // es el color 8 
 
 u8 puntuacion = 0;
 u8 vidas = 5;
+
+extern void play();
 
 void dibujarMapa() {
   cpct_etm_drawTilemap2x4 (g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
@@ -594,12 +596,21 @@ void moverCuchillo(){
 	}
 }
 
+u8 i;
+void intHandler() {
+  if (++i == 6) {
+    play();
+    i=0;
+  }
+}
+
 void inicializarCPC() {
   cpct_disableFirmware();
   cpct_setVideoMode(0);
   cpct_setBorder(HW_BLACK);
   cpct_setPalette(g_palette, 16);
-  cpct_akp_musicInit(G_song);
+  cpct_akp_musicInit(g_song);
+  cpct_setInterruptHandler(intHandler);
 }
 
 void inicializarJuego() {
@@ -642,7 +653,8 @@ void main(void) {
   menuInicio();
 
   inicializarJuego();
-  cpct_akp_musicPlay();
+  
+  //cpct_akp_musicPlay();
 
   while (1) {
 
@@ -660,6 +672,7 @@ void main(void) {
     actual = enemy;
 
     cpct_waitVSYNC();
+	cpct_akp_musicPlay();
 
     if (prota.mover) {
       redibujarProta();
@@ -693,8 +706,9 @@ void main(void) {
 }
 
 /* TODO TODO
-
-vidas = quitarVidas(vidas);
+u8 vidas_aux;
+vidas_aux = vidas;
+vidas = quitarVidas(vidas_aux);
 if (vidas == 0) menuFin(puntuacion);
 
 
