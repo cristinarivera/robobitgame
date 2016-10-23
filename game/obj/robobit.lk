@@ -25,7 +25,7 @@ obj/enemystruct.rel
 obj/song.rel
 obj/tiles2.rel
 obj/main.rel
-obj/tiles3.rel
 obj/pathfinding.rel
+obj/tiles3.rel
 
 -e

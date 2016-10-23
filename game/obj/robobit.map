@@ -27,7 +27,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000100  l__g_tablatrans_0               
      00000DAF  l__DATA                         
      00001000  s__CODE                         
-     000014E4  l__CSEG                         
+     000018FB  l__CSEG                         
      000054C4  l__CODE                         
      000064C4  s__DATA                         
      00007273  s__CSEG                         
@@ -94,8 +94,8 @@ _CODE                               00001000    000054C4 =       21700. bytes (R
      00004B7A  _g_tiles2_07                       tiles2
      00004B82  _g_tiles2_08                       tiles2
      00004B8A  _g_tiles2_09                       tiles2
+     00004B92  _abs                               pathfinding
      00004B92  _dummy_cpct_transparentMaskTable   main
-     00004B92  _g_tiles3_00                       tiles3
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -105,22 +105,22 @@ _CODE                               00001000    000054C4 =       21700. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004B9A  _g_tiles3_01                       tiles3
-     00004BA2  _g_tiles3_02                       tiles3
-     00004BAA  _g_tiles3_03                       tiles3
-     00004BB2  _g_tiles3_04                       tiles3
-     00004BBA  _g_tiles3_05                       tiles3
-     00004BC2  _g_tiles3_06                       tiles3
-     00004BCA  _g_tiles3_07                       tiles3
-     00004BD2  _g_tiles3_08                       tiles3
-     00004BDA  _g_tiles3_09                       tiles3
-     00004BE2  _abs                               pathfinding
-     00004C22  _bitWeights                        pathfinding
-     00004C32  _getBit                            pathfinding
-     00004C7D  _setBit                            pathfinding
-     00004CF7  _anyadirALista                     pathfinding
-     00004D35  _adjacentTiles                     pathfinding
-     000054B2  _pathFinding                       pathfinding
+     00004BD2  _bitWeights                        pathfinding
+     00004BE2  _getBit                            pathfinding
+     00004C2D  _setBit                            pathfinding
+     00004CA7  _anyadirALista                     pathfinding
+     00004CE5  _adjacentTiles                     pathfinding
+     00005462  _pathFinding                       pathfinding
+     000057B0  _g_tiles3_00                       tiles3
+     000057B8  _g_tiles3_01                       tiles3
+     000057C0  _g_tiles3_02                       tiles3
+     000057C8  _g_tiles3_03                       tiles3
+     000057D0  _g_tiles3_04                       tiles3
+     000057D8  _g_tiles3_05                       tiles3
+     000057E0  _g_tiles3_06                       tiles3
+     000057E8  _g_tiles3_07                       tiles3
+     000057F0  _g_tiles3_08                       tiles3
+     000057F8  _g_tiles3_09                       tiles3
      00005800  _cpct_setPalette                   cpct_video
      00005817  _cpct_isKeyPressed                 cpct_keyboard
      00005817  cpct_isKeyPressed_asm              cpct_keyboard
@@ -230,7 +230,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00007273    000014E4 =        5348. bytes (REL,CON)
+_CSEG                               00007273    000018FB =        6395. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -259,26 +259,28 @@ _CSEG                               00007273    000014E4 =        5348. bytes (R
      00007C74  _lookFor                           main
      00007E17  _patrol                            main
      00007E29  _seek                              main
-     00007E32  _updateEnemies                     main
-     00007F1B  _avanzarMapa                       main
-     00007F5A  _moverIzquierda                    main
-     00007F7F  _moverDerecha                      main
-     00007FC5  _moverArriba                       main
-     00007FE9  _moverAbajo                        main
-     0000800D  _dibujarCuchillo                   main
-     00008071  _borrarCuchillo                    main
-     000080EF  _redibujarCuchillo                 main
-     00008103  _lanzarCuchillo                    main
-     0000821F  _comprobarTeclado                  main
-     00008260  _checkKnifeCollision               main
-     00008282  _moverCuchillo                     main
-     00008327  _barraPuntuacionInicial            main
-     000083E9  _borrarPantallaArriba              main
-     0000843C  _menuInicio                        main
-     00008518  _inicializarCPC                    main
-     0000853B  _inicializarEnemy                  main
-     00008631  _inicializarJuego                  main
-     000086AC  _main                              main
+     00007E33  _engage                            main
+     00008270  _updateEnemies                     main
+     00008332  _avanzarMapa                       main
+     00008371  _moverIzquierda                    main
+     00008396  _moverDerecha                      main
+     000083DC  _moverArriba                       main
+     00008400  _moverAbajo                        main
+     00008424  _dibujarCuchillo                   main
+     00008488  _borrarCuchillo                    main
+     00008506  _redibujarCuchillo                 main
+     0000851A  _lanzarCuchillo                    main
+     00008636  _comprobarTeclado                  main
+     00008677  _checkKnifeCollision               main
+     00008699  _moverCuchillo                     main
+     0000873E  _barraPuntuacionInicial            main
+     00008800  _borrarPantallaArriba              main
+     00008853  _menuInicio                        main
+     0000892F  _inicializarCPC                    main
+     00008952  _inicializarEnemy                  main
+     00008A48  _inicializarJuego                  main
+     00008AC3  _main                              main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
@@ -312,8 +314,8 @@ obj/enemystruct.rel                       [ enemystruct ]
 obj/song.rel                              [ song ]
 obj/tiles2.rel                            [ tiles2 ]
 obj/main.rel                              [ main ]
-obj/tiles3.rel                            [ tiles3 ]
 obj/pathfinding.rel                       [ pathfinding ]
+obj/tiles3.rel                            [ tiles3 ]
 
 
 Libraries Linked                          [ object file ]
