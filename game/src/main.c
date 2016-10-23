@@ -466,8 +466,100 @@ void patrol(TEnemy *enemy) {
 }
 
 void seek(TEnemy* actual){
+  moverEnemigoPathfinding(actual);
+}
 
-  moverEnemigoPathfinding(enemy);
+void engage(TEnemy *enemy, u8 dx, u8 dy) {
+  u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
+  u8 dify = abs(enemy->y - prota.y);
+  u8 dist = difx + dify; // manhattan
+
+  if (enemy->y == dy) { // alineado en el eje y
+    //shoot(); // dispara
+    if (dist > 20) {
+    if (dx < enemy->x) {
+      if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+        moverEnemigoIzquierda(enemy);
+      }else {
+        if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
+          if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+      			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+      			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
+            moverEnemigoAbajo(enemy);
+          else
+            moverEnemigoArriba(enemy);
+        } else {
+          if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+        && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+         && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
+            moverEnemigoArriba(enemy);
+          else
+            moverEnemigoAbajo(enemy);
+        }
+      }
+    }
+  }
+  }
+  else if (enemy->x == dx) {
+    // shoot();
+    if (dist > 20) {
+    if (dy < enemy->y) {
+      if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+    && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+     && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+        moverEnemigoArriba(enemy);
+      } else {
+        if (enemy->x < ANCHO_PANTALLA/2) {
+          if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+    			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+    			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2)
+            moverEnemigoIzquierda(enemy);
+          else
+            moverEnemigoDerecha(enemy);
+        } else {
+          if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+    			 && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+    			 	&& *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2)
+            moverEnemigoDerecha(enemy);
+          else
+            moverEnemigoIzquierda(enemy);
+        }
+      }
+    }
+  }
+  }
+  else {
+    if (dist > 20) {
+    if (dx < enemy->x) {
+      if(*getTilePtr(enemy->x - 1, enemy->y) <= 2
+			 && *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+			 	&& *getTilePtr(enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+        moverEnemigoIzquierda(enemy);
+      }
+    } else {
+      if(*getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+			 && *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+			 	&& *getTilePtr(enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+        moverEnemigoDerecha(enemy);
+      }
+    }
+    if (dy < enemy->y) {
+      if(*getTilePtr(enemy->x, enemy->y - 2) <= 2
+    && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+     && *getTilePtr(enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+        moverEnemigoArriba(enemy);
+      }
+    } else {
+      if(*getTilePtr(enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+  			 && *getTilePtr(enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+  			 	&& *getTilePtr(enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+        moverEnemigoAbajo(enemy);
+      }
+    }
+  }
+}
 }
 
 void updateEnemies() {
@@ -478,19 +570,21 @@ void updateEnemies() {
   actual = enemy;
 
   while (--i) {
-    lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    actual->inRange = 1;
+    actual->seen = 1;
     if (actual->patrolling) { // esta patrullando
-      if (!actual->seen) {
+      if (!actual->seen && !actual->inRange) {
         patrol(actual);
+      }else if (actual->inRange) {
+        engage(actual, prota.x, prota.y);
+        //actual->patrolling = 0;
+        actual->onPathPatrol = 0;
       } else if (actual->seen) {
-        pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
-        actual->seek = 1;
+        //pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+        //actual->seek = 1;
         actual->iter=0;
         actual->reversePatrol = NO;
-        actual->patrolling = 0;
-        actual->onPathPatrol = 0;
-      } else if (actual->inRange) {
-        //engage();
         actual->patrolling = 0;
         actual->onPathPatrol = 0;
       }
@@ -533,7 +627,7 @@ void moverIzquierda() {
 
 void moverDerecha() {
   prota.mira = M_derecha;
-  if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
+  if (!checkCollision(M_derecha) && (prota.x + G_HERO_W < 80)) {
     prota.x++;
     prota.mover = SI;
     prota.sprite = g_hero;
