@@ -3212,7 +3212,7 @@ _engage::
 	ld	sp, ix
 	pop	ix
 	ret
-;src/main.c:605: void updateEnemies() {
+;src/main.c:605: void updateEnemies() { // maquina de estados
 ;	---------------------------------
 ; Function updateEnemies
 ; ---------------------------------
@@ -3227,56 +3227,26 @@ _updateEnemies::
 	ld	-6 (ix),#0x02
 ;src/main.c:610: actual = enemy;
 ;src/main.c:612: while (--i) {
-	ld	-3 (ix),#<(_enemy)
-	ld	-2 (ix),#>(_enemy)
-	ld	-5 (ix),#<(_enemy)
-	ld	-4 (ix),#>(_enemy)
-00121$:
-	ld	a,-6 (ix)
-	add	a,#0xFF
-	ld	-1 (ix), a
-	ld	-6 (ix),a
-	ld	a,-1 (ix)
-	or	a, a
-	jp	Z,00124$
-;src/main.c:614: actual->inRange = 1;
-	ld	hl,#(_enemy + 0x0011)
-	ld	(hl),#0x01
-;src/main.c:615: actual->seen = 1;
-	ld	hl,#(_enemy + 0x0012)
-	ld	(hl),#0x01
-;src/main.c:616: if (actual->patrolling) { // esta patrullando
-	ld	a, (#(_enemy + 0x000b) + 0)
-	or	a, a
-	jr	Z,00119$
-;src/main.c:617: if (!actual->seen && !actual->inRange) {
-	ld	hl, #(_enemy + 0x0012) + 0
-	ld	c,(hl)
-	ld	hl, #(_enemy + 0x0011) + 0
-	ld	b,(hl)
+	ld	-4 (ix),#<(_enemy)
+	ld	-3 (ix),#>(_enemy)
+	ld	-2 (ix),#<(_enemy)
+	ld	-1 (ix),#>(_enemy)
+00123$:
+	dec	-6 (ix)
+	ld	c, -6 (ix)
 	ld	a,c
-	or	a,a
-	jr	NZ,00107$
-	or	a,b
-	jr	NZ,00107$
-;src/main.c:618: patrol(actual);
-	ld	hl,#_enemy
-	push	hl
-	call	_patrol
-	pop	af
-	jr	00121$
-00107$:
-;src/main.c:622: actual->onPathPatrol = 0;
-	ld	de,#_enemy + 12
-;src/main.c:619: }else if (actual->inRange) {
-	ld	a,b
 	or	a, a
-	jr	Z,00104$
-;src/main.c:620: engage(actual, prota.x, prota.y);
-	ld	a, (#_prota + 1)
+	jp	Z,00126$
+;src/main.c:613: if (actual->engage) { // prioridad a la persecucion, nunca te deja
+	ld	a, (#(_enemy + 0x0016) + 0)
+	or	a, a
+	jr	Z,00121$
+;src/main.c:614: engage(actual, prota.x, prota.y);
+	ld	a,(#(_prota + 0x0001) + 0)
+	ld	-5 (ix),a
 	ld	hl, #_prota + 0
 	ld	b,(hl)
-	push	de
+	ld	a,-5 (ix)
 	push	af
 	inc	sp
 	push	bc
@@ -3286,54 +3256,124 @@ _updateEnemies::
 	call	_engage
 	pop	af
 	pop	af
-	pop	de
-;src/main.c:622: actual->onPathPatrol = 0;
-	xor	a, a
-	ld	(de),a
-	jr	00121$
-00104$:
-;src/main.c:623: } else if (actual->seen) {
+	jr	00123$
+00121$:
+;src/main.c:617: if (actual->patrolling) { // esta patrullando
+	ld	a, (#(_enemy + 0x000b) + 0)
+	or	a, a
+	jr	Z,00118$
+;src/main.c:618: if (!actual->seen && !actual->inRange) {
+	ld	hl, #(_enemy + 0x0012) + 0
+	ld	c,(hl)
 	ld	a,c
 	or	a, a
-	jr	Z,00121$
-;src/main.c:626: actual->iter=0;
-	ld	hl,#(_enemy + 0x000f)
-	ld	(hl),#0x00
-;src/main.c:627: actual->reversePatrol = NO;
-	ld	hl,#(_enemy + 0x000d)
-	ld	(hl),#0x00
-;src/main.c:628: actual->patrolling = 0;
+	jr	NZ,00107$
+	ld	a, (#(_enemy + 0x0011) + 0)
+	or	a, a
+	jr	NZ,00107$
+;src/main.c:619: patrol(actual);
+	ld	hl,#_enemy
+	push	hl
+	call	_patrol
+	pop	af
+	jr	00123$
+00107$:
+;src/main.c:620: }else if (actual->inRange) {
+	ld	hl, #(_enemy + 0x0011) + 0
+	ld	b,(hl)
+;src/main.c:623: actual->onPathPatrol = 0;
+	ld	de,#_enemy + 12
+;src/main.c:620: }else if (actual->inRange) {
+	ld	a,b
+	or	a, a
+	jr	Z,00104$
+;src/main.c:621: engage(actual, prota.x, prota.y);
+	ld	hl, #(_prota + 0x0001) + 0
+	ld	b,(hl)
+	ld	a, (#_prota + 0)
+	push	de
+	push	bc
+	inc	sp
+	push	af
+	inc	sp
+	ld	hl,#_enemy
+	push	hl
+	call	_engage
+	pop	af
+	pop	af
+	pop	de
+;src/main.c:622: actual->patrolling = 0;
 	ld	hl,#(_enemy + 0x000b)
 	ld	(hl),#0x00
-;src/main.c:629: actual->onPathPatrol = 0;
+;src/main.c:623: actual->onPathPatrol = 0;
 	xor	a, a
 	ld	(de),a
-	jr	00121$
-00119$:
-;src/main.c:631: } else if (actual->seek) { // esta buscando
-	ld	l,-3 (ix)
-	ld	h,-2 (ix)
+;src/main.c:624: actual->engage = 1;
+	ld	hl,#(_enemy + 0x0016)
+	ld	(hl),#0x01
+	jp	00123$
+00104$:
+;src/main.c:625: } else if (actual->seen) {
+	ld	a,c
+	or	a, a
+	jp	Z,00123$
+;src/main.c:628: actual->iter=0;
+	ld	hl,#(_enemy + 0x000f)
+	ld	(hl),#0x00
+;src/main.c:629: actual->reversePatrol = NO;
+	ld	hl,#(_enemy + 0x000d)
+	ld	(hl),#0x00
+;src/main.c:630: actual->patrolling = 0;
+	ld	hl,#(_enemy + 0x000b)
+	ld	(hl),#0x00
+;src/main.c:631: actual->onPathPatrol = 0;
+	xor	a, a
+	ld	(de),a
+	jp	00123$
+00118$:
+;src/main.c:633: } else if (actual->seek) { // esta buscando
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	de, #0x0014
 	add	hl, de
 	ld	a,(hl)
 	or	a, a
-	jp	Z,00121$
-;src/main.c:632: if (!actual->found /*&& actual->seekTimer <= 5*/) {
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	jp	Z,00123$
+;src/main.c:634: if (!actual->found /*&& actual->seekTimer <= 5*/) {
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	de, #0x0013
 	add	hl, de
 	ld	a,(hl)
 	or	a, a
-	jp	NZ,00121$
-;src/main.c:633: seek(actual); // buscar en posiciones cercanas a la actual
+	jr	NZ,00113$
+;src/main.c:635: seek(actual); // buscar en posiciones cercanas a la actual
 	ld	hl,#_enemy
 	push	hl
 	call	_seek
 	pop	af
-	jp	00121$
-;src/main.c:636: } else if (actual->engage) {
-00124$:
+	jp	00123$
+00113$:
+;src/main.c:636: } else if (actual->inRange) {
+	ld	a, (#(_enemy + 0x0011) + 0)
+	or	a, a
+	jp	Z,00123$
+;src/main.c:637: engage(actual, prota.x, prota.y);
+	ld	hl, #(_prota + 0x0001) + 0
+	ld	b,(hl)
+	ld	hl, #_prota + 0
+	ld	c, (hl)
+	push	bc
+	ld	hl,#_enemy
+	push	hl
+	call	_engage
+	pop	af
+	pop	af
+;src/main.c:638: actual->engage = 1;
+	ld	hl,#(_enemy + 0x0016)
+	ld	(hl),#0x01
+	jp	00123$
+00126$:
 	ld	sp, ix
 	pop	ix
 	ret
@@ -4481,16 +4521,16 @@ _inicializarEnemy::
 	inc	de
 	ld	a,#<(_spawnX)
 	add	a, -7 (ix)
-	ld	-2 (ix),a
+	ld	-5 (ix),a
 	ld	a,#>(_spawnX)
 	adc	a, #0x00
-	ld	-1 (ix),a
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	-4 (ix),a
+	ld	l,-5 (ix)
+	ld	h,-4 (ix)
 	ld	a,(hl)
-	ld	-3 (ix), a
+	ld	-6 (ix), a
 	ld	(de),a
-	ld	a,-3 (ix)
+	ld	a,-6 (ix)
 	ld	(bc),a
 ;src/main.c:954: actual->y = actual->py = spawnY[i];
 	ld	e, c
@@ -4498,8 +4538,8 @@ _inicializarEnemy::
 	inc	de
 	ld	hl,#0x0003
 	add	hl,bc
-	ld	-5 (ix),l
-	ld	-4 (ix),h
+	ld	-2 (ix),l
+	ld	-1 (ix),h
 	ld	iy,#_spawnY
 	push	bc
 	ld	c,-7 (ix)
@@ -4507,12 +4547,12 @@ _inicializarEnemy::
 	add	iy, bc
 	pop	bc
 	ld	a, 0 (iy)
-	ld	-6 (ix),a
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
-	ld	a,-6 (ix)
+	ld	-3 (ix),a
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	ld	a,-3 (ix)
 	ld	(hl),a
-	ld	a,-6 (ix)
+	ld	a,-3 (ix)
 	ld	(de),a
 ;src/main.c:955: actual->mover  = NO;
 	ld	hl,#0x0006
@@ -4566,8 +4606,8 @@ _inicializarEnemy::
 	ld	(hl),#0x00
 ;src/main.c:967: pathFinding(actual->x, actual->y, spawnX[i] - 20, spawnY[i], actual, mapa); // calculo rutas de patrulla
 	ld	e, 0 (iy)
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-5 (ix)
+	ld	h,-4 (ix)
 	ld	a,(hl)
 	add	a,#0xEC
 	ld	d,a
@@ -4580,8 +4620,8 @@ _inicializarEnemy::
 	inc	sp
 	push	de
 	inc	sp
-	ld	h,-6 (ix)
-	ld	l,-3 (ix)
+	ld	h,-3 (ix)
+	ld	l,-6 (ix)
 	push	hl
 	call	_pathFinding
 	ld	hl,#8

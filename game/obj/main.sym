@@ -11,25 +11,25 @@ Symbol Table
   1 _EMirar                                                        0000 GR
   C _G_song                                                        0F00 GR
   9 ___str_0                                                       00ED R
-  9 ___str_1                                                       1772 R
-  9 ___str_2                                                       1778 R
-  9 ___str_3                                                       177E R
-  9 ___str_4                                                       1786 R
-  9 ___str_5                                                       1892 R
-  9 ___str_6                                                       189A R
-  9 ___str_7                                                       18AB R
+  9 ___str_1                                                       17B3 R
+  9 ___str_2                                                       17B9 R
+  9 ___str_3                                                       17BF R
+  9 ___str_4                                                       17C7 R
+  9 ___str_5                                                       18D3 R
+  9 ___str_6                                                       18DB R
+  9 ___str_7                                                       18EC R
     _abs                                                           **** GX
-  9 _avanzarMapa                                                   12BE GR
-  9 _barraPuntuacionInicial                                        16CA GR
-  9 _borrarCuchillo                                                1414 GR
+  9 _avanzarMapa                                                   12FF GR
+  9 _barraPuntuacionInicial                                        170B GR
+  9 _borrarCuchillo                                                1455 GR
   9 _borrarEnemigo                                                 0381 GR
   9 _borrarExplosion                                               030D GR
-  9 _borrarPantallaArriba                                          178C GR
+  9 _borrarPantallaArriba                                          17CD GR
   9 _borrarProta                                                   004C GR
   9 _checkCollision                                                014C GR
   9 _checkEnemyCollision                                           0446 GR
-  9 _checkKnifeCollision                                           1603 GR
-  9 _comprobarTeclado                                              15C2 GR
+  9 _checkKnifeCollision                                           1644 GR
+  9 _comprobarTeclado                                              1603 GR
     _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
@@ -50,7 +50,7 @@ Symbol Table
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
   1 _cu                                                            051A GR
-  9 _dibujarCuchillo                                               13B0 GR
+  9 _dibujarCuchillo                                               13F1 GR
   9 _dibujarEnemigo                                                02A1 GR
   9 _dibujarExplosion                                              02D9 GR
   9 _dibujarMapa                                                   0000 GR
@@ -83,33 +83,33 @@ Symbol Table
     _g_text_1                                                      **** GX
     _g_tileset                                                     **** GX
   9 _getTilePtr                                                    010B GR
-  9 _inicializarCPC                                                18BB GR
-  9 _inicializarEnemy                                              18DE GR
-  9 _inicializarJuego                                              19D4 GR
+  9 _inicializarCPC                                                18FC GR
+  9 _inicializarEnemy                                              191F GR
+  9 _inicializarJuego                                              1A15 GR
   1 _iter                                                          0524 GR
-  9 _lanzarCuchillo                                                14A6 GR
+  9 _lanzarCuchillo                                                14E7 GR
   9 _lookFor                                                       0A01 GR
-  9 _main                                                          1A4F GR
+  9 _main                                                          1A90 GR
   1 _mapa                                                          0525 GR
   9 _mapas                                                         0016 GR
   9 _menuFin                                                       00C0 GR
-  9 _menuInicio                                                    17DF GR
-  9 _moverAbajo                                                    138C GR
-  9 _moverArriba                                                   1368 GR
-  9 _moverCuchillo                                                 1625 GR
-  9 _moverDerecha                                                  1322 GR
+  9 _menuInicio                                                    1820 GR
+  9 _moverAbajo                                                    13CD GR
+  9 _moverArriba                                                   13A9 GR
+  9 _moverCuchillo                                                 1666 GR
+  9 _moverDerecha                                                  1363 GR
   9 _moverEnemigo                                                  09A1 GR
   9 _moverEnemigoAbajo                                             0835 GR
   9 _moverEnemigoArriba                                            0816 GR
   9 _moverEnemigoDerecha                                           0854 GR
   9 _moverEnemigoIzquierda                                         0864 GR
   9 _moverEnemigoPathfinding                                       0876 GR
-  9 _moverIzquierda                                                12FD GR
+  9 _moverIzquierda                                                133E GR
   1 _num_mapa                                                      0527 GR
     _pathFinding                                                   **** GX
   9 _patrol                                                        0BA4 GR
   1 _prota                                                         0512 GR
-  9 _redibujarCuchillo                                             1492 GR
+  9 _redibujarCuchillo                                             14D3 GR
   9 _redibujarEnemigo                                              0415 GR
   9 _redibujarProta                                                00F7 GR
   9 _seek                                                          0BB6 GR
@@ -131,7 +131,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 1AFA   flags    0
+   9 _CSEG                                      size 1B3B   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
    C _CABS1                                     size   61   flags    8

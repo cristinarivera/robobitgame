@@ -602,7 +602,7 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
   }
 }
 
-void updateEnemies() {
+void updateEnemies() { // maquina de estados
   //u8 i = (2 + num_mapa) + 1;
   u8 i = 1 + 1;
 
@@ -610,34 +610,34 @@ void updateEnemies() {
   actual = enemy;
 
   while (--i) {
-    //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
-    actual->inRange = 1;
-    actual->seen = 1;
-    if (actual->patrolling) { // esta patrullando
-      if (!actual->seen && !actual->inRange) {
-        patrol(actual);
-      }else if (actual->inRange) {
-        engage(actual, prota.x, prota.y);
-        //actual->patrolling = 0;
-        actual->onPathPatrol = 0;
-      } else if (actual->seen) {
-        //pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
-        //actual->seek = 1;
-        actual->iter=0;
-        actual->reversePatrol = NO;
-        actual->patrolling = 0;
-        actual->onPathPatrol = 0;
+    if (actual->engage) { // prioridad a la persecucion, nunca te deja
+      engage(actual, prota.x, prota.y);
+    } else {
+      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+      if (actual->patrolling) { // esta patrullando
+        if (!actual->seen && !actual->inRange) {
+          patrol(actual);
+        }else if (actual->inRange) {
+          engage(actual, prota.x, prota.y);
+          actual->patrolling = 0;
+          actual->onPathPatrol = 0;
+          actual->engage = 1;
+        } else if (actual->seen) {
+          //pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+          //actual->seek = 1;
+          actual->iter=0;
+          actual->reversePatrol = NO;
+          actual->patrolling = 0;
+          actual->onPathPatrol = 0;
+        }
+      } else if (actual->seek) { // esta buscando
+        if (!actual->found /*&& actual->seekTimer <= 5*/) {
+          seek(actual); // buscar en posiciones cercanas a la actual
+        } else if (actual->inRange) {
+          engage(actual, prota.x, prota.y);
+          actual->engage = 1;
+        }
       }
-    } else if (actual->seek) { // esta buscando
-      if (!actual->found /*&& actual->seekTimer <= 5*/) {
-        seek(actual); // buscar en posiciones cercanas a la actual
-      } else if (actual->inRange) {
-        //engage();
-      } else if (actual->engage) {
-
-      }
-      //if (actual->inRange)
-      // shoot()
     }
   }
 }
