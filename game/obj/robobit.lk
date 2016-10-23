@@ -1,11 +1,11 @@
 -mjwx
 -i obj/robobit.ihx
--b _CODE = 0x4000
+-b _CODE = 0x3000
 -b _DATA = 0x0000
 -u
--k /home/cristina/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
--k /home/cristina/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
--l /home/cristina/cpctelera/cpctelera/cpctelera.lib
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
+-l /home/sstuff/cpctelera/cpctelera/cpctelera.lib
 -l z80
 obj/maps/map3.rel
 obj/maps/map2.rel
@@ -24,8 +24,11 @@ obj/assets/hero_left.rel
 obj/assets/hero.rel
 obj/song/song.rel
 obj/enemystruct.rel
+obj/knifestruct.rel
 obj/main.rel
 obj/pathfinding.rel
+obj/protastruct.rel
+obj/utils.rel
 obj/menu/menu.rel
 obj/score/score.rel
 obj/play.rel
