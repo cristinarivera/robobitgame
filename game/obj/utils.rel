@@ -1,0 +1,31 @@
+XL2
+H 9 areas 2 global symbols
+M utils
+O -mz80
+S .__.ABS. Def0000
+A _CODE size 44 flags 0 addr 0
+S _getTilePtr Def0000
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 DD E5 DD 21 00 00 DD 39 DD 4E 07 06 00 79
+R 00 00 00 00
+T 0E 00 C6 E8 5F 78 CE FF 57 6B 62 CB 7A 28 04 21
+R 00 00 00 00
+T 1C 00 EB FF 09
+R 00 00 00 00
+T 1F 00
+R 00 00 00 00
+T 1F 00 CB 2C CB 1D CB 2C CB 1D 4D 44 29 29 09 29
+R 00 00 00 00
+T 2D 00 29 29 4D 44 DD 6E 04 DD 66 05 09 DD 4E 06
+R 00 00 00 00
+T 3B 00 CB 39 59 16 00 19 DD E1 C9
+R 00 00 00 00
