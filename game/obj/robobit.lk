@@ -3,9 +3,9 @@
 -b _CODE = 0x1000
 -b _DATA = 0x0000
 -u
--k /home/miguel/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
--k /home/miguel/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
--l /home/miguel/cpctelera/cpctelera/cpctelera.lib
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
+-l /home/sstuff/cpctelera/cpctelera/cpctelera.lib
 -l z80
 obj/map3.rel
 obj/map2.rel
@@ -22,10 +22,10 @@ obj/hero_up.rel
 obj/hero_left.rel
 obj/hero.rel
 obj/enemystruct.rel
+obj/main.rel
+obj/pathfinding.rel
 obj/song.rel
 obj/tiles2.rel
-obj/main.rel
 obj/tiles3.rel
-obj/pathfinding.rel
 
 -e

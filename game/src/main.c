@@ -415,29 +415,49 @@ void moverEnemigo(TEnemy *enemy){
 	}
 }
 
-void lookFor(TEnemy *enemy) {
-  u8 dist = 0;
-
-  u8 difx = abs(enemy->x - prota.x);
-  u8 dify = abs(enemy->y - prota.y);
-  dist = difx + dify; // manhattan
-
-  if (dist <= 5) {// te tiene en rango
-    enemy->seen = 1;
-    enemy->inRange = 1;
-  } else if(dist < 10) { // te ve pero no estas en rango (hay que arreglar la vision)
-    enemy->seen = 1;
-    enemy->inRange = 0;
-  } else {
-    enemy->seen = 0;
-    enemy->inRange = 0;
-  }
-}
-
 void patrol(TEnemy *enemy) {
   if (enemy->onPathPatrol) {
     moverEnemigoPathfinding(enemy);
   }
+}
+
+void lookFor(TEnemy* actual){
+
+  u8 i;
+  u8 interpone = NO;
+
+  actual->seen = NO;
+
+  if(actual->x > prota.x - 50 && actual->x < prota.x + 50  ){
+    if(actual->y > prota.y - 4 && actual->y < prota.y + 4){
+      if(actual->x > prota.x){
+        i = prota.x;
+        for (i; i<actual->x && !interpone; i++){
+          if(*getTilePtr(i , prota.y) > 2){
+            interpone = SI;
+          }
+        }
+        if(!interpone){
+          actual->seen = SI;
+        }
+      }else if(actual->x > prota.x){
+        i = actual->x;
+        for (i; i<prota.x && !interpone; i++){
+          if(*getTilePtr(i, actual->y) > 2){
+            interpone = SI;
+          }
+        }
+        if(!interpone){
+          actual->seen = SI;
+        }
+      }
+    }
+  }
+}
+
+void seek(TEnemy* actual){
+
+  moverEnemigoPathfinding(enemy);
 }
 
 void updateEnemies() {
@@ -448,12 +468,15 @@ void updateEnemies() {
   actual = enemy;
 
   while (--i) {
-    //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
     if (actual->patrolling) { // esta patrullando
       if (!actual->seen) {
         patrol(actual);
       } else if (actual->seen) {
-        //seek(actual);
+        pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+        actual->seek = 1;
+        actual->iter=0;
+        actual->reversePatrol = NO;
         actual->patrolling = 0;
         actual->onPathPatrol = 0;
       } else if (actual->inRange) {
@@ -462,8 +485,8 @@ void updateEnemies() {
         actual->onPathPatrol = 0;
       }
     } else if (actual->seek) { // esta buscando
-      if (!actual->found && actual->seekTimer <= 5) {
-        //seek(actual); // buscar en posiciones cercanas a la actual
+      if (!actual->found /*&& actual->seekTimer <= 5*/) {
+        seek(actual); // buscar en posiciones cercanas a la actual
       } else if (actual->inRange) {
         //engage();
       } else if (actual->engage) {
