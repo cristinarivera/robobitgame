@@ -415,24 +415,50 @@ void moverEnemigo(TEnemy *enemy){
 	}
 }
 
-void lookFor(TEnemy *enemy) {
+void lookFor(TEnemy* enemy){
+
+  u8 i;
+  u8 interpone = NO;
+
   u8 dist = 0;
 
   u8 difx = abs(enemy->x - prota.x);
   u8 dify = abs(enemy->y - prota.y);
   dist = difx + dify; // manhattan
 
-  if (dist <= 5) {// te tiene en rango
+  enemy->seen = NO;
+  enemy->inRange = NO;
+
+  if (dist <= 10) {// te detectan los sensores de proximidad
     enemy->seen = 1;
     enemy->inRange = 1;
-  } else if(dist < 10) { // te ve pero no estas en rango (hay que arreglar la vision)
-    enemy->seen = 1;
-    enemy->inRange = 0;
-  } else {
-    enemy->seen = 0;
-    enemy->inRange = 0;
+  } else if(enemy->x > prota.x - 50 && enemy->x < prota.x + 50  ){
+    if(enemy->y > prota.y - 4 && enemy->y < prota.y + 4){
+      if(enemy->x > prota.x){
+        i = prota.x;
+        for (i; i<enemy->x && !interpone; i++){
+          if(*getTilePtr(i , prota.y) > 2){
+            interpone = SI;
+          }
+        }
+        if(!interpone){
+          enemy->seen = SI;
+        }
+      }else if(enemy->x > prota.x){
+        i = enemy->x;
+        for (i; i<prota.x && !interpone; i++){
+          if(*getTilePtr(i, enemy->y) > 2){
+            interpone = SI;
+          }
+        }
+        if(!interpone){
+          enemy->seen = SI;
+        }
+      }
+    }
   }
 }
+
 
 void patrol(TEnemy *enemy) {
   if (enemy->onPathPatrol) {
@@ -448,7 +474,7 @@ void updateEnemies() {
   actual = enemy;
 
   while (--i) {
-    //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
     if (actual->patrolling) { // esta patrullando
       if (!actual->seen) {
         patrol(actual);
@@ -797,7 +823,7 @@ void inicializarEnemy() {
     actual->lastIter = 0;
     actual->seen = 0;
     actual->found = 0;
-    pathFinding(actual->x, actual->y, 40, 44, actual, mapa); // calculo rutas de patrulla
+    pathFinding(actual->x, actual->y, spawnX[i] - 20, spawnY[i], actual, mapa); // calculo rutas de patrulla
     /*actual->longitud_camino = 100;
     for (k = 0; k<100; k++){
       if(k % 2 == 0 && aux0 == 0){
@@ -839,7 +865,7 @@ void inicializarJuego() {
   barraPuntuacionInicial();
 
 
-  prota.x = prota.px = 50;
+  prota.x = prota.px = 5;
   prota.y = prota.py = 76 + ORIGEN_MAPA_Y;
   prota.mover  = NO;
   prota.mira=M_derecha;
