@@ -71,8 +71,23 @@
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[5] = {0, 40, 71, 20, 60};
-u8 const spawnY[5] = {0, 20 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y, 114 + ORIGEN_MAPA_Y};
+u8 const spawnX[5] = {0, 38, 71, 50, 24};
+u8 const spawnY[5] = {0, 20 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+
+u8 const patrolX[4][5] = {
+  {0, 0, 0, 0, 0} ,
+  {0, 20, 71, 0, 0} ,
+  {0, 0, 0, 0, 0} ,
+  {0, 0, 0, 0, 0}
+};
+
+u8 const patrolY[4][5] = {
+  {0, 0, 0, 0, 0} ,
+  {0, 44, 132, 0, 0} ,
+  {0, 0, 0, 0, 0} ,
+  {0, 0, 0, 0, 0}
+};
+
 TEnemy enemy[4];
 
 TProta prota;
@@ -625,7 +640,7 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 }
 
 void updateEnemies() { // maquina de estados
-  u8 i = 1 + 1;
+  u8 i = (2 + num_mapa) + 1;
   //u8 i = 1 + 1;
 
   TEnemy* actual;
@@ -645,7 +660,6 @@ void updateEnemies() { // maquina de estados
           actual->onPathPatrol = 0;
           actual->engage = 1;
         } else if (actual->seen) {
-
           pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
           actual->p_seek_x = actual->x;
           actual->p_seek_y = actual->y;
@@ -669,9 +683,9 @@ void updateEnemies() { // maquina de estados
 }
 
 void inicializarEnemy() {
-  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
- // u8 i = 4 + 1; // sacar todos
-  u8 i = 1 + 1;
+  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+  // u8 i = 4 + 1; // sacar todos
+  //u8 i = 1 + 1;
   TEnemy* actual;
 
   u8 aux0, aux1, k;
@@ -695,7 +709,7 @@ void inicializarEnemy() {
     actual->lastIter = 0;
     actual->seen = 0;
     actual->found = 0;
-    pathFinding(actual->x, actual->y, spawnX[i] - 20, spawnY[i], actual, mapa); // calculo rutas de patrulla
+    pathFinding(actual->x, actual->y, patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
     /*actual->longitud_camino = 100;
     for (k = 0; k<100; k++){
       if(k % 2 == 0 && aux0 == 0){
@@ -723,6 +737,7 @@ void inicializarEnemy() {
     ++actual;
   }
 }
+
 void avanzarMapa() {
   if(num_mapa < NUM_MAPAS -1) {
     mapa = mapas[++num_mapa];
@@ -841,7 +856,7 @@ void main(void) {
 
   while (1) {
 
-    i = 1 + 1;
+    i = (2 + num_mapa) + 1;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
