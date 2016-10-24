@@ -127,16 +127,17 @@ void comprobarTeclado(TKnife* cu, TProta* prota, u8* mapa, u8* g_tablatrans) {
   cpct_scanKeyboard_if();
 
   if (cpct_isAnyKeyPressed()) {
-    if (cpct_isKeyPressed(Key_CursorLeft))
-    moverIzquierda();
-    else if (cpct_isKeyPressed(Key_CursorRight))
-    moverDerecha();
-    else if (cpct_isKeyPressed(Key_CursorUp))
-    moverArriba();
-    else if (cpct_isKeyPressed(Key_CursorDown))
-    moverAbajo();
-    else if (cpct_isKeyPressed(Key_Space))
-    lanzarCuchillo(cu, prota, mapa, g_tablatrans);
+    if (cpct_isKeyPressed(Key_CursorLeft)){
+    	moverIzquierda();
+    }else if (cpct_isKeyPressed(Key_CursorRight)){
+    	moverDerecha();
+    }else if (cpct_isKeyPressed(Key_CursorUp)){
+    	moverArriba();
+    }else if (cpct_isKeyPressed(Key_CursorDown)){
+  	  	moverAbajo();
+    }else if (cpct_isKeyPressed(Key_Space)){
+    	lanzarCuchillo(cu, prota, mapa, g_tablatrans);
+	}
   }
 }
 
@@ -791,8 +792,8 @@ void inicializarCPC() {
   cpct_setVideoMode(0);
   cpct_setBorder(HW_BLACK);
   cpct_setPalette(g_palette, 16);
-  cpct_akp_musicInit(g_song);
-  cpct_setInterruptHandler(intHandler);
+  //cpct_akp_musicInit(g_song);
+  //cpct_setInterruptHandler(intHandler);
 }
 
 void inicializarJuego() {
@@ -855,9 +856,10 @@ void main(void) {
       prota.mover = NO;
     }
     if(cu.lanzado && cu.mover){
-      redibujarCuchillo(&cu, g_tablatrans, mapa);
+      redibujarCuchillo(cu.eje, cu.x, cu.y, &cu, g_tablatrans, mapa);
     }else if (cu.lanzado && !cu.mover){
-      borrarCuchillo(&cu, mapa);
+      borrarCuchillo(cu.eje, cu.x, cu.y, mapa);
+      cu.lanzado = NO;
     }
 
     while(--i){

@@ -45,8 +45,8 @@ typedef struct {
 
 void dibujarCuchillo(TKnife* cu, u8* g_tablatrans);
 
-void borrarCuchillo(TKnife* cu, u8* mapa);
-void redibujarCuchillo(TKnife* cu, u8* g_tablatrans, u8* mapa);
+void borrarCuchillo(u8 eje, u8 x, u8 y, u8* mapa);
+void redibujarCuchillo(u8 eje, u8 x, u8 y, TKnife* cu, u8* g_tablatrans, u8* mapa);
 void lanzarCuchillo(TKnife* cu, TProta* prota, u8* mapa, u8* g_tablatrans);
 
 

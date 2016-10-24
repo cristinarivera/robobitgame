@@ -11,22 +11,25 @@ void dibujarCuchillo(TKnife* cu, u8* g_tablatrans) {
   }
 }
 
-void borrarCuchillo(TKnife* cu, u8* mapa) {
+void borrarCuchillo(u8 eje, u8 x, u8 y, u8* mapa) {
 
   u8* p;
+  u8 w, h;  
 
-
-  u8 w = 2 + (cu->px & 1);
-  u8 h = 2 + (cu->py & 3 ? 1 : 0);
-    p =  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
-  cpct_etm_drawTileBox2x4 (cu->px / 2, (cu->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
-  if(!cu->mover){
-    cu->lanzado = NO;
+  if(eje == E_X){
+      w = 4 + (x & 1);
+      h = 1 + (y & 3 ? 1 : 0);
+  }else{
+      w = 2 + (x & 1);
+      h = 2 + (y & 3 ? 1 : 0);
   }
+
+  p =  cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
+  cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 }
 
-void redibujarCuchillo(TKnife* cu, u8* g_tablatrans, u8* mapa) {
-  borrarCuchillo(cu, mapa);
+void redibujarCuchillo(u8 eje, u8 x, u8 y, TKnife* cu, u8* g_tablatrans, u8* mapa) {
+  borrarCuchillo(eje, x, y, mapa);
   cu->px = cu->x;
   cu->py = cu->y;
   dibujarCuchillo(cu, g_tablatrans);
@@ -75,7 +78,7 @@ void lanzarCuchillo(TKnife* cu, TProta* prota, u8* mapa, u8* g_tablatrans){
         cu->lanzado = SI;
         cu->direccion = M_arriba;
         cu->x = prota->x + G_HERO_W / 2;
-        cu->y = prota->y;
+        cu->y = prota->y - G_KNIFEY_0_H;
         cu->sprite = g_knifeY_1;
         cu->eje = E_Y;
         dibujarCuchillo(cu, g_tablatrans);
