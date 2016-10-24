@@ -60,7 +60,7 @@
 
 #define ALTO_PROTA 22
 
-#define M_derecha 0 
+#define M_derecha 0
 #define M_izquierda 1
 #define M_arriba 2
 #define M_abajo 3
@@ -90,7 +90,7 @@ u8  num_mapa = 0;
 u8 puntuacion = 0;
 u8 vidas = 5;
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0); 
+cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
 extern void play();
 
 void dibujarMapa() {
@@ -106,7 +106,7 @@ void dibujarProta() {
 
 void borrarProta() {
   u8 *p;
-  
+
   //u8 w = 4 + (prota.px & 1);
   u8 w = 4 + (prota.px & 1);
 
@@ -184,7 +184,7 @@ void dibujarExplosion(TEnemy *enemy) {
 
 void borrarExplosion() {
   u8* p;
- 
+
   u8 w = 4 + (enemy->px & 1);
 
   //u8 h = 7 + (enemy->py & 3 ? 1 : 0);
@@ -475,7 +475,7 @@ void moverEnemigoSeek(TEnemy* enemy){
         enemy->iter = 0;
         pathFinding(enemy->x, enemy->y, enemy->p_seek_x, enemy->p_seek_y, enemy, mapa);
       }
-    } 
+    }
     //}
   }
 }
@@ -758,7 +758,7 @@ void moverDerecha() {
 
 void moverArriba() {
   prota.mira = M_arriba;
-  if (!checkCollision(M_arriba)) { 
+  if (!checkCollision(M_arriba)) {
     prota.y--;
     prota.y--;
     prota.mover  = SI;
@@ -768,7 +768,7 @@ void moverArriba() {
 
 void moverAbajo() {
   prota.mira = M_abajo;
-  if (!checkCollision(M_abajo) ) { 
+  if (!checkCollision(M_abajo) ) {
     prota.y++;
     prota.y++;
     prota.mover  = SI;
@@ -835,7 +835,7 @@ void main(void) {
   menuInicio();
 
   inicializarJuego();
-  
+
   //cpct_akp_musicPlay();
 
   while (1) {
@@ -846,13 +846,6 @@ void main(void) {
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
     moverCuchillo(&cu, mapa);
     updateEnemies();
-
-    while(--i){
-      moverEnemigo(actual);
-      ++actual;
-    }
-    i = 1 + 1;
-    actual = enemy;
 
     cpct_waitVSYNC();
     //cpct_akp_musicPlay();
