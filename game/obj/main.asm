@@ -48,6 +48,7 @@
 	.globl _menuFin
 	.globl _cpct_etm_setTileset2x4
 	.globl _cpct_etm_drawTileBox2x4
+	.globl _cpct_akp_musicInit
 	.globl _cpct_getScreenPtr
 	.globl _cpct_setPALColour
 	.globl _cpct_setPalette
@@ -57,6 +58,7 @@
 	.globl _cpct_isAnyKeyPressed
 	.globl _cpct_isKeyPressed
 	.globl _cpct_scanKeyboard_if
+	.globl _cpct_setInterruptHandler
 	.globl _cpct_disableFirmware
 	.globl _vidas
 	.globl _puntuacion
@@ -2082,6 +2084,14 @@ _inicializarCPC::
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
+;src/main.c:468: cpct_akp_musicInit(g_song);
+	ld	hl,#_g_song
+	push	hl
+	call	_cpct_akp_musicInit
+	pop	af
+;src/main.c:469: cpct_setInterruptHandler(intHandler);
+	ld	hl,#_intHandler
+	call	_cpct_setInterruptHandler
 	ret
 ;src/main.c:472: void inicializarJuego() {
 ;	---------------------------------

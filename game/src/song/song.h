@@ -5,9 +5,9 @@
 ///
 
 /// Song 'g_song' metadata macros
-#define g_song_address  0x2000
+#define g_song_address  0x3100
 #define g_song_size     145
-#define g_song_end      0x2091
+#define g_song_end      0x3191
 
 /// Song 'g_song' array declaration
 extern void g_song[g_song_size];

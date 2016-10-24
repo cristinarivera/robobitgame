@@ -44,50 +44,50 @@
                              44 ;	---------------------------------
                              45 ; Function getTilePtr
                              46 ; ---------------------------------
-   70E8                      47 _getTilePtr::
-   70E8 DD E5         [15]   48 	push	ix
-   70EA DD 21 00 00   [14]   49 	ld	ix,#0
-   70EE DD 39         [15]   50 	add	ix,sp
+   75E8                      47 _getTilePtr::
+   75E8 DD E5         [15]   48 	push	ix
+   75EA DD 21 00 00   [14]   49 	ld	ix,#0
+   75EE DD 39         [15]   50 	add	ix,sp
                              51 ;src/utils.c:5: return mapa + ((y-ORIGEN_MAPA_Y)/4)*g_map1_W + x/2;
-   70F0 DD 4E 07      [19]   52 	ld	c,7 (ix)
-   70F3 06 00         [ 7]   53 	ld	b,#0x00
-   70F5 79            [ 4]   54 	ld	a,c
-   70F6 C6 E8         [ 7]   55 	add	a,#0xE8
-   70F8 5F            [ 4]   56 	ld	e,a
-   70F9 78            [ 4]   57 	ld	a,b
-   70FA CE FF         [ 7]   58 	adc	a,#0xFF
-   70FC 57            [ 4]   59 	ld	d,a
-   70FD 6B            [ 4]   60 	ld	l, e
-   70FE 62            [ 4]   61 	ld	h, d
-   70FF CB 7A         [ 8]   62 	bit	7, d
-   7101 28 04         [12]   63 	jr	Z,00103$
-   7103 21 EB FF      [10]   64 	ld	hl,#0xFFEB
-   7106 09            [11]   65 	add	hl,bc
-   7107                      66 00103$:
-   7107 CB 2C         [ 8]   67 	sra	h
-   7109 CB 1D         [ 8]   68 	rr	l
-   710B CB 2C         [ 8]   69 	sra	h
-   710D CB 1D         [ 8]   70 	rr	l
-   710F 4D            [ 4]   71 	ld	c, l
-   7110 44            [ 4]   72 	ld	b, h
-   7111 29            [11]   73 	add	hl, hl
-   7112 29            [11]   74 	add	hl, hl
-   7113 09            [11]   75 	add	hl, bc
-   7114 29            [11]   76 	add	hl, hl
-   7115 29            [11]   77 	add	hl, hl
-   7116 29            [11]   78 	add	hl, hl
-   7117 4D            [ 4]   79 	ld	c,l
-   7118 44            [ 4]   80 	ld	b,h
-   7119 DD 6E 04      [19]   81 	ld	l,4 (ix)
-   711C DD 66 05      [19]   82 	ld	h,5 (ix)
-   711F 09            [11]   83 	add	hl,bc
-   7120 DD 4E 06      [19]   84 	ld	c,6 (ix)
-   7123 CB 39         [ 8]   85 	srl	c
-   7125 59            [ 4]   86 	ld	e,c
-   7126 16 00         [ 7]   87 	ld	d,#0x00
-   7128 19            [11]   88 	add	hl,de
-   7129 DD E1         [14]   89 	pop	ix
-   712B C9            [10]   90 	ret
+   75F0 DD 4E 07      [19]   52 	ld	c,7 (ix)
+   75F3 06 00         [ 7]   53 	ld	b,#0x00
+   75F5 79            [ 4]   54 	ld	a,c
+   75F6 C6 E8         [ 7]   55 	add	a,#0xE8
+   75F8 5F            [ 4]   56 	ld	e,a
+   75F9 78            [ 4]   57 	ld	a,b
+   75FA CE FF         [ 7]   58 	adc	a,#0xFF
+   75FC 57            [ 4]   59 	ld	d,a
+   75FD 6B            [ 4]   60 	ld	l, e
+   75FE 62            [ 4]   61 	ld	h, d
+   75FF CB 7A         [ 8]   62 	bit	7, d
+   7601 28 04         [12]   63 	jr	Z,00103$
+   7603 21 EB FF      [10]   64 	ld	hl,#0xFFEB
+   7606 09            [11]   65 	add	hl,bc
+   7607                      66 00103$:
+   7607 CB 2C         [ 8]   67 	sra	h
+   7609 CB 1D         [ 8]   68 	rr	l
+   760B CB 2C         [ 8]   69 	sra	h
+   760D CB 1D         [ 8]   70 	rr	l
+   760F 4D            [ 4]   71 	ld	c, l
+   7610 44            [ 4]   72 	ld	b, h
+   7611 29            [11]   73 	add	hl, hl
+   7612 29            [11]   74 	add	hl, hl
+   7613 09            [11]   75 	add	hl, bc
+   7614 29            [11]   76 	add	hl, hl
+   7615 29            [11]   77 	add	hl, hl
+   7616 29            [11]   78 	add	hl, hl
+   7617 4D            [ 4]   79 	ld	c,l
+   7618 44            [ 4]   80 	ld	b,h
+   7619 DD 6E 04      [19]   81 	ld	l,4 (ix)
+   761C DD 66 05      [19]   82 	ld	h,5 (ix)
+   761F 09            [11]   83 	add	hl,bc
+   7620 DD 4E 06      [19]   84 	ld	c,6 (ix)
+   7623 CB 39         [ 8]   85 	srl	c
+   7625 59            [ 4]   86 	ld	e,c
+   7626 16 00         [ 7]   87 	ld	d,#0x00
+   7628 19            [11]   88 	add	hl,de
+   7629 DD E1         [14]   89 	pop	ix
+   762B C9            [10]   90 	ret
                              91 	.area _CODE
                              92 	.area _INITIALIZER
                              93 	.area _CABS (ABS)
