@@ -163,7 +163,7 @@
    009D 23            [ 6]  163 	inc	hl
    009E 23            [ 6]  164 	inc	hl
    009F 7E            [ 7]  165 	ld	a,(hl)
-   00A0 DD 77 FF      [19]  166 	ld	-1 (ix), a
+   00A0 DD 77 FB      [19]  166 	ld	-5 (ix), a
    00A3 E6 01         [ 7]  167 	and	a, #0x01
    00A5 C6 02         [ 7]  168 	add	a, #0x02
    00A7 DD 77 F9      [19]  169 	ld	-7 (ix),a
@@ -186,19 +186,19 @@
    00BD DD 77 FA      [19]  186 	ld	-6 (ix),a
                             187 ;src/knifestruct.c:22: cpct_etm_drawTileBox2x4 (cu->px / 2, (cu->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
    00C0 DD 7E 06      [19]  188 	ld	a,6 (ix)
-   00C3 DD 77 FD      [19]  189 	ld	-3 (ix),a
+   00C3 DD 77 FC      [19]  189 	ld	-4 (ix),a
    00C6 DD 7E 07      [19]  190 	ld	a,7 (ix)
-   00C9 DD 77 FE      [19]  191 	ld	-2 (ix),a
+   00C9 DD 77 FD      [19]  191 	ld	-3 (ix),a
    00CC 16 00         [ 7]  192 	ld	d,#0x00
    00CE 7B            [ 4]  193 	ld	a,e
    00CF C6 E8         [ 7]  194 	add	a,#0xE8
-   00D1 DD 77 FB      [19]  195 	ld	-5 (ix),a
+   00D1 DD 77 FE      [19]  195 	ld	-2 (ix),a
    00D4 7A            [ 4]  196 	ld	a,d
    00D5 CE FF         [ 7]  197 	adc	a,#0xFF
-   00D7 DD 77 FC      [19]  198 	ld	-4 (ix),a
-   00DA DD 6E FB      [19]  199 	ld	l,-5 (ix)
-   00DD DD 66 FC      [19]  200 	ld	h,-4 (ix)
-   00E0 DD CB FC 7E   [20]  201 	bit	7, -4 (ix)
+   00D7 DD 77 FF      [19]  198 	ld	-1 (ix),a
+   00DA DD 6E FE      [19]  199 	ld	l,-2 (ix)
+   00DD DD 66 FF      [19]  200 	ld	h,-1 (ix)
+   00E0 DD CB FF 7E   [20]  201 	bit	7, -1 (ix)
    00E4 28 04         [12]  202 	jr	Z,00107$
    00E6 21 EB FF      [10]  203 	ld	hl,#0xFFEB
    00E9 19            [11]  204 	add	hl,de
@@ -208,11 +208,11 @@
    00EE CB 2C         [ 8]  208 	sra	h
    00F0 CB 1D         [ 8]  209 	rr	l
    00F2 5D            [ 4]  210 	ld	e,l
-   00F3 DD 56 FF      [19]  211 	ld	d,-1 (ix)
+   00F3 DD 56 FB      [19]  211 	ld	d,-5 (ix)
    00F6 CB 3A         [ 8]  212 	srl	d
    00F8 C5            [11]  213 	push	bc
-   00F9 DD 6E FD      [19]  214 	ld	l,-3 (ix)
-   00FC DD 66 FE      [19]  215 	ld	h,-2 (ix)
+   00F9 DD 6E FC      [19]  214 	ld	l,-4 (ix)
+   00FC DD 66 FD      [19]  215 	ld	h,-3 (ix)
    00FF E5            [11]  216 	push	hl
    0100 21 F0 C0      [10]  217 	ld	hl,#0xC0F0
    0103 E5            [11]  218 	push	hl
@@ -313,7 +313,7 @@
    018D DD 66 FF      [19]  313 	ld	h,-1 (ix)
    0190 7E            [ 7]  314 	ld	a,(hl)
    0191 B7            [ 4]  315 	or	a, a
-   0192 C2rB7r03      [10]  316 	jp	NZ,00122$
+   0192 C2rC7r03      [10]  316 	jp	NZ,00122$
                             317 ;src/knifestruct.c:39: if(prota->mira == M_derecha){
    0195 DD 5E 06      [19]  318 	ld	e,6 (ix)
    0198 DD 56 07      [19]  319 	ld	d,7 (ix)
@@ -327,55 +327,55 @@
                             327 ;src/knifestruct.c:40: if( *getTilePtr(mapa, prota->x + G_HERO_W + G_KNIFEX_0_W + 1, prota->y + G_HERO_H /2) <= 2){
    01A4 7B            [ 4]  328 	ld	a,e
    01A5 C6 01         [ 7]  329 	add	a, #0x01
-   01A7 DD 77 FC      [19]  330 	ld	-4 (ix),a
+   01A7 DD 77 F5      [19]  330 	ld	-11 (ix),a
    01AA 7A            [ 4]  331 	ld	a,d
    01AB CE 00         [ 7]  332 	adc	a, #0x00
-   01AD DD 77 FD      [19]  333 	ld	-3 (ix),a
+   01AD DD 77 F6      [19]  333 	ld	-10 (ix),a
                             334 ;src/knifestruct.c:42: cu->direccion = M_derecha;
    01B0 79            [ 4]  335 	ld	a,c
    01B1 C6 07         [ 7]  336 	add	a, #0x07
-   01B3 DD 77 F8      [19]  337 	ld	-8 (ix),a
+   01B3 DD 77 FC      [19]  337 	ld	-4 (ix),a
    01B6 78            [ 4]  338 	ld	a,b
    01B7 CE 00         [ 7]  339 	adc	a, #0x00
-   01B9 DD 77 F9      [19]  340 	ld	-7 (ix),a
+   01B9 DD 77 FD      [19]  340 	ld	-3 (ix),a
                             341 ;src/knifestruct.c:44: cu->y=prota->y + G_HERO_H /2;
    01BC 79            [ 4]  342 	ld	a,c
    01BD C6 01         [ 7]  343 	add	a, #0x01
-   01BF DD 77 F4      [19]  344 	ld	-12 (ix),a
+   01BF DD 77 F8      [19]  344 	ld	-8 (ix),a
    01C2 78            [ 4]  345 	ld	a,b
    01C3 CE 00         [ 7]  346 	adc	a, #0x00
-   01C5 DD 77 F5      [19]  347 	ld	-11 (ix),a
+   01C5 DD 77 F9      [19]  347 	ld	-7 (ix),a
                             348 ;src/knifestruct.c:45: cu->sprite=g_knifeX_0;
    01C8 79            [ 4]  349 	ld	a,c
    01C9 C6 04         [ 7]  350 	add	a, #0x04
-   01CB DD 77 F2      [19]  351 	ld	-14 (ix),a
+   01CB DD 77 FA      [19]  351 	ld	-6 (ix),a
    01CE 78            [ 4]  352 	ld	a,b
    01CF CE 00         [ 7]  353 	adc	a, #0x00
-   01D1 DD 77 F3      [19]  354 	ld	-13 (ix),a
+   01D1 DD 77 FB      [19]  354 	ld	-5 (ix),a
                             355 ;src/knifestruct.c:46: cu->eje = E_X;
    01D4 79            [ 4]  356 	ld	a,c
    01D5 C6 08         [ 7]  357 	add	a, #0x08
-   01D7 DD 77 F6      [19]  358 	ld	-10 (ix),a
+   01D7 DD 77 F3      [19]  358 	ld	-13 (ix),a
    01DA 78            [ 4]  359 	ld	a,b
    01DB CE 00         [ 7]  360 	adc	a, #0x00
-   01DD DD 77 F7      [19]  361 	ld	-9 (ix),a
+   01DD DD 77 F4      [19]  361 	ld	-12 (ix),a
                             362 ;src/knifestruct.c:39: if(prota->mira == M_derecha){
    01E0 7D            [ 4]  363 	ld	a,l
    01E1 B7            [ 4]  364 	or	a, a
-   01E2 20 73         [12]  365 	jr	NZ,00118$
+   01E2 20 77         [12]  365 	jr	NZ,00118$
                             366 ;src/knifestruct.c:40: if( *getTilePtr(mapa, prota->x + G_HERO_W + G_KNIFEX_0_W + 1, prota->y + G_HERO_H /2) <= 2){
-   01E4 DD 6E FC      [19]  367 	ld	l,-4 (ix)
-   01E7 DD 66 FD      [19]  368 	ld	h,-3 (ix)
+   01E4 DD 6E F5      [19]  367 	ld	l,-11 (ix)
+   01E7 DD 66 F6      [19]  368 	ld	h,-10 (ix)
    01EA 7E            [ 7]  369 	ld	a,(hl)
    01EB C6 0B         [ 7]  370 	add	a, #0x0B
-   01ED DD 77 FB      [19]  371 	ld	-5 (ix),a
+   01ED DD 77 F7      [19]  371 	ld	-9 (ix),a
    01F0 1A            [ 7]  372 	ld	a,(de)
    01F1 C6 0C         [ 7]  373 	add	a, #0x0C
-   01F3 DD 77 FA      [19]  374 	ld	-6 (ix),a
+   01F3 DD 77 F2      [19]  374 	ld	-14 (ix),a
    01F6 C5            [11]  375 	push	bc
    01F7 D5            [11]  376 	push	de
-   01F8 DD 66 FB      [19]  377 	ld	h,-5 (ix)
-   01FB DD 6E FA      [19]  378 	ld	l,-6 (ix)
+   01F8 DD 66 F7      [19]  377 	ld	h,-9 (ix)
+   01FB DD 6E F2      [19]  378 	ld	l,-14 (ix)
    01FE E5            [11]  379 	push	hl
    01FF DD 6E 08      [19]  380 	ld	l,8 (ix)
    0202 DD 66 09      [19]  381 	ld	h,9 (ix)
@@ -388,497 +388,497 @@
    020D 6E            [ 7]  388 	ld	l,(hl)
    020E 3E 02         [ 7]  389 	ld	a,#0x02
    0210 95            [ 4]  390 	sub	a, l
-   0211 DArB7r03      [10]  391 	jp	C,00122$
+   0211 DArC7r03      [10]  391 	jp	C,00122$
                             392 ;src/knifestruct.c:41: cu->lanzado = SI;
    0214 DD 6E FE      [19]  393 	ld	l,-2 (ix)
    0217 DD 66 FF      [19]  394 	ld	h,-1 (ix)
    021A 36 01         [10]  395 	ld	(hl),#0x01
                             396 ;src/knifestruct.c:42: cu->direccion = M_derecha;
-   021C DD 6E F8      [19]  397 	ld	l,-8 (ix)
-   021F DD 66 F9      [19]  398 	ld	h,-7 (ix)
+   021C DD 6E FC      [19]  397 	ld	l,-4 (ix)
+   021F DD 66 FD      [19]  398 	ld	h,-3 (ix)
    0222 36 00         [10]  399 	ld	(hl),#0x00
                             400 ;src/knifestruct.c:43: cu->x=prota->x + G_HERO_W;
    0224 1A            [ 7]  401 	ld	a,(de)
    0225 C6 07         [ 7]  402 	add	a, #0x07
    0227 02            [ 7]  403 	ld	(bc),a
                             404 ;src/knifestruct.c:44: cu->y=prota->y + G_HERO_H /2;
-   0228 DD 6E FC      [19]  405 	ld	l,-4 (ix)
-   022B DD 66 FD      [19]  406 	ld	h,-3 (ix)
+   0228 DD 6E F5      [19]  405 	ld	l,-11 (ix)
+   022B DD 66 F6      [19]  406 	ld	h,-10 (ix)
    022E 7E            [ 7]  407 	ld	a,(hl)
    022F C6 0B         [ 7]  408 	add	a, #0x0B
-   0231 DD 6E F4      [19]  409 	ld	l,-12 (ix)
-   0234 DD 66 F5      [19]  410 	ld	h,-11 (ix)
+   0231 DD 6E F8      [19]  409 	ld	l,-8 (ix)
+   0234 DD 66 F9      [19]  410 	ld	h,-7 (ix)
    0237 77            [ 7]  411 	ld	(hl),a
                             412 ;src/knifestruct.c:45: cu->sprite=g_knifeX_0;
-   0238 E1            [10]  413 	pop	hl
-   0239 E5            [11]  414 	push	hl
-   023A 36r00         [10]  415 	ld	(hl),#<(_g_knifeX_0)
-   023C 23            [ 6]  416 	inc	hl
-   023D 36s00         [10]  417 	ld	(hl),#>(_g_knifeX_0)
+   0238 DD 6E FA      [19]  413 	ld	l,-6 (ix)
+   023B DD 66 FB      [19]  414 	ld	h,-5 (ix)
+   023E 36r00         [10]  415 	ld	(hl),#<(_g_knifeX_0)
+   0240 23            [ 6]  416 	inc	hl
+   0241 36s00         [10]  417 	ld	(hl),#>(_g_knifeX_0)
                             418 ;src/knifestruct.c:46: cu->eje = E_X;
-   023F DD 6E F6      [19]  419 	ld	l,-10 (ix)
-   0242 DD 66 F7      [19]  420 	ld	h,-9 (ix)
-   0245 36 00         [10]  421 	ld	(hl),#0x00
+   0243 DD 6E F3      [19]  419 	ld	l,-13 (ix)
+   0246 DD 66 F4      [19]  420 	ld	h,-12 (ix)
+   0249 36 00         [10]  421 	ld	(hl),#0x00
                             422 ;src/knifestruct.c:47: dibujarCuchillo(cu, g_tablatrans);
-   0247 DD 6E 0A      [19]  423 	ld	l,10 (ix)
-   024A DD 66 0B      [19]  424 	ld	h,11 (ix)
-   024D E5            [11]  425 	push	hl
-   024E C5            [11]  426 	push	bc
-   024F CDr00r00      [17]  427 	call	_dibujarCuchillo
-   0252 F1            [10]  428 	pop	af
-   0253 F1            [10]  429 	pop	af
-   0254 C3rB7r03      [10]  430 	jp	00122$
-   0257                     431 00118$:
+   024B DD 6E 0A      [19]  423 	ld	l,10 (ix)
+   024E DD 66 0B      [19]  424 	ld	h,11 (ix)
+   0251 E5            [11]  425 	push	hl
+   0252 C5            [11]  426 	push	bc
+   0253 CDr00r00      [17]  427 	call	_dibujarCuchillo
+   0256 F1            [10]  428 	pop	af
+   0257 F1            [10]  429 	pop	af
+   0258 C3rC7r03      [10]  430 	jp	00122$
+   025B                     431 00118$:
                             432 ;src/knifestruct.c:50: else if(prota->mira == M_izquierda){
-   0257 7D            [ 4]  433 	ld	a,l
-   0258 3D            [ 4]  434 	dec	a
-   0259 20 73         [12]  435 	jr	NZ,00115$
+   025B 7D            [ 4]  433 	ld	a,l
+   025C 3D            [ 4]  434 	dec	a
+   025D 20 77         [12]  435 	jr	NZ,00115$
                             436 ;src/knifestruct.c:51: if( *getTilePtr(mapa, prota->x - G_KNIFEX_0_W - 1 - G_KNIFEX_0_W - 1, prota->y + G_HERO_H /2) <= 2){
-   025B DD 6E FC      [19]  437 	ld	l,-4 (ix)
-   025E DD 66 FD      [19]  438 	ld	h,-3 (ix)
-   0261 7E            [ 7]  439 	ld	a,(hl)
-   0262 C6 0B         [ 7]  440 	add	a, #0x0B
-   0264 DD 77 FA      [19]  441 	ld	-6 (ix),a
-   0267 1A            [ 7]  442 	ld	a,(de)
-   0268 C6 F6         [ 7]  443 	add	a,#0xF6
-   026A DD 77 FB      [19]  444 	ld	-5 (ix),a
-   026D C5            [11]  445 	push	bc
-   026E D5            [11]  446 	push	de
-   026F DD 66 FA      [19]  447 	ld	h,-6 (ix)
-   0272 DD 6E FB      [19]  448 	ld	l,-5 (ix)
-   0275 E5            [11]  449 	push	hl
-   0276 DD 6E 08      [19]  450 	ld	l,8 (ix)
-   0279 DD 66 09      [19]  451 	ld	h,9 (ix)
-   027C E5            [11]  452 	push	hl
-   027D CDr00r00      [17]  453 	call	_getTilePtr
-   0280 F1            [10]  454 	pop	af
-   0281 F1            [10]  455 	pop	af
-   0282 D1            [10]  456 	pop	de
-   0283 C1            [10]  457 	pop	bc
-   0284 6E            [ 7]  458 	ld	l,(hl)
-   0285 3E 02         [ 7]  459 	ld	a,#0x02
-   0287 95            [ 4]  460 	sub	a, l
-   0288 DArB7r03      [10]  461 	jp	C,00122$
+   025F DD 6E F5      [19]  437 	ld	l,-11 (ix)
+   0262 DD 66 F6      [19]  438 	ld	h,-10 (ix)
+   0265 7E            [ 7]  439 	ld	a,(hl)
+   0266 C6 0B         [ 7]  440 	add	a, #0x0B
+   0268 DD 77 F2      [19]  441 	ld	-14 (ix),a
+   026B 1A            [ 7]  442 	ld	a,(de)
+   026C C6 F6         [ 7]  443 	add	a,#0xF6
+   026E DD 77 F7      [19]  444 	ld	-9 (ix),a
+   0271 C5            [11]  445 	push	bc
+   0272 D5            [11]  446 	push	de
+   0273 DD 66 F2      [19]  447 	ld	h,-14 (ix)
+   0276 DD 6E F7      [19]  448 	ld	l,-9 (ix)
+   0279 E5            [11]  449 	push	hl
+   027A DD 6E 08      [19]  450 	ld	l,8 (ix)
+   027D DD 66 09      [19]  451 	ld	h,9 (ix)
+   0280 E5            [11]  452 	push	hl
+   0281 CDr00r00      [17]  453 	call	_getTilePtr
+   0284 F1            [10]  454 	pop	af
+   0285 F1            [10]  455 	pop	af
+   0286 D1            [10]  456 	pop	de
+   0287 C1            [10]  457 	pop	bc
+   0288 6E            [ 7]  458 	ld	l,(hl)
+   0289 3E 02         [ 7]  459 	ld	a,#0x02
+   028B 95            [ 4]  460 	sub	a, l
+   028C DArC7r03      [10]  461 	jp	C,00122$
                             462 ;src/knifestruct.c:52: cu->lanzado = SI;
-   028B DD 6E FE      [19]  463 	ld	l,-2 (ix)
-   028E DD 66 FF      [19]  464 	ld	h,-1 (ix)
-   0291 36 01         [10]  465 	ld	(hl),#0x01
+   028F DD 6E FE      [19]  463 	ld	l,-2 (ix)
+   0292 DD 66 FF      [19]  464 	ld	h,-1 (ix)
+   0295 36 01         [10]  465 	ld	(hl),#0x01
                             466 ;src/knifestruct.c:53: cu->direccion = M_izquierda;
-   0293 DD 6E F8      [19]  467 	ld	l,-8 (ix)
-   0296 DD 66 F9      [19]  468 	ld	h,-7 (ix)
-   0299 36 01         [10]  469 	ld	(hl),#0x01
+   0297 DD 6E FC      [19]  467 	ld	l,-4 (ix)
+   029A DD 66 FD      [19]  468 	ld	h,-3 (ix)
+   029D 36 01         [10]  469 	ld	(hl),#0x01
                             470 ;src/knifestruct.c:54: cu->x = prota->x - G_KNIFEX_0_W;
-   029B 1A            [ 7]  471 	ld	a,(de)
-   029C C6 FC         [ 7]  472 	add	a,#0xFC
-   029E 02            [ 7]  473 	ld	(bc),a
+   029F 1A            [ 7]  471 	ld	a,(de)
+   02A0 C6 FC         [ 7]  472 	add	a,#0xFC
+   02A2 02            [ 7]  473 	ld	(bc),a
                             474 ;src/knifestruct.c:55: cu->y = prota->y + G_HERO_H /2;
-   029F DD 6E FC      [19]  475 	ld	l,-4 (ix)
-   02A2 DD 66 FD      [19]  476 	ld	h,-3 (ix)
-   02A5 7E            [ 7]  477 	ld	a,(hl)
-   02A6 C6 0B         [ 7]  478 	add	a, #0x0B
-   02A8 DD 6E F4      [19]  479 	ld	l,-12 (ix)
-   02AB DD 66 F5      [19]  480 	ld	h,-11 (ix)
-   02AE 77            [ 7]  481 	ld	(hl),a
+   02A3 DD 6E F5      [19]  475 	ld	l,-11 (ix)
+   02A6 DD 66 F6      [19]  476 	ld	h,-10 (ix)
+   02A9 7E            [ 7]  477 	ld	a,(hl)
+   02AA C6 0B         [ 7]  478 	add	a, #0x0B
+   02AC DD 6E F8      [19]  479 	ld	l,-8 (ix)
+   02AF DD 66 F9      [19]  480 	ld	h,-7 (ix)
+   02B2 77            [ 7]  481 	ld	(hl),a
                             482 ;src/knifestruct.c:56: cu->sprite = g_knifeX_1;
-   02AF E1            [10]  483 	pop	hl
-   02B0 E5            [11]  484 	push	hl
-   02B1 36r00         [10]  485 	ld	(hl),#<(_g_knifeX_1)
-   02B3 23            [ 6]  486 	inc	hl
-   02B4 36s00         [10]  487 	ld	(hl),#>(_g_knifeX_1)
+   02B3 DD 6E FA      [19]  483 	ld	l,-6 (ix)
+   02B6 DD 66 FB      [19]  484 	ld	h,-5 (ix)
+   02B9 36r00         [10]  485 	ld	(hl),#<(_g_knifeX_1)
+   02BB 23            [ 6]  486 	inc	hl
+   02BC 36s00         [10]  487 	ld	(hl),#>(_g_knifeX_1)
                             488 ;src/knifestruct.c:57: cu->eje = E_X;
-   02B6 DD 6E F6      [19]  489 	ld	l,-10 (ix)
-   02B9 DD 66 F7      [19]  490 	ld	h,-9 (ix)
-   02BC 36 00         [10]  491 	ld	(hl),#0x00
+   02BE DD 6E F3      [19]  489 	ld	l,-13 (ix)
+   02C1 DD 66 F4      [19]  490 	ld	h,-12 (ix)
+   02C4 36 00         [10]  491 	ld	(hl),#0x00
                             492 ;src/knifestruct.c:58: dibujarCuchillo(cu, g_tablatrans);
-   02BE DD 6E 0A      [19]  493 	ld	l,10 (ix)
-   02C1 DD 66 0B      [19]  494 	ld	h,11 (ix)
-   02C4 E5            [11]  495 	push	hl
-   02C5 C5            [11]  496 	push	bc
-   02C6 CDr00r00      [17]  497 	call	_dibujarCuchillo
-   02C9 F1            [10]  498 	pop	af
-   02CA F1            [10]  499 	pop	af
-   02CB C3rB7r03      [10]  500 	jp	00122$
-   02CE                     501 00115$:
+   02C6 DD 6E 0A      [19]  493 	ld	l,10 (ix)
+   02C9 DD 66 0B      [19]  494 	ld	h,11 (ix)
+   02CC E5            [11]  495 	push	hl
+   02CD C5            [11]  496 	push	bc
+   02CE CDr00r00      [17]  497 	call	_dibujarCuchillo
+   02D1 F1            [10]  498 	pop	af
+   02D2 F1            [10]  499 	pop	af
+   02D3 C3rC7r03      [10]  500 	jp	00122$
+   02D6                     501 00115$:
                             502 ;src/knifestruct.c:61: else if(prota->mira == M_abajo){
-   02CE 7D            [ 4]  503 	ld	a,l
-   02CF D6 03         [ 7]  504 	sub	a, #0x03
-   02D1 20 72         [12]  505 	jr	NZ,00112$
+   02D6 7D            [ 4]  503 	ld	a,l
+   02D7 D6 03         [ 7]  504 	sub	a, #0x03
+   02D9 20 76         [12]  505 	jr	NZ,00112$
                             506 ;src/knifestruct.c:63: if( *getTilePtr(mapa, prota->x + G_HERO_W / 2, prota->y + G_HERO_H + G_KNIFEY_0_H + 1) <= 2){
-   02D3 DD 6E FC      [19]  507 	ld	l,-4 (ix)
-   02D6 DD 66 FD      [19]  508 	ld	h,-3 (ix)
-   02D9 7E            [ 7]  509 	ld	a,(hl)
-   02DA C6 1F         [ 7]  510 	add	a, #0x1F
-   02DC DD 77 FA      [19]  511 	ld	-6 (ix),a
-   02DF 1A            [ 7]  512 	ld	a,(de)
-   02E0 C6 03         [ 7]  513 	add	a, #0x03
-   02E2 DD 77 FB      [19]  514 	ld	-5 (ix),a
-   02E5 C5            [11]  515 	push	bc
-   02E6 D5            [11]  516 	push	de
-   02E7 DD 66 FA      [19]  517 	ld	h,-6 (ix)
-   02EA DD 6E FB      [19]  518 	ld	l,-5 (ix)
-   02ED E5            [11]  519 	push	hl
-   02EE DD 6E 08      [19]  520 	ld	l,8 (ix)
-   02F1 DD 66 09      [19]  521 	ld	h,9 (ix)
-   02F4 E5            [11]  522 	push	hl
-   02F5 CDr00r00      [17]  523 	call	_getTilePtr
-   02F8 F1            [10]  524 	pop	af
-   02F9 F1            [10]  525 	pop	af
-   02FA D1            [10]  526 	pop	de
-   02FB C1            [10]  527 	pop	bc
-   02FC 6E            [ 7]  528 	ld	l,(hl)
-   02FD 3E 02         [ 7]  529 	ld	a,#0x02
-   02FF 95            [ 4]  530 	sub	a, l
-   0300 DArB7r03      [10]  531 	jp	C,00122$
+   02DB DD 6E F5      [19]  507 	ld	l,-11 (ix)
+   02DE DD 66 F6      [19]  508 	ld	h,-10 (ix)
+   02E1 7E            [ 7]  509 	ld	a,(hl)
+   02E2 C6 1F         [ 7]  510 	add	a, #0x1F
+   02E4 DD 77 F2      [19]  511 	ld	-14 (ix),a
+   02E7 1A            [ 7]  512 	ld	a,(de)
+   02E8 C6 03         [ 7]  513 	add	a, #0x03
+   02EA DD 77 F7      [19]  514 	ld	-9 (ix),a
+   02ED C5            [11]  515 	push	bc
+   02EE D5            [11]  516 	push	de
+   02EF DD 66 F2      [19]  517 	ld	h,-14 (ix)
+   02F2 DD 6E F7      [19]  518 	ld	l,-9 (ix)
+   02F5 E5            [11]  519 	push	hl
+   02F6 DD 6E 08      [19]  520 	ld	l,8 (ix)
+   02F9 DD 66 09      [19]  521 	ld	h,9 (ix)
+   02FC E5            [11]  522 	push	hl
+   02FD CDr00r00      [17]  523 	call	_getTilePtr
+   0300 F1            [10]  524 	pop	af
+   0301 F1            [10]  525 	pop	af
+   0302 D1            [10]  526 	pop	de
+   0303 C1            [10]  527 	pop	bc
+   0304 6E            [ 7]  528 	ld	l,(hl)
+   0305 3E 02         [ 7]  529 	ld	a,#0x02
+   0307 95            [ 4]  530 	sub	a, l
+   0308 DArC7r03      [10]  531 	jp	C,00122$
                             532 ;src/knifestruct.c:64: cu->lanzado = SI;
-   0303 DD 6E FE      [19]  533 	ld	l,-2 (ix)
-   0306 DD 66 FF      [19]  534 	ld	h,-1 (ix)
-   0309 36 01         [10]  535 	ld	(hl),#0x01
+   030B DD 6E FE      [19]  533 	ld	l,-2 (ix)
+   030E DD 66 FF      [19]  534 	ld	h,-1 (ix)
+   0311 36 01         [10]  535 	ld	(hl),#0x01
                             536 ;src/knifestruct.c:65: cu->direccion = M_abajo;
-   030B DD 6E F8      [19]  537 	ld	l,-8 (ix)
-   030E DD 66 F9      [19]  538 	ld	h,-7 (ix)
-   0311 36 03         [10]  539 	ld	(hl),#0x03
+   0313 DD 6E FC      [19]  537 	ld	l,-4 (ix)
+   0316 DD 66 FD      [19]  538 	ld	h,-3 (ix)
+   0319 36 03         [10]  539 	ld	(hl),#0x03
                             540 ;src/knifestruct.c:66: cu->x = prota->x + G_HERO_W / 2;
-   0313 1A            [ 7]  541 	ld	a,(de)
-   0314 C6 03         [ 7]  542 	add	a, #0x03
-   0316 02            [ 7]  543 	ld	(bc),a
+   031B 1A            [ 7]  541 	ld	a,(de)
+   031C C6 03         [ 7]  542 	add	a, #0x03
+   031E 02            [ 7]  543 	ld	(bc),a
                             544 ;src/knifestruct.c:67: cu->y = prota->y + G_HERO_H;
-   0317 DD 6E FC      [19]  545 	ld	l,-4 (ix)
-   031A DD 66 FD      [19]  546 	ld	h,-3 (ix)
-   031D 7E            [ 7]  547 	ld	a,(hl)
-   031E C6 16         [ 7]  548 	add	a, #0x16
-   0320 DD 6E F4      [19]  549 	ld	l,-12 (ix)
-   0323 DD 66 F5      [19]  550 	ld	h,-11 (ix)
-   0326 77            [ 7]  551 	ld	(hl),a
+   031F DD 6E F5      [19]  545 	ld	l,-11 (ix)
+   0322 DD 66 F6      [19]  546 	ld	h,-10 (ix)
+   0325 7E            [ 7]  547 	ld	a,(hl)
+   0326 C6 16         [ 7]  548 	add	a, #0x16
+   0328 DD 6E F8      [19]  549 	ld	l,-8 (ix)
+   032B DD 66 F9      [19]  550 	ld	h,-7 (ix)
+   032E 77            [ 7]  551 	ld	(hl),a
                             552 ;src/knifestruct.c:68: cu->sprite = g_knifeY_0;
-   0327 E1            [10]  553 	pop	hl
-   0328 E5            [11]  554 	push	hl
-   0329 36r00         [10]  555 	ld	(hl),#<(_g_knifeY_0)
-   032B 23            [ 6]  556 	inc	hl
-   032C 36s00         [10]  557 	ld	(hl),#>(_g_knifeY_0)
+   032F DD 6E FA      [19]  553 	ld	l,-6 (ix)
+   0332 DD 66 FB      [19]  554 	ld	h,-5 (ix)
+   0335 36r00         [10]  555 	ld	(hl),#<(_g_knifeY_0)
+   0337 23            [ 6]  556 	inc	hl
+   0338 36s00         [10]  557 	ld	(hl),#>(_g_knifeY_0)
                             558 ;src/knifestruct.c:69: cu->eje = E_Y;
-   032E DD 6E F6      [19]  559 	ld	l,-10 (ix)
-   0331 DD 66 F7      [19]  560 	ld	h,-9 (ix)
-   0334 36 01         [10]  561 	ld	(hl),#0x01
+   033A DD 6E F3      [19]  559 	ld	l,-13 (ix)
+   033D DD 66 F4      [19]  560 	ld	h,-12 (ix)
+   0340 36 01         [10]  561 	ld	(hl),#0x01
                             562 ;src/knifestruct.c:70: dibujarCuchillo(cu, g_tablatrans);
-   0336 DD 6E 0A      [19]  563 	ld	l,10 (ix)
-   0339 DD 66 0B      [19]  564 	ld	h,11 (ix)
-   033C E5            [11]  565 	push	hl
-   033D C5            [11]  566 	push	bc
-   033E CDr00r00      [17]  567 	call	_dibujarCuchillo
-   0341 F1            [10]  568 	pop	af
-   0342 F1            [10]  569 	pop	af
-   0343 18 72         [12]  570 	jr	00122$
-   0345                     571 00112$:
+   0342 DD 6E 0A      [19]  563 	ld	l,10 (ix)
+   0345 DD 66 0B      [19]  564 	ld	h,11 (ix)
+   0348 E5            [11]  565 	push	hl
+   0349 C5            [11]  566 	push	bc
+   034A CDr00r00      [17]  567 	call	_dibujarCuchillo
+   034D F1            [10]  568 	pop	af
+   034E F1            [10]  569 	pop	af
+   034F 18 76         [12]  570 	jr	00122$
+   0351                     571 00112$:
                             572 ;src/knifestruct.c:73: else if(prota->mira == M_arriba){
-   0345 7D            [ 4]  573 	ld	a,l
-   0346 D6 02         [ 7]  574 	sub	a, #0x02
-   0348 20 6D         [12]  575 	jr	NZ,00122$
+   0351 7D            [ 4]  573 	ld	a,l
+   0352 D6 02         [ 7]  574 	sub	a, #0x02
+   0354 20 71         [12]  575 	jr	NZ,00122$
                             576 ;src/knifestruct.c:74: if( *getTilePtr(mapa, prota->x + G_HERO_W / 2, prota->y - G_KNIFEY_0_H - 1) <= 2){
-   034A DD 6E FC      [19]  577 	ld	l,-4 (ix)
-   034D DD 66 FD      [19]  578 	ld	h,-3 (ix)
-   0350 7E            [ 7]  579 	ld	a,(hl)
-   0351 C6 F7         [ 7]  580 	add	a,#0xF7
-   0353 DD 77 FA      [19]  581 	ld	-6 (ix),a
-   0356 1A            [ 7]  582 	ld	a,(de)
-   0357 C6 03         [ 7]  583 	add	a, #0x03
-   0359 DD 77 FB      [19]  584 	ld	-5 (ix),a
-   035C C5            [11]  585 	push	bc
-   035D D5            [11]  586 	push	de
-   035E DD 66 FA      [19]  587 	ld	h,-6 (ix)
-   0361 DD 6E FB      [19]  588 	ld	l,-5 (ix)
-   0364 E5            [11]  589 	push	hl
-   0365 DD 6E 08      [19]  590 	ld	l,8 (ix)
-   0368 DD 66 09      [19]  591 	ld	h,9 (ix)
-   036B E5            [11]  592 	push	hl
-   036C CDr00r00      [17]  593 	call	_getTilePtr
-   036F F1            [10]  594 	pop	af
-   0370 F1            [10]  595 	pop	af
-   0371 D1            [10]  596 	pop	de
-   0372 C1            [10]  597 	pop	bc
-   0373 6E            [ 7]  598 	ld	l,(hl)
-   0374 3E 02         [ 7]  599 	ld	a,#0x02
-   0376 95            [ 4]  600 	sub	a, l
-   0377 38 3E         [12]  601 	jr	C,00122$
+   0356 DD 6E F5      [19]  577 	ld	l,-11 (ix)
+   0359 DD 66 F6      [19]  578 	ld	h,-10 (ix)
+   035C 7E            [ 7]  579 	ld	a,(hl)
+   035D C6 F7         [ 7]  580 	add	a,#0xF7
+   035F DD 77 F2      [19]  581 	ld	-14 (ix),a
+   0362 1A            [ 7]  582 	ld	a,(de)
+   0363 C6 03         [ 7]  583 	add	a, #0x03
+   0365 DD 77 F7      [19]  584 	ld	-9 (ix),a
+   0368 C5            [11]  585 	push	bc
+   0369 D5            [11]  586 	push	de
+   036A DD 66 F2      [19]  587 	ld	h,-14 (ix)
+   036D DD 6E F7      [19]  588 	ld	l,-9 (ix)
+   0370 E5            [11]  589 	push	hl
+   0371 DD 6E 08      [19]  590 	ld	l,8 (ix)
+   0374 DD 66 09      [19]  591 	ld	h,9 (ix)
+   0377 E5            [11]  592 	push	hl
+   0378 CDr00r00      [17]  593 	call	_getTilePtr
+   037B F1            [10]  594 	pop	af
+   037C F1            [10]  595 	pop	af
+   037D D1            [10]  596 	pop	de
+   037E C1            [10]  597 	pop	bc
+   037F 6E            [ 7]  598 	ld	l,(hl)
+   0380 3E 02         [ 7]  599 	ld	a,#0x02
+   0382 95            [ 4]  600 	sub	a, l
+   0383 38 42         [12]  601 	jr	C,00122$
                             602 ;src/knifestruct.c:75: cu->lanzado = SI;
-   0379 DD 6E FE      [19]  603 	ld	l,-2 (ix)
-   037C DD 66 FF      [19]  604 	ld	h,-1 (ix)
-   037F 36 01         [10]  605 	ld	(hl),#0x01
+   0385 DD 6E FE      [19]  603 	ld	l,-2 (ix)
+   0388 DD 66 FF      [19]  604 	ld	h,-1 (ix)
+   038B 36 01         [10]  605 	ld	(hl),#0x01
                             606 ;src/knifestruct.c:76: cu->direccion = M_arriba;
-   0381 DD 6E F8      [19]  607 	ld	l,-8 (ix)
-   0384 DD 66 F9      [19]  608 	ld	h,-7 (ix)
-   0387 36 02         [10]  609 	ld	(hl),#0x02
+   038D DD 6E FC      [19]  607 	ld	l,-4 (ix)
+   0390 DD 66 FD      [19]  608 	ld	h,-3 (ix)
+   0393 36 02         [10]  609 	ld	(hl),#0x02
                             610 ;src/knifestruct.c:77: cu->x = prota->x + G_HERO_W / 2;
-   0389 1A            [ 7]  611 	ld	a,(de)
-   038A C6 03         [ 7]  612 	add	a, #0x03
-   038C 02            [ 7]  613 	ld	(bc),a
+   0395 1A            [ 7]  611 	ld	a,(de)
+   0396 C6 03         [ 7]  612 	add	a, #0x03
+   0398 02            [ 7]  613 	ld	(bc),a
                             614 ;src/knifestruct.c:78: cu->y = prota->y;
-   038D DD 6E FC      [19]  615 	ld	l,-4 (ix)
-   0390 DD 66 FD      [19]  616 	ld	h,-3 (ix)
-   0393 5E            [ 7]  617 	ld	e,(hl)
-   0394 DD 6E F4      [19]  618 	ld	l,-12 (ix)
-   0397 DD 66 F5      [19]  619 	ld	h,-11 (ix)
-   039A 73            [ 7]  620 	ld	(hl),e
+   0399 DD 6E F5      [19]  615 	ld	l,-11 (ix)
+   039C DD 66 F6      [19]  616 	ld	h,-10 (ix)
+   039F 5E            [ 7]  617 	ld	e,(hl)
+   03A0 DD 6E F8      [19]  618 	ld	l,-8 (ix)
+   03A3 DD 66 F9      [19]  619 	ld	h,-7 (ix)
+   03A6 73            [ 7]  620 	ld	(hl),e
                             621 ;src/knifestruct.c:79: cu->sprite = g_knifeY_1;
-   039B E1            [10]  622 	pop	hl
-   039C E5            [11]  623 	push	hl
-   039D 36r00         [10]  624 	ld	(hl),#<(_g_knifeY_1)
-   039F 23            [ 6]  625 	inc	hl
-   03A0 36s00         [10]  626 	ld	(hl),#>(_g_knifeY_1)
+   03A7 DD 6E FA      [19]  622 	ld	l,-6 (ix)
+   03AA DD 66 FB      [19]  623 	ld	h,-5 (ix)
+   03AD 36r00         [10]  624 	ld	(hl),#<(_g_knifeY_1)
+   03AF 23            [ 6]  625 	inc	hl
+   03B0 36s00         [10]  626 	ld	(hl),#>(_g_knifeY_1)
                             627 ;src/knifestruct.c:80: cu->eje = E_Y;
-   03A2 DD 6E F6      [19]  628 	ld	l,-10 (ix)
-   03A5 DD 66 F7      [19]  629 	ld	h,-9 (ix)
-   03A8 36 01         [10]  630 	ld	(hl),#0x01
+   03B2 DD 6E F3      [19]  628 	ld	l,-13 (ix)
+   03B5 DD 66 F4      [19]  629 	ld	h,-12 (ix)
+   03B8 36 01         [10]  630 	ld	(hl),#0x01
                             631 ;src/knifestruct.c:81: dibujarCuchillo(cu, g_tablatrans);
-   03AA DD 6E 0A      [19]  632 	ld	l,10 (ix)
-   03AD DD 66 0B      [19]  633 	ld	h,11 (ix)
-   03B0 E5            [11]  634 	push	hl
-   03B1 C5            [11]  635 	push	bc
-   03B2 CDr00r00      [17]  636 	call	_dibujarCuchillo
-   03B5 F1            [10]  637 	pop	af
-   03B6 F1            [10]  638 	pop	af
-   03B7                     639 00122$:
-   03B7 DD F9         [10]  640 	ld	sp, ix
-   03B9 DD E1         [14]  641 	pop	ix
-   03BB C9            [10]  642 	ret
+   03BA DD 6E 0A      [19]  632 	ld	l,10 (ix)
+   03BD DD 66 0B      [19]  633 	ld	h,11 (ix)
+   03C0 E5            [11]  634 	push	hl
+   03C1 C5            [11]  635 	push	bc
+   03C2 CDr00r00      [17]  636 	call	_dibujarCuchillo
+   03C5 F1            [10]  637 	pop	af
+   03C6 F1            [10]  638 	pop	af
+   03C7                     639 00122$:
+   03C7 DD F9         [10]  640 	ld	sp, ix
+   03C9 DD E1         [14]  641 	pop	ix
+   03CB C9            [10]  642 	ret
                             643 ;src/knifestruct.c:89: u8 checkKnifeCollision(TKnife* cu, u8 xoff, u8 yoff, u8* mapa){
                             644 ;	---------------------------------
                             645 ; Function checkKnifeCollision
                             646 ; ---------------------------------
-   03BC                     647 _checkKnifeCollision::
+   03CC                     647 _checkKnifeCollision::
                             648 ;src/knifestruct.c:91: return *getTilePtr(mapa, cu->x + xoff, cu->y + yoff) <= 2;
-   03BC D1            [10]  649 	pop	de
-   03BD C1            [10]  650 	pop	bc
-   03BE C5            [11]  651 	push	bc
-   03BF D5            [11]  652 	push	de
-   03C0 69            [ 4]  653 	ld	l, c
-   03C1 60            [ 4]  654 	ld	h, b
-   03C2 23            [ 6]  655 	inc	hl
-   03C3 5E            [ 7]  656 	ld	e,(hl)
-   03C4 7B            [ 4]  657 	ld	a,e
-   03C5 21 05 00      [10]  658 	ld	hl,#5
-   03C8 39            [11]  659 	add	hl,sp
-   03C9 86            [ 7]  660 	add	a, (hl)
-   03CA 57            [ 4]  661 	ld	d,a
-   03CB 0A            [ 7]  662 	ld	a,(bc)
-   03CC 4F            [ 4]  663 	ld	c,a
-   03CD 21 04 00      [10]  664 	ld	hl,#4
-   03D0 39            [11]  665 	add	hl,sp
-   03D1 86            [ 7]  666 	add	a, (hl)
-   03D2 47            [ 4]  667 	ld	b,a
-   03D3 D5            [11]  668 	push	de
-   03D4 33            [ 6]  669 	inc	sp
-   03D5 C5            [11]  670 	push	bc
-   03D6 33            [ 6]  671 	inc	sp
-   03D7 21 08 00      [10]  672 	ld	hl, #8
-   03DA 39            [11]  673 	add	hl, sp
-   03DB 4E            [ 7]  674 	ld	c, (hl)
-   03DC 23            [ 6]  675 	inc	hl
-   03DD 46            [ 7]  676 	ld	b, (hl)
-   03DE C5            [11]  677 	push	bc
-   03DF CDr00r00      [17]  678 	call	_getTilePtr
-   03E2 F1            [10]  679 	pop	af
-   03E3 F1            [10]  680 	pop	af
-   03E4 4E            [ 7]  681 	ld	c,(hl)
-   03E5 3E 02         [ 7]  682 	ld	a,#0x02
-   03E7 91            [ 4]  683 	sub	a, c
-   03E8 3E 00         [ 7]  684 	ld	a,#0x00
-   03EA 17            [ 4]  685 	rla
-   03EB EE 01         [ 7]  686 	xor	a, #0x01
-   03ED 6F            [ 4]  687 	ld	l, a
-   03EE C9            [10]  688 	ret
+   03CC D1            [10]  649 	pop	de
+   03CD C1            [10]  650 	pop	bc
+   03CE C5            [11]  651 	push	bc
+   03CF D5            [11]  652 	push	de
+   03D0 69            [ 4]  653 	ld	l, c
+   03D1 60            [ 4]  654 	ld	h, b
+   03D2 23            [ 6]  655 	inc	hl
+   03D3 5E            [ 7]  656 	ld	e,(hl)
+   03D4 7B            [ 4]  657 	ld	a,e
+   03D5 21 05 00      [10]  658 	ld	hl,#5
+   03D8 39            [11]  659 	add	hl,sp
+   03D9 86            [ 7]  660 	add	a, (hl)
+   03DA 57            [ 4]  661 	ld	d,a
+   03DB 0A            [ 7]  662 	ld	a,(bc)
+   03DC 4F            [ 4]  663 	ld	c,a
+   03DD 21 04 00      [10]  664 	ld	hl,#4
+   03E0 39            [11]  665 	add	hl,sp
+   03E1 86            [ 7]  666 	add	a, (hl)
+   03E2 47            [ 4]  667 	ld	b,a
+   03E3 D5            [11]  668 	push	de
+   03E4 33            [ 6]  669 	inc	sp
+   03E5 C5            [11]  670 	push	bc
+   03E6 33            [ 6]  671 	inc	sp
+   03E7 21 08 00      [10]  672 	ld	hl, #8
+   03EA 39            [11]  673 	add	hl, sp
+   03EB 4E            [ 7]  674 	ld	c, (hl)
+   03EC 23            [ 6]  675 	inc	hl
+   03ED 46            [ 7]  676 	ld	b, (hl)
+   03EE C5            [11]  677 	push	bc
+   03EF CDr00r00      [17]  678 	call	_getTilePtr
+   03F2 F1            [10]  679 	pop	af
+   03F3 F1            [10]  680 	pop	af
+   03F4 4E            [ 7]  681 	ld	c,(hl)
+   03F5 3E 02         [ 7]  682 	ld	a,#0x02
+   03F7 91            [ 4]  683 	sub	a, c
+   03F8 3E 00         [ 7]  684 	ld	a,#0x00
+   03FA 17            [ 4]  685 	rla
+   03FB EE 01         [ 7]  686 	xor	a, #0x01
+   03FD 6F            [ 4]  687 	ld	l, a
+   03FE C9            [10]  688 	ret
                             689 ;src/knifestruct.c:94: void moverCuchillo(TKnife* cu, u8* mapa){
                             690 ;	---------------------------------
                             691 ; Function moverCuchillo
                             692 ; ---------------------------------
-   03EF                     693 _moverCuchillo::
-   03EF DD E5         [15]  694 	push	ix
-   03F1 DD 21 00 00   [14]  695 	ld	ix,#0
-   03F5 DD 39         [15]  696 	add	ix,sp
-   03F7 F5            [11]  697 	push	af
+   03FF                     693 _moverCuchillo::
+   03FF DD E5         [15]  694 	push	ix
+   0401 DD 21 00 00   [14]  695 	ld	ix,#0
+   0405 DD 39         [15]  696 	add	ix,sp
+   0407 F5            [11]  697 	push	af
                             698 ;src/knifestruct.c:95: if(cu->lanzado){
-   03F8 DD 4E 04      [19]  699 	ld	c,4 (ix)
-   03FB DD 46 05      [19]  700 	ld	b,5 (ix)
-   03FE C5            [11]  701 	push	bc
-   03FF FD E1         [14]  702 	pop	iy
-   0401 FD 7E 06      [19]  703 	ld	a,6 (iy)
-   0404 B7            [ 4]  704 	or	a, a
-   0405 CArD9r04      [10]  705 	jp	Z,00126$
+   0408 DD 4E 04      [19]  699 	ld	c,4 (ix)
+   040B DD 46 05      [19]  700 	ld	b,5 (ix)
+   040E C5            [11]  701 	push	bc
+   040F FD E1         [14]  702 	pop	iy
+   0411 FD 7E 06      [19]  703 	ld	a,6 (iy)
+   0414 B7            [ 4]  704 	or	a, a
+   0415 CArE9r04      [10]  705 	jp	Z,00126$
                             706 ;src/knifestruct.c:96: cu->mover = SI;
-   0408 21 09 00      [10]  707 	ld	hl,#0x0009
-   040B 09            [11]  708 	add	hl,bc
-   040C EB            [ 4]  709 	ex	de,hl
-   040D 3E 01         [ 7]  710 	ld	a,#0x01
-   040F 12            [ 7]  711 	ld	(de),a
+   0418 21 09 00      [10]  707 	ld	hl,#0x0009
+   041B 09            [11]  708 	add	hl,bc
+   041C EB            [ 4]  709 	ex	de,hl
+   041D 3E 01         [ 7]  710 	ld	a,#0x01
+   041F 12            [ 7]  711 	ld	(de),a
                             712 ;src/knifestruct.c:97: if(cu->direccion == M_derecha){
-   0410 C5            [11]  713 	push	bc
-   0411 FD E1         [14]  714 	pop	iy
-   0413 FD 6E 07      [19]  715 	ld	l,7 (iy)
-   0416 7D            [ 4]  716 	ld	a,l
-   0417 B7            [ 4]  717 	or	a, a
-   0418 20 28         [12]  718 	jr	NZ,00122$
+   0420 C5            [11]  713 	push	bc
+   0421 FD E1         [14]  714 	pop	iy
+   0423 FD 6E 07      [19]  715 	ld	l,7 (iy)
+   0426 7D            [ 4]  716 	ld	a,l
+   0427 B7            [ 4]  717 	or	a, a
+   0428 20 28         [12]  718 	jr	NZ,00122$
                             719 ;src/knifestruct.c:99: if(checkKnifeCollision(cu, G_KNIFEX_0_W + 1, 0, mapa)){
-   041A C5            [11]  720 	push	bc
-   041B D5            [11]  721 	push	de
-   041C DD 6E 06      [19]  722 	ld	l,6 (ix)
-   041F DD 66 07      [19]  723 	ld	h,7 (ix)
-   0422 E5            [11]  724 	push	hl
-   0423 21 05 00      [10]  725 	ld	hl,#0x0005
-   0426 E5            [11]  726 	push	hl
-   0427 C5            [11]  727 	push	bc
-   0428 CDrBCr03      [17]  728 	call	_checkKnifeCollision
-   042B F1            [10]  729 	pop	af
-   042C F1            [10]  730 	pop	af
-   042D F1            [10]  731 	pop	af
-   042E D1            [10]  732 	pop	de
-   042F C1            [10]  733 	pop	bc
-   0430 7D            [ 4]  734 	ld	a,l
-   0431 B7            [ 4]  735 	or	a, a
-   0432 28 09         [12]  736 	jr	Z,00102$
+   042A C5            [11]  720 	push	bc
+   042B D5            [11]  721 	push	de
+   042C DD 6E 06      [19]  722 	ld	l,6 (ix)
+   042F DD 66 07      [19]  723 	ld	h,7 (ix)
+   0432 E5            [11]  724 	push	hl
+   0433 21 05 00      [10]  725 	ld	hl,#0x0005
+   0436 E5            [11]  726 	push	hl
+   0437 C5            [11]  727 	push	bc
+   0438 CDrCCr03      [17]  728 	call	_checkKnifeCollision
+   043B F1            [10]  729 	pop	af
+   043C F1            [10]  730 	pop	af
+   043D F1            [10]  731 	pop	af
+   043E D1            [10]  732 	pop	de
+   043F C1            [10]  733 	pop	bc
+   0440 7D            [ 4]  734 	ld	a,l
+   0441 B7            [ 4]  735 	or	a, a
+   0442 28 09         [12]  736 	jr	Z,00102$
                             737 ;src/knifestruct.c:100: cu->mover = SI;
-   0434 3E 01         [ 7]  738 	ld	a,#0x01
-   0436 12            [ 7]  739 	ld	(de),a
+   0444 3E 01         [ 7]  738 	ld	a,#0x01
+   0446 12            [ 7]  739 	ld	(de),a
                             740 ;src/knifestruct.c:101: cu->x++;
-   0437 0A            [ 7]  741 	ld	a,(bc)
-   0438 3C            [ 4]  742 	inc	a
-   0439 02            [ 7]  743 	ld	(bc),a
-   043A C3rD9r04      [10]  744 	jp	00126$
-   043D                     745 00102$:
+   0447 0A            [ 7]  741 	ld	a,(bc)
+   0448 3C            [ 4]  742 	inc	a
+   0449 02            [ 7]  743 	ld	(bc),a
+   044A C3rE9r04      [10]  744 	jp	00126$
+   044D                     745 00102$:
                             746 ;src/knifestruct.c:104: cu->mover=NO;
-   043D AF            [ 4]  747 	xor	a, a
-   043E 12            [ 7]  748 	ld	(de),a
-   043F C3rD9r04      [10]  749 	jp	00126$
-   0442                     750 00122$:
+   044D AF            [ 4]  747 	xor	a, a
+   044E 12            [ 7]  748 	ld	(de),a
+   044F C3rE9r04      [10]  749 	jp	00126$
+   0452                     750 00122$:
                             751 ;src/knifestruct.c:107: else if(cu->direccion == M_izquierda){
-   0442 7D            [ 4]  752 	ld	a,l
-   0443 3D            [ 4]  753 	dec	a
-   0444 20 27         [12]  754 	jr	NZ,00119$
+   0452 7D            [ 4]  752 	ld	a,l
+   0453 3D            [ 4]  753 	dec	a
+   0454 20 27         [12]  754 	jr	NZ,00119$
                             755 ;src/knifestruct.c:108: if(checkKnifeCollision(cu, -1, 0, mapa)){
-   0446 C5            [11]  756 	push	bc
-   0447 D5            [11]  757 	push	de
-   0448 DD 6E 06      [19]  758 	ld	l,6 (ix)
-   044B DD 66 07      [19]  759 	ld	h,7 (ix)
-   044E E5            [11]  760 	push	hl
-   044F 21 FF 00      [10]  761 	ld	hl,#0x00FF
-   0452 E5            [11]  762 	push	hl
-   0453 C5            [11]  763 	push	bc
-   0454 CDrBCr03      [17]  764 	call	_checkKnifeCollision
-   0457 F1            [10]  765 	pop	af
-   0458 F1            [10]  766 	pop	af
-   0459 F1            [10]  767 	pop	af
-   045A D1            [10]  768 	pop	de
-   045B C1            [10]  769 	pop	bc
-   045C 7D            [ 4]  770 	ld	a,l
-   045D B7            [ 4]  771 	or	a, a
-   045E 28 09         [12]  772 	jr	Z,00105$
+   0456 C5            [11]  756 	push	bc
+   0457 D5            [11]  757 	push	de
+   0458 DD 6E 06      [19]  758 	ld	l,6 (ix)
+   045B DD 66 07      [19]  759 	ld	h,7 (ix)
+   045E E5            [11]  760 	push	hl
+   045F 21 FF 00      [10]  761 	ld	hl,#0x00FF
+   0462 E5            [11]  762 	push	hl
+   0463 C5            [11]  763 	push	bc
+   0464 CDrCCr03      [17]  764 	call	_checkKnifeCollision
+   0467 F1            [10]  765 	pop	af
+   0468 F1            [10]  766 	pop	af
+   0469 F1            [10]  767 	pop	af
+   046A D1            [10]  768 	pop	de
+   046B C1            [10]  769 	pop	bc
+   046C 7D            [ 4]  770 	ld	a,l
+   046D B7            [ 4]  771 	or	a, a
+   046E 28 09         [12]  772 	jr	Z,00105$
                             773 ;src/knifestruct.c:109: cu->mover = SI;
-   0460 3E 01         [ 7]  774 	ld	a,#0x01
-   0462 12            [ 7]  775 	ld	(de),a
+   0470 3E 01         [ 7]  774 	ld	a,#0x01
+   0472 12            [ 7]  775 	ld	(de),a
                             776 ;src/knifestruct.c:110: cu->x--;
-   0463 0A            [ 7]  777 	ld	a,(bc)
-   0464 C6 FF         [ 7]  778 	add	a,#0xFF
-   0466 02            [ 7]  779 	ld	(bc),a
-   0467 18 70         [12]  780 	jr	00126$
-   0469                     781 00105$:
+   0473 0A            [ 7]  777 	ld	a,(bc)
+   0474 C6 FF         [ 7]  778 	add	a,#0xFF
+   0476 02            [ 7]  779 	ld	(bc),a
+   0477 18 70         [12]  780 	jr	00126$
+   0479                     781 00105$:
                             782 ;src/knifestruct.c:112: cu->mover=NO;
-   0469 AF            [ 4]  783 	xor	a, a
-   046A 12            [ 7]  784 	ld	(de),a
-   046B 18 6C         [12]  785 	jr	00126$
-   046D                     786 00119$:
+   0479 AF            [ 4]  783 	xor	a, a
+   047A 12            [ 7]  784 	ld	(de),a
+   047B 18 6C         [12]  785 	jr	00126$
+   047D                     786 00119$:
                             787 ;src/knifestruct.c:118: cu->y--;
-   046D 79            [ 4]  788 	ld	a,c
-   046E C6 01         [ 7]  789 	add	a, #0x01
-   0470 DD 77 FE      [19]  790 	ld	-2 (ix),a
-   0473 78            [ 4]  791 	ld	a,b
-   0474 CE 00         [ 7]  792 	adc	a, #0x00
-   0476 DD 77 FF      [19]  793 	ld	-1 (ix),a
+   047D 79            [ 4]  788 	ld	a,c
+   047E C6 01         [ 7]  789 	add	a, #0x01
+   0480 DD 77 FE      [19]  790 	ld	-2 (ix),a
+   0483 78            [ 4]  791 	ld	a,b
+   0484 CE 00         [ 7]  792 	adc	a, #0x00
+   0486 DD 77 FF      [19]  793 	ld	-1 (ix),a
                             794 ;src/knifestruct.c:115: else if(cu->direccion == M_arriba){
-   0479 7D            [ 4]  795 	ld	a,l
-   047A D6 02         [ 7]  796 	sub	a, #0x02
-   047C 20 2C         [12]  797 	jr	NZ,00116$
+   0489 7D            [ 4]  795 	ld	a,l
+   048A D6 02         [ 7]  796 	sub	a, #0x02
+   048C 20 2C         [12]  797 	jr	NZ,00116$
                             798 ;src/knifestruct.c:116: if(checkKnifeCollision(cu, 0, -2, mapa)){
-   047E D5            [11]  799 	push	de
-   047F DD 6E 06      [19]  800 	ld	l,6 (ix)
-   0482 DD 66 07      [19]  801 	ld	h,7 (ix)
-   0485 E5            [11]  802 	push	hl
-   0486 21 00 FE      [10]  803 	ld	hl,#0xFE00
-   0489 E5            [11]  804 	push	hl
-   048A C5            [11]  805 	push	bc
-   048B CDrBCr03      [17]  806 	call	_checkKnifeCollision
-   048E F1            [10]  807 	pop	af
-   048F F1            [10]  808 	pop	af
-   0490 F1            [10]  809 	pop	af
-   0491 D1            [10]  810 	pop	de
-   0492 7D            [ 4]  811 	ld	a,l
-   0493 B7            [ 4]  812 	or	a, a
-   0494 28 10         [12]  813 	jr	Z,00108$
+   048E D5            [11]  799 	push	de
+   048F DD 6E 06      [19]  800 	ld	l,6 (ix)
+   0492 DD 66 07      [19]  801 	ld	h,7 (ix)
+   0495 E5            [11]  802 	push	hl
+   0496 21 00 FE      [10]  803 	ld	hl,#0xFE00
+   0499 E5            [11]  804 	push	hl
+   049A C5            [11]  805 	push	bc
+   049B CDrCCr03      [17]  806 	call	_checkKnifeCollision
+   049E F1            [10]  807 	pop	af
+   049F F1            [10]  808 	pop	af
+   04A0 F1            [10]  809 	pop	af
+   04A1 D1            [10]  810 	pop	de
+   04A2 7D            [ 4]  811 	ld	a,l
+   04A3 B7            [ 4]  812 	or	a, a
+   04A4 28 10         [12]  813 	jr	Z,00108$
                             814 ;src/knifestruct.c:117: cu->mover = SI;
-   0496 3E 01         [ 7]  815 	ld	a,#0x01
-   0498 12            [ 7]  816 	ld	(de),a
+   04A6 3E 01         [ 7]  815 	ld	a,#0x01
+   04A8 12            [ 7]  816 	ld	(de),a
                             817 ;src/knifestruct.c:118: cu->y--;
-   0499 E1            [10]  818 	pop	hl
-   049A E5            [11]  819 	push	hl
-   049B 4E            [ 7]  820 	ld	c,(hl)
-   049C 0D            [ 4]  821 	dec	c
-   049D E1            [10]  822 	pop	hl
-   049E E5            [11]  823 	push	hl
-   049F 71            [ 7]  824 	ld	(hl),c
+   04A9 E1            [10]  818 	pop	hl
+   04AA E5            [11]  819 	push	hl
+   04AB 4E            [ 7]  820 	ld	c,(hl)
+   04AC 0D            [ 4]  821 	dec	c
+   04AD E1            [10]  822 	pop	hl
+   04AE E5            [11]  823 	push	hl
+   04AF 71            [ 7]  824 	ld	(hl),c
                             825 ;src/knifestruct.c:119: cu->y--;
-   04A0 0D            [ 4]  826 	dec	c
-   04A1 E1            [10]  827 	pop	hl
-   04A2 E5            [11]  828 	push	hl
-   04A3 71            [ 7]  829 	ld	(hl),c
-   04A4 18 33         [12]  830 	jr	00126$
-   04A6                     831 00108$:
+   04B0 0D            [ 4]  826 	dec	c
+   04B1 E1            [10]  827 	pop	hl
+   04B2 E5            [11]  828 	push	hl
+   04B3 71            [ 7]  829 	ld	(hl),c
+   04B4 18 33         [12]  830 	jr	00126$
+   04B6                     831 00108$:
                             832 ;src/knifestruct.c:122: cu->mover=NO;
-   04A6 AF            [ 4]  833 	xor	a, a
-   04A7 12            [ 7]  834 	ld	(de),a
-   04A8 18 2F         [12]  835 	jr	00126$
-   04AA                     836 00116$:
+   04B6 AF            [ 4]  833 	xor	a, a
+   04B7 12            [ 7]  834 	ld	(de),a
+   04B8 18 2F         [12]  835 	jr	00126$
+   04BA                     836 00116$:
                             837 ;src/knifestruct.c:125: else if(cu->direccion == M_abajo){
-   04AA 7D            [ 4]  838 	ld	a,l
-   04AB D6 03         [ 7]  839 	sub	a, #0x03
-   04AD 20 2A         [12]  840 	jr	NZ,00126$
+   04BA 7D            [ 4]  838 	ld	a,l
+   04BB D6 03         [ 7]  839 	sub	a, #0x03
+   04BD 20 2A         [12]  840 	jr	NZ,00126$
                             841 ;src/knifestruct.c:126: if(checkKnifeCollision(cu, 0, G_KNIFEY_0_H + 2, mapa)){
-   04AF D5            [11]  842 	push	de
-   04B0 DD 6E 06      [19]  843 	ld	l,6 (ix)
-   04B3 DD 66 07      [19]  844 	ld	h,7 (ix)
-   04B6 E5            [11]  845 	push	hl
-   04B7 21 00 0A      [10]  846 	ld	hl,#0x0A00
-   04BA E5            [11]  847 	push	hl
-   04BB C5            [11]  848 	push	bc
-   04BC CDrBCr03      [17]  849 	call	_checkKnifeCollision
-   04BF F1            [10]  850 	pop	af
-   04C0 F1            [10]  851 	pop	af
-   04C1 F1            [10]  852 	pop	af
-   04C2 D1            [10]  853 	pop	de
-   04C3 7D            [ 4]  854 	ld	a,l
-   04C4 B7            [ 4]  855 	or	a, a
-   04C5 28 10         [12]  856 	jr	Z,00111$
+   04BF D5            [11]  842 	push	de
+   04C0 DD 6E 06      [19]  843 	ld	l,6 (ix)
+   04C3 DD 66 07      [19]  844 	ld	h,7 (ix)
+   04C6 E5            [11]  845 	push	hl
+   04C7 21 00 0A      [10]  846 	ld	hl,#0x0A00
+   04CA E5            [11]  847 	push	hl
+   04CB C5            [11]  848 	push	bc
+   04CC CDrCCr03      [17]  849 	call	_checkKnifeCollision
+   04CF F1            [10]  850 	pop	af
+   04D0 F1            [10]  851 	pop	af
+   04D1 F1            [10]  852 	pop	af
+   04D2 D1            [10]  853 	pop	de
+   04D3 7D            [ 4]  854 	ld	a,l
+   04D4 B7            [ 4]  855 	or	a, a
+   04D5 28 10         [12]  856 	jr	Z,00111$
                             857 ;src/knifestruct.c:127: cu->mover = SI;
-   04C7 3E 01         [ 7]  858 	ld	a,#0x01
-   04C9 12            [ 7]  859 	ld	(de),a
+   04D7 3E 01         [ 7]  858 	ld	a,#0x01
+   04D9 12            [ 7]  859 	ld	(de),a
                             860 ;src/knifestruct.c:128: cu->y++;
-   04CA E1            [10]  861 	pop	hl
-   04CB E5            [11]  862 	push	hl
-   04CC 4E            [ 7]  863 	ld	c,(hl)
-   04CD 0C            [ 4]  864 	inc	c
-   04CE E1            [10]  865 	pop	hl
-   04CF E5            [11]  866 	push	hl
-   04D0 71            [ 7]  867 	ld	(hl),c
+   04DA E1            [10]  861 	pop	hl
+   04DB E5            [11]  862 	push	hl
+   04DC 4E            [ 7]  863 	ld	c,(hl)
+   04DD 0C            [ 4]  864 	inc	c
+   04DE E1            [10]  865 	pop	hl
+   04DF E5            [11]  866 	push	hl
+   04E0 71            [ 7]  867 	ld	(hl),c
                             868 ;src/knifestruct.c:129: cu->y++;
-   04D1 0C            [ 4]  869 	inc	c
-   04D2 E1            [10]  870 	pop	hl
-   04D3 E5            [11]  871 	push	hl
-   04D4 71            [ 7]  872 	ld	(hl),c
-   04D5 18 02         [12]  873 	jr	00126$
-   04D7                     874 00111$:
+   04E1 0C            [ 4]  869 	inc	c
+   04E2 E1            [10]  870 	pop	hl
+   04E3 E5            [11]  871 	push	hl
+   04E4 71            [ 7]  872 	ld	(hl),c
+   04E5 18 02         [12]  873 	jr	00126$
+   04E7                     874 00111$:
                             875 ;src/knifestruct.c:132: cu->mover=NO;
-   04D7 AF            [ 4]  876 	xor	a, a
-   04D8 12            [ 7]  877 	ld	(de),a
-   04D9                     878 00126$:
-   04D9 DD F9         [10]  879 	ld	sp, ix
-   04DB DD E1         [14]  880 	pop	ix
-   04DD C9            [10]  881 	ret
+   04E7 AF            [ 4]  876 	xor	a, a
+   04E8 12            [ 7]  877 	ld	(de),a
+   04E9                     878 00126$:
+   04E9 DD F9         [10]  879 	ld	sp, ix
+   04EB DD E1         [14]  880 	pop	ix
+   04ED C9            [10]  881 	ret
                             882 	.area _CODE
                             883 	.area _INITIALIZER
                             884 	.area _CABS (ABS)

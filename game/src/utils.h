@@ -8,5 +8,6 @@
 #define  ORIGEN_MAPA_Y	24
 
 char* getTilePtr(u8* mapa, u8 x, u8 y);
+i16 abs(i16 n);
 
 #endif

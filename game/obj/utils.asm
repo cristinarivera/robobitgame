@@ -9,6 +9,7 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _getTilePtr
+	.globl _abs
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -86,6 +87,56 @@ _getTilePtr::
 	ld	e,c
 	ld	d,#0x00
 	add	hl,de
+	pop	ix
+	ret
+;src/utils.c:8: i16 abs (i16 n) {
+;	---------------------------------
+; Function abs
+; ---------------------------------
+_abs::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	push	af
+	push	af
+;src/utils.c:9: const i16 ret[2] = { n, -n };
+	ld	hl,#0x0000
+	add	hl,sp
+	ld	c,l
+	ld	b,h
+	ld	a,4 (ix)
+	ld	(hl),a
+	inc	hl
+	ld	a,5 (ix)
+	ld	(hl),a
+	ld	l, c
+	ld	h, b
+	inc	hl
+	inc	hl
+	xor	a, a
+	sub	a, 4 (ix)
+	ld	e,a
+	ld	a, #0x00
+	sbc	a, 5 (ix)
+	ld	d,a
+	ld	(hl),e
+	inc	hl
+	ld	(hl),d
+;src/utils.c:10: return ret[n<0];
+	ld	a,5 (ix)
+	rlca
+	and	a,#0x01
+	ld	l,a
+	rla
+	sbc	a, a
+	ld	h,a
+	add	hl, hl
+	add	hl,bc
+	ld	c,(hl)
+	inc	hl
+	ld	h,(hl)
+	ld	l, c
+	ld	sp, ix
 	pop	ix
 	ret
 	.area _CODE

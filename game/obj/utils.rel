@@ -1,9 +1,10 @@
 XL2
-H 9 areas 2 global symbols
+H 9 areas 3 global symbols
 M utils
 O -mz80
 S .__.ABS. Def0000
-A _CODE size 44 flags 0 addr 0
+A _CODE size 84 flags 0 addr 0
+S _abs Def0044
 S _getTilePtr Def0000
 A _DATA size 0 flags 0 addr 0
 A _INITIALIZED size 0 flags 0 addr 0
@@ -28,4 +29,16 @@ R 00 00 00 00
 T 2D 00 29 29 4D 44 DD 6E 04 DD 66 05 09 DD 4E 06
 R 00 00 00 00
 T 3B 00 CB 39 59 16 00 19 DD E1 C9
+R 00 00 00 00
+T 44 00
+R 00 00 00 00
+T 44 00 DD E5 DD 21 00 00 DD 39 F5 F5 21 00 00 39
+R 00 00 00 00
+T 52 00 4D 44 DD 7E 04 77 23 DD 7E 05 77 69 60 23
+R 00 00 00 00
+T 60 00 23 AF DD 96 04 5F 3E 00 DD 9E 05 57 73 23
+R 00 00 00 00
+T 6E 00 72 DD 7E 05 07 E6 01 6F 17 9F 67 29 09 4E
+R 00 00 00 00
+T 7C 00 23 66 69 DD F9 DD E1 C9
 R 00 00 00 00

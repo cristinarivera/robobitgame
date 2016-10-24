@@ -40,6 +40,7 @@
 #include "knifestruct.h"
 #include "enemystruct.h"
 #include "utils.h"
+#include "pathfinding.h"
 
 
 // Mapas
@@ -89,7 +90,7 @@ u8  num_mapa = 0;
 u8 puntuacion = 0;
 u8 vidas = 5;
 
-cpctm_createTransparentMaskTable(g_tablatrans, 0x2E00, M0, 0); 
+cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0); 
 extern void play();
 
 void dibujarMapa() {
@@ -373,11 +374,309 @@ void moverEnemigo(TEnemy *enemy){
 	}
 }
 
-void inicializarEnemy() {
-  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
- // u8 i = 4 + 1; // sacar todos
+void moverEnemigoPatrol(TEnemy *enemy){
+  if(!enemy->muerto){
+    //if(!checkEnemyCollision(enemy->mira, enemy)){
+    if (!enemy->reversePatrol) {
+      if(enemy->iter < enemy->longitud_camino - 8){
+        enemy->x = enemy->camino[enemy->iter];
+        enemy->iter++;
+        enemy->y = enemy->camino[enemy->iter];
+        enemy->iter++;
+        enemy->mover = SI;
+      }
+      else{
+        enemy->lastIter = enemy->iter - 1;
+        //enemy->iter = 0;
+        //enemy->longitud_camino = 0;
+        enemy->reversePatrol = 1;
+      }
+    } else {
+      if(enemy->lastIter > 1){
+        enemy->y = enemy->camino[enemy->lastIter];
+        enemy->lastIter--;
+        enemy->x = enemy->camino[enemy->lastIter];
+        enemy->lastIter--;
+        enemy->mover = SI;
+      }
+      else{
+        enemy->iter = 0;
+        //enemy->longitud_camino = 0;
+        enemy->reversePatrol = 0;
+      }
+    }
+    //}
+  }
+}
+
+
+
+void lookFor(TEnemy* enemy){
+
+  u8 i;
+  u8 interpone = NO;
+
+  u8 dist = 0;
+
+  u8 difx = abs(enemy->x - prota.x);
+  u8 dify = abs(enemy->y - prota.y);
+  dist = difx + dify; // manhattan
+
+  enemy->seen = NO;
+  enemy->inRange = NO;
+
+  if (dist <= 10) {// te detectan los sensores de proximidad
+    enemy->seen = 1;
+    enemy->inRange = 1;
+  } else if(dist > 10){
+    if(enemy->y > prota.y - 4 && enemy->y < prota.y + 4){
+      if(enemy->x > prota.x){
+        i = prota.x;
+        /*for (i; i<enemy->x && !interpone; i++){
+          if(*getTilePtr(i , prota.y) > 2){
+            interpone = SI;
+          }
+        }*/
+        if(!interpone){
+          enemy->seen = SI;
+        }
+      }else if(enemy->x > prota.x){
+        i = enemy->x;
+        /*for (i; i<prota.x && !interpone; i++){
+          if(*getTilePtr(i, enemy->y) > 2){
+            interpone = SI;
+          }
+        }*/
+        if(!interpone){
+          enemy->seen = SI;
+        }
+      }
+    }
+  }
+}
+
+void moverEnemigoSeek(TEnemy* enemy){
+  if(!enemy->muerto){
+    //if(!checkEnemyCollision(enemy->mira, enemy)){
+    if (!enemy->reversePatrol) {
+      if(enemy->iter < enemy->longitud_camino - 8){
+        enemy->x = enemy->camino[enemy->iter];
+        enemy->iter++;
+        enemy->y = enemy->camino[enemy->iter];
+        enemy->iter++;
+        enemy->mover = SI;
+      }
+      else{
+        enemy->reversePatrol = NO;
+        enemy->patrolling = 1;
+        enemy->onPathPatrol = 1;
+        enemy->seek = 0;
+        enemy->lastIter = enemy->iter - 1;
+        enemy->iter = 0;
+        pathFinding(enemy->x, enemy->y, enemy->p_seek_x, enemy->p_seek_y, enemy, mapa);
+      }
+    } 
+    //}
+  }
+}
+
+void patrol(TEnemy *enemy) {
+  if (enemy->onPathPatrol) {
+    moverEnemigoPatrol(enemy);
+  }
+}
+
+void seek(TEnemy* actual){
+  moverEnemigoSeek(actual);
+}
+
+void engage(TEnemy *enemy, u8 dx, u8 dy) {
+  u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
+  u8 dify = abs(enemy->y - prota.y);
+  u8 dist = difx + dify; // manhattan
+
+  u8 movX = 0;
+  u8 movY = 0;
+  u8 mov = 0;
+
+  if (enemy->y == dy) { // alineado en el eje x
+    //shoot(); // dispara
+    if (dist > 10) {
+      if (dx < enemy->x) { // izquierda
+        if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoIzquierda(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      } else { // derecha
+        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoDerecha(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      }
+    }
+  }
+  else if (enemy->x == dx) {
+    // shoot();
+    if (dist > 10) {
+      if (dy < enemy->y) {
+        if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+          moverEnemigoArriba(enemy);
+          movY = 1;
+          mov = 1;
+        }
+      } else {
+        if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+          moverEnemigoAbajo(enemy);
+          movY = 1;
+          mov = 1;
+        }
+      }
+    }
+  }
+  else { // heuristica
+    if (dist > 20) {
+      if (dx < enemy->x) {
+        if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoIzquierda(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      } else {
+        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoDerecha(enemy);
+          movX = 1;
+          mov = 1;
+        }
+      }
+      if (dy < enemy->y) {
+        if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+          moverEnemigoArriba(enemy);
+          movY = 1;
+          mov = 1;
+        }
+      } else {
+        if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+          moverEnemigoAbajo(enemy);
+          movY = 1;
+          mov = 1;
+        }
+      }
+      if (!mov) {
+        if (!movX) {
+          if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
+            if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
+            moverEnemigoAbajo(enemy);
+            else
+            moverEnemigoArriba(enemy);
+          } else {
+            if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
+            moverEnemigoArriba(enemy);
+            else
+            moverEnemigoAbajo(enemy);
+          }
+        }
+
+        if (!movY) {
+          if (enemy->x < ANCHO_PANTALLA/2) {
+            if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
+            && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+              moverEnemigoIzquierda(enemy);
+            } else {
+              moverEnemigoDerecha(enemy);
+            }
+          } else {
+            if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+              moverEnemigoDerecha(enemy);
+            }
+            else {
+              moverEnemigoIzquierda(enemy);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void updateEnemies() { // maquina de estados
+  u8 i = 1 + 1;
+  //u8 i = 1 + 1;
 
   TEnemy* actual;
+  actual = enemy;
+
+  while (--i) {
+    if (actual->engage) { // prioridad a la persecucion, nunca te deja
+      engage(actual, prota.x, prota.y);
+    } else {
+      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+      if (actual->patrolling) { // esta patrullando
+        if (!actual->seen && !actual->inRange) {
+          patrol(actual);
+        }else if (actual->inRange) {
+          engage(actual, prota.x, prota.y);
+          actual->patrolling = 0;
+          actual->onPathPatrol = 0;
+          actual->engage = 1;
+        } else if (actual->seen) {
+
+          pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+          actual->p_seek_x = actual->x;
+          actual->p_seek_y = actual->y;
+          actual->seek = 1;
+          actual->iter=0;
+          actual->reversePatrol = NO;
+          actual->patrolling = 0;
+          actual->onPathPatrol = 0;
+          actual->seen = 0;
+        }
+      } else if (actual->seek) { // esta buscando
+        if (!actual->found /*&& actual->seekTimer <= 5*/) {
+          seek(actual); // buscar en posiciones cercanas a la actual
+        } else if (actual->inRange) {
+          engage(actual, prota.x, prota.y);
+          actual->engage = 1;
+        }
+      }
+    }
+  }
+}
+
+void inicializarEnemy() {
+  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+ // u8 i = 4 + 1; // sacar todos
+  u8 i = 1 + 1;
+  TEnemy* actual;
+
+  u8 aux0, aux1, k;
+
+  aux0 = 0;
+  aux1 = 0;
 
   actual = enemy;
   while(--i){
@@ -388,14 +687,41 @@ void inicializarEnemy() {
     actual->sprite = g_enemy;
     actual->muerto = NO;
     actual->muertes = 0;
-    actual->patroling = SI;
+    actual->patrolling = SI;
+    actual->onPathPatrol = SI;
+    actual->reversePatrol = NO;
+    actual->iter = 0;
+    actual->lastIter = 0;
+    actual->seen = 0;
+    actual->found = 0;
+    pathFinding(actual->x, actual->y, spawnX[i] - 20, spawnY[i], actual, mapa); // calculo rutas de patrulla
+    /*actual->longitud_camino = 100;
+    for (k = 0; k<100; k++){
+      if(k % 2 == 0 && aux0 == 0){
+        actual->camino[k] = actual->x + 1;
+        actual->x++;
+        aux0=1;
+      }else if(k % 2 == 0 && aux0 == 1){
+        actual->camino[k] = actual->x;
+        aux0=0;
+      }else if(k % 2 != 0 && aux1 == 0){
+        actual->camino[k] = actual->y;
+        aux1=1;
+      }else if(k % 2 != 0 && aux1 == 1){
+        actual->camino[k] = actual->y + 1;
+        actual->y++;
+        aux1=0;
+      }
 
+    }
+
+    actual->x = actual->px = spawnX[i];
+    actual->y = actual->py = spawnY[i];*/
     dibujarEnemigo(actual);
 
     ++actual;
   }
 }
-
 void avanzarMapa() {
   if(num_mapa < NUM_MAPAS -1) {
     mapa = mapas[++num_mapa];
@@ -514,17 +840,18 @@ void main(void) {
 
   while (1) {
 
-    i = (2 + num_mapa) + 1;
+    i = 1 + 1;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
     moverCuchillo(&cu, mapa);
+    updateEnemies();
 
     while(--i){
       moverEnemigo(actual);
       ++actual;
     }
-    i = 4 + 1;
+    i = 1 + 1;
     actual = enemy;
 
     cpct_waitVSYNC();
@@ -538,8 +865,6 @@ void main(void) {
       redibujarCuchillo(&cu, g_tablatrans, mapa);
     }else if (cu.lanzado && !cu.mover){
       borrarCuchillo(&cu, mapa);
-      cu.x = 0;
-      cu.y = 0;
     }
 
     while(--i){
