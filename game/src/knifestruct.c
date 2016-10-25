@@ -14,7 +14,7 @@ void dibujarCuchillo(TKnife* cu, u8* g_tablatrans) {
 void borrarCuchillo(u8 eje, u8 x, u8 y, u8* mapa) {
 
   u8* p;
-  u8 w, h;  
+  u8 w, h;
 
   if(eje == E_X){
       w = 4 + (x & 1);
@@ -87,7 +87,9 @@ void lanzarCuchillo(TKnife* cu, TProta* prota, u8* mapa, u8* g_tablatrans){
   }
 }
 
-
+u8 checkOffBounds(TKnife* cu){
+  return (cu->x + G_KNIFEX_0_W  > (80 - 4) || cu->x < (0 + 4));
+}
 
 u8 checkKnifeCollision(TKnife* cu, u8 xoff, u8 yoff, u8* mapa){
 
@@ -98,8 +100,10 @@ void moverCuchillo(TKnife* cu, u8* mapa){
 	if(cu->lanzado){
 		cu->mover = SI;
 		if(cu->direccion == M_derecha){
-
-			if(checkKnifeCollision(cu, G_KNIFEX_0_W + 1, 0, mapa)){
+      if(checkOffBounds(cu)){
+        cu->mover=NO;
+      }
+			else if(checkKnifeCollision(cu, G_KNIFEX_0_W + 1, 0, mapa)){
 				cu->mover = SI;
 				cu->x++;
 			}
@@ -108,30 +112,40 @@ void moverCuchillo(TKnife* cu, u8* mapa){
 			}
 		}
 		else if(cu->direccion == M_izquierda){
-			if(checkKnifeCollision(cu, -1, 0, mapa)){
+      if(checkOffBounds(cu)){
+        cu->mover=NO;
+      }
+      else if(checkKnifeCollision(cu, -1, 0, mapa)){
 				cu->mover = SI;
 				cu->x--;
-			}else{
+			}
+      else{
 				cu->mover=NO;
 			}
 		}
 		else if(cu->direccion == M_arriba){
-			if(checkKnifeCollision(cu, 0, -2, mapa)){
+      if(checkOffBounds(cu)){
+        cu->mover = NO;
+      }
+      else if(checkKnifeCollision(cu, 0, -2, mapa)){
 				cu->mover = SI;
 				cu->y--;
 				cu->y--;
-
-			}else{
+			}
+      else{
 				cu->mover=NO;
 			}
 		}
 		else if(cu->direccion == M_abajo){
-			if(checkKnifeCollision(cu, 0, G_KNIFEY_0_H + 2, mapa)){
+      if(checkOffBounds(cu)){
+        cu->mover = NO;
+      }
+      else if(checkKnifeCollision(cu, 0, G_KNIFEY_0_H + 2, mapa)){
 				cu->mover = SI;
 				cu->y++;
 				cu->y++;
-
-			}else{
+			}
+      else{
 				cu->mover=NO;
 			}
 		}

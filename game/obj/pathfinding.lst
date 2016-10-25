@@ -255,22 +255,22 @@
    014B 4E            [ 7]  255 	ld	c,(hl)
                             256 ;src/pathfinding.c:80: dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
    014C DD 7E 06      [19]  257 	ld	a,6 (ix)
-   014F DD 77 F4      [19]  258 	ld	-12 (ix),a
-   0152 DD 36 F5 00   [19]  259 	ld	-11 (ix),#0x00
+   014F DD 77 FE      [19]  258 	ld	-2 (ix),a
+   0152 DD 36 FF 00   [19]  259 	ld	-1 (ix),#0x00
    0156 DD 7E 04      [19]  260 	ld	a,4 (ix)
-   0159 DD 77 FE      [19]  261 	ld	-2 (ix),a
-   015C DD 36 FF 00   [19]  262 	ld	-1 (ix),#0x00
+   0159 DD 77 F8      [19]  261 	ld	-8 (ix),a
+   015C DD 36 F9 00   [19]  262 	ld	-7 (ix),#0x00
    0160 DD 7E 07      [19]  263 	ld	a,7 (ix)
-   0163 DD 77 F2      [19]  264 	ld	-14 (ix),a
-   0166 DD 36 F3 00   [19]  265 	ld	-13 (ix),#0x00
+   0163 DD 77 F4      [19]  264 	ld	-12 (ix),a
+   0166 DD 36 F5 00   [19]  265 	ld	-11 (ix),#0x00
    016A DD 7E 05      [19]  266 	ld	a,5 (ix)
-   016D DD 77 F8      [19]  267 	ld	-8 (ix),a
-   0170 DD 36 F9 00   [19]  268 	ld	-7 (ix),#0x00
-   0174 DD 7E F4      [19]  269 	ld	a,-12 (ix)
-   0177 DD 96 FE      [19]  270 	sub	a, -2 (ix)
+   016D DD 77 F2      [19]  267 	ld	-14 (ix),a
+   0170 DD 36 F3 00   [19]  268 	ld	-13 (ix),#0x00
+   0174 DD 7E FE      [19]  269 	ld	a,-2 (ix)
+   0177 DD 96 F8      [19]  270 	sub	a, -8 (ix)
    017A DD 77 FC      [19]  271 	ld	-4 (ix),a
-   017D DD 7E F5      [19]  272 	ld	a,-11 (ix)
-   0180 DD 9E FF      [19]  273 	sbc	a, -1 (ix)
+   017D DD 7E FF      [19]  272 	ld	a,-1 (ix)
+   0180 DD 9E F9      [19]  273 	sbc	a, -7 (ix)
    0183 DD 77 FD      [19]  274 	ld	-3 (ix),a
                             275 ;src/pathfinding.c:78: if(  *getTilePtr(matriz, x, y-2) <=2/* &&
    0186 3E 02         [ 7]  276 	ld	a,#0x02
@@ -284,14 +284,14 @@
    0195 F1            [10]  284 	pop	af
    0196 DD 74 F7      [19]  285 	ld	-9 (ix),h
    0199 DD 75 F6      [19]  286 	ld	-10 (ix),l
-   019C DD 4E F8      [19]  287 	ld	c,-8 (ix)
-   019F DD 46 F9      [19]  288 	ld	b,-7 (ix)
+   019C DD 4E F2      [19]  287 	ld	c,-14 (ix)
+   019F DD 46 F3      [19]  288 	ld	b,-13 (ix)
    01A2 0B            [ 6]  289 	dec	bc
    01A3 0B            [ 6]  290 	dec	bc
-   01A4 DD 7E F2      [19]  291 	ld	a,-14 (ix)
+   01A4 DD 7E F4      [19]  291 	ld	a,-12 (ix)
    01A7 91            [ 4]  292 	sub	a, c
    01A8 4F            [ 4]  293 	ld	c,a
-   01A9 DD 7E F3      [19]  294 	ld	a,-13 (ix)
+   01A9 DD 7E F5      [19]  294 	ld	a,-11 (ix)
    01AC 98            [ 4]  295 	sbc	a, b
    01AD 47            [ 4]  296 	ld	b,a
    01AE C5            [11]  297 	push	bc
@@ -318,575 +318,571 @@
                             318 ;src/pathfinding.c:81: resultado = 0;
    01E9 DD 36 F1 00   [19]  319 	ld	-15 (ix),#0x00
    01ED                     320 00127$:
-                            321 ;src/pathfinding.c:84: if(*getTilePtr(matriz, x, (y + G_ENEMY_H)) <=2 /*&&
-   01ED DD 7E 05      [19]  322 	ld	a,5 (ix)
-   01F0 C6 16         [ 7]  323 	add	a, #0x16
-   01F2 47            [ 4]  324 	ld	b,a
-   01F3 C5            [11]  325 	push	bc
-   01F4 33            [ 6]  326 	inc	sp
-   01F5 DD 7E 04      [19]  327 	ld	a,4 (ix)
-   01F8 F5            [11]  328 	push	af
-   01F9 33            [ 6]  329 	inc	sp
-   01FA DD 6E 08      [19]  330 	ld	l,8 (ix)
-   01FD DD 66 09      [19]  331 	ld	h,9 (ix)
-   0200 E5            [11]  332 	push	hl
-   0201 CDr00r00      [17]  333 	call	_getTilePtr
-   0204 F1            [10]  334 	pop	af
-   0205 F1            [10]  335 	pop	af
-   0206 4E            [ 7]  336 	ld	c,(hl)
-   0207 3E 02         [ 7]  337 	ld	a,#0x02
-   0209 91            [ 4]  338 	sub	a, c
-   020A DArA5r02      [10]  339 	jp	C,00134$
+                            321 ;src/pathfinding.c:84: if(*getTilePtr(matriz, x, y+2) <=2 /*&&
+   01ED DD 46 05      [19]  322 	ld	b,5 (ix)
+   01F0 04            [ 4]  323 	inc	b
+   01F1 04            [ 4]  324 	inc	b
+   01F2 C5            [11]  325 	push	bc
+   01F3 33            [ 6]  326 	inc	sp
+   01F4 DD 7E 04      [19]  327 	ld	a,4 (ix)
+   01F7 F5            [11]  328 	push	af
+   01F8 33            [ 6]  329 	inc	sp
+   01F9 DD 6E 08      [19]  330 	ld	l,8 (ix)
+   01FC DD 66 09      [19]  331 	ld	h,9 (ix)
+   01FF E5            [11]  332 	push	hl
+   0200 CDr00r00      [17]  333 	call	_getTilePtr
+   0203 F1            [10]  334 	pop	af
+   0204 F1            [10]  335 	pop	af
+   0205 4E            [ 7]  336 	ld	c,(hl)
+   0206 3E 02         [ 7]  337 	ld	a,#0x02
+   0208 91            [ 4]  338 	sub	a, c
+   0209 DArA4r02      [10]  339 	jp	C,00134$
                             340 ;src/pathfinding.c:86: dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
-   020D DD 6E FC      [19]  341 	ld	l,-4 (ix)
-   0210 DD 66 FD      [19]  342 	ld	h,-3 (ix)
-   0213 E5            [11]  343 	push	hl
-   0214 CDr00r00      [17]  344 	call	_abs
-   0217 F1            [10]  345 	pop	af
-   0218 DD 74 FB      [19]  346 	ld	-5 (ix),h
-   021B DD 75 FA      [19]  347 	ld	-6 (ix),l
-   021E DD 7E F8      [19]  348 	ld	a,-8 (ix)
-   0221 C6 02         [ 7]  349 	add	a, #0x02
-   0223 DD 77 F6      [19]  350 	ld	-10 (ix),a
-   0226 DD 7E F9      [19]  351 	ld	a,-7 (ix)
-   0229 CE 00         [ 7]  352 	adc	a, #0x00
-   022B DD 77 F7      [19]  353 	ld	-9 (ix),a
-   022E DD 7E F2      [19]  354 	ld	a,-14 (ix)
-   0231 DD 96 F6      [19]  355 	sub	a, -10 (ix)
-   0234 DD 77 F6      [19]  356 	ld	-10 (ix),a
-   0237 DD 7E F3      [19]  357 	ld	a,-13 (ix)
-   023A DD 9E F7      [19]  358 	sbc	a, -9 (ix)
-   023D DD 77 F7      [19]  359 	ld	-9 (ix),a
-   0240 DD 6E F6      [19]  360 	ld	l,-10 (ix)
-   0243 DD 66 F7      [19]  361 	ld	h,-9 (ix)
-   0246 E5            [11]  362 	push	hl
-   0247 CDr00r00      [17]  363 	call	_abs
-   024A F1            [10]  364 	pop	af
-   024B DD 74 F7      [19]  365 	ld	-9 (ix),h
-   024E DD 75 F6      [19]  366 	ld	-10 (ix),l
-   0251 DD 7E FA      [19]  367 	ld	a,-6 (ix)
-   0254 DD 86 F6      [19]  368 	add	a, -10 (ix)
-   0257 DD 77 FA      [19]  369 	ld	-6 (ix),a
-   025A DD 7E FB      [19]  370 	ld	a,-5 (ix)
-   025D DD 8E F7      [19]  371 	adc	a, -9 (ix)
-   0260 DD 77 FB      [19]  372 	ld	-5 (ix),a
-   0263 DD 7E E5      [19]  373 	ld	a,-27 (ix)
-   0266 DD 86 FA      [19]  374 	add	a, -6 (ix)
-   0269 DD 77 FA      [19]  375 	ld	-6 (ix),a
-   026C DD 7E E6      [19]  376 	ld	a,-26 (ix)
-   026F DD 8E FB      [19]  377 	adc	a, -5 (ix)
-   0272 DD 77 FB      [19]  378 	ld	-5 (ix),a
-   0275 DD 7E FA      [19]  379 	ld	a,-6 (ix)
-   0278 DD 77 ED      [19]  380 	ld	-19 (ix),a
-   027B DD 7E FB      [19]  381 	ld	a,-5 (ix)
-   027E DD 77 EE      [19]  382 	ld	-18 (ix),a
+   020C DD 6E FC      [19]  341 	ld	l,-4 (ix)
+   020F DD 66 FD      [19]  342 	ld	h,-3 (ix)
+   0212 E5            [11]  343 	push	hl
+   0213 CDr00r00      [17]  344 	call	_abs
+   0216 F1            [10]  345 	pop	af
+   0217 DD 74 FB      [19]  346 	ld	-5 (ix),h
+   021A DD 75 FA      [19]  347 	ld	-6 (ix),l
+   021D DD 7E F2      [19]  348 	ld	a,-14 (ix)
+   0220 C6 02         [ 7]  349 	add	a, #0x02
+   0222 DD 77 F6      [19]  350 	ld	-10 (ix),a
+   0225 DD 7E F3      [19]  351 	ld	a,-13 (ix)
+   0228 CE 00         [ 7]  352 	adc	a, #0x00
+   022A DD 77 F7      [19]  353 	ld	-9 (ix),a
+   022D DD 7E F4      [19]  354 	ld	a,-12 (ix)
+   0230 DD 96 F6      [19]  355 	sub	a, -10 (ix)
+   0233 DD 77 F6      [19]  356 	ld	-10 (ix),a
+   0236 DD 7E F5      [19]  357 	ld	a,-11 (ix)
+   0239 DD 9E F7      [19]  358 	sbc	a, -9 (ix)
+   023C DD 77 F7      [19]  359 	ld	-9 (ix),a
+   023F DD 6E F6      [19]  360 	ld	l,-10 (ix)
+   0242 DD 66 F7      [19]  361 	ld	h,-9 (ix)
+   0245 E5            [11]  362 	push	hl
+   0246 CDr00r00      [17]  363 	call	_abs
+   0249 F1            [10]  364 	pop	af
+   024A DD 74 F7      [19]  365 	ld	-9 (ix),h
+   024D DD 75 F6      [19]  366 	ld	-10 (ix),l
+   0250 DD 7E FA      [19]  367 	ld	a,-6 (ix)
+   0253 DD 86 F6      [19]  368 	add	a, -10 (ix)
+   0256 DD 77 FA      [19]  369 	ld	-6 (ix),a
+   0259 DD 7E FB      [19]  370 	ld	a,-5 (ix)
+   025C DD 8E F7      [19]  371 	adc	a, -9 (ix)
+   025F DD 77 FB      [19]  372 	ld	-5 (ix),a
+   0262 DD 7E E5      [19]  373 	ld	a,-27 (ix)
+   0265 DD 86 FA      [19]  374 	add	a, -6 (ix)
+   0268 DD 77 FA      [19]  375 	ld	-6 (ix),a
+   026B DD 7E E6      [19]  376 	ld	a,-26 (ix)
+   026E DD 8E FB      [19]  377 	adc	a, -5 (ix)
+   0271 DD 77 FB      [19]  378 	ld	-5 (ix),a
+   0274 DD 7E FA      [19]  379 	ld	a,-6 (ix)
+   0277 DD 77 ED      [19]  380 	ld	-19 (ix),a
+   027A DD 7E FB      [19]  381 	ld	a,-5 (ix)
+   027D DD 77 EE      [19]  382 	ld	-18 (ix),a
                             383 ;src/pathfinding.c:87: if(resultado == 0){
-   0281 DD 7E F1      [19]  384 	ld	a,-15 (ix)
-   0284 B7            [ 4]  385 	or	a, a
-   0285 20 1A         [12]  386 	jr	NZ,00131$
+   0280 DD 7E F1      [19]  384 	ld	a,-15 (ix)
+   0283 B7            [ 4]  385 	or	a, a
+   0284 20 1A         [12]  386 	jr	NZ,00131$
                             387 ;src/pathfinding.c:88: if(dist1 > dist2)
-   0287 DD 7E ED      [19]  388 	ld	a,-19 (ix)
-   028A DD 96 EF      [19]  389 	sub	a, -17 (ix)
-   028D DD 7E EE      [19]  390 	ld	a,-18 (ix)
-   0290 DD 9E F0      [19]  391 	sbc	a, -16 (ix)
-   0293 E2r98r02      [10]  392 	jp	PO, 00274$
-   0296 EE 80         [ 7]  393 	xor	a, #0x80
-   0298                     394 00274$:
-   0298 F2rA5r02      [10]  395 	jp	P,00134$
+   0286 DD 7E ED      [19]  388 	ld	a,-19 (ix)
+   0289 DD 96 EF      [19]  389 	sub	a, -17 (ix)
+   028C DD 7E EE      [19]  390 	ld	a,-18 (ix)
+   028F DD 9E F0      [19]  391 	sbc	a, -16 (ix)
+   0292 E2r97r02      [10]  392 	jp	PO, 00274$
+   0295 EE 80         [ 7]  393 	xor	a, #0x80
+   0297                     394 00274$:
+   0297 F2rA4r02      [10]  395 	jp	P,00134$
                             396 ;src/pathfinding.c:89: resultado = 1;
-   029B DD 36 F1 01   [19]  397 	ld	-15 (ix),#0x01
-   029F 18 04         [12]  398 	jr	00134$
-   02A1                     399 00131$:
+   029A DD 36 F1 01   [19]  397 	ld	-15 (ix),#0x01
+   029E 18 04         [12]  398 	jr	00134$
+   02A0                     399 00131$:
                             400 ;src/pathfinding.c:91: resultado = 1;
-   02A1 DD 36 F1 01   [19]  401 	ld	-15 (ix),#0x01
-   02A5                     402 00134$:
+   02A0 DD 36 F1 01   [19]  401 	ld	-15 (ix),#0x01
+   02A4                     402 00134$:
                             403 ;src/pathfinding.c:95: if(*getTilePtr(matriz, x-1, y) <=2 //&&
-   02A5 DD 46 04      [19]  404 	ld	b,4 (ix)
-   02A8 05            [ 4]  405 	dec	b
-   02A9 DD 7E 05      [19]  406 	ld	a,5 (ix)
-   02AC F5            [11]  407 	push	af
-   02AD 33            [ 6]  408 	inc	sp
-   02AE C5            [11]  409 	push	bc
-   02AF 33            [ 6]  410 	inc	sp
-   02B0 DD 6E 08      [19]  411 	ld	l,8 (ix)
-   02B3 DD 66 09      [19]  412 	ld	h,9 (ix)
-   02B6 E5            [11]  413 	push	hl
-   02B7 CDr00r00      [17]  414 	call	_getTilePtr
-   02BA F1            [10]  415 	pop	af
-   02BB F1            [10]  416 	pop	af
-   02BC 4E            [ 7]  417 	ld	c,(hl)
+   02A4 DD 46 04      [19]  404 	ld	b,4 (ix)
+   02A7 05            [ 4]  405 	dec	b
+   02A8 DD 7E 05      [19]  406 	ld	a,5 (ix)
+   02AB F5            [11]  407 	push	af
+   02AC 33            [ 6]  408 	inc	sp
+   02AD C5            [11]  409 	push	bc
+   02AE 33            [ 6]  410 	inc	sp
+   02AF DD 6E 08      [19]  411 	ld	l,8 (ix)
+   02B2 DD 66 09      [19]  412 	ld	h,9 (ix)
+   02B5 E5            [11]  413 	push	hl
+   02B6 CDr00r00      [17]  414 	call	_getTilePtr
+   02B9 F1            [10]  415 	pop	af
+   02BA F1            [10]  416 	pop	af
+   02BB 4E            [ 7]  417 	ld	c,(hl)
                             418 ;src/pathfinding.c:98: dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
-   02BD DD 7E F2      [19]  419 	ld	a,-14 (ix)
-   02C0 DD 96 F8      [19]  420 	sub	a, -8 (ix)
-   02C3 DD 77 FA      [19]  421 	ld	-6 (ix),a
-   02C6 DD 7E F3      [19]  422 	ld	a,-13 (ix)
-   02C9 DD 9E F9      [19]  423 	sbc	a, -7 (ix)
-   02CC DD 77 FB      [19]  424 	ld	-5 (ix),a
+   02BC DD 7E F4      [19]  419 	ld	a,-12 (ix)
+   02BF DD 96 F2      [19]  420 	sub	a, -14 (ix)
+   02C2 DD 77 FA      [19]  421 	ld	-6 (ix),a
+   02C5 DD 7E F5      [19]  422 	ld	a,-11 (ix)
+   02C8 DD 9E F3      [19]  423 	sbc	a, -13 (ix)
+   02CB DD 77 FB      [19]  424 	ld	-5 (ix),a
                             425 ;src/pathfinding.c:95: if(*getTilePtr(matriz, x-1, y) <=2 //&&
-   02CF 3E 02         [ 7]  426 	ld	a,#0x02
-   02D1 91            [ 4]  427 	sub	a, c
-   02D2 38 70         [12]  428 	jr	C,00146$
+   02CE 3E 02         [ 7]  426 	ld	a,#0x02
+   02D0 91            [ 4]  427 	sub	a, c
+   02D1 38 70         [12]  428 	jr	C,00146$
                             429 ;src/pathfinding.c:98: dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
-   02D4 DD 4E FE      [19]  430 	ld	c,-2 (ix)
-   02D7 DD 46 FF      [19]  431 	ld	b,-1 (ix)
-   02DA 0B            [ 6]  432 	dec	bc
-   02DB DD 7E F4      [19]  433 	ld	a,-12 (ix)
-   02DE 91            [ 4]  434 	sub	a, c
-   02DF 4F            [ 4]  435 	ld	c,a
-   02E0 DD 7E F5      [19]  436 	ld	a,-11 (ix)
-   02E3 98            [ 4]  437 	sbc	a, b
-   02E4 47            [ 4]  438 	ld	b,a
-   02E5 C5            [11]  439 	push	bc
-   02E6 CDr00r00      [17]  440 	call	_abs
-   02E9 E3            [19]  441 	ex	(sp),hl
-   02EA DD 6E FA      [19]  442 	ld	l,-6 (ix)
-   02ED DD 66 FB      [19]  443 	ld	h,-5 (ix)
-   02F0 E5            [11]  444 	push	hl
-   02F1 CDr00r00      [17]  445 	call	_abs
-   02F4 F1            [10]  446 	pop	af
-   02F5 C1            [10]  447 	pop	bc
-   02F6 09            [11]  448 	add	hl,bc
-   02F7 D1            [10]  449 	pop	de
-   02F8 D5            [11]  450 	push	de
-   02F9 19            [11]  451 	add	hl,de
-   02FA DD 75 EB      [19]  452 	ld	-21 (ix),l
-   02FD DD 74 EC      [19]  453 	ld	-20 (ix),h
+   02D3 DD 4E F8      [19]  430 	ld	c,-8 (ix)
+   02D6 DD 46 F9      [19]  431 	ld	b,-7 (ix)
+   02D9 0B            [ 6]  432 	dec	bc
+   02DA DD 7E FE      [19]  433 	ld	a,-2 (ix)
+   02DD 91            [ 4]  434 	sub	a, c
+   02DE 4F            [ 4]  435 	ld	c,a
+   02DF DD 7E FF      [19]  436 	ld	a,-1 (ix)
+   02E2 98            [ 4]  437 	sbc	a, b
+   02E3 47            [ 4]  438 	ld	b,a
+   02E4 C5            [11]  439 	push	bc
+   02E5 CDr00r00      [17]  440 	call	_abs
+   02E8 E3            [19]  441 	ex	(sp),hl
+   02E9 DD 6E FA      [19]  442 	ld	l,-6 (ix)
+   02EC DD 66 FB      [19]  443 	ld	h,-5 (ix)
+   02EF E5            [11]  444 	push	hl
+   02F0 CDr00r00      [17]  445 	call	_abs
+   02F3 F1            [10]  446 	pop	af
+   02F4 C1            [10]  447 	pop	bc
+   02F5 09            [11]  448 	add	hl,bc
+   02F6 D1            [10]  449 	pop	de
+   02F7 D5            [11]  450 	push	de
+   02F8 19            [11]  451 	add	hl,de
+   02F9 DD 75 EB      [19]  452 	ld	-21 (ix),l
+   02FC DD 74 EC      [19]  453 	ld	-20 (ix),h
                             454 ;src/pathfinding.c:99: if(resultado == 0){
-   0300 DD 7E F1      [19]  455 	ld	a,-15 (ix)
-   0303 B7            [ 4]  456 	or	a, a
-   0304 20 1A         [12]  457 	jr	NZ,00143$
+   02FF DD 7E F1      [19]  455 	ld	a,-15 (ix)
+   0302 B7            [ 4]  456 	or	a, a
+   0303 20 1A         [12]  457 	jr	NZ,00143$
                             458 ;src/pathfinding.c:100: if(dist1 >= dist3)
-   0306 DD 7E EF      [19]  459 	ld	a,-17 (ix)
-   0309 DD 96 EB      [19]  460 	sub	a, -21 (ix)
-   030C DD 7E F0      [19]  461 	ld	a,-16 (ix)
-   030F DD 9E EC      [19]  462 	sbc	a, -20 (ix)
-   0312 E2r17r03      [10]  463 	jp	PO, 00275$
-   0315 EE 80         [ 7]  464 	xor	a, #0x80
-   0317                     465 00275$:
-   0317 FAr44r03      [10]  466 	jp	M,00146$
+   0305 DD 7E EF      [19]  459 	ld	a,-17 (ix)
+   0308 DD 96 EB      [19]  460 	sub	a, -21 (ix)
+   030B DD 7E F0      [19]  461 	ld	a,-16 (ix)
+   030E DD 9E EC      [19]  462 	sbc	a, -20 (ix)
+   0311 E2r16r03      [10]  463 	jp	PO, 00275$
+   0314 EE 80         [ 7]  464 	xor	a, #0x80
+   0316                     465 00275$:
+   0316 FAr43r03      [10]  466 	jp	M,00146$
                             467 ;src/pathfinding.c:101: resultado = 2;
-   031A DD 36 F1 02   [19]  468 	ld	-15 (ix),#0x02
-   031E 18 24         [12]  469 	jr	00146$
-   0320                     470 00143$:
+   0319 DD 36 F1 02   [19]  468 	ld	-15 (ix),#0x02
+   031D 18 24         [12]  469 	jr	00146$
+   031F                     470 00143$:
                             471 ;src/pathfinding.c:102: }else if(resultado == 1){
-   0320 DD 7E F1      [19]  472 	ld	a,-15 (ix)
-   0323 3D            [ 4]  473 	dec	a
-   0324 20 1A         [12]  474 	jr	NZ,00140$
+   031F DD 7E F1      [19]  472 	ld	a,-15 (ix)
+   0322 3D            [ 4]  473 	dec	a
+   0323 20 1A         [12]  474 	jr	NZ,00140$
                             475 ;src/pathfinding.c:103: if(dist2 >= dist3)
-   0326 DD 7E ED      [19]  476 	ld	a,-19 (ix)
-   0329 DD 96 EB      [19]  477 	sub	a, -21 (ix)
-   032C DD 7E EE      [19]  478 	ld	a,-18 (ix)
-   032F DD 9E EC      [19]  479 	sbc	a, -20 (ix)
-   0332 E2r37r03      [10]  480 	jp	PO, 00278$
-   0335 EE 80         [ 7]  481 	xor	a, #0x80
-   0337                     482 00278$:
-   0337 FAr44r03      [10]  483 	jp	M,00146$
+   0325 DD 7E ED      [19]  476 	ld	a,-19 (ix)
+   0328 DD 96 EB      [19]  477 	sub	a, -21 (ix)
+   032B DD 7E EE      [19]  478 	ld	a,-18 (ix)
+   032E DD 9E EC      [19]  479 	sbc	a, -20 (ix)
+   0331 E2r36r03      [10]  480 	jp	PO, 00278$
+   0334 EE 80         [ 7]  481 	xor	a, #0x80
+   0336                     482 00278$:
+   0336 FAr43r03      [10]  483 	jp	M,00146$
                             484 ;src/pathfinding.c:104: resultado = 2;
-   033A DD 36 F1 02   [19]  485 	ld	-15 (ix),#0x02
-   033E 18 04         [12]  486 	jr	00146$
-   0340                     487 00140$:
+   0339 DD 36 F1 02   [19]  485 	ld	-15 (ix),#0x02
+   033D 18 04         [12]  486 	jr	00146$
+   033F                     487 00140$:
                             488 ;src/pathfinding.c:106: resultado = 2;
-   0340 DD 36 F1 02   [19]  489 	ld	-15 (ix),#0x02
-   0344                     490 00146$:
-                            491 ;src/pathfinding.c:110: if(*getTilePtr(matriz, (x + G_ENEMY_W +1), y) <=2 //&&
-   0344 DD 7E 04      [19]  492 	ld	a,4 (ix)
-   0347 C6 05         [ 7]  493 	add	a, #0x05
-   0349 47            [ 4]  494 	ld	b,a
-   034A DD 7E 05      [19]  495 	ld	a,5 (ix)
-   034D F5            [11]  496 	push	af
-   034E 33            [ 6]  497 	inc	sp
-   034F C5            [11]  498 	push	bc
-   0350 33            [ 6]  499 	inc	sp
-   0351 DD 6E 08      [19]  500 	ld	l,8 (ix)
-   0354 DD 66 09      [19]  501 	ld	h,9 (ix)
-   0357 E5            [11]  502 	push	hl
-   0358 CDr00r00      [17]  503 	call	_getTilePtr
-   035B F1            [10]  504 	pop	af
-   035C F1            [10]  505 	pop	af
-   035D 4E            [ 7]  506 	ld	c,(hl)
-   035E 3E 02         [ 7]  507 	ld	a,#0x02
-   0360 91            [ 4]  508 	sub	a, c
-   0361 DAr31r04      [10]  509 	jp	C,00163$
-                            510 ;src/pathfinding.c:113: dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
-   0364 DD 7E FE      [19]  511 	ld	a,-2 (ix)
-   0367 C6 01         [ 7]  512 	add	a, #0x01
-   0369 DD 77 F6      [19]  513 	ld	-10 (ix),a
-   036C DD 7E FF      [19]  514 	ld	a,-1 (ix)
-   036F CE 00         [ 7]  515 	adc	a, #0x00
-   0371 DD 77 F7      [19]  516 	ld	-9 (ix),a
-   0374 DD 7E F4      [19]  517 	ld	a,-12 (ix)
-   0377 DD 96 F6      [19]  518 	sub	a, -10 (ix)
-   037A DD 77 F6      [19]  519 	ld	-10 (ix),a
-   037D DD 7E F5      [19]  520 	ld	a,-11 (ix)
-   0380 DD 9E F7      [19]  521 	sbc	a, -9 (ix)
-   0383 DD 77 F7      [19]  522 	ld	-9 (ix),a
-   0386 DD 6E F6      [19]  523 	ld	l,-10 (ix)
-   0389 DD 66 F7      [19]  524 	ld	h,-9 (ix)
-   038C E5            [11]  525 	push	hl
-   038D CDr00r00      [17]  526 	call	_abs
-   0390 F1            [10]  527 	pop	af
-   0391 DD 74 F7      [19]  528 	ld	-9 (ix),h
-   0394 DD 75 F6      [19]  529 	ld	-10 (ix),l
-   0397 DD 6E FA      [19]  530 	ld	l,-6 (ix)
-   039A DD 66 FB      [19]  531 	ld	h,-5 (ix)
-   039D E5            [11]  532 	push	hl
-   039E CDr00r00      [17]  533 	call	_abs
-   03A1 F1            [10]  534 	pop	af
-   03A2 DD 74 FB      [19]  535 	ld	-5 (ix),h
-   03A5 DD 75 FA      [19]  536 	ld	-6 (ix),l
-   03A8 DD 7E F6      [19]  537 	ld	a,-10 (ix)
-   03AB DD 86 FA      [19]  538 	add	a, -6 (ix)
-   03AE DD 77 FA      [19]  539 	ld	-6 (ix),a
-   03B1 DD 7E F7      [19]  540 	ld	a,-9 (ix)
-   03B4 DD 8E FB      [19]  541 	adc	a, -5 (ix)
-   03B7 DD 77 FB      [19]  542 	ld	-5 (ix),a
-   03BA DD 7E FA      [19]  543 	ld	a,-6 (ix)
-   03BD DD 86 E7      [19]  544 	add	a, -25 (ix)
-   03C0 DD 77 E9      [19]  545 	ld	-23 (ix),a
-   03C3 DD 7E FB      [19]  546 	ld	a,-5 (ix)
-   03C6 DD 8E E8      [19]  547 	adc	a, -24 (ix)
-   03C9 DD 77 EA      [19]  548 	ld	-22 (ix),a
-                            549 ;src/pathfinding.c:114: if(resultado == 0){
-   03CC DD 7E F1      [19]  550 	ld	a,-15 (ix)
-   03CF B7            [ 4]  551 	or	a, a
-   03D0 20 1A         [12]  552 	jr	NZ,00160$
-                            553 ;src/pathfinding.c:115: if(dist1 >= dist4)
-   03D2 DD 7E EF      [19]  554 	ld	a,-17 (ix)
-   03D5 DD 96 E9      [19]  555 	sub	a, -23 (ix)
-   03D8 DD 7E F0      [19]  556 	ld	a,-16 (ix)
-   03DB DD 9E EA      [19]  557 	sbc	a, -22 (ix)
-   03DE E2rE3r03      [10]  558 	jp	PO, 00279$
-   03E1 EE 80         [ 7]  559 	xor	a, #0x80
-   03E3                     560 00279$:
-   03E3 FAr31r04      [10]  561 	jp	M,00163$
-                            562 ;src/pathfinding.c:116: resultado = 3;
-   03E6 DD 36 F1 03   [19]  563 	ld	-15 (ix),#0x03
-   03EA 18 45         [12]  564 	jr	00163$
-   03EC                     565 00160$:
-                            566 ;src/pathfinding.c:117: }else if(resultado == 1){
-   03EC DD 7E F1      [19]  567 	ld	a,-15 (ix)
-   03EF 3D            [ 4]  568 	dec	a
-   03F0 20 1A         [12]  569 	jr	NZ,00157$
-                            570 ;src/pathfinding.c:118: if(dist2 >= dist4)
-   03F2 DD 7E ED      [19]  571 	ld	a,-19 (ix)
-   03F5 DD 96 E9      [19]  572 	sub	a, -23 (ix)
-   03F8 DD 7E EE      [19]  573 	ld	a,-18 (ix)
-   03FB DD 9E EA      [19]  574 	sbc	a, -22 (ix)
-   03FE E2r03r04      [10]  575 	jp	PO, 00282$
-   0401 EE 80         [ 7]  576 	xor	a, #0x80
-   0403                     577 00282$:
-   0403 FAr31r04      [10]  578 	jp	M,00163$
-                            579 ;src/pathfinding.c:119: resultado = 3;
-   0406 DD 36 F1 03   [19]  580 	ld	-15 (ix),#0x03
-   040A 18 25         [12]  581 	jr	00163$
-   040C                     582 00157$:
-                            583 ;src/pathfinding.c:120: }else if (resultado == 2){
-   040C DD 7E F1      [19]  584 	ld	a,-15 (ix)
-   040F D6 02         [ 7]  585 	sub	a, #0x02
-   0411 20 1A         [12]  586 	jr	NZ,00154$
-                            587 ;src/pathfinding.c:121: if(dist3 >= dist4)
-   0413 DD 7E EB      [19]  588 	ld	a,-21 (ix)
-   0416 DD 96 E9      [19]  589 	sub	a, -23 (ix)
-   0419 DD 7E EC      [19]  590 	ld	a,-20 (ix)
-   041C DD 9E EA      [19]  591 	sbc	a, -22 (ix)
-   041F E2r24r04      [10]  592 	jp	PO, 00285$
-   0422 EE 80         [ 7]  593 	xor	a, #0x80
-   0424                     594 00285$:
-   0424 FAr31r04      [10]  595 	jp	M,00163$
-                            596 ;src/pathfinding.c:122: resultado = 3;
-   0427 DD 36 F1 03   [19]  597 	ld	-15 (ix),#0x03
-   042B 18 04         [12]  598 	jr	00163$
-   042D                     599 00154$:
-                            600 ;src/pathfinding.c:124: resultado = 3;
-   042D DD 36 F1 03   [19]  601 	ld	-15 (ix),#0x03
-   0431                     602 00163$:
-                            603 ;src/pathfinding.c:128: return resultado;
-   0431 DD 6E F1      [19]  604 	ld	l,-15 (ix)
-   0434 DD F9         [10]  605 	ld	sp, ix
-   0436 DD E1         [14]  606 	pop	ix
-   0438 C9            [10]  607 	ret
-                            608 ;src/pathfinding.c:132: void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* actual, u8* matriz){
-                            609 ;	---------------------------------
-                            610 ; Function pathFinding
-                            611 ; ---------------------------------
-   0439                     612 _pathFinding::
-   0439 DD E5         [15]  613 	push	ix
-   043B DD 21 00 00   [14]  614 	ld	ix,#0
-   043F DD 39         [15]  615 	add	ix,sp
-   0441 21 F7 FF      [10]  616 	ld	hl,#-9
-   0444 39            [11]  617 	add	hl,sp
-   0445 F9            [ 6]  618 	ld	sp,hl
-                            619 ;src/pathfinding.c:144: u8 problem = 0;
-   0446 1E 00         [ 7]  620 	ld	e,#0x00
-                            621 ;src/pathfinding.c:146: x = s_x;
-   0448 DD 7E 04      [19]  622 	ld	a,4 (ix)
-   044B DD 77 F7      [19]  623 	ld	-9 (ix),a
-                            624 ;src/pathfinding.c:147: sol_tam = 0;
-   044E 21r00r00      [10]  625 	ld	hl,#_sol_tam + 0
-   0451 36 00         [10]  626 	ld	(hl), #0x00
-                            627 ;src/pathfinding.c:148: y = s_y;
-   0453 DD 7E 05      [19]  628 	ld	a,5 (ix)
-   0456 DD 77 F8      [19]  629 	ld	-8 (ix),a
-                            630 ;src/pathfinding.c:150: k = 0;
-   0459 DD 36 F9 00   [19]  631 	ld	-7 (ix),#0x00
-                            632 ;src/pathfinding.c:151: aux = 1;
-   045D DD 36 FB 01   [19]  633 	ld	-5 (ix),#0x01
-                            634 ;src/pathfinding.c:152: actual->longitud_camino = 0;
-   0461 DD 7E 08      [19]  635 	ld	a,8 (ix)
-   0464 DD 77 FC      [19]  636 	ld	-4 (ix),a
-   0467 DD 7E 09      [19]  637 	ld	a,9 (ix)
-   046A DD 77 FD      [19]  638 	ld	-3 (ix),a
-   046D DD 7E FC      [19]  639 	ld	a,-4 (ix)
-   0470 C6 E1         [ 7]  640 	add	a, #0xE1
-   0472 4F            [ 4]  641 	ld	c,a
-   0473 DD 7E FD      [19]  642 	ld	a,-3 (ix)
-   0476 CE 00         [ 7]  643 	adc	a, #0x00
-   0478 47            [ 4]  644 	ld	b,a
-   0479 AF            [ 4]  645 	xor	a, a
-   047A 02            [ 7]  646 	ld	(bc),a
-                            647 ;src/pathfinding.c:153: inserted = anyadirALista(x, y);
-   047B C5            [11]  648 	push	bc
-   047C D5            [11]  649 	push	de
-   047D DD 66 F8      [19]  650 	ld	h,-8 (ix)
-   0480 DD 6E F7      [19]  651 	ld	l,-9 (ix)
-   0483 E5            [11]  652 	push	hl
-   0484 CDr00r00      [17]  653 	call	_anyadirALista
-   0487 F1            [10]  654 	pop	af
-   0488 D1            [10]  655 	pop	de
-   0489 C1            [10]  656 	pop	bc
-   048A DD 75 FA      [19]  657 	ld	-6 (ix),l
-                            658 ;src/pathfinding.c:157: while (aux){
-   048D                     659 00115$:
-   048D DD 7E FB      [19]  660 	ld	a,-5 (ix)
-   0490 B7            [ 4]  661 	or	a, a
-   0491 CAr9Ar05      [10]  662 	jp	Z,00117$
-                            663 ;src/pathfinding.c:158: if( (x == f_x && y == f_y) || sol_tam == 0 || inserted == 0){
-   0494 DD 7E 06      [19]  664 	ld	a,6 (ix)
-   0497 DD 96 F7      [19]  665 	sub	a, -9 (ix)
-   049A 20 08         [12]  666 	jr	NZ,00113$
-   049C DD 7E 07      [19]  667 	ld	a,7 (ix)
-   049F DD 96 F8      [19]  668 	sub	a, -8 (ix)
-   04A2 28 0C         [12]  669 	jr	Z,00109$
-   04A4                     670 00113$:
-   04A4 3Ar00r00      [13]  671 	ld	a,(#_sol_tam + 0)
-   04A7 B7            [ 4]  672 	or	a, a
-   04A8 28 06         [12]  673 	jr	Z,00109$
-   04AA DD 7E FA      [19]  674 	ld	a,-6 (ix)
-   04AD B7            [ 4]  675 	or	a, a
-   04AE 20 14         [12]  676 	jr	NZ,00110$
-   04B0                     677 00109$:
-                            678 ;src/pathfinding.c:160: if(inserted == 0 || sol_tam == 0){
-   04B0 DD 7E FA      [19]  679 	ld	a,-6 (ix)
-   04B3 B7            [ 4]  680 	or	a, a
-   04B4 28 06         [12]  681 	jr	Z,00101$
-   04B6 3Ar00r00      [13]  682 	ld	a,(#_sol_tam + 0)
-   04B9 B7            [ 4]  683 	or	a, a
-   04BA 20 02         [12]  684 	jr	NZ,00102$
-   04BC                     685 00101$:
-                            686 ;src/pathfinding.c:161: problem = 1;
-   04BC 1E 01         [ 7]  687 	ld	e,#0x01
-   04BE                     688 00102$:
-                            689 ;src/pathfinding.c:164: aux = 0;
-   04BE DD 36 FB 00   [19]  690 	ld	-5 (ix),#0x00
-   04C2 18 C9         [12]  691 	jr	00115$
-   04C4                     692 00110$:
-                            693 ;src/pathfinding.c:166: movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
-   04C4 C5            [11]  694 	push	bc
-   04C5 D5            [11]  695 	push	de
-   04C6 DD 6E 0A      [19]  696 	ld	l,10 (ix)
-   04C9 DD 66 0B      [19]  697 	ld	h,11 (ix)
-   04CC E5            [11]  698 	push	hl
-   04CD DD 66 07      [19]  699 	ld	h,7 (ix)
-   04D0 DD 6E 06      [19]  700 	ld	l,6 (ix)
-   04D3 E5            [11]  701 	push	hl
-   04D4 DD 66 F8      [19]  702 	ld	h,-8 (ix)
-   04D7 DD 6E F7      [19]  703 	ld	l,-9 (ix)
-   04DA E5            [11]  704 	push	hl
-   04DB CDr48r00      [17]  705 	call	_adjacentTiles
-   04DE F1            [10]  706 	pop	af
-   04DF F1            [10]  707 	pop	af
-   04E0 F1            [10]  708 	pop	af
-   04E1 D1            [10]  709 	pop	de
-   04E2 C1            [10]  710 	pop	bc
-   04E3 55            [ 4]  711 	ld	d,l
-                            712 ;src/pathfinding.c:168: switch(movimiento){
-   04E4 3E 03         [ 7]  713 	ld	a,#0x03
-   04E6 92            [ 4]  714 	sub	a, d
-   04E7 38 A4         [12]  715 	jr	C,00115$
-                            716 ;src/pathfinding.c:172: k = k+2;
-   04E9 DD 7E F9      [19]  717 	ld	a,-7 (ix)
-   04EC C6 02         [ 7]  718 	add	a, #0x02
-   04EE DD 77 FE      [19]  719 	ld	-2 (ix),a
-                            720 ;src/pathfinding.c:168: switch(movimiento){
-   04F1 D5            [11]  721 	push	de
-   04F2 5A            [ 4]  722 	ld	e,d
-   04F3 16 00         [ 7]  723 	ld	d,#0x00
-   04F5 21rFCr04      [10]  724 	ld	hl,#00174$
-   04F8 19            [11]  725 	add	hl,de
-   04F9 19            [11]  726 	add	hl,de
-                            727 ;src/pathfinding.c:169: case 0:
-   04FA D1            [10]  728 	pop	de
-   04FB E9            [ 4]  729 	jp	(hl)
-   04FC                     730 00174$:
-   04FC 18 06         [12]  731 	jr	00104$
-   04FE 18 2D         [12]  732 	jr	00105$
-   0500 18 4E         [12]  733 	jr	00106$
-   0502 18 6E         [12]  734 	jr	00107$
-   0504                     735 00104$:
-                            736 ;src/pathfinding.c:170: inserted = anyadirALista(x, y-2);
-   0504 DD 7E F8      [19]  737 	ld	a,-8 (ix)
-   0507 C6 FE         [ 7]  738 	add	a,#0xFE
-   0509 DD 77 FF      [19]  739 	ld	-1 (ix),a
-   050C C5            [11]  740 	push	bc
-   050D D5            [11]  741 	push	de
-   050E DD 66 FF      [19]  742 	ld	h,-1 (ix)
-   0511 DD 6E F7      [19]  743 	ld	l,-9 (ix)
-   0514 E5            [11]  744 	push	hl
-   0515 CDr00r00      [17]  745 	call	_anyadirALista
-   0518 F1            [10]  746 	pop	af
-   0519 D1            [10]  747 	pop	de
-   051A C1            [10]  748 	pop	bc
-   051B DD 75 FA      [19]  749 	ld	-6 (ix),l
-                            750 ;src/pathfinding.c:171: y = y-2;
-   051E DD 56 FF      [19]  751 	ld	d,-1 (ix)
-   0521 DD 72 F8      [19]  752 	ld	-8 (ix),d
-                            753 ;src/pathfinding.c:172: k = k+2;
-   0524 DD 7E FE      [19]  754 	ld	a,-2 (ix)
-   0527 DD 77 F9      [19]  755 	ld	-7 (ix),a
-                            756 ;src/pathfinding.c:173: break;
-   052A C3r8Dr04      [10]  757 	jp	00115$
-                            758 ;src/pathfinding.c:174: case 1:
-   052D                     759 00105$:
-                            760 ;src/pathfinding.c:177: inserted = anyadirALista(x, y+2);
-   052D DD 56 F8      [19]  761 	ld	d,-8 (ix)
-   0530 14            [ 4]  762 	inc	d
-   0531 14            [ 4]  763 	inc	d
-   0532 C5            [11]  764 	push	bc
-   0533 D5            [11]  765 	push	de
-   0534 D5            [11]  766 	push	de
-   0535 33            [ 6]  767 	inc	sp
-   0536 DD 7E F7      [19]  768 	ld	a,-9 (ix)
-   0539 F5            [11]  769 	push	af
-   053A 33            [ 6]  770 	inc	sp
-   053B CDr00r00      [17]  771 	call	_anyadirALista
-   053E F1            [10]  772 	pop	af
-   053F D1            [10]  773 	pop	de
-   0540 C1            [10]  774 	pop	bc
-   0541 DD 75 FA      [19]  775 	ld	-6 (ix),l
-                            776 ;src/pathfinding.c:178: y = y+2;
-   0544 DD 72 F8      [19]  777 	ld	-8 (ix),d
-                            778 ;src/pathfinding.c:179: k = k+2;
-   0547 DD 7E FE      [19]  779 	ld	a,-2 (ix)
-   054A DD 77 F9      [19]  780 	ld	-7 (ix),a
-                            781 ;src/pathfinding.c:180: break;
-   054D C3r8Dr04      [10]  782 	jp	00115$
-                            783 ;src/pathfinding.c:181: case 2:
-   0550                     784 00106$:
-                            785 ;src/pathfinding.c:184: inserted = anyadirALista(x-1, y);
-   0550 DD 56 F7      [19]  786 	ld	d,-9 (ix)
-   0553 15            [ 4]  787 	dec	d
-   0554 C5            [11]  788 	push	bc
-   0555 D5            [11]  789 	push	de
-   0556 DD 7E F8      [19]  790 	ld	a,-8 (ix)
-   0559 F5            [11]  791 	push	af
-   055A 33            [ 6]  792 	inc	sp
-   055B D5            [11]  793 	push	de
-   055C 33            [ 6]  794 	inc	sp
-   055D CDr00r00      [17]  795 	call	_anyadirALista
-   0560 F1            [10]  796 	pop	af
-   0561 D1            [10]  797 	pop	de
-   0562 C1            [10]  798 	pop	bc
-   0563 DD 75 FA      [19]  799 	ld	-6 (ix),l
-                            800 ;src/pathfinding.c:185: x = x-1;
-   0566 DD 72 F7      [19]  801 	ld	-9 (ix),d
-                            802 ;src/pathfinding.c:186: k = k+2;
-   0569 DD 7E FE      [19]  803 	ld	a,-2 (ix)
-   056C DD 77 F9      [19]  804 	ld	-7 (ix),a
-                            805 ;src/pathfinding.c:187: break;
-   056F C3r8Dr04      [10]  806 	jp	00115$
-                            807 ;src/pathfinding.c:188: case 3:
-   0572                     808 00107$:
-                            809 ;src/pathfinding.c:189: inserted = anyadirALista(x+1, y);
-   0572 DD 7E F7      [19]  810 	ld	a,-9 (ix)
-   0575 3C            [ 4]  811 	inc	a
-   0576 DD 77 FF      [19]  812 	ld	-1 (ix),a
-   0579 C5            [11]  813 	push	bc
-   057A D5            [11]  814 	push	de
-   057B DD 66 F8      [19]  815 	ld	h,-8 (ix)
-   057E DD 6E FF      [19]  816 	ld	l,-1 (ix)
-   0581 E5            [11]  817 	push	hl
-   0582 CDr00r00      [17]  818 	call	_anyadirALista
-   0585 F1            [10]  819 	pop	af
-   0586 D1            [10]  820 	pop	de
-   0587 C1            [10]  821 	pop	bc
-   0588 DD 75 FA      [19]  822 	ld	-6 (ix),l
-                            823 ;src/pathfinding.c:190: x = x+1;
-   058B DD 6E FF      [19]  824 	ld	l,-1 (ix)
-   058E DD 75 F7      [19]  825 	ld	-9 (ix),l
-                            826 ;src/pathfinding.c:191: k = k+2;
-   0591 DD 7E FE      [19]  827 	ld	a,-2 (ix)
-   0594 DD 77 F9      [19]  828 	ld	-7 (ix),a
-                            829 ;src/pathfinding.c:194: }
-   0597 C3r8Dr04      [10]  830 	jp	00115$
-   059A                     831 00117$:
-                            832 ;src/pathfinding.c:199: if(problem == 0){
-   059A 7B            [ 4]  833 	ld	a,e
-   059B B7            [ 4]  834 	or	a, a
-   059C 20 44         [12]  835 	jr	NZ,00123$
-                            836 ;src/pathfinding.c:200: if(sol_tam < CAMINO_TAM){
-                            837 ;src/pathfinding.c:201: actual->longitud_camino = sol_tam;
-   059E 3Ar00r00      [13]  838 	ld	a,(#_sol_tam + 0)
-   05A1 FE C8         [ 7]  839 	cp	a,#0xC8
-   05A3 30 03         [12]  840 	jr	NC,00119$
-   05A5 02            [ 7]  841 	ld	(bc),a
-   05A6 18 03         [12]  842 	jr	00139$
-   05A8                     843 00119$:
-                            844 ;src/pathfinding.c:203: actual->longitud_camino = CAMINO_TAM;
-   05A8 3E C8         [ 7]  845 	ld	a,#0xC8
-   05AA 02            [ 7]  846 	ld	(bc),a
-                            847 ;src/pathfinding.c:205: for (i; i<actual->longitud_camino; i++){
-   05AB                     848 00139$:
-   05AB DD 7E FC      [19]  849 	ld	a,-4 (ix)
-   05AE C6 19         [ 7]  850 	add	a, #0x19
-   05B0 DD 77 FC      [19]  851 	ld	-4 (ix),a
-   05B3 DD 7E FD      [19]  852 	ld	a,-3 (ix)
-   05B6 CE 00         [ 7]  853 	adc	a, #0x00
-   05B8 DD 77 FD      [19]  854 	ld	-3 (ix),a
-   05BB 1E 00         [ 7]  855 	ld	e,#0x00
-   05BD                     856 00126$:
-   05BD 0A            [ 7]  857 	ld	a,(bc)
-   05BE 57            [ 4]  858 	ld	d,a
-   05BF 7B            [ 4]  859 	ld	a,e
-   05C0 92            [ 4]  860 	sub	a, d
-   05C1 30 21         [12]  861 	jr	NC,00128$
-                            862 ;src/pathfinding.c:206: actual->camino[i] = camino[i];
-   05C3 E5            [11]  863 	push	hl
-   05C4 6B            [ 4]  864 	ld	l,e
-   05C5 26 00         [ 7]  865 	ld	h,#0x00
-   05C7 E5            [11]  866 	push	hl
-   05C8 FD E1         [14]  867 	pop	iy
-   05CA E1            [10]  868 	pop	hl
-   05CB C5            [11]  869 	push	bc
-   05CC DD 4E FC      [19]  870 	ld	c,-4 (ix)
-   05CF DD 46 FD      [19]  871 	ld	b,-3 (ix)
-   05D2 FD 09         [15]  872 	add	iy, bc
-   05D4 C1            [10]  873 	pop	bc
-   05D5 21r01r00      [10]  874 	ld	hl,#_camino
-   05D8 16 00         [ 7]  875 	ld	d,#0x00
-   05DA 19            [11]  876 	add	hl, de
-   05DB 56            [ 7]  877 	ld	d,(hl)
-   05DC FD 72 00      [19]  878 	ld	0 (iy), d
-                            879 ;src/pathfinding.c:205: for (i; i<actual->longitud_camino; i++){
-   05DF 1C            [ 4]  880 	inc	e
-   05E0 18 DB         [12]  881 	jr	00126$
-   05E2                     882 00123$:
-                            883 ;src/pathfinding.c:210: actual->longitud_camino = 0;
-   05E2 AF            [ 4]  884 	xor	a, a
-   05E3 02            [ 7]  885 	ld	(bc),a
-   05E4                     886 00128$:
-   05E4 DD F9         [10]  887 	ld	sp, ix
-   05E6 DD E1         [14]  888 	pop	ix
-   05E8 C9            [10]  889 	ret
-                            890 	.area _CODE
-                            891 	.area _INITIALIZER
-                            892 	.area _CABS (ABS)
+   033F DD 36 F1 02   [19]  489 	ld	-15 (ix),#0x02
+   0343                     490 00146$:
+                            491 ;src/pathfinding.c:110: if(*getTilePtr(matriz, (x +1), y) <=2 //&&
+   0343 DD 46 04      [19]  492 	ld	b,4 (ix)
+   0346 04            [ 4]  493 	inc	b
+   0347 DD 7E 05      [19]  494 	ld	a,5 (ix)
+   034A F5            [11]  495 	push	af
+   034B 33            [ 6]  496 	inc	sp
+   034C C5            [11]  497 	push	bc
+   034D 33            [ 6]  498 	inc	sp
+   034E DD 6E 08      [19]  499 	ld	l,8 (ix)
+   0351 DD 66 09      [19]  500 	ld	h,9 (ix)
+   0354 E5            [11]  501 	push	hl
+   0355 CDr00r00      [17]  502 	call	_getTilePtr
+   0358 F1            [10]  503 	pop	af
+   0359 F1            [10]  504 	pop	af
+   035A 4E            [ 7]  505 	ld	c,(hl)
+   035B 3E 02         [ 7]  506 	ld	a,#0x02
+   035D 91            [ 4]  507 	sub	a, c
+   035E DAr2Er04      [10]  508 	jp	C,00163$
+                            509 ;src/pathfinding.c:113: dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
+   0361 DD 7E F8      [19]  510 	ld	a,-8 (ix)
+   0364 C6 01         [ 7]  511 	add	a, #0x01
+   0366 DD 77 F6      [19]  512 	ld	-10 (ix),a
+   0369 DD 7E F9      [19]  513 	ld	a,-7 (ix)
+   036C CE 00         [ 7]  514 	adc	a, #0x00
+   036E DD 77 F7      [19]  515 	ld	-9 (ix),a
+   0371 DD 7E FE      [19]  516 	ld	a,-2 (ix)
+   0374 DD 96 F6      [19]  517 	sub	a, -10 (ix)
+   0377 DD 77 F6      [19]  518 	ld	-10 (ix),a
+   037A DD 7E FF      [19]  519 	ld	a,-1 (ix)
+   037D DD 9E F7      [19]  520 	sbc	a, -9 (ix)
+   0380 DD 77 F7      [19]  521 	ld	-9 (ix),a
+   0383 DD 6E F6      [19]  522 	ld	l,-10 (ix)
+   0386 DD 66 F7      [19]  523 	ld	h,-9 (ix)
+   0389 E5            [11]  524 	push	hl
+   038A CDr00r00      [17]  525 	call	_abs
+   038D F1            [10]  526 	pop	af
+   038E DD 74 F7      [19]  527 	ld	-9 (ix),h
+   0391 DD 75 F6      [19]  528 	ld	-10 (ix),l
+   0394 DD 6E FA      [19]  529 	ld	l,-6 (ix)
+   0397 DD 66 FB      [19]  530 	ld	h,-5 (ix)
+   039A E5            [11]  531 	push	hl
+   039B CDr00r00      [17]  532 	call	_abs
+   039E F1            [10]  533 	pop	af
+   039F DD 74 FB      [19]  534 	ld	-5 (ix),h
+   03A2 DD 75 FA      [19]  535 	ld	-6 (ix),l
+   03A5 DD 7E F6      [19]  536 	ld	a,-10 (ix)
+   03A8 DD 86 FA      [19]  537 	add	a, -6 (ix)
+   03AB DD 77 FA      [19]  538 	ld	-6 (ix),a
+   03AE DD 7E F7      [19]  539 	ld	a,-9 (ix)
+   03B1 DD 8E FB      [19]  540 	adc	a, -5 (ix)
+   03B4 DD 77 FB      [19]  541 	ld	-5 (ix),a
+   03B7 DD 7E FA      [19]  542 	ld	a,-6 (ix)
+   03BA DD 86 E7      [19]  543 	add	a, -25 (ix)
+   03BD DD 77 E9      [19]  544 	ld	-23 (ix),a
+   03C0 DD 7E FB      [19]  545 	ld	a,-5 (ix)
+   03C3 DD 8E E8      [19]  546 	adc	a, -24 (ix)
+   03C6 DD 77 EA      [19]  547 	ld	-22 (ix),a
+                            548 ;src/pathfinding.c:114: if(resultado == 0){
+   03C9 DD 7E F1      [19]  549 	ld	a,-15 (ix)
+   03CC B7            [ 4]  550 	or	a, a
+   03CD 20 1A         [12]  551 	jr	NZ,00160$
+                            552 ;src/pathfinding.c:115: if(dist1 >= dist4)
+   03CF DD 7E EF      [19]  553 	ld	a,-17 (ix)
+   03D2 DD 96 E9      [19]  554 	sub	a, -23 (ix)
+   03D5 DD 7E F0      [19]  555 	ld	a,-16 (ix)
+   03D8 DD 9E EA      [19]  556 	sbc	a, -22 (ix)
+   03DB E2rE0r03      [10]  557 	jp	PO, 00279$
+   03DE EE 80         [ 7]  558 	xor	a, #0x80
+   03E0                     559 00279$:
+   03E0 FAr2Er04      [10]  560 	jp	M,00163$
+                            561 ;src/pathfinding.c:116: resultado = 3;
+   03E3 DD 36 F1 03   [19]  562 	ld	-15 (ix),#0x03
+   03E7 18 45         [12]  563 	jr	00163$
+   03E9                     564 00160$:
+                            565 ;src/pathfinding.c:117: }else if(resultado == 1){
+   03E9 DD 7E F1      [19]  566 	ld	a,-15 (ix)
+   03EC 3D            [ 4]  567 	dec	a
+   03ED 20 1A         [12]  568 	jr	NZ,00157$
+                            569 ;src/pathfinding.c:118: if(dist2 >= dist4)
+   03EF DD 7E ED      [19]  570 	ld	a,-19 (ix)
+   03F2 DD 96 E9      [19]  571 	sub	a, -23 (ix)
+   03F5 DD 7E EE      [19]  572 	ld	a,-18 (ix)
+   03F8 DD 9E EA      [19]  573 	sbc	a, -22 (ix)
+   03FB E2r00r04      [10]  574 	jp	PO, 00282$
+   03FE EE 80         [ 7]  575 	xor	a, #0x80
+   0400                     576 00282$:
+   0400 FAr2Er04      [10]  577 	jp	M,00163$
+                            578 ;src/pathfinding.c:119: resultado = 3;
+   0403 DD 36 F1 03   [19]  579 	ld	-15 (ix),#0x03
+   0407 18 25         [12]  580 	jr	00163$
+   0409                     581 00157$:
+                            582 ;src/pathfinding.c:120: }else if (resultado == 2){
+   0409 DD 7E F1      [19]  583 	ld	a,-15 (ix)
+   040C D6 02         [ 7]  584 	sub	a, #0x02
+   040E 20 1A         [12]  585 	jr	NZ,00154$
+                            586 ;src/pathfinding.c:121: if(dist3 >= dist4)
+   0410 DD 7E EB      [19]  587 	ld	a,-21 (ix)
+   0413 DD 96 E9      [19]  588 	sub	a, -23 (ix)
+   0416 DD 7E EC      [19]  589 	ld	a,-20 (ix)
+   0419 DD 9E EA      [19]  590 	sbc	a, -22 (ix)
+   041C E2r21r04      [10]  591 	jp	PO, 00285$
+   041F EE 80         [ 7]  592 	xor	a, #0x80
+   0421                     593 00285$:
+   0421 FAr2Er04      [10]  594 	jp	M,00163$
+                            595 ;src/pathfinding.c:122: resultado = 3;
+   0424 DD 36 F1 03   [19]  596 	ld	-15 (ix),#0x03
+   0428 18 04         [12]  597 	jr	00163$
+   042A                     598 00154$:
+                            599 ;src/pathfinding.c:124: resultado = 3;
+   042A DD 36 F1 03   [19]  600 	ld	-15 (ix),#0x03
+   042E                     601 00163$:
+                            602 ;src/pathfinding.c:128: return resultado;
+   042E DD 6E F1      [19]  603 	ld	l,-15 (ix)
+   0431 DD F9         [10]  604 	ld	sp, ix
+   0433 DD E1         [14]  605 	pop	ix
+   0435 C9            [10]  606 	ret
+                            607 ;src/pathfinding.c:132: void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* actual, u8* matriz){
+                            608 ;	---------------------------------
+                            609 ; Function pathFinding
+                            610 ; ---------------------------------
+   0436                     611 _pathFinding::
+   0436 DD E5         [15]  612 	push	ix
+   0438 DD 21 00 00   [14]  613 	ld	ix,#0
+   043C DD 39         [15]  614 	add	ix,sp
+   043E 21 F7 FF      [10]  615 	ld	hl,#-9
+   0441 39            [11]  616 	add	hl,sp
+   0442 F9            [ 6]  617 	ld	sp,hl
+                            618 ;src/pathfinding.c:144: u8 problem = 0;
+   0443 1E 00         [ 7]  619 	ld	e,#0x00
+                            620 ;src/pathfinding.c:146: x = s_x;
+   0445 DD 7E 04      [19]  621 	ld	a,4 (ix)
+   0448 DD 77 FB      [19]  622 	ld	-5 (ix),a
+                            623 ;src/pathfinding.c:147: sol_tam = 0;
+   044B 21r00r00      [10]  624 	ld	hl,#_sol_tam + 0
+   044E 36 00         [10]  625 	ld	(hl), #0x00
+                            626 ;src/pathfinding.c:148: y = s_y;
+   0450 DD 7E 05      [19]  627 	ld	a,5 (ix)
+   0453 DD 77 FA      [19]  628 	ld	-6 (ix),a
+                            629 ;src/pathfinding.c:150: k = 0;
+   0456 DD 36 F9 00   [19]  630 	ld	-7 (ix),#0x00
+                            631 ;src/pathfinding.c:151: aux = 1;
+   045A DD 36 F8 01   [19]  632 	ld	-8 (ix),#0x01
+                            633 ;src/pathfinding.c:152: actual->longitud_camino = 0;
+   045E DD 7E 08      [19]  634 	ld	a,8 (ix)
+   0461 DD 77 FC      [19]  635 	ld	-4 (ix),a
+   0464 DD 7E 09      [19]  636 	ld	a,9 (ix)
+   0467 DD 77 FD      [19]  637 	ld	-3 (ix),a
+   046A DD 7E FC      [19]  638 	ld	a,-4 (ix)
+   046D C6 E1         [ 7]  639 	add	a, #0xE1
+   046F 4F            [ 4]  640 	ld	c,a
+   0470 DD 7E FD      [19]  641 	ld	a,-3 (ix)
+   0473 CE 00         [ 7]  642 	adc	a, #0x00
+   0475 47            [ 4]  643 	ld	b,a
+   0476 AF            [ 4]  644 	xor	a, a
+   0477 02            [ 7]  645 	ld	(bc),a
+                            646 ;src/pathfinding.c:153: inserted = anyadirALista(x, y);
+   0478 C5            [11]  647 	push	bc
+   0479 D5            [11]  648 	push	de
+   047A DD 66 FA      [19]  649 	ld	h,-6 (ix)
+   047D DD 6E FB      [19]  650 	ld	l,-5 (ix)
+   0480 E5            [11]  651 	push	hl
+   0481 CDr00r00      [17]  652 	call	_anyadirALista
+   0484 F1            [10]  653 	pop	af
+   0485 D1            [10]  654 	pop	de
+   0486 C1            [10]  655 	pop	bc
+   0487 DD 75 F7      [19]  656 	ld	-9 (ix),l
+                            657 ;src/pathfinding.c:157: while (aux){
+   048A                     658 00114$:
+   048A DD 7E F8      [19]  659 	ld	a,-8 (ix)
+   048D B7            [ 4]  660 	or	a, a
+   048E CAr91r05      [10]  661 	jp	Z,00116$
+                            662 ;src/pathfinding.c:158: if( (x == f_x && y == f_y) || inserted == 0){
+   0491 DD 7E 06      [19]  663 	ld	a,6 (ix)
+   0494 DD 96 FB      [19]  664 	sub	a, -5 (ix)
+   0497 20 08         [12]  665 	jr	NZ,00113$
+   0499 DD 7E 07      [19]  666 	ld	a,7 (ix)
+   049C DD 96 FA      [19]  667 	sub	a, -6 (ix)
+   049F 28 06         [12]  668 	jr	Z,00109$
+   04A1                     669 00113$:
+   04A1 DD 7E F7      [19]  670 	ld	a,-9 (ix)
+   04A4 B7            [ 4]  671 	or	a, a
+   04A5 20 14         [12]  672 	jr	NZ,00110$
+   04A7                     673 00109$:
+                            674 ;src/pathfinding.c:160: if(inserted == 0 || sol_tam == 0){
+   04A7 DD 7E F7      [19]  675 	ld	a,-9 (ix)
+   04AA B7            [ 4]  676 	or	a, a
+   04AB 28 06         [12]  677 	jr	Z,00101$
+   04AD 3Ar00r00      [13]  678 	ld	a,(#_sol_tam + 0)
+   04B0 B7            [ 4]  679 	or	a, a
+   04B1 20 02         [12]  680 	jr	NZ,00102$
+   04B3                     681 00101$:
+                            682 ;src/pathfinding.c:161: problem = 1;
+   04B3 1E 01         [ 7]  683 	ld	e,#0x01
+   04B5                     684 00102$:
+                            685 ;src/pathfinding.c:164: aux = 0;
+   04B5 DD 36 F8 00   [19]  686 	ld	-8 (ix),#0x00
+   04B9 18 CF         [12]  687 	jr	00114$
+   04BB                     688 00110$:
+                            689 ;src/pathfinding.c:166: movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
+   04BB C5            [11]  690 	push	bc
+   04BC D5            [11]  691 	push	de
+   04BD DD 6E 0A      [19]  692 	ld	l,10 (ix)
+   04C0 DD 66 0B      [19]  693 	ld	h,11 (ix)
+   04C3 E5            [11]  694 	push	hl
+   04C4 DD 66 07      [19]  695 	ld	h,7 (ix)
+   04C7 DD 6E 06      [19]  696 	ld	l,6 (ix)
+   04CA E5            [11]  697 	push	hl
+   04CB DD 66 FA      [19]  698 	ld	h,-6 (ix)
+   04CE DD 6E FB      [19]  699 	ld	l,-5 (ix)
+   04D1 E5            [11]  700 	push	hl
+   04D2 CDr48r00      [17]  701 	call	_adjacentTiles
+   04D5 F1            [10]  702 	pop	af
+   04D6 F1            [10]  703 	pop	af
+   04D7 F1            [10]  704 	pop	af
+   04D8 D1            [10]  705 	pop	de
+   04D9 C1            [10]  706 	pop	bc
+   04DA 55            [ 4]  707 	ld	d,l
+                            708 ;src/pathfinding.c:168: switch(movimiento){
+   04DB 3E 03         [ 7]  709 	ld	a,#0x03
+   04DD 92            [ 4]  710 	sub	a, d
+   04DE 38 AA         [12]  711 	jr	C,00114$
+                            712 ;src/pathfinding.c:172: k = k+2;
+   04E0 DD 7E F9      [19]  713 	ld	a,-7 (ix)
+   04E3 C6 02         [ 7]  714 	add	a, #0x02
+   04E5 DD 77 FF      [19]  715 	ld	-1 (ix),a
+                            716 ;src/pathfinding.c:168: switch(movimiento){
+   04E8 D5            [11]  717 	push	de
+   04E9 5A            [ 4]  718 	ld	e,d
+   04EA 16 00         [ 7]  719 	ld	d,#0x00
+   04EC 21rF3r04      [10]  720 	ld	hl,#00169$
+   04EF 19            [11]  721 	add	hl,de
+   04F0 19            [11]  722 	add	hl,de
+                            723 ;src/pathfinding.c:169: case 0:
+   04F1 D1            [10]  724 	pop	de
+   04F2 E9            [ 4]  725 	jp	(hl)
+   04F3                     726 00169$:
+   04F3 18 06         [12]  727 	jr	00104$
+   04F5 18 2D         [12]  728 	jr	00105$
+   04F7 18 4E         [12]  729 	jr	00106$
+   04F9 18 6E         [12]  730 	jr	00107$
+   04FB                     731 00104$:
+                            732 ;src/pathfinding.c:170: inserted = anyadirALista(x, y-2);
+   04FB DD 7E FA      [19]  733 	ld	a,-6 (ix)
+   04FE C6 FE         [ 7]  734 	add	a,#0xFE
+   0500 DD 77 FE      [19]  735 	ld	-2 (ix),a
+   0503 C5            [11]  736 	push	bc
+   0504 D5            [11]  737 	push	de
+   0505 DD 66 FE      [19]  738 	ld	h,-2 (ix)
+   0508 DD 6E FB      [19]  739 	ld	l,-5 (ix)
+   050B E5            [11]  740 	push	hl
+   050C CDr00r00      [17]  741 	call	_anyadirALista
+   050F F1            [10]  742 	pop	af
+   0510 D1            [10]  743 	pop	de
+   0511 C1            [10]  744 	pop	bc
+   0512 DD 75 F7      [19]  745 	ld	-9 (ix),l
+                            746 ;src/pathfinding.c:171: y = y-2;
+   0515 DD 56 FE      [19]  747 	ld	d,-2 (ix)
+   0518 DD 72 FA      [19]  748 	ld	-6 (ix),d
+                            749 ;src/pathfinding.c:172: k = k+2;
+   051B DD 7E FF      [19]  750 	ld	a,-1 (ix)
+   051E DD 77 F9      [19]  751 	ld	-7 (ix),a
+                            752 ;src/pathfinding.c:173: break;
+   0521 C3r8Ar04      [10]  753 	jp	00114$
+                            754 ;src/pathfinding.c:174: case 1:
+   0524                     755 00105$:
+                            756 ;src/pathfinding.c:177: inserted = anyadirALista(x, y+2);
+   0524 DD 56 FA      [19]  757 	ld	d,-6 (ix)
+   0527 14            [ 4]  758 	inc	d
+   0528 14            [ 4]  759 	inc	d
+   0529 C5            [11]  760 	push	bc
+   052A D5            [11]  761 	push	de
+   052B D5            [11]  762 	push	de
+   052C 33            [ 6]  763 	inc	sp
+   052D DD 7E FB      [19]  764 	ld	a,-5 (ix)
+   0530 F5            [11]  765 	push	af
+   0531 33            [ 6]  766 	inc	sp
+   0532 CDr00r00      [17]  767 	call	_anyadirALista
+   0535 F1            [10]  768 	pop	af
+   0536 D1            [10]  769 	pop	de
+   0537 C1            [10]  770 	pop	bc
+   0538 DD 75 F7      [19]  771 	ld	-9 (ix),l
+                            772 ;src/pathfinding.c:178: y = y+2;
+   053B DD 72 FA      [19]  773 	ld	-6 (ix),d
+                            774 ;src/pathfinding.c:179: k = k+2;
+   053E DD 7E FF      [19]  775 	ld	a,-1 (ix)
+   0541 DD 77 F9      [19]  776 	ld	-7 (ix),a
+                            777 ;src/pathfinding.c:180: break;
+   0544 C3r8Ar04      [10]  778 	jp	00114$
+                            779 ;src/pathfinding.c:181: case 2:
+   0547                     780 00106$:
+                            781 ;src/pathfinding.c:184: inserted = anyadirALista(x-1, y);
+   0547 DD 56 FB      [19]  782 	ld	d,-5 (ix)
+   054A 15            [ 4]  783 	dec	d
+   054B C5            [11]  784 	push	bc
+   054C D5            [11]  785 	push	de
+   054D DD 7E FA      [19]  786 	ld	a,-6 (ix)
+   0550 F5            [11]  787 	push	af
+   0551 33            [ 6]  788 	inc	sp
+   0552 D5            [11]  789 	push	de
+   0553 33            [ 6]  790 	inc	sp
+   0554 CDr00r00      [17]  791 	call	_anyadirALista
+   0557 F1            [10]  792 	pop	af
+   0558 D1            [10]  793 	pop	de
+   0559 C1            [10]  794 	pop	bc
+   055A DD 75 F7      [19]  795 	ld	-9 (ix),l
+                            796 ;src/pathfinding.c:185: x = x-1;
+   055D DD 72 FB      [19]  797 	ld	-5 (ix),d
+                            798 ;src/pathfinding.c:186: k = k+2;
+   0560 DD 7E FF      [19]  799 	ld	a,-1 (ix)
+   0563 DD 77 F9      [19]  800 	ld	-7 (ix),a
+                            801 ;src/pathfinding.c:187: break;
+   0566 C3r8Ar04      [10]  802 	jp	00114$
+                            803 ;src/pathfinding.c:188: case 3:
+   0569                     804 00107$:
+                            805 ;src/pathfinding.c:189: inserted = anyadirALista(x+1, y);
+   0569 DD 7E FB      [19]  806 	ld	a,-5 (ix)
+   056C 3C            [ 4]  807 	inc	a
+   056D DD 77 FE      [19]  808 	ld	-2 (ix),a
+   0570 C5            [11]  809 	push	bc
+   0571 D5            [11]  810 	push	de
+   0572 DD 66 FA      [19]  811 	ld	h,-6 (ix)
+   0575 DD 6E FE      [19]  812 	ld	l,-2 (ix)
+   0578 E5            [11]  813 	push	hl
+   0579 CDr00r00      [17]  814 	call	_anyadirALista
+   057C F1            [10]  815 	pop	af
+   057D D1            [10]  816 	pop	de
+   057E C1            [10]  817 	pop	bc
+   057F DD 75 F7      [19]  818 	ld	-9 (ix),l
+                            819 ;src/pathfinding.c:190: x = x+1;
+   0582 DD 6E FE      [19]  820 	ld	l,-2 (ix)
+   0585 DD 75 FB      [19]  821 	ld	-5 (ix),l
+                            822 ;src/pathfinding.c:191: k = k+2;
+   0588 DD 7E FF      [19]  823 	ld	a,-1 (ix)
+   058B DD 77 F9      [19]  824 	ld	-7 (ix),a
+                            825 ;src/pathfinding.c:194: }
+   058E C3r8Ar04      [10]  826 	jp	00114$
+   0591                     827 00116$:
+                            828 ;src/pathfinding.c:199: if(problem == 0){
+   0591 7B            [ 4]  829 	ld	a,e
+   0592 B7            [ 4]  830 	or	a, a
+   0593 20 44         [12]  831 	jr	NZ,00122$
+                            832 ;src/pathfinding.c:200: if(sol_tam < CAMINO_TAM){
+                            833 ;src/pathfinding.c:201: actual->longitud_camino = sol_tam;
+   0595 3Ar00r00      [13]  834 	ld	a,(#_sol_tam + 0)
+   0598 FE C8         [ 7]  835 	cp	a,#0xC8
+   059A 30 03         [12]  836 	jr	NC,00118$
+   059C 02            [ 7]  837 	ld	(bc),a
+   059D 18 03         [12]  838 	jr	00137$
+   059F                     839 00118$:
+                            840 ;src/pathfinding.c:203: actual->longitud_camino = CAMINO_TAM;
+   059F 3E C8         [ 7]  841 	ld	a,#0xC8
+   05A1 02            [ 7]  842 	ld	(bc),a
+                            843 ;src/pathfinding.c:205: for (i; i<actual->longitud_camino; i++){
+   05A2                     844 00137$:
+   05A2 DD 7E FC      [19]  845 	ld	a,-4 (ix)
+   05A5 C6 19         [ 7]  846 	add	a, #0x19
+   05A7 DD 77 FC      [19]  847 	ld	-4 (ix),a
+   05AA DD 7E FD      [19]  848 	ld	a,-3 (ix)
+   05AD CE 00         [ 7]  849 	adc	a, #0x00
+   05AF DD 77 FD      [19]  850 	ld	-3 (ix),a
+   05B2 1E 00         [ 7]  851 	ld	e,#0x00
+   05B4                     852 00125$:
+   05B4 0A            [ 7]  853 	ld	a,(bc)
+   05B5 57            [ 4]  854 	ld	d,a
+   05B6 7B            [ 4]  855 	ld	a,e
+   05B7 92            [ 4]  856 	sub	a, d
+   05B8 30 21         [12]  857 	jr	NC,00127$
+                            858 ;src/pathfinding.c:206: actual->camino[i] = camino[i];
+   05BA E5            [11]  859 	push	hl
+   05BB 6B            [ 4]  860 	ld	l,e
+   05BC 26 00         [ 7]  861 	ld	h,#0x00
+   05BE E5            [11]  862 	push	hl
+   05BF FD E1         [14]  863 	pop	iy
+   05C1 E1            [10]  864 	pop	hl
+   05C2 C5            [11]  865 	push	bc
+   05C3 DD 4E FC      [19]  866 	ld	c,-4 (ix)
+   05C6 DD 46 FD      [19]  867 	ld	b,-3 (ix)
+   05C9 FD 09         [15]  868 	add	iy, bc
+   05CB C1            [10]  869 	pop	bc
+   05CC 21r01r00      [10]  870 	ld	hl,#_camino
+   05CF 16 00         [ 7]  871 	ld	d,#0x00
+   05D1 19            [11]  872 	add	hl, de
+   05D2 56            [ 7]  873 	ld	d,(hl)
+   05D3 FD 72 00      [19]  874 	ld	0 (iy), d
+                            875 ;src/pathfinding.c:205: for (i; i<actual->longitud_camino; i++){
+   05D6 1C            [ 4]  876 	inc	e
+   05D7 18 DB         [12]  877 	jr	00125$
+   05D9                     878 00122$:
+                            879 ;src/pathfinding.c:210: actual->longitud_camino = 0;
+   05D9 AF            [ 4]  880 	xor	a, a
+   05DA 02            [ 7]  881 	ld	(bc),a
+   05DB                     882 00127$:
+   05DB DD F9         [10]  883 	ld	sp, ix
+   05DD DD E1         [14]  884 	pop	ix
+   05DF C9            [10]  885 	ret
+                            886 	.area _CODE
+                            887 	.area _INITIALIZER
+                            888 	.area _CABS (ABS)

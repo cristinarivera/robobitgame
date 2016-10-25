@@ -81,7 +81,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 		resultado = 0;
 	}
 
-	if(*getTilePtr(matriz, x, (y + G_ENEMY_H)) <=2 /*&&
+	if(*getTilePtr(matriz, x, y+2) <=2 /*&&
 			*getTilePtr(matriz, x + G_ENEMY_W, y + G_ENEMY_H) <=2*/){
 		dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
 		if(resultado == 0){
@@ -107,7 +107,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if(*getTilePtr(matriz, (x + G_ENEMY_W +1), y) <=2 //&&
+	if(*getTilePtr(matriz, (x +1), y) <=2 //&&
 	 		/**getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H - 2)) <=2 &&
 				*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H/2)) <=2*/){
 		dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
@@ -155,7 +155,7 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* actual, u8* matriz){
 
 
 	while (aux){
-		if( (x == f_x && y == f_y) || sol_tam == 0 || inserted == 0){
+		if( (x == f_x && y == f_y) || inserted == 0){
 
 			if(inserted == 0 || sol_tam == 0){
 				problem = 1;
