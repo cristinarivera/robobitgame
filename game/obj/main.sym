@@ -12,15 +12,14 @@ Symbol Table
   A __xinit__puntuacion                                            0003 R
   A __xinit__vidas                                                 0004 R
     _abs                                                           **** GX
-    _aumentarPuntuacion                                            **** GX
-  9 _avanzarMapa                                                   158B GR
+  9 _avanzarMapa                                                   15B8 GR
     _barraPuntuacionInicial                                        **** GX
     _borrarCuchillo                                                **** GX
-  9 _borrarEnemigo                                                 03B8 GR
+  9 _borrarEnemigo                                                 03C0 GR
   9 _borrarExplosion                                               0344 GR
   9 _borrarProta                                                   0074 GR
   9 _checkCollision                                                0163 GR
-  9 _checkEnemyCollision                                           0454 GR
+  9 _checkEnemyCollision                                           0467 GR
   9 _comprobarTeclado                                              00FC GR
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
@@ -34,14 +33,14 @@ Symbol Table
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
     _cpct_waitVSYNC                                                **** GX
-  1 _cu                                                            051C GR
+  1 _cu                                                            0078 GR
   9 _dibujarEnemigo                                                02D8 GR
   9 _dibujarExplosion                                              0310 GR
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  004E GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
   1 _enemy                                                         0000 GR
-  9 _engage                                                        0C0E GR
+  9 _engage                                                        0C38 GR
     _g_enemy                                                       **** GX
     _g_explosion                                                   **** GX
     _g_hero                                                        **** GX
@@ -55,49 +54,49 @@ Symbol Table
   8 _g_tablatrans                                                  0100 GR
     _g_tileset                                                     **** GX
     _getTilePtr                                                    **** GX
-  1 _i                                                             0526 GR
-  9 _inicializarCPC                                                1697 GR
-  9 _inicializarEnemy                                              148E GR
+  1 _i                                                             0082 GR
+  9 _inicializarCPC                                                16C4 GR
+  9 _inicializarEnemy                                              14BA GR
+  9 _inicializarJuego                                              16DF GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
-  9 _inicializarJuego                                              16B2 GR
-  9 _intHandler                                                    1684 GR
+  9 _intHandler                                                    16B1 GR
     _lanzarCuchillo                                                **** GX
-  9 _lookFor                                                       0ADD GR
-  9 _main                                                          171B GR
+  9 _lookFor                                                       0BE0 GR
+  9 _main                                                          1748 GR
   2 _mapa                                                          0000 GR
   9 _mapas                                                         0016 GR
     _menuFin                                                       **** GX
     _menuInicio                                                    **** GX
-    _modificarPuntuacion                                           **** GX
-  9 _moverAbajo                                                    1660 GR
-  9 _moverArriba                                                   163C GR
+  9 _moverAbajo                                                    168D GR
+  9 _moverArriba                                                   1669 GR
     _moverCuchillo                                                 **** GX
-  9 _moverDerecha                                                  15F7 GR
-  9 _moverEnemigoAbajo                                             086E GR
-  9 _moverEnemigoArriba                                            084F GR
-  9 _moverEnemigoDerecha                                           088D GR
-  9 _moverEnemigoIzquierda                                         089D GR
-  9 _moverEnemigoPatrol                                            08AF GR
-  9 _moverEnemigoSeek                                              09EB GR
-  9 _moverIzquierda                                                15D2 GR
+  9 _moverDerecha                                                  1624 GR
+  9 _moverEnemigoAbajo                                             0881 GR
+  9 _moverEnemigoArriba                                            0862 GR
+  9 _moverEnemigoDerecha                                           08A0 GR
+  9 _moverEnemigoIzquierda                                         08B0 GR
+  9 _moverEnemigoPatrol                                            08C2 GR
+  9 _moverEnemigoSeek                                              0AD8 GR
+  9 _moverIzquierda                                                15FF GR
   2 _num_mapa                                                      0002 GR
     _pathFinding                                                   **** GX
   9 _patrolX                                                       0026 GR
   9 _patrolY                                                       003A GR
     _play                                                          **** GX
-  1 _prota                                                         0514 GR
+  1 _prota                                                         0070 GR
   2 _puntuacion                                                    0003 GR
     _redibujarCuchillo                                             **** GX
-  9 _redibujarEnemigo                                              042E GR
+  9 _redibujarEnemigo                                              0436 GR
   9 _redibujarProta                                                00E8 GR
   9 _spawnX                                                        001C GR
   9 _spawnY                                                        0021 GR
-  9 _updateEnemies                                                 1304 GR
+  9 _updateEnemies                                                 132E GR
   2 _vidas                                                         0004 GR
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
 Hexadecimal [16-Bits]
@@ -105,7 +104,7 @@ Hexadecimal [16-Bits]
 Area Table
 
    0 _CODE                                      size    0   flags    0
-   1 _DATA                                      size  527   flags    0
+   1 _DATA                                      size   83   flags    0
    2 _INITIALIZED                               size    5   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
@@ -113,7 +112,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 187E   flags    0
+   9 _CSEG                                      size 1836   flags    0
    A _INITIALIZER                               size    5   flags    0
    B _CABS                                      size    0   flags    8
 

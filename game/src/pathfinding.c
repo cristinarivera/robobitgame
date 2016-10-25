@@ -11,9 +11,9 @@ u8 anyadirALista(u8 x, u8 y){
 	u8 anyadido = 0;
 
 	if(sol_tam < CAMINO_TAM){
-		camino[sol_tam-1] = x;
+		camino[sol_tam] = x;
 		sol_tam++;
-		camino[sol_tam-1] = y;
+		camino[sol_tam] = y;
 		sol_tam++;
 		anyadido = 1;
 	}
@@ -22,7 +22,7 @@ u8 anyadirALista(u8 x, u8 y){
 
 }
 
-u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
+u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 	u8 resultado = 4;
 
 	i16 dist1 = 0;
@@ -56,16 +56,16 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 	}
 	else{
 
-		if(s_x < f_x){
-			if(s_y < f_y)
+		if(x < f_x){
+			if(y < f_y)
 				heu_abajo = -1;
 			else
 				heu_arriba = -1;
 
 			heu_derecha = -1;
-		}else if(s_x > f_x){
+		}else if(x > f_x){
 
-			if(s_y < f_y)
+			if(y < f_y)
 				heu_abajo = -1;
 			else
 				heu_arriba = -1;
@@ -75,14 +75,14 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 
 	}
 
-	if(  *getTilePtr(matriz, x, y-2) <=2 &&
- 				*getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2){
+	if(  *getTilePtr(matriz, x, y-2) <=2/* &&
+ 				*getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2*/){
 		dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
 		resultado = 0;
 	}
 
-	if(*getTilePtr(matriz, x, (y + G_ENEMY_H)) <=2 &&
-			*getTilePtr(matriz, x + G_ENEMY_W, y + G_ENEMY_H) <=2){
+	if(*getTilePtr(matriz, x, (y + G_ENEMY_H)) <=2 /*&&
+			*getTilePtr(matriz, x + G_ENEMY_W, y + G_ENEMY_H) <=2*/){
 		dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
 		if(resultado == 0){
 			if(dist1 > dist2)
@@ -92,9 +92,9 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if(*getTilePtr(matriz, x-1, y) <=2 &&
-			 *getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
-		 		 *getTilePtr(matriz, x-1, y + G_ENEMY_H/2) <=2){
+	if(*getTilePtr(matriz, x-1, y) <=2 //&&
+			 /**getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
+		 		 *getTilePtr(matriz, x-1, y + G_ENEMY_H/2) <=2*/){
 		dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
 		if(resultado == 0){
 			if(dist1 >= dist3)
@@ -107,9 +107,9 @@ u8 adjacentTiles(u8 x, u8 y, u8 s_x, u8 s_y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if(*getTilePtr(matriz, (x + G_ENEMY_W +1), y) <=2 &&
-	 		*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H - 2)) <=2 &&
-				*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H/2)) <=2){
+	if(*getTilePtr(matriz, (x + G_ENEMY_W +1), y) <=2 //&&
+	 		/**getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H - 2)) <=2 &&
+				*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H/2)) <=2*/){
 		dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
 		if(resultado == 0){
 			if(dist1 >= dist4)
@@ -141,11 +141,6 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 	u8 y;
 	u8* memptr;
 
-	u16 down = ((y-ORIGEN_MAPA_Y)+2)*40*2 + x;
-	u16 up = ((y-ORIGEN_MAPA_Y)-2)*40*2 + x;
-	u16 right = (y-ORIGEN_MAPA_Y) * 40*2 + (x+1);
-	u16 left = (y-ORIGEN_MAPA_Y) * 40*2 + (x-1);
-
 	u8 problem = 0;
 
 	x = s_x;
@@ -158,7 +153,7 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 
 
 	enemy->longitud_camino = 0;
-	sol_tam = 1;
+	sol_tam = 0;
 
 	inserted = anyadirALista(x, y);
 
@@ -173,7 +168,7 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 
 			aux = 0;
 		}else{
-			movimiento = adjacentTiles(x, y, s_x, s_y, f_x, f_y, matriz);
+			movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
 
 			switch(movimiento){
 				case 0:
@@ -196,20 +191,11 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 					k = k+2;
 					break;
 				case 3:
-
-
 					inserted = anyadirALista(x+1, y);
 					x = x+1;
 					k = k+2;
 					break;
 
-				case 4:
-					sol_tam = sol_tam - 2;
-					k--;
-					y = camino[k];
-					k--;
-					x = camino[k];
-					break;
 			}
 		}
 
@@ -221,9 +207,9 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 		}else{
 			enemy->longitud_camino = CAMINO_TAM;
 		}
+		enemy->camino = camino;
 
-		for(j = 0; j<CAMINO_TAM; j++){
-			enemy->camino[j] = camino[j];
-		}
+	}else{
+		enemy->longitud_camino = 0;
 	}
 }

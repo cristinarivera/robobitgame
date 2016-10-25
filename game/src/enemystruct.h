@@ -15,7 +15,7 @@ typedef struct {
   u8  patrolling;  // esta patrullando?
   u8  reversePatrol;
   u8  last_patrol;
-  u8  iter;
+  i16  iter;
   u8  lastIter;
   u8  inRange; // tiene al prota en rango?
   u8  seen;    // ha visto al prota?
@@ -26,7 +26,7 @@ typedef struct {
   u8  p_seek_x;
   u8  p_seek_y;
 
-  u8  camino[300];
+  u8*  camino;
   u8  longitud_camino;
 } TEnemy;
 
