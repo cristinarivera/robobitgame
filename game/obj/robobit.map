@@ -27,7 +27,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000100  l__g_tablatrans_0               
      0000014C  l__DATA                         
      00000300  s__CODE                         
-     00001832  l__CSEG                         
+     00001833  l__CSEG                         
      00005BF9  l__CODE                         
      00005EF9  s__DATA                         
      00006045  s__INITIALIZED                  
@@ -257,7 +257,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               0000604F    00001832 =        6194. bytes (REL,CON)
+_CSEG                               0000604F    00001833 =        6195. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -272,31 +272,31 @@ _CSEG                               0000604F    00001832 =        6194. bytes (R
      00006135  _redibujarProta                    main
      00006149  _comprobarTeclado                  main
      000061B0  _checkCollision                    main
-     00006325  _dibujarEnemigo                    main
-     0000635D  _dibujarExplosion                  main
-     00006391  _borrarExplosion                   main
-     0000640D  _borrarEnemigo                     main
-     0000647E  _redibujarEnemigo                  main
-     000064AF  _checkEnemyCollision               main
-     000068AA  _moverEnemigoArriba                main
-     000068C9  _moverEnemigoAbajo                 main
-     000068E8  _moverEnemigoDerecha               main
-     000068F8  _moverEnemigoIzquierda             main
-     0000690A  _moverEnemigoPatrol                main
-     00006B20  _moverEnemigoSeek                  main
-     00006C28  _lookFor                           main
-     00006C80  _engage                            main
-     00007376  _updateEnemies                     main
-     00007505  _inicializarEnemy                  main
-     00007603  _avanzarMapa                       main
-     0000764A  _moverIzquierda                    main
-     0000766F  _moverDerecha                      main
-     000076B4  _moverArriba                       main
-     000076D8  _moverAbajo                        main
-     000076FC  _intHandler                        main
-     0000770F  _inicializarCPC                    main
-     0000772A  _inicializarJuego                  main
-     00007793  _main                              main
+     00006321  _dibujarEnemigo                    main
+     00006359  _dibujarExplosion                  main
+     0000638D  _borrarExplosion                   main
+     00006409  _borrarEnemigo                     main
+     0000647F  _redibujarEnemigo                  main
+     000064B0  _checkEnemyCollision               main
+     000068AB  _moverEnemigoArriba                main
+     000068CA  _moverEnemigoAbajo                 main
+     000068E9  _moverEnemigoDerecha               main
+     000068F9  _moverEnemigoIzquierda             main
+     0000690B  _moverEnemigoPatrol                main
+     00006B21  _moverEnemigoSeek                  main
+     00006C29  _lookFor                           main
+     00006C81  _engage                            main
+     00007377  _updateEnemies                     main
+     00007506  _inicializarEnemy                  main
+     00007604  _avanzarMapa                       main
+     0000764B  _moverIzquierda                    main
+     00007670  _moverDerecha                      main
+     000076B5  _moverArriba                       main
+     000076D9  _moverAbajo                        main
+     000076FD  _intHandler                        main
+     00007710  _inicializarCPC                    main
+     0000772B  _inicializarJuego                  main
+     00007794  _main                              main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 
 Files Linked                              [ module(s) ]

@@ -465,15 +465,12 @@ _checkCollision::
 	jp	00104$
 ;src/main.c:163: case 0:
 00101$:
-;src/main.c:164: headTile  = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y);
+;src/main.c:164: headTile  = getTilePtr(mapa, prota.x + G_HERO_W, prota.y);
 	ld	hl, #(_prota + 0x0001) + 0
 	ld	c,(hl)
 	ld	a, (#_prota + 0)
+	add	a, #0x07
 	ld	b,a
-	inc	b
-	inc	b
-	inc	b
-	inc	b
 	ld	a,c
 	push	af
 	inc	sp
@@ -487,16 +484,13 @@ _checkCollision::
 	inc	sp
 	inc	sp
 	push	hl
-;src/main.c:165: feetTile  = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA - 2);
+;src/main.c:165: feetTile  = getTilePtr(mapa, prota.x + G_HERO_W, prota.y + ALTO_PROTA - 2);
 	ld	a, (#(_prota + 0x0001) + 0)
 	add	a, #0x14
 	ld	c,a
-	ld	hl, #_prota + 0
-	ld	b,(hl)
-	inc	b
-	inc	b
-	inc	b
-	inc	b
+	ld	a, (#_prota + 0)
+	add	a, #0x07
+	ld	b,a
 	ld	a,c
 	push	af
 	inc	sp
@@ -508,12 +502,12 @@ _checkCollision::
 	pop	af
 	pop	af
 	ex	de,hl
-;src/main.c:166: waistTile = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA/2);
+;src/main.c:166: waistTile = getTilePtr(mapa, prota.x + G_HERO_W, prota.y + ALTO_PROTA/2);
 	ld	a, (#(_prota + 0x0001) + 0)
 	add	a, #0x0B
 	ld	b,a
 	ld	a, (#_prota + 0)
-	add	a, #0x04
+	add	a, #0x07
 	push	de
 	push	bc
 	inc	sp
@@ -895,18 +889,19 @@ _borrarEnemigo::
 	ld	d,a
 ;src/main.c:222: cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 	ld	hl,(_mapa)
-	ex	(sp), hl
+	ld	-2 (ix),l
+	ld	-1 (ix),h
 	ld	c,5 (ix)
 	ld	b,#0x00
 	ld	a,c
 	add	a,#0xE8
-	ld	-2 (ix),a
+	ld	-4 (ix),a
 	ld	a,b
 	adc	a,#0xFF
-	ld	-1 (ix),a
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
-	bit	7, -1 (ix)
+	ld	-3 (ix),a
+	pop	hl
+	push	hl
+	bit	7, -3 (ix)
 	jr	Z,00105$
 	ld	hl,#0xFFEB
 	add	hl,bc
@@ -918,8 +913,8 @@ _borrarEnemigo::
 	ld	b,l
 	ld	c,4 (ix)
 	srl	c
-	pop	hl
-	push	hl
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	push	hl
 	ld	hl,#0xC0F0
 	push	hl
@@ -1751,32 +1746,32 @@ _moverEnemigoPatrol::
 	ld	iy,#0x000E
 	add	iy, bc
 	ld	a,0 (iy)
-	ld	-6 (ix),a
+	ld	-2 (ix),a
 	ld	a,1 (iy)
-	ld	-5 (ix),a
+	ld	-1 (ix),a
 	ld	hl,#0x001B
 	add	hl,bc
 ;src/main.c:377: enemy->x = enemy->camino[enemy->iter];
 	ld	a,c
 	add	a, #0x19
+	ld	-4 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-3 (ix),a
+;src/main.c:379: enemy->y = enemy->camino[enemy->iter];
+	ld	a,c
+	add	a, #0x01
+	ld	-6 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-5 (ix),a
+;src/main.c:381: enemy->mover = SI;
+	ld	a,c
+	add	a, #0x06
 	ld	-8 (ix),a
 	ld	a,b
 	adc	a, #0x00
 	ld	-7 (ix),a
-;src/main.c:379: enemy->y = enemy->camino[enemy->iter];
-	ld	a,c
-	add	a, #0x01
-	ld	-10 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-9 (ix),a
-;src/main.c:381: enemy->mover = SI;
-	ld	a,c
-	add	a, #0x06
-	ld	-2 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-1 (ix),a
 ;src/main.c:373: if (!enemy->reversePatrol) {
 	ld	a,-11 (ix)
 	or	a, a
@@ -1784,24 +1779,24 @@ _moverEnemigoPatrol::
 ;src/main.c:374: if(enemy->iter < enemy->longitud_camino){
 	ld	l,(hl)
 	ld	h,#0x00
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	sub	a, l
-	ld	a,-5 (ix)
+	ld	a,-1 (ix)
 	sbc	a, h
 	jp	PO, 00144$
 	xor	a, #0x80
 00144$:
 	jp	P,00105$
 ;src/main.c:375: if(enemy->iter == 0){
-	ld	a,-5 (ix)
-	or	a,-6 (ix)
+	ld	a,-1 (ix)
+	or	a,-2 (ix)
 	jr	NZ,00102$
 ;src/main.c:376: enemy->iter = 2;
 	ld	0 (iy),#0x02
 	ld	1 (iy),#0x00
 ;src/main.c:377: enemy->x = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	e,(hl)
 	inc	hl
 	ld	d,(hl)
@@ -1817,35 +1812,35 @@ _moverEnemigoPatrol::
 	ld	0 (iy),c
 	ld	1 (iy),b
 ;src/main.c:379: enemy->y = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a, (hl)
 	inc	hl
 	ld	h,(hl)
 	ld	l,a
 	add	hl,bc
 	ld	e,(hl)
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),e
 ;src/main.c:380: ++enemy->iter;
 	inc	bc
 	ld	0 (iy),c
 	ld	1 (iy),b
 ;src/main.c:381: enemy->mover = SI;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00118$
 00102$:
 ;src/main.c:383: enemy->x = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	e,(hl)
 	inc	hl
 	ld	d,(hl)
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	add	hl,de
 	ld	a,(hl)
 	ld	(bc),a
@@ -1856,24 +1851,24 @@ _moverEnemigoPatrol::
 	ld	0 (iy),c
 	ld	1 (iy),b
 ;src/main.c:385: enemy->y = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a, (hl)
 	inc	hl
 	ld	h,(hl)
 	ld	l,a
 	add	hl,bc
 	ld	e,(hl)
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),e
 ;src/main.c:386: ++enemy->iter;
 	inc	bc
 	ld	0 (iy),c
 	ld	1 (iy),b
 ;src/main.c:387: enemy->mover = SI;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00118$
 00105$:
@@ -1884,15 +1879,15 @@ _moverEnemigoPatrol::
 	ld	a,#0x01
 	ld	(de),a
 ;src/main.c:396: enemy->mover = NO;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x00
 	jp	00118$
 00114$:
 ;src/main.c:400: if(enemy->iter > 0){
 	xor	a, a
-	cp	a, -6 (ix)
-	sbc	a, -5 (ix)
+	cp	a, -2 (ix)
+	sbc	a, -1 (ix)
 	jp	PO, 00145$
 	xor	a, #0x80
 00145$:
@@ -1900,54 +1895,54 @@ _moverEnemigoPatrol::
 ;src/main.c:401: if(enemy->iter == enemy->longitud_camino){
 	ld	e,(hl)
 	ld	d,#0x00
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	sub	a, e
 	jp	NZ,00108$
-	ld	a,-5 (ix)
+	ld	a,-1 (ix)
 	sub	a, d
 	jr	NZ,00108$
 ;src/main.c:402: enemy->iter = enemy->iter - 1;
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	add	a,#0xFF
-	ld	-4 (ix),a
-	ld	a,-5 (ix)
+	ld	-10 (ix),a
+	ld	a,-1 (ix)
 	adc	a,#0xFF
-	ld	-3 (ix),a
-	ld	a,-4 (ix)
+	ld	-9 (ix),a
+	ld	a,-10 (ix)
 	ld	0 (iy),a
-	ld	a,-3 (ix)
+	ld	a,-9 (ix)
 	ld	1 (iy),a
 ;src/main.c:403: enemy->iter = enemy->iter - 2;
-	ld	e,-4 (ix)
-	ld	d,-3 (ix)
+	ld	e,-10 (ix)
+	ld	d,-9 (ix)
 	dec	de
 	dec	de
 	ld	0 (iy),e
 	ld	1 (iy),d
 ;src/main.c:404: enemy->y = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a, (hl)
 	inc	hl
 	ld	h,(hl)
 	ld	l,a
 	add	hl,de
 	ld	e,(hl)
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),e
 ;src/main.c:405: --enemy->iter;
-	ld	a,-4 (ix)
+	ld	a,-10 (ix)
 	add	a,#0xFD
 	ld	e,a
-	ld	a,-3 (ix)
+	ld	a,-9 (ix)
 	adc	a,#0xFF
 	ld	d,a
 	ld	0 (iy),e
 	ld	1 (iy),d
 ;src/main.c:406: enemy->x = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a, (hl)
 	inc	hl
 	ld	h,(hl)
@@ -1956,31 +1951,31 @@ _moverEnemigoPatrol::
 	ld	a,(hl)
 	ld	(bc),a
 ;src/main.c:407: --enemy->iter;
-	ld	a,-4 (ix)
+	ld	a,-10 (ix)
 	add	a,#0xFC
 	ld	c,a
-	ld	a,-3 (ix)
+	ld	a,-9 (ix)
 	adc	a,#0xFF
 	ld	0 (iy), c
 	ld	1 (iy), a
 ;src/main.c:408: enemy->mover = SI;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jr	00118$
 00108$:
 ;src/main.c:410: enemy->y = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	e,(hl)
 	inc	hl
 	ld	d,(hl)
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	add	hl,de
 	ld	e,(hl)
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),e
 ;src/main.c:411: --enemy->iter;
 	ld	e,0 (iy)
@@ -1989,8 +1984,8 @@ _moverEnemigoPatrol::
 	ld	0 (iy),e
 	ld	1 (iy),d
 ;src/main.c:412: enemy->x = enemy->camino[enemy->iter];
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a, (hl)
 	inc	hl
 	ld	h,(hl)
@@ -2003,8 +1998,8 @@ _moverEnemigoPatrol::
 	ld	0 (iy),e
 	ld	1 (iy),d
 ;src/main.c:414: enemy->mover = SI;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jr	00118$
 00111$:
@@ -2015,8 +2010,8 @@ _moverEnemigoPatrol::
 	xor	a, a
 	ld	(de),a
 ;src/main.c:421: enemy->mover = NO;
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x00
 00118$:
 	ld	sp, ix
@@ -3623,9 +3618,9 @@ _inicializarEnemy::
 	adc	a, #0x00
 	ld	h,a
 	ld	a,(hl)
-	ld	-1 (ix), a
+	ld	-3 (ix), a
 	ld	(de),a
-	ld	a,-1 (ix)
+	ld	a,-3 (ix)
 	ld	(bc),a
 ;src/main.c:674: actual->y = actual->py = spawnY[i];
 	push	bc
@@ -3643,9 +3638,9 @@ _inicializarEnemy::
 	adc	a, #0x00
 	ld	h,a
 	ld	a,(hl)
-	ld	-2 (ix), a
+	ld	-1 (ix), a
 	ld	(de),a
-	ld	a,-2 (ix)
+	ld	a,-1 (ix)
 	ld	0 (iy), a
 ;src/main.c:675: actual->mover  = NO;
 	ld	hl,#0x0006
@@ -3716,7 +3711,7 @@ _inicializarEnemy::
 	adc	a, h
 	ld	h,a
 	ld	a,(hl)
-	ld	-3 (ix),a
+	ld	-2 (ix),a
 	ld	hl,#_patrolX
 	add	hl,de
 	ld	e,-4 (ix)
@@ -3727,13 +3722,13 @@ _inicializarEnemy::
 	ld	hl,(_mapa)
 	push	hl
 	push	bc
-	ld	a,-3 (ix)
+	ld	a,-2 (ix)
 	push	af
 	inc	sp
 	push	de
 	inc	sp
-	ld	h,-2 (ix)
-	ld	l,-1 (ix)
+	ld	h,-1 (ix)
+	ld	l,-3 (ix)
 	push	hl
 	call	_pathFinding
 	ld	hl,#8
