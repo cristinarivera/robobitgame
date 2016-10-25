@@ -129,7 +129,7 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 
 }
 
-void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
+void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* actual, u8* matriz){
 
 
 
@@ -144,17 +144,12 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 	u8 problem = 0;
 
 	x = s_x;
-
+		sol_tam = 0;
 	y = s_y;
-
+	i = 0;
 	k = 0;
 	aux = 1;
-
-
-
-	enemy->longitud_camino = 0;
-	sol_tam = 0;
-
+	actual->longitud_camino = 0;
 	inserted = anyadirALista(x, y);
 
 
@@ -203,13 +198,15 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* enemy, u8* matriz){
 
 	if(problem == 0){
 		if(sol_tam < CAMINO_TAM){
-			enemy->longitud_camino = sol_tam;
+			actual->longitud_camino = sol_tam;
 		}else{
-			enemy->longitud_camino = CAMINO_TAM;
+			actual->longitud_camino = CAMINO_TAM;
 		}
-		enemy->camino = camino;
+		for (i; i<actual->longitud_camino; i++){
+				actual->camino[i] = camino[i];
+		}
 
 	}else{
-		enemy->longitud_camino = 0;
+		actual->longitud_camino = 0;
 	}
 }

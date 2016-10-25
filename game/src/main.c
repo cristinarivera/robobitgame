@@ -367,58 +367,66 @@ void moverEnemigoIzquierda(TEnemy *enemy){
   enemy->mover = SI;
 }
 
-void moverEnemigoPatrol(TEnemy *enemy){
+void moverEnemigoPatrol(TEnemy* enemy){
+  u8* memptr;
   if(!enemy->muerto){
     //if(!checkEnemyCollision(enemy->mira, enemy)){
+
     if (!enemy->reversePatrol) {
       if(enemy->iter < enemy->longitud_camino){
         if(enemy->iter == 0){
+
+          enemy->mover = SI;
           enemy->iter = 2;
           enemy->x = enemy->camino[enemy->iter];
           ++enemy->iter;
           enemy->y = enemy->camino[enemy->iter];
           ++enemy->iter;
-          enemy->mover = SI;
+
         }else{
+          enemy->mover = SI;
           enemy->x = enemy->camino[enemy->iter];
           ++enemy->iter;
           enemy->y = enemy->camino[enemy->iter];
           ++enemy->iter;
-          enemy->mover = SI;
+
         }
       }
       else{
+                enemy->mover = NO;
         enemy->iter = enemy->longitud_camino;
         // = enemy->iter - 1;
         //enemy->iter = 0;
         //enemy->longitud_camino = 0;
         enemy->reversePatrol = 1;
-        enemy->mover = NO;
+
       }
     } else {
 
       if(enemy->iter > 0){
         if(enemy->iter == enemy->longitud_camino){
+                    enemy->mover = SI;
           enemy->iter = enemy->iter - 1;
           enemy->iter = enemy->iter - 2;
           enemy->y = enemy->camino[enemy->iter];
           --enemy->iter;
           enemy->x = enemy->camino[enemy->iter];
           --enemy->iter;
-          enemy->mover = SI;
         }else{
+                    enemy->mover = SI;
           enemy->y = enemy->camino[enemy->iter];
           --enemy->iter;
           enemy->x = enemy->camino[enemy->iter];
           --enemy->iter;
-          enemy->mover = SI;
+
         }
       }
       else{
+                enemy->mover = NO;
         enemy->iter = 0;
         //enemy->longitud_camino = 0;
         enemy->reversePatrol = 0;
-        enemy->mover = NO;
+
       }
     }
   }
@@ -609,23 +617,17 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
   }
 }
 
-void updateEnemies() { // maquina de estados
-  TEnemy* actual;
+void updateEnemy(TEnemy* actual) { // maquina de estados
 
-  u8 i =  2;
-  //u8 i = 2 + 1;
-  u8* memptr;
-  actual = enemy;
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
+    u8* memptr;
 
 
-  while(i) {
-    --i;
     if (actual->engage) { // prioridad a la persecucion, nunca te deja
       engage(actual, prota.x, prota.y);
     } else {
-      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
-      if (actual->patrolling) { // esta patrullando
+      //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+      if (actual->patrolling) {
+ // esta patrullando
         moverEnemigoPatrol(actual);
         if (actual->inRange) {
           engage(actual, prota.x, prota.y);
@@ -652,8 +654,6 @@ void updateEnemies() { // maquina de estados
         }
       }
     }
-    actual++;
-  }
 }
 
 void inicializarEnemy() {
@@ -683,7 +683,7 @@ void inicializarEnemy() {
     actual->lastIter = 0;
     actual->seen = 0;
     actual->found = 0;
-    pathFinding(actual->x, actual->y, patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
+    pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
     /*actual->longitud_camino = 100;
     for (k = 0; k<100; k++){
       if(k % 2 == 0 && aux0 == 0){
@@ -817,7 +817,7 @@ void inicializarJuego() {
 }
 
 void main(void) {
-
+  u8* memptr;
   TEnemy* actual;
   u8 i;
   u16 puntuacion_aux = 0;
@@ -836,7 +836,11 @@ void main(void) {
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
     moverCuchillo(&cu, mapa);
-    updateEnemies();
+    while(i){
+      --i;
+      updateEnemy(actual);
+      ++actual;
+    }
 
     cpct_waitVSYNC();
     //cpct_akp_musicPlay();
@@ -852,7 +856,10 @@ void main(void) {
       cu.lanzado = NO;
     }
 
+    i = 2;
+    actual = enemy;
     while(i){
+
       --i;
       if(actual->mover){
         redibujarEnemigo((*actual).px, (*actual).py, actual);

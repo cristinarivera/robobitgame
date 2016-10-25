@@ -26,7 +26,7 @@ typedef struct {
   u8  p_seek_x;
   u8  p_seek_y;
 
-  u8*  camino;
+  u8  camino[200];
   u8  longitud_camino;
 } TEnemy;
 
