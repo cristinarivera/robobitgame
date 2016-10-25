@@ -13,7 +13,6 @@ typedef struct {
   u8  colision;
   u8  muertes;
   u8  patrolling;  // esta patrullando?
-  u8  onPathPatrol; // esta de camino en la patrulla
   u8  reversePatrol;
   u8  last_patrol;
   u8  iter;

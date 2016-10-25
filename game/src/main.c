@@ -71,19 +71,19 @@
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[5] = {0, 38, 71, 50, 24};
-u8 const spawnY[5] = {0, 20 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+u8 const spawnX[5] = {0, 36, 71, 50, 24};
+u8 const spawnY[5] = {0, 40 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
 
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
-  {0, 20, 71, 0, 0} ,
+  {0, 36, 71, 0, 0} ,
   {0, 0, 0, 0, 0} ,
   {0, 0, 0, 0, 0}
 };
 
 u8 const patrolY[4][5] = {
   {0, 0, 0, 0, 0} ,
-  {0, 44, 132, 0, 0} ,
+  {0, 60, 132, 0, 0} ,
   {0, 0, 0, 0, 0} ,
   {0, 0, 0, 0, 0}
 };
@@ -204,28 +204,28 @@ void borrarExplosion() {
   u8 w = 4 + (enemy->px & 1);
 
   //u8 h = 7 + (enemy->py & 3 ? 1 : 0);
-  u8 h = 7 + (enemy->py & 2 ? 1 : 0);
+  u8 h = 6 + (enemy->py & 2 ? 1 : 0);
    p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
   cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 
 }
 
-void borrarEnemigo(TEnemy *enemy) {
+void borrarEnemigo(u8 x, u8 y) {
   u8* p;
 
   //u8 w = 4 + (enemy->px & 1);
-  u8 w = 4 + (enemy->px & 1);
+  u8 w = 4 + (x & 1);
 
   //u8 h = 7 + (enemy->py & 3 ? 1 : 0);
-  u8 h = 7 + (enemy->py & 2 ? 1 : 0);
+  u8 h = 6 + (y & 3 ? 1 : 0);
     p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
-  cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
+  cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 
   enemy->mover = NO;
 }
 
-void redibujarEnemigo(TEnemy *enemy) {
-  borrarEnemigo(enemy);
+void redibujarEnemigo(u8 x, u8 y, TEnemy *enemy) {
+  //borrarEnemigo(x, y);
   enemy->px = enemy->x;
   enemy->py = enemy->y;
   dibujarEnemigo(enemy);
@@ -367,29 +367,6 @@ void moverEnemigoIzquierda(TEnemy *enemy){
   enemy->mover = SI;
 }
 
-void moverEnemigo(TEnemy *enemy){
-	if(!enemy->muerto){
-		if(!checkEnemyCollision(enemy->mira, enemy)){
-
-		   switch (enemy->mira) {
-
-		    case 0:
-		    	moverEnemigoDerecha(enemy);
-		        break;
-		    case 1:
-		    	moverEnemigoIzquierda(enemy);
-		        break;
-		    case 2:
-		        moverEnemigoArriba(enemy);
-		        break;
-		    case 3:
-		       	moverEnemigoAbajo(enemy);
-		        break;
-		   }
-		}
-	}
-}
-
 void moverEnemigoPatrol(TEnemy *enemy){
   if(!enemy->muerto){
     //if(!checkEnemyCollision(enemy->mira, enemy)){
@@ -425,52 +402,6 @@ void moverEnemigoPatrol(TEnemy *enemy){
   }
 }
 
-
-
-void lookFor(TEnemy* enemy){
-
-  u8 i;
-  u8 interpone = NO;
-
-  u8 dist = 0;
-
-  u8 difx = abs(enemy->x - prota.x);
-  u8 dify = abs(enemy->y - prota.y);
-  dist = difx + dify; // manhattan
-
-  enemy->seen = NO;
-  enemy->inRange = NO;
-
-  if (dist <= 10) {// te detectan los sensores de proximidad
-    enemy->seen = 1;
-    enemy->inRange = 1;
-  } else if(dist > 10){
-    if(enemy->y > prota.y - 4 && enemy->y < prota.y + 4){
-      if(enemy->x > prota.x){
-        i = prota.x;
-        /*for (i; i<enemy->x && !interpone; i++){
-          if(*getTilePtr(i , prota.y) > 2){
-            interpone = SI;
-          }
-        }*/
-        if(!interpone){
-          enemy->seen = SI;
-        }
-      }else if(enemy->x > prota.x){
-        i = enemy->x;
-        /*for (i; i<prota.x && !interpone; i++){
-          if(*getTilePtr(i, enemy->y) > 2){
-            interpone = SI;
-          }
-        }*/
-        if(!interpone){
-          enemy->seen = SI;
-        }
-      }
-    }
-  }
-}
-
 void moverEnemigoSeek(TEnemy* enemy){
   if(!enemy->muerto){
     //if(!checkEnemyCollision(enemy->mira, enemy)){
@@ -485,7 +416,6 @@ void moverEnemigoSeek(TEnemy* enemy){
       else{
         enemy->reversePatrol = NO;
         enemy->patrolling = 1;
-        enemy->onPathPatrol = 1;
         enemy->seek = 0;
         enemy->lastIter = enemy->iter - 1;
         enemy->iter = 0;
@@ -496,14 +426,32 @@ void moverEnemigoSeek(TEnemy* enemy){
   }
 }
 
-void patrol(TEnemy *enemy) {
-  if (enemy->onPathPatrol) {
-    moverEnemigoPatrol(enemy);
-  }
-}
+void lookFor(TEnemy* enemy){
 
-void seek(TEnemy* actual){
-  moverEnemigoSeek(actual);
+  u8* memptr;
+
+
+
+  u8 i;
+  u8 interpone = NO;
+  u8 dist = 0;
+  i16 difx = abs((i16)(enemy->x - prota.x));
+  i16 dify = abs((i16)(enemy->y - prota.y));
+
+  dist = difx + dify; // manhattan
+  enemy->seen = NO;
+  enemy->inRange = NO;
+  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90);
+  if(!enemy->seek){
+    if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
+        && prota.y > enemy->y - 25 && prota.y < enemy->y + 25){
+      	enemy->seen = SI;
+
+    }else   if (dist <= 10) {// te detectan los sensores de proximidad
+        enemy->inRange = 1;
+        enemy->engage = 1;
+    }
+  }
 }
 
 void engage(TEnemy *enemy, u8 dx, u8 dy) {
@@ -640,26 +588,28 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 }
 
 void updateEnemies() { // maquina de estados
-  u8 i = (2 + num_mapa) + 1;
-  //u8 i = 1 + 1;
-
   TEnemy* actual;
-  actual = enemy;
 
-  while (--i) {
+  u8 i = 2 + 1;
+  //u8 i = 2 + 1;
+  u8* memptr;
+  actual = enemy;
+  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
+
+
+  while(--i) {
     if (actual->engage) { // prioridad a la persecucion, nunca te deja
       engage(actual, prota.x, prota.y);
     } else {
       lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
       if (actual->patrolling) { // esta patrullando
-        if (!actual->seen && !actual->inRange) {
-          patrol(actual);
-        }else if (actual->inRange) {
+        moverEnemigoPatrol(actual);
+         if (actual->inRange) {
           engage(actual, prota.x, prota.y);
           actual->patrolling = 0;
-          actual->onPathPatrol = 0;
           actual->engage = 1;
         } else if (actual->seen) {
+
           pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
           actual->p_seek_x = actual->x;
           actual->p_seek_y = actual->y;
@@ -667,25 +617,26 @@ void updateEnemies() { // maquina de estados
           actual->iter=0;
           actual->reversePatrol = NO;
           actual->patrolling = 0;
-          actual->onPathPatrol = 0;
           actual->seen = 0;
         }
-      } else if (actual->seek) { // esta buscando
+      } else if (actual->seek) {
+ // esta buscando
         if (!actual->found /*&& actual->seekTimer <= 5*/) {
-          seek(actual); // buscar en posiciones cercanas a la actual
+          moverEnemigoSeek(actual); // buscar en posiciones cercanas a la actual
         } else if (actual->inRange) {
           engage(actual, prota.x, prota.y);
           actual->engage = 1;
         }
       }
     }
+    actual++;
   }
 }
 
 void inicializarEnemy() {
-  u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
-  // u8 i = 4 + 1; // sacar todos
-  //u8 i = 1 + 1;
+  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+   //u8 i = 4 + 1; // sacar todos
+  u8 i = 2 + 1;
   TEnemy* actual;
 
   u8 aux0, aux1, k;
@@ -703,7 +654,6 @@ void inicializarEnemy() {
     actual->muerto = NO;
     actual->muertes = 0;
     actual->patrolling = SI;
-    actual->onPathPatrol = SI;
     actual->reversePatrol = NO;
     actual->iter = 0;
     actual->lastIter = 0;
@@ -718,7 +668,7 @@ void inicializarEnemy() {
         aux0=1;
       }else if(k % 2 == 0 && aux0 == 1){
         actual->camino[k] = actual->x;
-        aux0=0;
+        aux0=0;En
       }else if(k % 2 != 0 && aux1 == 0){
         actual->camino[k] = actual->y;
         aux1=1;
@@ -732,8 +682,9 @@ void inicializarEnemy() {
 
     actual->x = actual->px = spawnX[i];
     actual->y = actual->py = spawnY[i];*/
-    dibujarEnemigo(actual);
-
+    if(actual->longitud_camino > 0){
+      dibujarEnemigo(actual);
+    }
     ++actual;
   }
 }
@@ -856,7 +807,7 @@ void main(void) {
 
   while (1) {
 
-    i = (2 + num_mapa) + 1;
+    i = 2 + 1;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
@@ -879,10 +830,10 @@ void main(void) {
 
     while(--i){
       if(actual->mover){
-        redibujarEnemigo(actual);
+        redibujarEnemigo((*actual).x, (*actual).y, actual);
       }
       if (actual->muerto && actual->muertes == 0){
-        borrarEnemigo(actual);
+        borrarEnemigo((*actual).x, (*actual).y);
         dibujarExplosion(actual);
         puntuacion_aux = puntuacion;
         puntuacion = aumentarPuntuacion(puntuacion_aux);
