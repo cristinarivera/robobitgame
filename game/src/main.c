@@ -510,76 +510,80 @@ u8*memptr;
 
 
 void engage(TEnemy *enemy, u8 dx, u8 dy) {
-
   u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
   u8 dify = abs(enemy->y - prota.y);
   u8 dist = difx + dify; // manhattan
 
   u8 movX = 0;
   u8 movY = 0;
-  u8 mov = 0;
+  u8 distConstraint = 25;
+  enemy->mover = NO;
 
-  if (enemy->y == dy) { // alineado en el eje x
-    //shoot(); // dispara
-    if (dist > 10) {
+  if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
       if (dx < enemy->x) { // izquierda
-        if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
-        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
-          moverEnemigoIzquierda(enemy);
-          movX = 1;
-          mov = 1;
+        if (dist > 11) {
+          if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+          && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+          && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
+            moverEnemigoIzquierda(enemy);
+            movX = 1;
+            enemy->mover = SI;
+          }
         }
       } else { // derecha
-        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
-          moverEnemigoDerecha(enemy);
-          movX = 1;
-          mov = 1;
+        if (dist > G_ENEMY_W + 3) {
+          if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+          && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+          && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
+            moverEnemigoDerecha(enemy);
+            movX = 1;
+            enemy->mover = SI;
+          }
         }
       }
-    }
   }
   else if (enemy->x == dx) {
-    // shoot();
-    if (dist > 10) {
       if (dy < enemy->y) {
+        if (dist > G_HERO_H + 5) {
         if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
           moverEnemigoArriba(enemy);
           movY = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
+      }
       } else {
+        if(dist > G_ENEMY_H + 7) {
         if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
           moverEnemigoAbajo(enemy);
           movY = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
       }
     }
   }
   else { // heuristica
-    if (dist > 20) {
-      if (dx < enemy->x) {
-        if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
-        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-        && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+    if (!prota.mover) distConstraint = 20; // ajuste en parado
+
+    if (dist > distConstraint) {
+      if (dx + 1 < enemy->x) {
+        if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
           moverEnemigoIzquierda(enemy);
           movX = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
-      } else {
-        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-        && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+      } else if (dx + 1 > enemy->x){
+        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
           moverEnemigoDerecha(enemy);
           movX = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
       }
       if (dy < enemy->y) {
@@ -588,7 +592,7 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
           moverEnemigoArriba(enemy);
           movY = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
       } else {
         if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
@@ -596,45 +600,55 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
           moverEnemigoAbajo(enemy);
           movY = 1;
-          mov = 1;
+          enemy->mover = SI;
         }
       }
-      if (!mov) {
+      if (!enemy->mover) {
         if (!movX) {
           if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
             if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
             && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
-            moverEnemigoAbajo(enemy);
-            else
-            moverEnemigoArriba(enemy);
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+              moverEnemigoAbajo(enemy);
+              enemy->mover = SI;
+            } else {
+              moverEnemigoArriba(enemy);
+              enemy->mover = SI;
+            }
           } else {
             if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
             && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
-            moverEnemigoArriba(enemy);
-            else
-            moverEnemigoAbajo(enemy);
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+              moverEnemigoArriba(enemy);
+              enemy->mover = SI;
+            } else {
+              moverEnemigoAbajo(enemy);
+              enemy->mover = SI;
+            }
           }
         }
 
         if (!movY) {
           if (enemy->x < ANCHO_PANTALLA/2) {
-            if(*getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
-            && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-            && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2) {
+            if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+            && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
               moverEnemigoIzquierda(enemy);
+              enemy->mover = SI;
             } else {
               moverEnemigoDerecha(enemy);
+              enemy->mover = SI;
             }
           } else {
-            if(*getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-            && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-            && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2) {
+            if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+            && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
               moverEnemigoDerecha(enemy);
+              enemy->mover = SI;
             }
             else {
               moverEnemigoIzquierda(enemy);
+              enemy->mover = SI;
             }
           }
         }
