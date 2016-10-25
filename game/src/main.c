@@ -71,21 +71,21 @@
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[5] = {0, 36, 71, 50, 24};
-u8 const spawnY[5] = {0, 65 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+u8 const spawnX[4] = {36, 71, 50, 24};
+u8 const spawnY[4] = {65 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
 
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
-  {0, 20, 71, 0, 0} ,
-  {0, 0, 0, 0, 0} ,
-  {0, 0, 0, 0, 0}
+  {20, 71, 0, 0} ,
+  {0, 0, 0, 0} ,
+  {0, 0, 0, 0}
 };
 
 u8 const patrolY[4][5] = {
-  {0, 0, 0, 0, 0} ,
-  {0, 65 + ORIGEN_MAPA_Y, 132 + ORIGEN_MAPA_Y, 0, 0} ,
-  {0, 0, 0, 0, 0} ,
-  {0, 0, 0, 0, 0}
+  {0, 0, 0, 0} ,
+  {65 + ORIGEN_MAPA_Y, 132 + ORIGEN_MAPA_Y, 0, 0} ,
+  {0, 0, 0, 0} ,
+  {0, 0, 0, 0}
 };
 
 TEnemy enemy[4];
@@ -612,14 +612,15 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 void updateEnemies() { // maquina de estados
   TEnemy* actual;
 
-  u8 i = 2 + 1;
+  u8 i =  2;
   //u8 i = 2 + 1;
   u8* memptr;
   actual = enemy;
   memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
 
 
-  while(--i) {
+  while(i) {
+    --i;
     if (actual->engage) { // prioridad a la persecucion, nunca te deja
       engage(actual, prota.x, prota.y);
     } else {
@@ -658,7 +659,7 @@ void updateEnemies() { // maquina de estados
 void inicializarEnemy() {
   //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
    //u8 i = 4 + 1; // sacar todos
-  u8 i = 2 + 1;
+  u8 i = 2;
   TEnemy* actual;
 
   u8 aux0, aux1, k;
@@ -667,7 +668,8 @@ void inicializarEnemy() {
   aux1 = 0;
 
   actual = enemy;
-  while(--i){
+  while(i){
+    --i;
     actual->x = actual->px = spawnX[i];
     actual->y = actual->py = spawnY[i];
     actual->mover  = NO;
@@ -829,7 +831,7 @@ void main(void) {
 
   while (1) {
 
-    i = 2 + 1;
+    i = 2;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
@@ -850,7 +852,8 @@ void main(void) {
       cu.lanzado = NO;
     }
 
-    while(--i){
+    while(i){
+      --i;
       if(actual->mover){
         redibujarEnemigo((*actual).px, (*actual).py, actual);
       }
