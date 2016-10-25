@@ -161,9 +161,9 @@ u8 checkCollision(u8 direction) { // check optimization
 
   switch (direction) {
     case 0:
-    headTile  = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y);
-    feetTile  = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA - 2);
-    waistTile = getTilePtr(mapa, prota.x + G_HERO_W - 3, prota.y + ALTO_PROTA/2);
+    headTile  = getTilePtr(mapa, prota.x + G_HERO_W, prota.y);
+    feetTile  = getTilePtr(mapa, prota.x + G_HERO_W, prota.y + ALTO_PROTA - 2);
+    waistTile = getTilePtr(mapa, prota.x + G_HERO_W, prota.y + ALTO_PROTA/2);
     break;
     case 1:
     headTile  = getTilePtr(mapa, prota.x - 1, prota.y);

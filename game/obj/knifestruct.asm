@@ -335,55 +335,55 @@ _lanzarCuchillo::
 ;src/knifestruct.c:43: if( *getTilePtr(mapa, prota->x + G_HERO_W + G_KNIFEX_0_W + 1, prota->y + G_HERO_H /2) <= 2){
 	ld	a,e
 	add	a, #0x01
-	ld	-5 (ix),a
+	ld	-14 (ix),a
 	ld	a,d
 	adc	a, #0x00
-	ld	-4 (ix),a
+	ld	-13 (ix),a
 ;src/knifestruct.c:45: cu->direccion = M_derecha;
 	ld	a,c
 	add	a, #0x07
-	ld	-13 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-12 (ix),a
-;src/knifestruct.c:47: cu->y=prota->y + G_HERO_H /2;
-	ld	a,c
-	add	a, #0x01
-	ld	-11 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-10 (ix),a
-;src/knifestruct.c:48: cu->sprite=g_knifeX_0;
-	ld	a,c
-	add	a, #0x04
-	ld	-7 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-6 (ix),a
-;src/knifestruct.c:49: cu->eje = E_X;
-	ld	a,c
-	add	a, #0x08
 	ld	-9 (ix),a
 	ld	a,b
 	adc	a, #0x00
 	ld	-8 (ix),a
+;src/knifestruct.c:47: cu->y=prota->y + G_HERO_H /2;
+	ld	a,c
+	add	a, #0x01
+	ld	-12 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-11 (ix),a
+;src/knifestruct.c:48: cu->sprite=g_knifeX_0;
+	ld	a,c
+	add	a, #0x04
+	ld	-4 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-3 (ix),a
+;src/knifestruct.c:49: cu->eje = E_X;
+	ld	a,c
+	add	a, #0x08
+	ld	-6 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-5 (ix),a
 ;src/knifestruct.c:42: if(prota->mira == M_derecha){
 	ld	a,l
 	or	a, a
 	jr	NZ,00118$
 ;src/knifestruct.c:43: if( *getTilePtr(mapa, prota->x + G_HERO_W + G_KNIFEX_0_W + 1, prota->y + G_HERO_H /2) <= 2){
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	-3 (ix),a
+	ld	-7 (ix),a
 	ld	a,(de)
 	add	a, #0x0C
-	ld	-14 (ix),a
+	ld	-10 (ix),a
 	push	bc
 	push	de
-	ld	h,-3 (ix)
-	ld	l,-14 (ix)
+	ld	h,-7 (ix)
+	ld	l,-10 (ix)
 	push	hl
 	ld	l,8 (ix)
 	ld	h,9 (ix)
@@ -402,30 +402,30 @@ _lanzarCuchillo::
 	ld	h,-1 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:45: cu->direccion = M_derecha;
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	ld	l,-9 (ix)
+	ld	h,-8 (ix)
 	ld	(hl),#0x00
 ;src/knifestruct.c:46: cu->x=prota->x + G_HERO_W;
 	ld	a,(de)
 	add	a, #0x07
 	ld	(bc),a
 ;src/knifestruct.c:47: cu->y=prota->y + G_HERO_H /2;
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	(hl),a
 ;src/knifestruct.c:48: cu->sprite=g_knifeX_0;
-	ld	l,-7 (ix)
-	ld	h,-6 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#<(_g_knifeX_0)
 	inc	hl
 	ld	(hl),#>(_g_knifeX_0)
 ;src/knifestruct.c:49: cu->eje = E_X;
-	ld	l,-9 (ix)
-	ld	h,-8 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x00
 ;src/knifestruct.c:50: dibujarCuchillo(cu, g_tablatrans);
 	ld	l,10 (ix)
@@ -442,18 +442,18 @@ _lanzarCuchillo::
 	dec	a
 	jr	NZ,00115$
 ;src/knifestruct.c:54: if( *getTilePtr(mapa, prota->x - G_KNIFEX_0_W - 1 - G_KNIFEX_0_W - 1, prota->y + G_HERO_H /2) <= 2){
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	-14 (ix),a
+	ld	-10 (ix),a
 	ld	a,(de)
 	add	a,#0xF6
-	ld	-3 (ix),a
+	ld	-7 (ix),a
 	push	bc
 	push	de
-	ld	h,-14 (ix)
-	ld	l,-3 (ix)
+	ld	h,-10 (ix)
+	ld	l,-7 (ix)
 	push	hl
 	ld	l,8 (ix)
 	ld	h,9 (ix)
@@ -472,30 +472,30 @@ _lanzarCuchillo::
 	ld	h,-1 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:56: cu->direccion = M_izquierda;
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	ld	l,-9 (ix)
+	ld	h,-8 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:57: cu->x = prota->x - G_KNIFEX_0_W;
 	ld	a,(de)
 	add	a,#0xFC
 	ld	(bc),a
 ;src/knifestruct.c:58: cu->y = prota->y + G_HERO_H /2;
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	(hl),a
 ;src/knifestruct.c:59: cu->sprite = g_knifeX_1;
-	ld	l,-7 (ix)
-	ld	h,-6 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#<(_g_knifeX_1)
 	inc	hl
 	ld	(hl),#>(_g_knifeX_1)
 ;src/knifestruct.c:60: cu->eje = E_X;
-	ld	l,-9 (ix)
-	ld	h,-8 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x00
 ;src/knifestruct.c:61: dibujarCuchillo(cu, g_tablatrans);
 	ld	l,10 (ix)
@@ -512,18 +512,18 @@ _lanzarCuchillo::
 	sub	a, #0x03
 	jr	NZ,00112$
 ;src/knifestruct.c:66: if( *getTilePtr(mapa, prota->x + G_HERO_W / 2, prota->y + G_HERO_H + G_KNIFEY_0_H + 1) <= 2){
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x1F
-	ld	-14 (ix),a
+	ld	-10 (ix),a
 	ld	a,(de)
 	add	a, #0x03
-	ld	-3 (ix),a
+	ld	-7 (ix),a
 	push	bc
 	push	de
-	ld	h,-14 (ix)
-	ld	l,-3 (ix)
+	ld	h,-10 (ix)
+	ld	l,-7 (ix)
 	push	hl
 	ld	l,8 (ix)
 	ld	h,9 (ix)
@@ -542,30 +542,30 @@ _lanzarCuchillo::
 	ld	h,-1 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:68: cu->direccion = M_abajo;
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	ld	l,-9 (ix)
+	ld	h,-8 (ix)
 	ld	(hl),#0x03
 ;src/knifestruct.c:69: cu->x = prota->x + G_HERO_W / 2;
 	ld	a,(de)
 	add	a, #0x03
 	ld	(bc),a
 ;src/knifestruct.c:70: cu->y = prota->y + G_HERO_H;
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a, #0x16
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	(hl),a
 ;src/knifestruct.c:71: cu->sprite = g_knifeY_0;
-	ld	l,-7 (ix)
-	ld	h,-6 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#<(_g_knifeY_0)
 	inc	hl
 	ld	(hl),#>(_g_knifeY_0)
 ;src/knifestruct.c:72: cu->eje = E_Y;
-	ld	l,-9 (ix)
-	ld	h,-8 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:73: dibujarCuchillo(cu, g_tablatrans);
 	ld	l,10 (ix)
@@ -582,18 +582,18 @@ _lanzarCuchillo::
 	sub	a, #0x02
 	jr	NZ,00122$
 ;src/knifestruct.c:77: if( *getTilePtr(mapa, prota->x + G_HERO_W / 2, prota->y - G_KNIFEY_0_H - 1) <= 2){
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a,#0xF7
-	ld	-14 (ix),a
+	ld	-10 (ix),a
 	ld	a,(de)
 	add	a, #0x03
-	ld	-3 (ix),a
+	ld	-7 (ix),a
 	push	bc
 	push	de
-	ld	h,-14 (ix)
-	ld	l,-3 (ix)
+	ld	h,-10 (ix)
+	ld	l,-7 (ix)
 	push	hl
 	ld	l,8 (ix)
 	ld	h,9 (ix)
@@ -612,30 +612,30 @@ _lanzarCuchillo::
 	ld	h,-1 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:79: cu->direccion = M_arriba;
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	ld	l,-9 (ix)
+	ld	h,-8 (ix)
 	ld	(hl),#0x02
 ;src/knifestruct.c:80: cu->x = prota->x + G_HERO_W / 2;
 	ld	a,(de)
 	add	a, #0x03
 	ld	(bc),a
 ;src/knifestruct.c:81: cu->y = prota->y - G_KNIFEY_0_H;
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	add	a,#0xF8
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	(hl),a
 ;src/knifestruct.c:82: cu->sprite = g_knifeY_1;
-	ld	l,-7 (ix)
-	ld	h,-6 (ix)
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#<(_g_knifeY_1)
 	inc	hl
 	ld	(hl),#>(_g_knifeY_1)
 ;src/knifestruct.c:83: cu->eje = E_Y;
-	ld	l,-9 (ix)
-	ld	h,-8 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x01
 ;src/knifestruct.c:84: dibujarCuchillo(cu, g_tablatrans);
 	ld	l,10 (ix)
