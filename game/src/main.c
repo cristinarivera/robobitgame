@@ -668,7 +668,7 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
     if (actual->engage) { // prioridad a la persecucion, nunca te deja
       engage(actual, prota.x, prota.y);
     } else {
-      //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
       if (actual->patrolling) {
  // esta patrullando
         moverEnemigoPatrol(actual);

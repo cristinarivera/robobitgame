@@ -3685,9 +3685,11 @@ _updateEnemy::
 	ld	b,5 (ix)
 	ld	hl,#0x0016
 	add	hl,bc
-	ex	de,hl
-	ld	a,(de)
-	ld	-8 (ix), a
+	ld	-4 (ix),l
+	ld	-3 (ix),h
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	a,(hl)
 	or	a, a
 	jr	Z,00115$
 ;src/main.c:669: engage(actual, prota.x, prota.y);
@@ -3704,28 +3706,35 @@ _updateEnemy::
 	pop	af
 	jp	00117$
 00115$:
-;src/main.c:672: if (actual->patrolling) {
+;src/main.c:671: lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+	push	bc
+	push	bc
+	call	_lookFor
+	pop	af
+	pop	bc
+;src/main.c:678: actual->patrolling = 0;
 	ld	hl,#0x000B
 	add	hl,bc
-	ld	-10 (ix),l
-	ld	-9 (ix),h
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	-8 (ix),l
+	ld	-7 (ix),h
+;src/main.c:672: if (actual->patrolling) {
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	l,(hl)
-;src/main.c:684: actual->seek = 1;
-	ld	a,c
-	add	a, #0x14
-	ld	-12 (ix),a
-	ld	a,b
-	adc	a, #0x00
-	ld	-11 (ix),a
 ;src/main.c:675: if (actual->in_range) {
 	ld	a,c
 	add	a, #0x11
-	ld	-2 (ix),a
+	ld	e,a
 	ld	a,b
 	adc	a, #0x00
-	ld	-1 (ix),a
+	ld	d,a
+;src/main.c:684: actual->seek = 1;
+	ld	a,c
+	add	a, #0x14
+	ld	-10 (ix),a
+	ld	a,b
+	adc	a, #0x00
+	ld	-9 (ix),a
 ;src/main.c:672: if (actual->patrolling) {
 	ld	a,l
 	or	a, a
@@ -3739,67 +3748,60 @@ _updateEnemy::
 	pop	de
 	pop	bc
 ;src/main.c:675: if (actual->in_range) {
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
-	ld	a,(hl)
+	ld	a,(de)
 	or	a, a
 	jr	Z,00104$
 ;src/main.c:677: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
-	push	af
-	ld	a,(hl)
-	ld	-8 (ix),a
-	pop	af
-	push	de
+	ld	d,(hl)
 	push	af
 	inc	sp
-	ld	a,-8 (ix)
-	push	af
+	push	de
 	inc	sp
 	push	bc
 	call	_engage
 	pop	af
 	pop	af
-	pop	de
 ;src/main.c:678: actual->patrolling = 0;
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x00
 ;src/main.c:679: actual->engage = 1;
-	ld	a,#0x01
-	ld	(de),a
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#0x01
 	jp	00117$
 00104$:
 ;src/main.c:680: } else if (actual->seen) {
 	ld	hl,#0x0012
 	add	hl,bc
-	ld	-4 (ix),l
-	ld	-3 (ix),h
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
+	ld	-6 (ix),l
+	ld	-5 (ix),h
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	a,(hl)
 	or	a, a
 	jp	Z,00117$
 ;src/main.c:681: pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
 	ld	a,(#_prota + 1)
-	ld	-8 (ix),a
+	ld	-12 (ix),a
 	ld	hl, #_prota + 0
 	ld	e,(hl)
 	ld	hl,#0x0001
 	add	hl,bc
-	ld	-6 (ix),l
-	ld	-5 (ix),h
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	-2 (ix),l
+	ld	-1 (ix),h
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	d,(hl)
 	ld	a,(bc)
-	ld	-7 (ix),a
+	ld	-11 (ix),a
 	push	bc
 	ld	hl,(_mapa)
 	push	hl
 	push	bc
-	ld	a,-8 (ix)
+	ld	a,-12 (ix)
 	push	af
 	inc	sp
 	ld	a,e
@@ -3807,7 +3809,7 @@ _updateEnemy::
 	inc	sp
 	push	de
 	inc	sp
-	ld	a,-7 (ix)
+	ld	a,-11 (ix)
 	push	af
 	inc	sp
 	call	_pathFinding
@@ -3825,13 +3827,13 @@ _updateEnemy::
 	ld	hl,#0x0018
 	add	hl,bc
 	ex	de,hl
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	a,(hl)
 	ld	(de),a
 ;src/main.c:684: actual->seek = 1;
-	pop	hl
-	push	hl
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	(hl),#0x01
 ;src/main.c:685: actual->iter=0;
 	ld	hl,#0x000E
@@ -3845,18 +3847,18 @@ _updateEnemy::
 	add	hl,bc
 	ld	(hl),#0x00
 ;src/main.c:687: actual->patrolling = 0;
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x00
 ;src/main.c:688: actual->seen = 0;
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x00
 	jr	00117$
 00112$:
 ;src/main.c:690: } else if (actual->seek) {
-	pop	hl
-	push	hl
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	or	a, a
 	jr	Z,00117$
@@ -3869,36 +3871,29 @@ _updateEnemy::
 	pop	de
 	pop	bc
 ;src/main.c:692: if (actual->in_range) {
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
-	ld	a,(hl)
+	ld	a,(de)
 	or	a, a
 	jr	Z,00117$
 ;src/main.c:693: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
-	push	af
-	ld	a,(hl)
-	ld	-7 (ix),a
-	pop	af
-	push	de
+	ld	d,(hl)
 	push	af
 	inc	sp
-	ld	a,-7 (ix)
-	push	af
+	push	de
 	inc	sp
 	push	bc
 	call	_engage
 	pop	af
 	pop	af
-	pop	de
 ;src/main.c:694: actual->seek = 0;
-	pop	hl
-	push	hl
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	(hl),#0x00
 ;src/main.c:695: actual->engage = 1;
-	ld	a,#0x01
-	ld	(de),a
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
+	ld	(hl),#0x01
 ;src/main.c:696: } else if (actual->seen) {
 00117$:
 	ld	sp, ix
