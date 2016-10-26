@@ -27,7 +27,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000100  l__g_tablatrans_0               
      00000300  s__CODE                         
      00000466  l__DATA                         
-     00001978  l__CSEG                         
+     00001A38  l__CSEG                         
      00005D9D  l__CODE                         
      0000609D  s__DATA                         
      00006503  s__INITIALIZED                  
@@ -257,7 +257,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               0000650B    00001978 =        6520. bytes (REL,CON)
+_CSEG                               0000650B    00001A38 =        6712. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -278,25 +278,25 @@ _CSEG                               0000650B    00001978 =        6520. bytes (R
      000068C5  _borrarEnemigo                     main
      00006935  _redibujarEnemigo                  main
      00006966  _checkEnemyDead                    main
-     00006B53  _moverEnemigoArriba                main
-     00006B72  _moverEnemigoAbajo                 main
-     00006B91  _moverEnemigoDerecha               main
-     00006BA1  _moverEnemigoIzquierda             main
-     00006BB3  _moverEnemigoPatrol                main
-     00006DFC  _lookFor                           main
-     00006F02  _moverEnemigoSeek                  main
-     000070A7  _engage                            main
-     00007883  _updateEnemy                       main
-     000079DF  _inicializarEnemy                  main
-     00007AF6  _avanzarMapa                       main
-     00007B3D  _moverIzquierda                    main
-     00007B62  _moverDerecha                      main
-     00007BA7  _moverArriba                       main
-     00007BCB  _moverAbajo                        main
-     00007BEF  _intHandler                        main
-     00007C02  _inicializarCPC                    main
-     00007C1D  _inicializarJuego                  main
-     00007C8B  _main                              main
+     00006B59  _moverEnemigoArriba                main
+     00006B78  _moverEnemigoAbajo                 main
+     00006B97  _moverEnemigoDerecha               main
+     00006BA7  _moverEnemigoIzquierda             main
+     00006BB9  _moverEnemigoPatrol                main
+     00006E06  _lookFor                           main
+     00006F0C  _moverEnemigoSeek                  main
+     000070BE  _engage                            main
+     00007935  _updateEnemy                       main
+     00007A91  _inicializarEnemy                  main
+     00007BB0  _avanzarMapa                       main
+     00007BF7  _moverIzquierda                    main
+     00007C1C  _moverDerecha                      main
+     00007C61  _moverArriba                       main
+     00007C85  _moverAbajo                        main
+     00007CA9  _intHandler                        main
+     00007CBC  _inicializarCPC                    main
+     00007CD7  _inicializarJuego                  main
+     00007D45  _main                              main
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 
 Files Linked                              [ module(s) ]
