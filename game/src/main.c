@@ -635,6 +635,7 @@ void inicializarEnemy() {
       actual->lastIter = 0;
       actual->seen = 0;
       actual->found = 0;
+      actual->engage = 0;
       pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
       dibujarEnemigo(actual);
       ++actual;
