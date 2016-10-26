@@ -231,43 +231,44 @@ void redibujarEnemigo(u8 x, u8 y, TEnemy *enemy) {
 void checkEnemyDead(u8 direction, TEnemy *enemy){
 
   switch (direction) {
-    case 1:
-    if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
-      if(cu.x > enemy->x + G_ENEMY_W){ //si el cu esta abajo
-        if( !(cu.x - (enemy->x + G_ENEMY_W) > 1)){ // si hay espacio entre el enemigo y el cu
-          enemy->muerto = SI;
-        }
-      }
-    }
-    break;
-    case 0:
-    if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
-      if(enemy->x > cu.x + G_KNIFEX_0_W){ //si el cu esta abajo
-        if( !(enemy->x - (cu.x + G_KNIFEX_0_W) > 1)){ // si hay espacio entre el enemigo y el cu
-          enemy->muerto = SI;
-        }
-      }
-    }
-    break;
-    case 3:
-    if(!((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W))){
-      if(enemy->y>cu.y){
-        if(!(enemy->y - (cu.y + G_KNIFEY_0_H))  > 2){
-          enemy->muerto = SI;
-        }
-      }
-    }
-    break;
-    case 2:
-    if( !((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)) ){
-      if(cu.y > enemy->y + G_ENEMY_H){ //si el cu esta abajo
-        if( !(cu.y - (enemy->y + G_ENEMY_H))  > 2){ // si hay espacio entre el enemigo y el cu
-          enemy->muerto = SI;
 
+    case 0:
+      if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
+        if(enemy->x > cu.x + G_KNIFEX_0_W){ //si el cu esta abajo
+          if( !(enemy->x - (cu.x + G_KNIFEX_0_W) > 1)){ // si hay espacio entre el enemigo y el cu
+            enemy->muerto = SI;
+          }
         }
       }
-    }
-    break;
+      break;
+    case 1:
+      if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
+        if(cu.x > enemy->x + G_ENEMY_W){ //si el cu esta abajo
+          if( !(cu.x - (enemy->x + G_ENEMY_W) > 1)){ // si hay espacio entre el enemigo y el cu
+            enemy->muerto = SI;
+          }
+        }
+      }
+      break;
+
+    case 2:
+      if( !((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)) ){
+        if(cu.y > enemy->y + G_ENEMY_H){ //si el cu esta abajo
+          if( !(cu.y - (enemy->y + G_ENEMY_H)  > 2)){ // si hay espacio entre el enemigo y el cu
+            enemy->muerto = SI;
+          }
+        }
+      }
+      break;
+    case 3:
+        if(!((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W))){
+          if(enemy->y>cu.y){
+            if(!(enemy->y - (cu.y + G_KNIFEY_0_H)  > 2)){
+              enemy->muerto = SI;
+            }
+          }
+        }
+        break;
   }
 }
 
@@ -794,7 +795,7 @@ void main(void) {
       borrarCuchillo(cu.eje, cu.x, cu.y, mapa);
       cu.lanzado = NO;
       cu.x = 0;
-      cy.y=0;
+      cu.y=0;
     }
 
     i = 2 + num_mapa;
