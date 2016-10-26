@@ -1,0 +1,697 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module menu
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _cpct_getScreenPtr
+                             12 	.globl _cpct_drawStringM0
+                             13 	.globl _cpct_drawSolidBox
+                             14 	.globl _cpct_drawSprite
+                             15 	.globl _cpct_isKeyPressed
+                             16 	.globl _cpct_scanKeyboard_f
+                             17 	.globl _cpct_memset
+                             18 	.globl _borrarPantalla
+                             19 	.globl _menuInstrucciones
+                             20 	.globl _menuCreditos
+                             21 	.globl _menuOpciones
+                             22 	.globl _menuInicio
+                             23 ;--------------------------------------------------------
+                             24 ; special function registers
+                             25 ;--------------------------------------------------------
+                             26 ;--------------------------------------------------------
+                             27 ; ram data
+                             28 ;--------------------------------------------------------
+                             29 	.area _DATA
+                             30 ;--------------------------------------------------------
+                             31 ; ram data
+                             32 ;--------------------------------------------------------
+                             33 	.area _INITIALIZED
+                             34 ;--------------------------------------------------------
+                             35 ; absolute external ram data
+                             36 ;--------------------------------------------------------
+                             37 	.area _DABS (ABS)
+                             38 ;--------------------------------------------------------
+                             39 ; global & static initialisations
+                             40 ;--------------------------------------------------------
+                             41 	.area _HOME
+                             42 	.area _GSINIT
+                             43 	.area _GSFINAL
+                             44 	.area _GSINIT
+                             45 ;--------------------------------------------------------
+                             46 ; Home
+                             47 ;--------------------------------------------------------
+                             48 	.area _HOME
+                             49 	.area _HOME
+                             50 ;--------------------------------------------------------
+                             51 ; code
+                             52 ;--------------------------------------------------------
+                             53 	.area _CODE
+                             54 ;src/menu/menu.c:26: void borrarPantalla(u8 x, u8 y, u8 ancho, u8 alto){
+                             55 ;	---------------------------------
+                             56 ; Function borrarPantalla
+                             57 ; ---------------------------------
+   0000                      58 _borrarPantalla::
+   0000 DD E5         [15]   59 	push	ix
+   0002 DD 21 00 00   [14]   60 	ld	ix,#0
+   0006 DD 39         [15]   61 	add	ix,sp
+                             62 ;src/menu/menu.c:28: if (ancho <= 40){
+   0008 3E 28         [ 7]   63 	ld	a,#0x28
+   000A DD 96 06      [19]   64 	sub	a, 6 (ix)
+   000D 3E 00         [ 7]   65 	ld	a,#0x00
+   000F 17            [ 4]   66 	rla
+   0010 4F            [ 4]   67 	ld	c,a
+   0011 CB 41         [ 8]   68 	bit	0,c
+   0013 20 23         [12]   69 	jr	NZ,00104$
+                             70 ;src/menu/menu.c:29: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar
+   0015 DD 66 05      [19]   71 	ld	h,5 (ix)
+   0018 DD 6E 04      [19]   72 	ld	l,4 (ix)
+   001B E5            [11]   73 	push	hl
+   001C 21 00 C0      [10]   74 	ld	hl,#0xC000
+   001F E5            [11]   75 	push	hl
+   0020 CDr00r00      [17]   76 	call	_cpct_getScreenPtr
+   0023 4D            [ 4]   77 	ld	c,l
+   0024 44            [ 4]   78 	ld	b,h
+                             79 ;src/menu/menu.c:30: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra
+   0025 DD 66 07      [19]   80 	ld	h,7 (ix)
+   0028 DD 6E 06      [19]   81 	ld	l,6 (ix)
+   002B E5            [11]   82 	push	hl
+   002C AF            [ 4]   83 	xor	a, a
+   002D F5            [11]   84 	push	af
+   002E 33            [ 6]   85 	inc	sp
+   002F C5            [11]   86 	push	bc
+   0030 CDr00r00      [17]   87 	call	_cpct_drawSolidBox
+   0033 F1            [10]   88 	pop	af
+   0034 F1            [10]   89 	pop	af
+   0035 33            [ 6]   90 	inc	sp
+   0036 18 51         [12]   91 	jr	00106$
+   0038                      92 00104$:
+                             93 ;src/menu/menu.c:32: else if (ancho > 40){
+   0038 CB 41         [ 8]   94 	bit	0,c
+   003A 28 4D         [12]   95 	jr	Z,00106$
+                             96 ;src/menu/menu.c:34: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar la mitad derecha
+   003C DD 66 05      [19]   97 	ld	h,5 (ix)
+   003F DD 6E 04      [19]   98 	ld	l,4 (ix)
+   0042 E5            [11]   99 	push	hl
+   0043 21 00 C0      [10]  100 	ld	hl,#0xC000
+   0046 E5            [11]  101 	push	hl
+   0047 CDr00r00      [17]  102 	call	_cpct_getScreenPtr
+   004A 4D            [ 4]  103 	ld	c,l
+   004B 44            [ 4]  104 	ld	b,h
+                            105 ;src/menu/menu.c:35: cpct_drawSolidBox(memptr, 0, 40, alto);  //borra la mitad derecha
+   004C DD 7E 07      [19]  106 	ld	a,7 (ix)
+   004F F5            [11]  107 	push	af
+   0050 33            [ 6]  108 	inc	sp
+   0051 21 00 28      [10]  109 	ld	hl,#0x2800
+   0054 E5            [11]  110 	push	hl
+   0055 C5            [11]  111 	push	bc
+   0056 CDr00r00      [17]  112 	call	_cpct_drawSolidBox
+   0059 F1            [10]  113 	pop	af
+   005A F1            [10]  114 	pop	af
+   005B 33            [ 6]  115 	inc	sp
+                            116 ;src/menu/menu.c:36: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
+   005C DD 7E 04      [19]  117 	ld	a,4 (ix)
+   005F C6 28         [ 7]  118 	add	a, #0x28
+   0061 47            [ 4]  119 	ld	b,a
+   0062 DD 7E 05      [19]  120 	ld	a,5 (ix)
+   0065 F5            [11]  121 	push	af
+   0066 33            [ 6]  122 	inc	sp
+   0067 C5            [11]  123 	push	bc
+   0068 33            [ 6]  124 	inc	sp
+   0069 21 00 C0      [10]  125 	ld	hl,#0xC000
+   006C E5            [11]  126 	push	hl
+   006D CDr00r00      [17]  127 	call	_cpct_getScreenPtr
+   0070 4D            [ 4]  128 	ld	c,l
+   0071 44            [ 4]  129 	ld	b,h
+                            130 ;src/menu/menu.c:37: cpct_drawSolidBox(memptr, 0, ancho-40, alto);  //borra la mitad izquierda
+   0072 DD 7E 06      [19]  131 	ld	a,6 (ix)
+   0075 C6 D8         [ 7]  132 	add	a,#0xD8
+   0077 57            [ 4]  133 	ld	d,a
+   0078 DD 7E 07      [19]  134 	ld	a,7 (ix)
+   007B F5            [11]  135 	push	af
+   007C 33            [ 6]  136 	inc	sp
+   007D D5            [11]  137 	push	de
+   007E 33            [ 6]  138 	inc	sp
+   007F AF            [ 4]  139 	xor	a, a
+   0080 F5            [11]  140 	push	af
+   0081 33            [ 6]  141 	inc	sp
+   0082 C5            [11]  142 	push	bc
+   0083 CDr00r00      [17]  143 	call	_cpct_drawSolidBox
+   0086 F1            [10]  144 	pop	af
+   0087 F1            [10]  145 	pop	af
+   0088 33            [ 6]  146 	inc	sp
+   0089                     147 00106$:
+   0089 DD E1         [14]  148 	pop	ix
+   008B C9            [10]  149 	ret
+                            150 ;src/menu/menu.c:41: void menuInstrucciones(){ // TODO TODO
+                            151 ;	---------------------------------
+                            152 ; Function menuInstrucciones
+                            153 ; ---------------------------------
+   008C                     154 _menuInstrucciones::
+                            155 ;src/menu/menu.c:43: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+   008C 21 50 82      [10]  156 	ld	hl,#0x8250
+   008F E5            [11]  157 	push	hl
+   0090 21 00 1E      [10]  158 	ld	hl,#0x1E00
+   0093 E5            [11]  159 	push	hl
+   0094 CDr00r00      [17]  160 	call	_borrarPantalla
+   0097 F1            [10]  161 	pop	af
+                            162 ;src/menu/menu.c:46: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 16, 85); // centrado en horizontal y abajo en vertical
+   0098 21 10 55      [10]  163 	ld	hl, #0x5510
+   009B E3            [19]  164 	ex	(sp),hl
+   009C 21 00 C0      [10]  165 	ld	hl,#0xC000
+   009F E5            [11]  166 	push	hl
+   00A0 CDr00r00      [17]  167 	call	_cpct_getScreenPtr
+   00A3 4D            [ 4]  168 	ld	c,l
+   00A4 44            [ 4]  169 	ld	b,h
+                            170 ;src/menu/menu.c:47: cpct_drawStringM0("INSTRUCTIONS", memptr, 2, 0);
+   00A5 21 02 00      [10]  171 	ld	hl,#0x0002
+   00A8 E5            [11]  172 	push	hl
+   00A9 C5            [11]  173 	push	bc
+   00AA 21r7Ar01      [10]  174 	ld	hl,#___str_0
+   00AD E5            [11]  175 	push	hl
+   00AE CDr00r00      [17]  176 	call	_cpct_drawStringM0
+   00B1 21 06 00      [10]  177 	ld	hl,#6
+   00B4 39            [11]  178 	add	hl,sp
+   00B5 F9            [ 6]  179 	ld	sp,hl
+                            180 ;src/menu/menu.c:50: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 4, 115); // dibuja 5 corazones
+   00B6 21 04 73      [10]  181 	ld	hl,#0x7304
+   00B9 E5            [11]  182 	push	hl
+   00BA 21 00 C0      [10]  183 	ld	hl,#0xC000
+   00BD E5            [11]  184 	push	hl
+   00BE CDr00r00      [17]  185 	call	_cpct_getScreenPtr
+   00C1 4D            [ 4]  186 	ld	c,l
+   00C2 44            [ 4]  187 	ld	b,h
+                            188 ;src/menu/menu.c:51: cpct_drawSprite (g_arrows_0, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
+   00C3 21 05 0A      [10]  189 	ld	hl,#0x0A05
+   00C6 E5            [11]  190 	push	hl
+   00C7 C5            [11]  191 	push	bc
+   00C8 21r00r00      [10]  192 	ld	hl,#_g_arrows_0
+   00CB E5            [11]  193 	push	hl
+   00CC CDr00r00      [17]  194 	call	_cpct_drawSprite
+                            195 ;src/menu/menu.c:53: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 115); // dibuja 5 corazones
+   00CF 21 0E 73      [10]  196 	ld	hl,#0x730E
+   00D2 E5            [11]  197 	push	hl
+   00D3 21 00 C0      [10]  198 	ld	hl,#0xC000
+   00D6 E5            [11]  199 	push	hl
+   00D7 CDr00r00      [17]  200 	call	_cpct_getScreenPtr
+   00DA 4D            [ 4]  201 	ld	c,l
+   00DB 44            [ 4]  202 	ld	b,h
+                            203 ;src/menu/menu.c:54: cpct_drawSprite (g_arrows_1, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
+   00DC 21 05 0A      [10]  204 	ld	hl,#0x0A05
+   00DF E5            [11]  205 	push	hl
+   00E0 C5            [11]  206 	push	bc
+   00E1 21r00r00      [10]  207 	ld	hl,#_g_arrows_1
+   00E4 E5            [11]  208 	push	hl
+   00E5 CDr00r00      [17]  209 	call	_cpct_drawSprite
+                            210 ;src/menu/menu.c:56: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 115); // dibuja 5 corazones
+   00E8 21 18 73      [10]  211 	ld	hl,#0x7318
+   00EB E5            [11]  212 	push	hl
+   00EC 21 00 C0      [10]  213 	ld	hl,#0xC000
+   00EF E5            [11]  214 	push	hl
+   00F0 CDr00r00      [17]  215 	call	_cpct_getScreenPtr
+   00F3 4D            [ 4]  216 	ld	c,l
+   00F4 44            [ 4]  217 	ld	b,h
+                            218 ;src/menu/menu.c:57: cpct_drawSprite (g_arrows_2, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
+   00F5 21 05 0A      [10]  219 	ld	hl,#0x0A05
+   00F8 E5            [11]  220 	push	hl
+   00F9 C5            [11]  221 	push	bc
+   00FA 21r00r00      [10]  222 	ld	hl,#_g_arrows_2
+   00FD E5            [11]  223 	push	hl
+   00FE CDr00r00      [17]  224 	call	_cpct_drawSprite
+                            225 ;src/menu/menu.c:59: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 34, 115); // dibuja 5 corazones
+   0101 21 22 73      [10]  226 	ld	hl,#0x7322
+   0104 E5            [11]  227 	push	hl
+   0105 21 00 C0      [10]  228 	ld	hl,#0xC000
+   0108 E5            [11]  229 	push	hl
+   0109 CDr00r00      [17]  230 	call	_cpct_getScreenPtr
+   010C 4D            [ 4]  231 	ld	c,l
+   010D 44            [ 4]  232 	ld	b,h
+                            233 ;src/menu/menu.c:60: cpct_drawSprite (g_arrows_3, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
+   010E 21 05 0A      [10]  234 	ld	hl,#0x0A05
+   0111 E5            [11]  235 	push	hl
+   0112 C5            [11]  236 	push	bc
+   0113 21r00r00      [10]  237 	ld	hl,#_g_arrows_3
+   0116 E5            [11]  238 	push	hl
+   0117 CDr00r00      [17]  239 	call	_cpct_drawSprite
+                            240 ;src/menu/menu.c:62: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 45, 115); // centrado en horizontal y abajo en vertical
+   011A 21 2D 73      [10]  241 	ld	hl,#0x732D
+   011D E5            [11]  242 	push	hl
+   011E 21 00 C0      [10]  243 	ld	hl,#0xC000
+   0121 E5            [11]  244 	push	hl
+   0122 CDr00r00      [17]  245 	call	_cpct_getScreenPtr
+   0125 4D            [ 4]  246 	ld	c,l
+   0126 44            [ 4]  247 	ld	b,h
+                            248 ;src/menu/menu.c:63: cpct_drawStringM0(" TO MOVE", memptr, 2, 0);
+   0127 21 02 00      [10]  249 	ld	hl,#0x0002
+   012A E5            [11]  250 	push	hl
+   012B C5            [11]  251 	push	bc
+   012C 21r87r01      [10]  252 	ld	hl,#___str_1
+   012F E5            [11]  253 	push	hl
+   0130 CDr00r00      [17]  254 	call	_cpct_drawStringM0
+   0133 21 06 00      [10]  255 	ld	hl,#6
+   0136 39            [11]  256 	add	hl,sp
+   0137 F9            [ 6]  257 	ld	sp,hl
+                            258 ;src/menu/menu.c:65: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 4, 130); // centrado en horizontal y abajo en vertical
+   0138 21 04 82      [10]  259 	ld	hl,#0x8204
+   013B E5            [11]  260 	push	hl
+   013C 21 00 C0      [10]  261 	ld	hl,#0xC000
+   013F E5            [11]  262 	push	hl
+   0140 CDr00r00      [17]  263 	call	_cpct_getScreenPtr
+   0143 4D            [ 4]  264 	ld	c,l
+   0144 44            [ 4]  265 	ld	b,h
+                            266 ;src/menu/menu.c:66: cpct_drawStringM0("SPACE BAR TO SHOOT", memptr, 2, 0);
+   0145 21 02 00      [10]  267 	ld	hl,#0x0002
+   0148 E5            [11]  268 	push	hl
+   0149 C5            [11]  269 	push	bc
+   014A 21r90r01      [10]  270 	ld	hl,#___str_2
+   014D E5            [11]  271 	push	hl
+   014E CDr00r00      [17]  272 	call	_cpct_drawStringM0
+   0151 21 06 00      [10]  273 	ld	hl,#6
+   0154 39            [11]  274 	add	hl,sp
+   0155 F9            [ 6]  275 	ld	sp,hl
+                            276 ;src/menu/menu.c:68: do{
+   0156                     277 00104$:
+                            278 ;src/menu/menu.c:69: cpct_scanKeyboard_f();
+   0156 CDr00r00      [17]  279 	call	_cpct_scanKeyboard_f
+                            280 ;src/menu/menu.c:70: if(cpct_isKeyPressed(Key_M)){
+   0159 21 04 40      [10]  281 	ld	hl,#0x4004
+   015C CDr00r00      [17]  282 	call	_cpct_isKeyPressed
+   015F 7D            [ 4]  283 	ld	a,l
+   0160 B7            [ 4]  284 	or	a, a
+   0161 28 03         [12]  285 	jr	Z,00105$
+                            286 ;src/menu/menu.c:71: menuOpciones();
+   0163 CDr82r02      [17]  287 	call	_menuOpciones
+   0166                     288 00105$:
+                            289 ;src/menu/menu.c:74: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+   0166 21 07 10      [10]  290 	ld	hl,#0x1007
+   0169 CDr00r00      [17]  291 	call	_cpct_isKeyPressed
+   016C 7D            [ 4]  292 	ld	a,l
+   016D B7            [ 4]  293 	or	a, a
+   016E C0            [11]  294 	ret	NZ
+   016F 21 04 40      [10]  295 	ld	hl,#0x4004
+   0172 CDr00r00      [17]  296 	call	_cpct_isKeyPressed
+   0175 7D            [ 4]  297 	ld	a,l
+   0176 B7            [ 4]  298 	or	a, a
+   0177 28 DD         [12]  299 	jr	Z,00104$
+   0179 C9            [10]  300 	ret
+   017A                     301 ___str_0:
+   017A 49 4E 53 54 52 55   302 	.ascii "INSTRUCTIONS"
+        43 54 49 4F 4E 53
+   0186 00                  303 	.db 0x00
+   0187                     304 ___str_1:
+   0187 20 54 4F 20 4D 4F   305 	.ascii " TO MOVE"
+        56 45
+   018F 00                  306 	.db 0x00
+   0190                     307 ___str_2:
+   0190 53 50 41 43 45 20   308 	.ascii "SPACE BAR TO SHOOT"
+        42 41 52 20 54 4F
+        20 53 48 4F 4F 54
+   01A2 00                  309 	.db 0x00
+                            310 ;src/menu/menu.c:77: void menuCreditos(){ // TODO TODO
+                            311 ;	---------------------------------
+                            312 ; Function menuCreditos
+                            313 ; ---------------------------------
+   01A3                     314 _menuCreditos::
+                            315 ;src/menu/menu.c:79: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+   01A3 21 50 82      [10]  316 	ld	hl,#0x8250
+   01A6 E5            [11]  317 	push	hl
+   01A7 21 00 1E      [10]  318 	ld	hl,#0x1E00
+   01AA E5            [11]  319 	push	hl
+   01AB CDr00r00      [17]  320 	call	_borrarPantalla
+   01AE F1            [10]  321 	pop	af
+                            322 ;src/menu/menu.c:82: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 70); // centrado en horizontal y abajo en vertical
+   01AF 21 1A 46      [10]  323 	ld	hl, #0x461A
+   01B2 E3            [19]  324 	ex	(sp),hl
+   01B3 21 00 C0      [10]  325 	ld	hl,#0xC000
+   01B6 E5            [11]  326 	push	hl
+   01B7 CDr00r00      [17]  327 	call	_cpct_getScreenPtr
+   01BA 4D            [ 4]  328 	ld	c,l
+   01BB 44            [ 4]  329 	ld	b,h
+                            330 ;src/menu/menu.c:83: cpct_drawStringM0("CREDITS", memptr, 2, 0);
+   01BC 21 02 00      [10]  331 	ld	hl,#0x0002
+   01BF E5            [11]  332 	push	hl
+   01C0 C5            [11]  333 	push	bc
+   01C1 21r4Br02      [10]  334 	ld	hl,#___str_3
+   01C4 E5            [11]  335 	push	hl
+   01C5 CDr00r00      [17]  336 	call	_cpct_drawStringM0
+   01C8 21 06 00      [10]  337 	ld	hl,#6
+   01CB 39            [11]  338 	add	hl,sp
+   01CC F9            [ 6]  339 	ld	sp,hl
+                            340 ;src/menu/menu.c:85: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 100); // centrado en horizontal y abajo en vertical
+   01CD 21 0A 64      [10]  341 	ld	hl,#0x640A
+   01D0 E5            [11]  342 	push	hl
+   01D1 21 00 C0      [10]  343 	ld	hl,#0xC000
+   01D4 E5            [11]  344 	push	hl
+   01D5 CDr00r00      [17]  345 	call	_cpct_getScreenPtr
+   01D8 4D            [ 4]  346 	ld	c,l
+   01D9 44            [ 4]  347 	ld	b,h
+                            348 ;src/menu/menu.c:86: cpct_drawStringM0("Cristina Rivera", memptr, 2, 0);
+   01DA 21 02 00      [10]  349 	ld	hl,#0x0002
+   01DD E5            [11]  350 	push	hl
+   01DE C5            [11]  351 	push	bc
+   01DF 21r53r02      [10]  352 	ld	hl,#___str_4
+   01E2 E5            [11]  353 	push	hl
+   01E3 CDr00r00      [17]  354 	call	_cpct_drawStringM0
+   01E6 21 06 00      [10]  355 	ld	hl,#6
+   01E9 39            [11]  356 	add	hl,sp
+   01EA F9            [ 6]  357 	ld	sp,hl
+                            358 ;src/menu/menu.c:88: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 115); // centrado en horizontal y abajo en vertical
+   01EB 21 0E 73      [10]  359 	ld	hl,#0x730E
+   01EE E5            [11]  360 	push	hl
+   01EF 21 00 C0      [10]  361 	ld	hl,#0xC000
+   01F2 E5            [11]  362 	push	hl
+   01F3 CDr00r00      [17]  363 	call	_cpct_getScreenPtr
+   01F6 4D            [ 4]  364 	ld	c,l
+   01F7 44            [ 4]  365 	ld	b,h
+                            366 ;src/menu/menu.c:89: cpct_drawStringM0("Miguel Sancho", memptr, 2, 0);
+   01F8 21 02 00      [10]  367 	ld	hl,#0x0002
+   01FB E5            [11]  368 	push	hl
+   01FC C5            [11]  369 	push	bc
+   01FD 21r63r02      [10]  370 	ld	hl,#___str_5
+   0200 E5            [11]  371 	push	hl
+   0201 CDr00r00      [17]  372 	call	_cpct_drawStringM0
+   0204 21 06 00      [10]  373 	ld	hl,#6
+   0207 39            [11]  374 	add	hl,sp
+   0208 F9            [ 6]  375 	ld	sp,hl
+                            376 ;src/menu/menu.c:91: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 130); // centrado en horizontal y abajo en vertical
+   0209 21 08 82      [10]  377 	ld	hl,#0x8208
+   020C E5            [11]  378 	push	hl
+   020D 21 00 C0      [10]  379 	ld	hl,#0xC000
+   0210 E5            [11]  380 	push	hl
+   0211 CDr00r00      [17]  381 	call	_cpct_getScreenPtr
+   0214 4D            [ 4]  382 	ld	c,l
+   0215 44            [ 4]  383 	ld	b,h
+                            384 ;src/menu/menu.c:92: cpct_drawStringM0("Fernando Verdejo", memptr, 2, 0);
+   0216 21 02 00      [10]  385 	ld	hl,#0x0002
+   0219 E5            [11]  386 	push	hl
+   021A C5            [11]  387 	push	bc
+   021B 21r71r02      [10]  388 	ld	hl,#___str_6
+   021E E5            [11]  389 	push	hl
+   021F CDr00r00      [17]  390 	call	_cpct_drawStringM0
+   0222 21 06 00      [10]  391 	ld	hl,#6
+   0225 39            [11]  392 	add	hl,sp
+   0226 F9            [ 6]  393 	ld	sp,hl
+                            394 ;src/menu/menu.c:94: do{
+   0227                     395 00104$:
+                            396 ;src/menu/menu.c:95: cpct_scanKeyboard_f();
+   0227 CDr00r00      [17]  397 	call	_cpct_scanKeyboard_f
+                            398 ;src/menu/menu.c:96: if(cpct_isKeyPressed(Key_M)){
+   022A 21 04 40      [10]  399 	ld	hl,#0x4004
+   022D CDr00r00      [17]  400 	call	_cpct_isKeyPressed
+   0230 7D            [ 4]  401 	ld	a,l
+   0231 B7            [ 4]  402 	or	a, a
+   0232 28 03         [12]  403 	jr	Z,00105$
+                            404 ;src/menu/menu.c:97: menuOpciones();
+   0234 CDr82r02      [17]  405 	call	_menuOpciones
+   0237                     406 00105$:
+                            407 ;src/menu/menu.c:100: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+   0237 21 07 10      [10]  408 	ld	hl,#0x1007
+   023A CDr00r00      [17]  409 	call	_cpct_isKeyPressed
+   023D 7D            [ 4]  410 	ld	a,l
+   023E B7            [ 4]  411 	or	a, a
+   023F C0            [11]  412 	ret	NZ
+   0240 21 04 40      [10]  413 	ld	hl,#0x4004
+   0243 CDr00r00      [17]  414 	call	_cpct_isKeyPressed
+   0246 7D            [ 4]  415 	ld	a,l
+   0247 B7            [ 4]  416 	or	a, a
+   0248 28 DD         [12]  417 	jr	Z,00104$
+   024A C9            [10]  418 	ret
+   024B                     419 ___str_3:
+   024B 43 52 45 44 49 54   420 	.ascii "CREDITS"
+        53
+   0252 00                  421 	.db 0x00
+   0253                     422 ___str_4:
+   0253 43 72 69 73 74 69   423 	.ascii "Cristina Rivera"
+        6E 61 20 52 69 76
+        65 72 61
+   0262 00                  424 	.db 0x00
+   0263                     425 ___str_5:
+   0263 4D 69 67 75 65 6C   426 	.ascii "Miguel Sancho"
+        20 53 61 6E 63 68
+        6F
+   0270 00                  427 	.db 0x00
+   0271                     428 ___str_6:
+   0271 46 65 72 6E 61 6E   429 	.ascii "Fernando Verdejo"
+        64 6F 20 56 65 72
+        64 65 6A 6F
+   0281 00                  430 	.db 0x00
+                            431 ;src/menu/menu.c:104: void menuOpciones(){ // TODO TODO
+                            432 ;	---------------------------------
+                            433 ; Function menuOpciones
+                            434 ; ---------------------------------
+   0282                     435 _menuOpciones::
+                            436 ;src/menu/menu.c:106: borrarPantalla(0, 30, 80, 130);//borra el texto de información inicial
+   0282 21 50 82      [10]  437 	ld	hl,#0x8250
+   0285 E5            [11]  438 	push	hl
+   0286 21 00 1E      [10]  439 	ld	hl,#0x1E00
+   0289 E5            [11]  440 	push	hl
+   028A CDr00r00      [17]  441 	call	_borrarPantalla
+   028D F1            [10]  442 	pop	af
+                            443 ;src/menu/menu.c:109: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 32, 100); // centrado en horizontal y abajo en vertical
+   028E 21 20 64      [10]  444 	ld	hl, #0x6420
+   0291 E3            [19]  445 	ex	(sp),hl
+   0292 21 00 C0      [10]  446 	ld	hl,#0xC000
+   0295 E5            [11]  447 	push	hl
+   0296 CDr00r00      [17]  448 	call	_cpct_getScreenPtr
+   0299 4D            [ 4]  449 	ld	c,l
+   029A 44            [ 4]  450 	ld	b,h
+                            451 ;src/menu/menu.c:110: cpct_drawStringM0("MENU", memptr, 2, 0);
+   029B 21 02 00      [10]  452 	ld	hl,#0x0002
+   029E E5            [11]  453 	push	hl
+   029F C5            [11]  454 	push	bc
+   02A0 21r23r03      [10]  455 	ld	hl,#___str_7
+   02A3 E5            [11]  456 	push	hl
+   02A4 CDr00r00      [17]  457 	call	_cpct_drawStringM0
+   02A7 21 06 00      [10]  458 	ld	hl,#6
+   02AA 39            [11]  459 	add	hl,sp
+   02AB F9            [ 6]  460 	ld	sp,hl
+                            461 ;src/menu/menu.c:112: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 130); // centrado en horizontal y abajo en vertical
+   02AC 21 00 82      [10]  462 	ld	hl,#0x8200
+   02AF E5            [11]  463 	push	hl
+   02B0 26 C0         [ 7]  464 	ld	h, #0xC0
+   02B2 E5            [11]  465 	push	hl
+   02B3 CDr00r00      [17]  466 	call	_cpct_getScreenPtr
+   02B6 4D            [ 4]  467 	ld	c,l
+   02B7 44            [ 4]  468 	ld	b,h
+                            469 ;src/menu/menu.c:113: cpct_drawStringM0("INSTRUCTIONS PRESS I", memptr, 2, 0);
+   02B8 21 02 00      [10]  470 	ld	hl,#0x0002
+   02BB E5            [11]  471 	push	hl
+   02BC C5            [11]  472 	push	bc
+   02BD 21r28r03      [10]  473 	ld	hl,#___str_8
+   02C0 E5            [11]  474 	push	hl
+   02C1 CDr00r00      [17]  475 	call	_cpct_drawStringM0
+   02C4 21 06 00      [10]  476 	ld	hl,#6
+   02C7 39            [11]  477 	add	hl,sp
+   02C8 F9            [ 6]  478 	ld	sp,hl
+                            479 ;src/menu/menu.c:115: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 145); // centrado en horizontal y abajo en vertical
+   02C9 21 0A 91      [10]  480 	ld	hl,#0x910A
+   02CC E5            [11]  481 	push	hl
+   02CD 21 00 C0      [10]  482 	ld	hl,#0xC000
+   02D0 E5            [11]  483 	push	hl
+   02D1 CDr00r00      [17]  484 	call	_cpct_getScreenPtr
+   02D4 4D            [ 4]  485 	ld	c,l
+   02D5 44            [ 4]  486 	ld	b,h
+                            487 ;src/menu/menu.c:116: cpct_drawStringM0("CREDITS PRESS C", memptr, 2, 0);
+   02D6 21 02 00      [10]  488 	ld	hl,#0x0002
+   02D9 E5            [11]  489 	push	hl
+   02DA C5            [11]  490 	push	bc
+   02DB 21r3Dr03      [10]  491 	ld	hl,#___str_9
+   02DE E5            [11]  492 	push	hl
+   02DF CDr00r00      [17]  493 	call	_cpct_drawStringM0
+   02E2 21 06 00      [10]  494 	ld	hl,#6
+   02E5 39            [11]  495 	add	hl,sp
+   02E6 F9            [ 6]  496 	ld	sp,hl
+                            497 ;src/menu/menu.c:118: do{
+   02E7                     498 00108$:
+                            499 ;src/menu/menu.c:119: cpct_scanKeyboard_f();
+   02E7 CDr00r00      [17]  500 	call	_cpct_scanKeyboard_f
+                            501 ;src/menu/menu.c:124: if(cpct_isKeyPressed(Key_I)){
+   02EA 21 04 08      [10]  502 	ld	hl,#0x0804
+   02ED CDr00r00      [17]  503 	call	_cpct_isKeyPressed
+   02F0 7D            [ 4]  504 	ld	a,l
+   02F1 B7            [ 4]  505 	or	a, a
+   02F2 28 05         [12]  506 	jr	Z,00104$
+                            507 ;src/menu/menu.c:125: menuInstrucciones();
+   02F4 CDr8Cr00      [17]  508 	call	_menuInstrucciones
+   02F7 18 0D         [12]  509 	jr	00109$
+   02F9                     510 00104$:
+                            511 ;src/menu/menu.c:129: else if(cpct_isKeyPressed(Key_C)){
+   02F9 21 07 40      [10]  512 	ld	hl,#0x4007
+   02FC CDr00r00      [17]  513 	call	_cpct_isKeyPressed
+   02FF 7D            [ 4]  514 	ld	a,l
+   0300 B7            [ 4]  515 	or	a, a
+   0301 28 03         [12]  516 	jr	Z,00109$
+                            517 ;src/menu/menu.c:130: menuCreditos();
+   0303 CDrA3r01      [17]  518 	call	_menuCreditos
+   0306                     519 00109$:
+                            520 ;src/menu/menu.c:138: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_I) && !cpct_isKeyPressed(Key_C));
+   0306 21 07 10      [10]  521 	ld	hl,#0x1007
+   0309 CDr00r00      [17]  522 	call	_cpct_isKeyPressed
+   030C 7D            [ 4]  523 	ld	a,l
+   030D B7            [ 4]  524 	or	a, a
+   030E C0            [11]  525 	ret	NZ
+   030F 21 04 08      [10]  526 	ld	hl,#0x0804
+   0312 CDr00r00      [17]  527 	call	_cpct_isKeyPressed
+   0315 7D            [ 4]  528 	ld	a,l
+   0316 B7            [ 4]  529 	or	a, a
+   0317 C0            [11]  530 	ret	NZ
+   0318 21 07 40      [10]  531 	ld	hl,#0x4007
+   031B CDr00r00      [17]  532 	call	_cpct_isKeyPressed
+   031E 7D            [ 4]  533 	ld	a,l
+   031F B7            [ 4]  534 	or	a, a
+   0320 28 C5         [12]  535 	jr	Z,00108$
+   0322 C9            [10]  536 	ret
+   0323                     537 ___str_7:
+   0323 4D 45 4E 55         538 	.ascii "MENU"
+   0327 00                  539 	.db 0x00
+   0328                     540 ___str_8:
+   0328 49 4E 53 54 52 55   541 	.ascii "INSTRUCTIONS PRESS I"
+        43 54 49 4F 4E 53
+        20 50 52 45 53 53
+        20 49
+   033C 00                  542 	.db 0x00
+   033D                     543 ___str_9:
+   033D 43 52 45 44 49 54   544 	.ascii "CREDITS PRESS C"
+        53 20 50 52 45 53
+        53 20 43
+   034C 00                  545 	.db 0x00
+                            546 ;src/menu/menu.c:141: void menuInicio() {
+                            547 ;	---------------------------------
+                            548 ; Function menuInicio
+                            549 ; ---------------------------------
+   034D                     550 _menuInicio::
+                            551 ;src/menu/menu.c:144: cpct_clearScreen(0);
+   034D 21 00 40      [10]  552 	ld	hl,#0x4000
+   0350 E5            [11]  553 	push	hl
+   0351 AF            [ 4]  554 	xor	a, a
+   0352 F5            [11]  555 	push	af
+   0353 33            [ 6]  556 	inc	sp
+   0354 26 C0         [ 7]  557 	ld	h, #0xC0
+   0356 E5            [11]  558 	push	hl
+   0357 CDr00r00      [17]  559 	call	_cpct_memset
+                            560 ;src/menu/menu.c:146: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 26, 15); // centrado en horizontal y arriba en vertical
+   035A 21 1A 0F      [10]  561 	ld	hl,#0x0F1A
+   035D E5            [11]  562 	push	hl
+   035E 21 00 C0      [10]  563 	ld	hl,#0xC000
+   0361 E5            [11]  564 	push	hl
+   0362 CDr00r00      [17]  565 	call	_cpct_getScreenPtr
+   0365 4D            [ 4]  566 	ld	c,l
+   0366 44            [ 4]  567 	ld	b,h
+                            568 ;src/menu/menu.c:147: cpct_drawStringM0("ROBOBIT", memptr, 4, 0);
+   0367 21 04 00      [10]  569 	ld	hl,#0x0004
+   036A E5            [11]  570 	push	hl
+   036B C5            [11]  571 	push	bc
+   036C 21r03r04      [10]  572 	ld	hl,#___str_10
+   036F E5            [11]  573 	push	hl
+   0370 CDr00r00      [17]  574 	call	_cpct_drawStringM0
+   0373 21 06 00      [10]  575 	ld	hl,#6
+   0376 39            [11]  576 	add	hl,sp
+   0377 F9            [ 6]  577 	ld	sp,hl
+                            578 ;src/menu/menu.c:149: cpct_drawSprite(g_text_0, cpctm_screenPtr(CPCT_VMEM_START,  0, 30), G_TEXT_0_W, G_TEXT_0_H); // imagen
+   0378 21 28 6E      [10]  579 	ld	hl,#0x6E28
+   037B E5            [11]  580 	push	hl
+   037C 21 F0 F0      [10]  581 	ld	hl,#0xF0F0
+   037F E5            [11]  582 	push	hl
+   0380 21r00r00      [10]  583 	ld	hl,#_g_text_0
+   0383 E5            [11]  584 	push	hl
+   0384 CDr00r00      [17]  585 	call	_cpct_drawSprite
+                            586 ;src/menu/menu.c:150: cpct_drawSprite(g_text_1, cpctm_screenPtr(CPCT_VMEM_START, 40, 30), G_TEXT_0_W, G_TEXT_0_H);
+   0387 21 28 6E      [10]  587 	ld	hl,#0x6E28
+   038A E5            [11]  588 	push	hl
+   038B 21 18 F1      [10]  589 	ld	hl,#0xF118
+   038E E5            [11]  590 	push	hl
+   038F 21r00r00      [10]  591 	ld	hl,#_g_text_1
+   0392 E5            [11]  592 	push	hl
+   0393 CDr00r00      [17]  593 	call	_cpct_drawSprite
+                            594 ;src/menu/menu.c:152: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 8, 160); // centrado en horizontal y abajo en vertical
+   0396 21 08 A0      [10]  595 	ld	hl,#0xA008
+   0399 E5            [11]  596 	push	hl
+   039A 21 00 C0      [10]  597 	ld	hl,#0xC000
+   039D E5            [11]  598 	push	hl
+   039E CDr00r00      [17]  599 	call	_cpct_getScreenPtr
+   03A1 4D            [ 4]  600 	ld	c,l
+   03A2 44            [ 4]  601 	ld	b,h
+                            602 ;src/menu/menu.c:153: cpct_drawStringM0("TO START PRESS S", memptr, 2, 0);
+   03A3 21 02 00      [10]  603 	ld	hl,#0x0002
+   03A6 E5            [11]  604 	push	hl
+   03A7 C5            [11]  605 	push	bc
+   03A8 21r0Br04      [10]  606 	ld	hl,#___str_11
+   03AB E5            [11]  607 	push	hl
+   03AC CDr00r00      [17]  608 	call	_cpct_drawStringM0
+   03AF 21 06 00      [10]  609 	ld	hl,#6
+   03B2 39            [11]  610 	add	hl,sp
+   03B3 F9            [ 6]  611 	ld	sp,hl
+                            612 ;src/menu/menu.c:155: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 10, 175); // centrado en horizontal y abajo en vertical
+   03B4 21 0A AF      [10]  613 	ld	hl,#0xAF0A
+   03B7 E5            [11]  614 	push	hl
+   03B8 21 00 C0      [10]  615 	ld	hl,#0xC000
+   03BB E5            [11]  616 	push	hl
+   03BC CDr00r00      [17]  617 	call	_cpct_getScreenPtr
+   03BF 4D            [ 4]  618 	ld	c,l
+   03C0 44            [ 4]  619 	ld	b,h
+                            620 ;src/menu/menu.c:156: cpct_drawStringM0("TO MENU PRESS M", memptr, 2, 0);
+   03C1 21 02 00      [10]  621 	ld	hl,#0x0002
+   03C4 E5            [11]  622 	push	hl
+   03C5 C5            [11]  623 	push	bc
+   03C6 21r1Cr04      [10]  624 	ld	hl,#___str_12
+   03C9 E5            [11]  625 	push	hl
+   03CA CDr00r00      [17]  626 	call	_cpct_drawStringM0
+   03CD 21 06 00      [10]  627 	ld	hl,#6
+   03D0 39            [11]  628 	add	hl,sp
+   03D1 F9            [ 6]  629 	ld	sp,hl
+                            630 ;src/menu/menu.c:159: do{
+   03D2                     631 00107$:
+                            632 ;src/menu/menu.c:160: cpct_scanKeyboard_f();
+   03D2 CDr00r00      [17]  633 	call	_cpct_scanKeyboard_f
+                            634 ;src/menu/menu.c:164: if(cpct_isKeyPressed(Key_M)){
+   03D5 21 04 40      [10]  635 	ld	hl,#0x4004
+   03D8 CDr00r00      [17]  636 	call	_cpct_isKeyPressed
+   03DB 7D            [ 4]  637 	ld	a,l
+   03DC B7            [ 4]  638 	or	a, a
+   03DD 28 10         [12]  639 	jr	Z,00108$
+                            640 ;src/menu/menu.c:165: cpct_scanKeyboard_f();
+   03DF CDr00r00      [17]  641 	call	_cpct_scanKeyboard_f
+                            642 ;src/menu/menu.c:166: do{
+   03E2                     643 00101$:
+                            644 ;src/menu/menu.c:167: menuOpciones();
+   03E2 CDr82r02      [17]  645 	call	_menuOpciones
+                            646 ;src/menu/menu.c:169: } while(!cpct_isKeyPressed(Key_S));
+   03E5 21 07 10      [10]  647 	ld	hl,#0x1007
+   03E8 CDr00r00      [17]  648 	call	_cpct_isKeyPressed
+   03EB 7D            [ 4]  649 	ld	a,l
+   03EC B7            [ 4]  650 	or	a, a
+   03ED 28 F3         [12]  651 	jr	Z,00101$
+   03EF                     652 00108$:
+                            653 ;src/menu/menu.c:171: } while(!cpct_isKeyPressed(Key_S) && !cpct_isKeyPressed(Key_M));
+   03EF 21 07 10      [10]  654 	ld	hl,#0x1007
+   03F2 CDr00r00      [17]  655 	call	_cpct_isKeyPressed
+   03F5 7D            [ 4]  656 	ld	a,l
+   03F6 B7            [ 4]  657 	or	a, a
+   03F7 C0            [11]  658 	ret	NZ
+   03F8 21 04 40      [10]  659 	ld	hl,#0x4004
+   03FB CDr00r00      [17]  660 	call	_cpct_isKeyPressed
+   03FE 7D            [ 4]  661 	ld	a,l
+   03FF B7            [ 4]  662 	or	a, a
+   0400 28 D0         [12]  663 	jr	Z,00107$
+   0402 C9            [10]  664 	ret
+   0403                     665 ___str_10:
+   0403 52 4F 42 4F 42 49   666 	.ascii "ROBOBIT"
+        54
+   040A 00                  667 	.db 0x00
+   040B                     668 ___str_11:
+   040B 54 4F 20 53 54 41   669 	.ascii "TO START PRESS S"
+        52 54 20 50 52 45
+        53 53 20 53
+   041B 00                  670 	.db 0x00
+   041C                     671 ___str_12:
+   041C 54 4F 20 4D 45 4E   672 	.ascii "TO MENU PRESS M"
+        55 20 50 52 45 53
+        53 20 4D
+   042B 00                  673 	.db 0x00
+                            674 	.area _CODE
+                            675 	.area _INITIALIZER
+                            676 	.area _CABS (ABS)

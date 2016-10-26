@@ -1,0 +1,424 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module score
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _borrarPantalla
+                             12 	.globl _cpct_getScreenPtr
+                             13 	.globl _cpct_drawStringM0
+                             14 	.globl _cpct_drawCharM0
+                             15 	.globl _cpct_drawSprite
+                             16 	.globl _barraPuntuacionInicial
+                             17 	.globl _modificarPuntuacion
+                             18 	.globl _modificarVidas
+                             19 	.globl _aumentarPuntuacion
+                             20 ;--------------------------------------------------------
+                             21 ; special function registers
+                             22 ;--------------------------------------------------------
+                             23 ;--------------------------------------------------------
+                             24 ; ram data
+                             25 ;--------------------------------------------------------
+                             26 	.area _DATA
+                             27 ;--------------------------------------------------------
+                             28 ; ram data
+                             29 ;--------------------------------------------------------
+                             30 	.area _INITIALIZED
+                             31 ;--------------------------------------------------------
+                             32 ; absolute external ram data
+                             33 ;--------------------------------------------------------
+                             34 	.area _DABS (ABS)
+                             35 ;--------------------------------------------------------
+                             36 ; global & static initialisations
+                             37 ;--------------------------------------------------------
+                             38 	.area _HOME
+                             39 	.area _GSINIT
+                             40 	.area _GSFINAL
+                             41 	.area _GSINIT
+                             42 ;--------------------------------------------------------
+                             43 ; Home
+                             44 ;--------------------------------------------------------
+                             45 	.area _HOME
+                             46 	.area _HOME
+                             47 ;--------------------------------------------------------
+                             48 ; code
+                             49 ;--------------------------------------------------------
+                             50 	.area _CODE
+                             51 ;src/score/score.c:25: void barraPuntuacionInicial(){
+                             52 ;	---------------------------------
+                             53 ; Function barraPuntuacionInicial
+                             54 ; ---------------------------------
+   0000                      55 _barraPuntuacionInicial::
+                             56 ;src/score/score.c:29: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 2); //
+   0000 21 00 02      [10]   57 	ld	hl,#0x0200
+   0003 E5            [11]   58 	push	hl
+   0004 26 C0         [ 7]   59 	ld	h, #0xC0
+   0006 E5            [11]   60 	push	hl
+   0007 CDr00r00      [17]   61 	call	_cpct_getScreenPtr
+   000A 4D            [ 4]   62 	ld	c,l
+   000B 44            [ 4]   63 	ld	b,h
+                             64 ;src/score/score.c:30: cpct_drawStringM0("SCORE", memptr, 1, 0);
+   000C 21 01 00      [10]   65 	ld	hl,#0x0001
+   000F E5            [11]   66 	push	hl
+   0010 C5            [11]   67 	push	bc
+   0011 21r8Ar00      [10]   68 	ld	hl,#___str_0
+   0014 E5            [11]   69 	push	hl
+   0015 CDr00r00      [17]   70 	call	_cpct_drawStringM0
+   0018 21 06 00      [10]   71 	ld	hl,#6
+   001B 39            [11]   72 	add	hl,sp
+   001C F9            [ 6]   73 	ld	sp,hl
+                             74 ;src/score/score.c:31: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 14); // puntuación inicial
+   001D 21 00 0E      [10]   75 	ld	hl,#0x0E00
+   0020 E5            [11]   76 	push	hl
+   0021 26 C0         [ 7]   77 	ld	h, #0xC0
+   0023 E5            [11]   78 	push	hl
+   0024 CDr00r00      [17]   79 	call	_cpct_getScreenPtr
+   0027 4D            [ 4]   80 	ld	c,l
+   0028 44            [ 4]   81 	ld	b,h
+                             82 ;src/score/score.c:32: cpct_drawStringM0("00000", memptr, 15, 0);
+   0029 21 0F 00      [10]   83 	ld	hl,#0x000F
+   002C E5            [11]   84 	push	hl
+   002D C5            [11]   85 	push	bc
+   002E 21r90r00      [10]   86 	ld	hl,#___str_1
+   0031 E5            [11]   87 	push	hl
+   0032 CDr00r00      [17]   88 	call	_cpct_drawStringM0
+   0035 21 06 00      [10]   89 	ld	hl,#6
+   0038 39            [11]   90 	add	hl,sp
+   0039 F9            [ 6]   91 	ld	sp,hl
+                             92 ;src/score/score.c:34: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60, 2); //
+   003A 21 3C 02      [10]   93 	ld	hl,#0x023C
+   003D E5            [11]   94 	push	hl
+   003E 21 00 C0      [10]   95 	ld	hl,#0xC000
+   0041 E5            [11]   96 	push	hl
+   0042 CDr00r00      [17]   97 	call	_cpct_getScreenPtr
+   0045 4D            [ 4]   98 	ld	c,l
+   0046 44            [ 4]   99 	ld	b,h
+                            100 ;src/score/score.c:35: cpct_drawStringM0("LIVES", memptr, 1, 0);
+   0047 21 01 00      [10]  101 	ld	hl,#0x0001
+   004A E5            [11]  102 	push	hl
+   004B C5            [11]  103 	push	bc
+   004C 21r96r00      [10]  104 	ld	hl,#___str_2
+   004F E5            [11]  105 	push	hl
+   0050 CDr00r00      [17]  106 	call	_cpct_drawStringM0
+   0053 21 06 00      [10]  107 	ld	hl,#6
+   0056 39            [11]  108 	add	hl,sp
+   0057 F9            [ 6]  109 	ld	sp,hl
+                            110 ;src/score/score.c:37: for(i=0; i<5; i++){
+   0058 01 00 00      [10]  111 	ld	bc,#0x0000
+   005B                     112 00102$:
+                            113 ;src/score/score.c:38: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
+   005B 79            [ 4]  114 	ld	a,c
+   005C 87            [ 4]  115 	add	a, a
+   005D 87            [ 4]  116 	add	a, a
+   005E C6 3C         [ 7]  117 	add	a, #0x3C
+   0060 57            [ 4]  118 	ld	d,a
+   0061 C5            [11]  119 	push	bc
+   0062 3E 0E         [ 7]  120 	ld	a,#0x0E
+   0064 F5            [11]  121 	push	af
+   0065 33            [ 6]  122 	inc	sp
+   0066 D5            [11]  123 	push	de
+   0067 33            [ 6]  124 	inc	sp
+   0068 21 00 C0      [10]  125 	ld	hl,#0xC000
+   006B E5            [11]  126 	push	hl
+   006C CDr00r00      [17]  127 	call	_cpct_getScreenPtr
+   006F EB            [ 4]  128 	ex	de,hl
+   0070 21 03 06      [10]  129 	ld	hl,#0x0603
+   0073 E5            [11]  130 	push	hl
+   0074 D5            [11]  131 	push	de
+   0075 21r00r00      [10]  132 	ld	hl,#_g_heart
+   0078 E5            [11]  133 	push	hl
+   0079 CDr00r00      [17]  134 	call	_cpct_drawSprite
+   007C C1            [10]  135 	pop	bc
+                            136 ;src/score/score.c:37: for(i=0; i<5; i++){
+   007D 03            [ 6]  137 	inc	bc
+   007E 79            [ 4]  138 	ld	a,c
+   007F D6 05         [ 7]  139 	sub	a, #0x05
+   0081 78            [ 4]  140 	ld	a,b
+   0082 17            [ 4]  141 	rla
+   0083 3F            [ 4]  142 	ccf
+   0084 1F            [ 4]  143 	rra
+   0085 DE 80         [ 7]  144 	sbc	a, #0x80
+   0087 38 D2         [12]  145 	jr	C,00102$
+   0089 C9            [10]  146 	ret
+   008A                     147 ___str_0:
+   008A 53 43 4F 52 45      148 	.ascii "SCORE"
+   008F 00                  149 	.db 0x00
+   0090                     150 ___str_1:
+   0090 30 30 30 30 30      151 	.ascii "00000"
+   0095 00                  152 	.db 0x00
+   0096                     153 ___str_2:
+   0096 4C 49 56 45 53      154 	.ascii "LIVES"
+   009B 00                  155 	.db 0x00
+                            156 ;src/score/score.c:43: void modificarPuntuacion(u16 puntuacion){
+                            157 ;	---------------------------------
+                            158 ; Function modificarPuntuacion
+                            159 ; ---------------------------------
+   009C                     160 _modificarPuntuacion::
+   009C DD E5         [15]  161 	push	ix
+   009E DD 21 00 00   [14]  162 	ld	ix,#0
+   00A2 DD 39         [15]  163 	add	ix,sp
+   00A4 3B            [ 6]  164 	dec	sp
+                            165 ;src/score/score.c:45: u16 puntuacion_aux = puntuacion;
+   00A5 DD 5E 04      [19]  166 	ld	e,4 (ix)
+   00A8 DD 56 05      [19]  167 	ld	d,5 (ix)
+                            168 ;src/score/score.c:46: borrarPantalla(0, 14, 25, 7);
+   00AB D5            [11]  169 	push	de
+   00AC 21 19 07      [10]  170 	ld	hl,#0x0719
+   00AF E5            [11]  171 	push	hl
+   00B0 21 00 0E      [10]  172 	ld	hl,#0x0E00
+   00B3 E5            [11]  173 	push	hl
+   00B4 CDr00r00      [17]  174 	call	_borrarPantalla
+   00B7 F1            [10]  175 	pop	af
+   00B8 F1            [10]  176 	pop	af
+   00B9 21 00 0E      [10]  177 	ld	hl,#0x0E00
+   00BC E5            [11]  178 	push	hl
+   00BD 26 C0         [ 7]  179 	ld	h, #0xC0
+   00BF E5            [11]  180 	push	hl
+   00C0 CDr00r00      [17]  181 	call	_cpct_getScreenPtr
+   00C3 4D            [ 4]  182 	ld	c,l
+   00C4 44            [ 4]  183 	ld	b,h
+   00C5 D1            [10]  184 	pop	de
+                            185 ;src/score/score.c:49: cpct_drawCharM0(memptr, 2, 0, (puntuacion_aux%10) + 48);
+   00C6 C5            [11]  186 	push	bc
+   00C7 D5            [11]  187 	push	de
+   00C8 21 0A 00      [10]  188 	ld	hl,#0x000A
+   00CB E5            [11]  189 	push	hl
+   00CC D5            [11]  190 	push	de
+   00CD CDr00r00      [17]  191 	call	__moduint
+   00D0 F1            [10]  192 	pop	af
+   00D1 F1            [10]  193 	pop	af
+   00D2 D1            [10]  194 	pop	de
+   00D3 C1            [10]  195 	pop	bc
+   00D4 7D            [ 4]  196 	ld	a,l
+   00D5 C6 30         [ 7]  197 	add	a, #0x30
+   00D7 DD 77 FF      [19]  198 	ld	-1 (ix),a
+   00DA C5            [11]  199 	push	bc
+   00DB FD E1         [14]  200 	pop	iy
+   00DD C5            [11]  201 	push	bc
+   00DE D5            [11]  202 	push	de
+   00DF DD 7E FF      [19]  203 	ld	a,-1 (ix)
+   00E2 F5            [11]  204 	push	af
+   00E3 33            [ 6]  205 	inc	sp
+   00E4 21 02 00      [10]  206 	ld	hl,#0x0002
+   00E7 E5            [11]  207 	push	hl
+   00E8 FD E5         [15]  208 	push	iy
+   00EA CDr00r00      [17]  209 	call	_cpct_drawCharM0
+   00ED F1            [10]  210 	pop	af
+   00EE F1            [10]  211 	pop	af
+   00EF 33            [ 6]  212 	inc	sp
+   00F0 D1            [10]  213 	pop	de
+   00F1 21 E8 03      [10]  214 	ld	hl,#0x03E8
+   00F4 E5            [11]  215 	push	hl
+   00F5 D5            [11]  216 	push	de
+   00F6 CDr00r00      [17]  217 	call	__divuint
+   00F9 F1            [10]  218 	pop	af
+   00FA F1            [10]  219 	pop	af
+   00FB 11 0A 00      [10]  220 	ld	de,#0x000A
+   00FE D5            [11]  221 	push	de
+   00FF E5            [11]  222 	push	hl
+   0100 CDr00r00      [17]  223 	call	__moduint
+   0103 F1            [10]  224 	pop	af
+   0104 F1            [10]  225 	pop	af
+   0105 C1            [10]  226 	pop	bc
+   0106 7D            [ 4]  227 	ld	a,l
+   0107 C6 30         [ 7]  228 	add	a, #0x30
+   0109 67            [ 4]  229 	ld	h,a
+   010A 79            [ 4]  230 	ld	a,c
+   010B C6 04         [ 7]  231 	add	a, #0x04
+   010D 5F            [ 4]  232 	ld	e,a
+   010E 78            [ 4]  233 	ld	a,b
+   010F CE 00         [ 7]  234 	adc	a, #0x00
+   0111 57            [ 4]  235 	ld	d,a
+   0112 C5            [11]  236 	push	bc
+   0113 E5            [11]  237 	push	hl
+   0114 33            [ 6]  238 	inc	sp
+   0115 21 02 00      [10]  239 	ld	hl,#0x0002
+   0118 E5            [11]  240 	push	hl
+   0119 D5            [11]  241 	push	de
+   011A CDr00r00      [17]  242 	call	_cpct_drawCharM0
+   011D F1            [10]  243 	pop	af
+   011E 33            [ 6]  244 	inc	sp
+   011F 21 64 00      [10]  245 	ld	hl,#0x0064
+   0122 E3            [19]  246 	ex	(sp),hl
+   0123 DD 6E 04      [19]  247 	ld	l,4 (ix)
+   0126 DD 66 05      [19]  248 	ld	h,5 (ix)
+   0129 E5            [11]  249 	push	hl
+   012A CDr00r00      [17]  250 	call	__divuint
+   012D F1            [10]  251 	pop	af
+   012E F1            [10]  252 	pop	af
+   012F 11 0A 00      [10]  253 	ld	de,#0x000A
+   0132 D5            [11]  254 	push	de
+   0133 E5            [11]  255 	push	hl
+   0134 CDr00r00      [17]  256 	call	__moduint
+   0137 F1            [10]  257 	pop	af
+   0138 F1            [10]  258 	pop	af
+   0139 C1            [10]  259 	pop	bc
+   013A 7D            [ 4]  260 	ld	a,l
+   013B C6 30         [ 7]  261 	add	a, #0x30
+   013D 67            [ 4]  262 	ld	h,a
+   013E 79            [ 4]  263 	ld	a,c
+   013F C6 08         [ 7]  264 	add	a, #0x08
+   0141 5F            [ 4]  265 	ld	e,a
+   0142 78            [ 4]  266 	ld	a,b
+   0143 CE 00         [ 7]  267 	adc	a, #0x00
+   0145 57            [ 4]  268 	ld	d,a
+   0146 C5            [11]  269 	push	bc
+   0147 E5            [11]  270 	push	hl
+   0148 33            [ 6]  271 	inc	sp
+   0149 21 02 00      [10]  272 	ld	hl,#0x0002
+   014C E5            [11]  273 	push	hl
+   014D D5            [11]  274 	push	de
+   014E CDr00r00      [17]  275 	call	_cpct_drawCharM0
+   0151 F1            [10]  276 	pop	af
+   0152 33            [ 6]  277 	inc	sp
+   0153 21 0A 00      [10]  278 	ld	hl,#0x000A
+   0156 E3            [19]  279 	ex	(sp),hl
+   0157 DD 6E 04      [19]  280 	ld	l,4 (ix)
+   015A DD 66 05      [19]  281 	ld	h,5 (ix)
+   015D E5            [11]  282 	push	hl
+   015E CDr00r00      [17]  283 	call	__divuint
+   0161 F1            [10]  284 	pop	af
+   0162 F1            [10]  285 	pop	af
+   0163 11 0A 00      [10]  286 	ld	de,#0x000A
+   0166 D5            [11]  287 	push	de
+   0167 E5            [11]  288 	push	hl
+   0168 CDr00r00      [17]  289 	call	__moduint
+   016B F1            [10]  290 	pop	af
+   016C F1            [10]  291 	pop	af
+   016D C1            [10]  292 	pop	bc
+   016E 7D            [ 4]  293 	ld	a,l
+   016F C6 30         [ 7]  294 	add	a, #0x30
+   0171 67            [ 4]  295 	ld	h,a
+   0172 79            [ 4]  296 	ld	a,c
+   0173 C6 0C         [ 7]  297 	add	a, #0x0C
+   0175 5F            [ 4]  298 	ld	e,a
+   0176 78            [ 4]  299 	ld	a,b
+   0177 CE 00         [ 7]  300 	adc	a, #0x00
+   0179 57            [ 4]  301 	ld	d,a
+   017A C5            [11]  302 	push	bc
+   017B E5            [11]  303 	push	hl
+   017C 33            [ 6]  304 	inc	sp
+   017D 21 02 00      [10]  305 	ld	hl,#0x0002
+   0180 E5            [11]  306 	push	hl
+   0181 D5            [11]  307 	push	de
+   0182 CDr00r00      [17]  308 	call	_cpct_drawCharM0
+   0185 F1            [10]  309 	pop	af
+   0186 F1            [10]  310 	pop	af
+   0187 33            [ 6]  311 	inc	sp
+   0188 C1            [10]  312 	pop	bc
+                            313 ;src/score/score.c:57: cpct_drawCharM0(memptr+16, 2, 0, (puntuacion_aux%10) + 48);
+   0189 21 10 00      [10]  314 	ld	hl,#0x0010
+   018C 09            [11]  315 	add	hl,bc
+   018D 4D            [ 4]  316 	ld	c,l
+   018E 44            [ 4]  317 	ld	b,h
+   018F DD 7E FF      [19]  318 	ld	a,-1 (ix)
+   0192 F5            [11]  319 	push	af
+   0193 33            [ 6]  320 	inc	sp
+   0194 21 02 00      [10]  321 	ld	hl,#0x0002
+   0197 E5            [11]  322 	push	hl
+   0198 C5            [11]  323 	push	bc
+   0199 CDr00r00      [17]  324 	call	_cpct_drawCharM0
+   019C F1            [10]  325 	pop	af
+   019D F1            [10]  326 	pop	af
+   019E 33            [ 6]  327 	inc	sp
+   019F 33            [ 6]  328 	inc	sp
+   01A0 DD E1         [14]  329 	pop	ix
+   01A2 C9            [10]  330 	ret
+                            331 ;src/score/score.c:61: void modificarVidas(u8 vidas){
+                            332 ;	---------------------------------
+                            333 ; Function modificarVidas
+                            334 ; ---------------------------------
+   01A3                     335 _modificarVidas::
+   01A3 DD E5         [15]  336 	push	ix
+   01A5 DD 21 00 00   [14]  337 	ld	ix,#0
+   01A9 DD 39         [15]  338 	add	ix,sp
+                            339 ;src/score/score.c:64: borrarPantalla(60, 14, 20, 6);
+   01AB 21 14 06      [10]  340 	ld	hl,#0x0614
+   01AE E5            [11]  341 	push	hl
+   01AF 21 3C 0E      [10]  342 	ld	hl,#0x0E3C
+   01B2 E5            [11]  343 	push	hl
+   01B3 CDr00r00      [17]  344 	call	_borrarPantalla
+   01B6 F1            [10]  345 	pop	af
+   01B7 F1            [10]  346 	pop	af
+                            347 ;src/score/score.c:66: for(i = 0; i<vidas; i++){
+   01B8 0E 00         [ 7]  348 	ld	c,#0x00
+   01BA                     349 00105$:
+   01BA 79            [ 4]  350 	ld	a,c
+   01BB DD 96 04      [19]  351 	sub	a, 4 (ix)
+   01BE 30 43         [12]  352 	jr	NC,00107$
+                            353 ;src/score/score.c:67: if(i%20 == 0){
+   01C0 C5            [11]  354 	push	bc
+   01C1 3E 14         [ 7]  355 	ld	a,#0x14
+   01C3 F5            [11]  356 	push	af
+   01C4 33            [ 6]  357 	inc	sp
+   01C5 79            [ 4]  358 	ld	a,c
+   01C6 F5            [11]  359 	push	af
+   01C7 33            [ 6]  360 	inc	sp
+   01C8 CDr00r00      [17]  361 	call	__moduchar
+   01CB F1            [10]  362 	pop	af
+   01CC C1            [10]  363 	pop	bc
+   01CD 7D            [ 4]  364 	ld	a,l
+   01CE B7            [ 4]  365 	or	a, a
+   01CF 20 2F         [12]  366 	jr	NZ,00106$
+                            367 ;src/score/score.c:68: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + (i/20)*4, 14); // dibuja 5 corazones
+   01D1 C5            [11]  368 	push	bc
+   01D2 3E 14         [ 7]  369 	ld	a,#0x14
+   01D4 F5            [11]  370 	push	af
+   01D5 33            [ 6]  371 	inc	sp
+   01D6 79            [ 4]  372 	ld	a,c
+   01D7 F5            [11]  373 	push	af
+   01D8 33            [ 6]  374 	inc	sp
+   01D9 CDr00r00      [17]  375 	call	__divuchar
+   01DC F1            [10]  376 	pop	af
+   01DD C1            [10]  377 	pop	bc
+   01DE 7D            [ 4]  378 	ld	a,l
+   01DF 87            [ 4]  379 	add	a, a
+   01E0 87            [ 4]  380 	add	a, a
+   01E1 C6 3C         [ 7]  381 	add	a, #0x3C
+   01E3 47            [ 4]  382 	ld	b,a
+   01E4 C5            [11]  383 	push	bc
+   01E5 3E 0E         [ 7]  384 	ld	a,#0x0E
+   01E7 F5            [11]  385 	push	af
+   01E8 33            [ 6]  386 	inc	sp
+   01E9 C5            [11]  387 	push	bc
+   01EA 33            [ 6]  388 	inc	sp
+   01EB 21 00 C0      [10]  389 	ld	hl,#0xC000
+   01EE E5            [11]  390 	push	hl
+   01EF CDr00r00      [17]  391 	call	_cpct_getScreenPtr
+   01F2 EB            [ 4]  392 	ex	de,hl
+   01F3 21 03 06      [10]  393 	ld	hl,#0x0603
+   01F6 E5            [11]  394 	push	hl
+   01F7 D5            [11]  395 	push	de
+   01F8 21r00r00      [10]  396 	ld	hl,#_g_heart
+   01FB E5            [11]  397 	push	hl
+   01FC CDr00r00      [17]  398 	call	_cpct_drawSprite
+   01FF C1            [10]  399 	pop	bc
+   0200                     400 00106$:
+                            401 ;src/score/score.c:66: for(i = 0; i<vidas; i++){
+   0200 0C            [ 4]  402 	inc	c
+   0201 18 B7         [12]  403 	jr	00105$
+   0203                     404 00107$:
+   0203 DD E1         [14]  405 	pop	ix
+   0205 C9            [10]  406 	ret
+                            407 ;src/score/score.c:74: u16 aumentarPuntuacion(u16 puntuacion){
+                            408 ;	---------------------------------
+                            409 ; Function aumentarPuntuacion
+                            410 ; ---------------------------------
+   0206                     411 _aumentarPuntuacion::
+                            412 ;src/score/score.c:75: return puntuacion + 10;
+   0206 FD 21 02 00   [14]  413 	ld	iy,#2
+   020A FD 39         [15]  414 	add	iy,sp
+   020C FD 7E 00      [19]  415 	ld	a,0 (iy)
+   020F C6 0A         [ 7]  416 	add	a, #0x0A
+   0211 6F            [ 4]  417 	ld	l, a
+   0212 FD 7E 01      [19]  418 	ld	a, 1 (iy)
+   0215 CE 00         [ 7]  419 	adc	a, #0x00
+   0217 67            [ 4]  420 	ld	h, a
+   0218 C9            [10]  421 	ret
+                            422 	.area _CODE
+                            423 	.area _INITIALIZER
+                            424 	.area _CABS (ABS)
