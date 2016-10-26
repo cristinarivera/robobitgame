@@ -98,15 +98,15 @@ TKnife cu;
 u8 parpadeo;
 u8 cambio;
 i16 timer;
-u8* mapa = 0;
-u8  num_mapa = 0;
-u8 endGame = 0;
+u8* mapa;
+u8  num_mapa;
+u8 endGame;
 
 
 // es el color 8 - 4D - FF00FF
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 
-u8 puntuacion = 0;
+u8 puntuacion;
 u8 vidas;
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
@@ -370,8 +370,8 @@ void lookFor(TEnemy* enemy){
       enemy->in_range = 1;
       enemy->engage = 1;
       enemy->seen = SI;
-    }else if(prota.x > enemy->x - 20 && prota.x < enemy->x + 20
-      && prota.y > enemy->y - 20*2 && prota.y < enemy->y + 20*2){
+    }else if(prota.x > enemy->x - 21 && prota.x < enemy->x + 21
+      && prota.y > enemy->y - 21*2 && prota.y < enemy->y + 21*2){
         enemy->seen = SI;
     }
   }
@@ -406,17 +406,11 @@ void moverEnemigoSeek(TEnemy* actual){
 
     else{
       actual->seek = 0;
-      lookFor(actual);
-      if(!actual->seen){
+
         actual->patrolling = 1;
         pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
-      }else{
-        actual->patrolling = 0;
-        if(!actual->engage){
-          actual->seek = 1;
-          pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
-        }
-      }
+
+
       actual->iter = 0;
     }
 
@@ -721,9 +715,14 @@ void inicializarCPC() {
 }
 
 void inicializarJuego() {
+
+  endGame = 0;
+  puntuacion = 0;
+
   cambio = 0;
   timer = 0;
   parpadeo = 0;
+  vidas = 100;
 
   num_mapa = 0;
   mapa = mapas[num_mapa];
@@ -814,7 +813,7 @@ void main(void) {
   TEnemy* actual;
   u8 i;
   u16 puntuacion_aux = 0;
-  vidas = 100;
+
 
   inicializarCPC();
 
@@ -825,6 +824,13 @@ void main(void) {
   //cpct_akp_musicPlay();
 
   while (1) {
+    if (endGame) {
+      menuFin(puntuacion);
+      endGame = 0;
+      num_mapa = 0;
+      mapa = 0;
+      inicializarJuego();
+    }
     if (endGame) {
       menuFin(puntuacion);
       endGame = 0;

@@ -2,7 +2,6 @@
 #define  ORIGEN_MAPA_Y	24
 #define CAMINO_TAM 200
 
-const unsigned int bitWeights[8] = {1,2,4,8,16,32,64,128};
 u8 sol_tam;
 
 u8 camino[CAMINO_TAM];
