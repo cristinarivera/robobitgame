@@ -104,7 +104,7 @@ u8  num_mapa = 0;
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 
 u8 puntuacion = 0;
-u8 vidas = 5;
+u8 vidas;
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
 extern void play();
@@ -430,12 +430,13 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 
   if (dist < 20) {
     vidas--;
-    if (vidas == 0) {
+    if (vidas == 1) {
       menuFin(puntuacion);
     } else {
-      modificarVidas(vidas);
+    //  modificarVidas(vidas);
     }
-    enemy->patrolling = SI;
+    enemy->patrolling = 1;
+    enemy->engage = 0;
   }
 
   if (!enemy->patrolling) {
@@ -762,6 +763,7 @@ void main(void) {
   TEnemy* actual;
   u8 i;
   u16 puntuacion_aux = 0;
+  vidas = 6;
 
   inicializarCPC();
 

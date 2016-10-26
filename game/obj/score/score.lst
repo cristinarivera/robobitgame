@@ -334,63 +334,59 @@
                             334 ; ---------------------------------
    01A3                     335 _modificarVidas::
    01A3 DD E5         [15]  336 	push	ix
-   01A5 DD 21 00 00   [14]  337 	ld	ix,#0
-   01A9 DD 39         [15]  338 	add	ix,sp
-                            339 ;src/score/score.c:46: for(i=0; i<=vidas; i++){
-   01AB 01 00 00      [10]  340 	ld	bc,#0x0000
-   01AE                     341 00102$:
-                            342 ;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
-   01AE 79            [ 4]  343 	ld	a,c
-   01AF 87            [ 4]  344 	add	a, a
-   01B0 87            [ 4]  345 	add	a, a
-   01B1 C6 3C         [ 7]  346 	add	a, #0x3C
-   01B3 57            [ 4]  347 	ld	d,a
-   01B4 C5            [11]  348 	push	bc
-   01B5 3E 0E         [ 7]  349 	ld	a,#0x0E
-   01B7 F5            [11]  350 	push	af
-   01B8 33            [ 6]  351 	inc	sp
-   01B9 D5            [11]  352 	push	de
-   01BA 33            [ 6]  353 	inc	sp
-   01BB 21 00 C0      [10]  354 	ld	hl,#0xC000
-   01BE E5            [11]  355 	push	hl
-   01BF CDr00r00      [17]  356 	call	_cpct_getScreenPtr
-   01C2 EB            [ 4]  357 	ex	de,hl
-   01C3 21 03 06      [10]  358 	ld	hl,#0x0603
-   01C6 E5            [11]  359 	push	hl
-   01C7 D5            [11]  360 	push	de
-   01C8 21r00r00      [10]  361 	ld	hl,#_g_heart
-   01CB E5            [11]  362 	push	hl
-   01CC CDr00r00      [17]  363 	call	_cpct_drawSprite
-   01CF C1            [10]  364 	pop	bc
-                            365 ;src/score/score.c:46: for(i=0; i<=vidas; i++){
-   01D0 03            [ 6]  366 	inc	bc
-   01D1 DD 5E 04      [19]  367 	ld	e,4 (ix)
-   01D4 16 00         [ 7]  368 	ld	d,#0x00
-   01D6 7B            [ 4]  369 	ld	a,e
-   01D7 91            [ 4]  370 	sub	a, c
-   01D8 7A            [ 4]  371 	ld	a,d
-   01D9 98            [ 4]  372 	sbc	a, b
-   01DA E2rDFr01      [10]  373 	jp	PO, 00111$
-   01DD EE 80         [ 7]  374 	xor	a, #0x80
-   01DF                     375 00111$:
-   01DF F2rAEr01      [10]  376 	jp	P,00102$
-   01E2 DD E1         [14]  377 	pop	ix
-   01E4 C9            [10]  378 	ret
-                            379 ;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
-                            380 ;	---------------------------------
-                            381 ; Function aumentarPuntuacion
-                            382 ; ---------------------------------
-   01E5                     383 _aumentarPuntuacion::
-                            384 ;src/score/score.c:53: return puntuacion + 10;
-   01E5 FD 21 02 00   [14]  385 	ld	iy,#2
-   01E9 FD 39         [15]  386 	add	iy,sp
-   01EB FD 7E 00      [19]  387 	ld	a,0 (iy)
-   01EE C6 0A         [ 7]  388 	add	a, #0x0A
-   01F0 6F            [ 4]  389 	ld	l, a
-   01F1 FD 7E 01      [19]  390 	ld	a, 1 (iy)
-   01F4 CE 00         [ 7]  391 	adc	a, #0x00
-   01F6 67            [ 4]  392 	ld	h, a
-   01F7 C9            [10]  393 	ret
-                            394 	.area _CODE
-                            395 	.area _INITIALIZER
-                            396 	.area _CABS (ABS)
+                            337 ;src/score/score.c:46: for(i=0; i<5; i++){
+   01A5 01 00 00      [10]  338 	ld	bc,#0x0000
+   01A8                     339 00102$:
+                            340 ;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
+   01A8 79            [ 4]  341 	ld	a,c
+   01A9 87            [ 4]  342 	add	a, a
+   01AA 87            [ 4]  343 	add	a, a
+   01AB C6 3C         [ 7]  344 	add	a, #0x3C
+   01AD 57            [ 4]  345 	ld	d,a
+   01AE C5            [11]  346 	push	bc
+   01AF 3E 0E         [ 7]  347 	ld	a,#0x0E
+   01B1 F5            [11]  348 	push	af
+   01B2 33            [ 6]  349 	inc	sp
+   01B3 D5            [11]  350 	push	de
+   01B4 33            [ 6]  351 	inc	sp
+   01B5 21 00 C0      [10]  352 	ld	hl,#0xC000
+   01B8 E5            [11]  353 	push	hl
+   01B9 CDr00r00      [17]  354 	call	_cpct_getScreenPtr
+   01BC EB            [ 4]  355 	ex	de,hl
+   01BD 21 03 06      [10]  356 	ld	hl,#0x0603
+   01C0 E5            [11]  357 	push	hl
+   01C1 D5            [11]  358 	push	de
+   01C2 21r00r00      [10]  359 	ld	hl,#_g_heart
+   01C5 E5            [11]  360 	push	hl
+   01C6 CDr00r00      [17]  361 	call	_cpct_drawSprite
+   01C9 C1            [10]  362 	pop	bc
+                            363 ;src/score/score.c:46: for(i=0; i<5; i++){
+   01CA 03            [ 6]  364 	inc	bc
+   01CB 79            [ 4]  365 	ld	a,c
+   01CC D6 05         [ 7]  366 	sub	a, #0x05
+   01CE 78            [ 4]  367 	ld	a,b
+   01CF 17            [ 4]  368 	rla
+   01D0 3F            [ 4]  369 	ccf
+   01D1 1F            [ 4]  370 	rra
+   01D2 DE 80         [ 7]  371 	sbc	a, #0x80
+   01D4 38 D2         [12]  372 	jr	C,00102$
+   01D6 DD E1         [14]  373 	pop	ix
+   01D8 C9            [10]  374 	ret
+                            375 ;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
+                            376 ;	---------------------------------
+                            377 ; Function aumentarPuntuacion
+                            378 ; ---------------------------------
+   01D9                     379 _aumentarPuntuacion::
+                            380 ;src/score/score.c:53: return puntuacion + 10;
+   01D9 FD 21 02 00   [14]  381 	ld	iy,#2
+   01DD FD 39         [15]  382 	add	iy,sp
+   01DF FD 7E 00      [19]  383 	ld	a,0 (iy)
+   01E2 C6 0A         [ 7]  384 	add	a, #0x0A
+   01E4 6F            [ 4]  385 	ld	l, a
+   01E5 FD 7E 01      [19]  386 	ld	a, 1 (iy)
+   01E8 CE 00         [ 7]  387 	adc	a, #0x00
+   01EA 67            [ 4]  388 	ld	h, a
+   01EB C9            [10]  389 	ret
+                            390 	.area _CODE
+                            391 	.area _INITIALIZER
+                            392 	.area _CABS (ABS)

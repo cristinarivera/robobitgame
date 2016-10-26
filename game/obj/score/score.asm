@@ -334,9 +334,7 @@ _modificarPuntuacion::
 ; ---------------------------------
 _modificarVidas::
 	push	ix
-	ld	ix,#0
-	add	ix,sp
-;src/score/score.c:46: for(i=0; i<=vidas; i++){
+;src/score/score.c:46: for(i=0; i<5; i++){
 	ld	bc,#0x0000
 00102$:
 ;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
@@ -362,18 +360,16 @@ _modificarVidas::
 	push	hl
 	call	_cpct_drawSprite
 	pop	bc
-;src/score/score.c:46: for(i=0; i<=vidas; i++){
+;src/score/score.c:46: for(i=0; i<5; i++){
 	inc	bc
-	ld	e,4 (ix)
-	ld	d,#0x00
-	ld	a,e
-	sub	a, c
-	ld	a,d
-	sbc	a, b
-	jp	PO, 00111$
-	xor	a, #0x80
-00111$:
-	jp	P,00102$
+	ld	a,c
+	sub	a, #0x05
+	ld	a,b
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jr	C,00102$
 	pop	ix
 	ret
 ;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
