@@ -72,7 +72,7 @@ u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
 u8 const spawnX[4] = {36, 71, 50, 24};
-u8 const spawnY[4] = {66 + ORIGEN_MAPA_Y, 90 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
 
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
@@ -667,16 +667,15 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
     if (actual->engage) { // prioridad a la persecucion, nunca te deja
       engage(actual, prota.x, prota.y);
     } else {
-      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+      //lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
       if (actual->patrolling) {
  // esta patrullando
-        moverEnemigoPatrol(actual);
+        //moverEnemigoPatrol(actual);
         if (actual->inRange) {
           engage(actual, prota.x, prota.y);
           actual->patrolling = 0;
           actual->engage = 1;
         } else if (actual->seen) {
-
           pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
           actual->p_seek_x = actual->x;
           actual->p_seek_y = actual->y;
@@ -701,9 +700,9 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
 }
 
 void inicializarEnemy() {
-  //u8 i = (2 + num_mapa) + 1; //sacar distinto numero dependiendo del mapa
+  u8 i = 2 + num_mapa; //sacar distinto numero dependiendo del mapa
    //u8 i = 4 + 1; // sacar todos
-  u8 i = 2;
+  //u8 i = 2;
   TEnemy* actual;
 
   u8 aux0, aux1, k;
@@ -750,9 +749,7 @@ void inicializarEnemy() {
 
     actual->x = actual->px = spawnX[i];
     actual->y = actual->py = spawnY[i];*/
-    if(actual->longitud_camino > 0){
-      dibujarEnemigo(actual);
-    }
+    dibujarEnemigo(actual);
     ++actual;
   }
 }
