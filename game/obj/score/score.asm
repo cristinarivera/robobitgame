@@ -17,7 +17,6 @@
 	.globl _modificarPuntuacion
 	.globl _modificarVidas
 	.globl _aumentarPuntuacion
-	.globl _quitarVidas
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -335,7 +334,9 @@ _modificarPuntuacion::
 ; ---------------------------------
 _modificarVidas::
 	push	ix
-;src/score/score.c:46: for(i=0; i<5; i++){
+	ld	ix,#0
+	add	ix,sp
+;src/score/score.c:46: for(i=0; i<=vidas; i++){
 	ld	bc,#0x0000
 00102$:
 ;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
@@ -361,16 +362,18 @@ _modificarVidas::
 	push	hl
 	call	_cpct_drawSprite
 	pop	bc
-;src/score/score.c:46: for(i=0; i<5; i++){
+;src/score/score.c:46: for(i=0; i<=vidas; i++){
 	inc	bc
-	ld	a,c
-	sub	a, #0x05
-	ld	a,b
-	rla
-	ccf
-	rra
-	sbc	a, #0x80
-	jr	C,00102$
+	ld	e,4 (ix)
+	ld	d,#0x00
+	ld	a,e
+	sub	a, c
+	ld	a,d
+	sbc	a, b
+	jp	PO, 00111$
+	xor	a, #0x80
+00111$:
+	jp	P,00102$
 	pop	ix
 	ret
 ;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
@@ -387,18 +390,6 @@ _aumentarPuntuacion::
 	ld	a, 1 (iy)
 	adc	a, #0x00
 	ld	h, a
-	ret
-;src/score/score.c:56: u8 quitarVidas(u8 vidas){
-;	---------------------------------
-; Function quitarVidas
-; ---------------------------------
-_quitarVidas::
-;src/score/score.c:57: return vidas -1;
-	ld	hl, #2+0
-	add	hl, sp
-	ld	c, (hl)
-	dec	c
-	ld	l,c
 	ret
 	.area _CODE
 	.area _INITIALIZER

@@ -12,6 +12,4 @@ void modificarVidas(u8 vidas);
 
 u16 aumentarPuntuacion(u16 puntuacion);
 
-u8 quitarVidas(u8 vidas);
-
 #endif
