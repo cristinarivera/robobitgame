@@ -55,7 +55,6 @@
 	.globl _menuFin
 	.globl _cpct_etm_setTileset2x4
 	.globl _cpct_etm_drawTileBox2x4
-	.globl _cpct_akp_musicInit
 	.globl _cpct_getScreenPtr
 	.globl _cpct_setPALColour
 	.globl _cpct_setPalette
@@ -65,7 +64,6 @@
 	.globl _cpct_isAnyKeyPressed
 	.globl _cpct_isKeyPressed
 	.globl _cpct_scanKeyboard_if
-	.globl _cpct_setInterruptHandler
 	.globl _cpct_disableFirmware
 	.globl _puntuacion
 	.globl _num_mapa
@@ -221,14 +219,14 @@ _patrolX:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db 0x00
-	.db #0x10	; 16
+	.db #0x34	; 52	'4'
 	.db #0x33	; 51	'3'
-	.db #0x19	; 25
+	.db #0x14	; 20
 	.db #0x00	; 0
 	.db 0x00
-	.db #0x24	; 36
+	.db #0x38	; 56	'8'
 	.db #0x3C	; 60
-	.db #0x30	; 48	'0'
+	.db #0x23	; 35
 	.db #0x18	; 24
 	.db 0x00
 _patrolY:
@@ -242,14 +240,14 @@ _patrolY:
 	.db #0x00	; 0
 	.db #0x00	; 0
 	.db 0x00
-	.db #0x2C	; 44
+	.db #0xA0	; 160
 	.db #0x66	; 102	'f'
-	.db #0x9A	; 154
+	.db #0x2C	; 44
 	.db #0x00	; 0
 	.db 0x00
-	.db #0x90	; 144
+	.db #0xAE	; 174
 	.db #0x66	; 102	'f'
-	.db #0x2C	; 44
+	.db #0x22	; 34
 	.db #0x86	; 134
 	.db 0x00
 ;src/main.c:120: void dibujarProta() {
@@ -3429,17 +3427,11 @@ _updateEnemy::
 	ld	b,5 (ix)
 	ld	hl,#0x0015
 	add	hl,bc
-<<<<<<< HEAD
 	ld	-5 (ix),l
 	ld	-4 (ix),h
 	ld	l,-5 (ix)
 	ld	h,-4 (ix)
 	ld	a,(hl)
-=======
-	ex	de,hl
-	ld	a,(de)
-	ld	-2 (ix), a
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	or	a, a
 	jr	Z,00115$
 ;src/main.c:593: enemy->patrolling = 0;
@@ -3459,7 +3451,6 @@ _updateEnemy::
 	pop	af
 	jp	00117$
 00115$:
-<<<<<<< HEAD
 ;src/main.c:596: lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
 	push	bc
 	push	bc
@@ -3475,35 +3466,16 @@ _updateEnemy::
 	push	hl
 	ld	l,(hl)
 ;src/main.c:600: if (actual->in_range) {
-=======
-;src/main.c:594: if (actual->patrolling) {
-	ld	hl,#0x000A
-	add	hl,bc
-	ld	-4 (ix),l
-	ld	-3 (ix),h
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
-	ld	l,(hl)
-;src/main.c:605: actual->seek = 1;
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	a,c
-	add	a, #0x13
-	ld	-6 (ix),a
+	add	a, #0x10
+	ld	e,a
 	ld	a,b
 	adc	a, #0x00
-<<<<<<< HEAD
 	ld	d,a
 ;src/main.c:608: actual->seek = 1;
 	ld	a,c
 	add	a, #0x13
 	ld	-3 (ix),a
-=======
-	ld	-5 (ix),a
-;src/main.c:597: if (actual->in_range) {
-	ld	a,c
-	add	a, #0x10
-	ld	-8 (ix),a
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	a,b
 	adc	a, #0x00
 	ld	-2 (ix),a
@@ -3519,35 +3491,22 @@ _updateEnemy::
 	pop	af
 	pop	de
 	pop	bc
-<<<<<<< HEAD
 ;src/main.c:600: if (actual->in_range) {
 	ld	a,(de)
-=======
-;src/main.c:597: if (actual->in_range) {
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
-	ld	a,(hl)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	or	a, a
 	jr	Z,00104$
 ;src/main.c:601: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
-	push	af
-	ld	a,(hl)
-	ld	-2 (ix),a
-	pop	af
-	push	de
+	ld	d,(hl)
 	push	af
 	inc	sp
-	ld	a,-2 (ix)
-	push	af
+	push	de
 	inc	sp
 	push	bc
 	call	_engage
 	pop	af
 	pop	af
-<<<<<<< HEAD
 ;src/main.c:602: actual->patrolling = 0;
 	pop	hl
 	push	hl
@@ -3556,16 +3515,6 @@ _updateEnemy::
 	ld	l,-5 (ix)
 	ld	h,-4 (ix)
 	ld	(hl),#0x01
-=======
-	pop	de
-;src/main.c:599: actual->patrolling = 0;
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
-	ld	(hl),#0x00
-;src/main.c:600: actual->engage = 1;
-	ld	a,#0x01
-	ld	(de),a
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	jp	00117$
 00104$:
 ;src/main.c:604: } else if (actual->seen) {
@@ -3580,25 +3529,15 @@ _updateEnemy::
 	jp	Z,00117$
 ;src/main.c:605: pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
 	ld	a,(#_prota + 1)
-<<<<<<< HEAD
 	ld	-8 (ix),a
-=======
-	ld	-2 (ix),a
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	hl, #_prota + 0
 	ld	e,(hl)
 	ld	hl,#0x0001
 	add	hl,bc
-<<<<<<< HEAD
 	ld	-7 (ix),l
 	ld	-6 (ix),h
 	ld	l,-7 (ix)
 	ld	h,-6 (ix)
-=======
-	ex	(sp), hl
-	pop	hl
-	push	hl
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	d,(hl)
 	ld	a,(bc)
 	ld	-1 (ix),a
@@ -3606,11 +3545,7 @@ _updateEnemy::
 	ld	hl,(_mapa)
 	push	hl
 	push	bc
-<<<<<<< HEAD
 	ld	a,-8 (ix)
-=======
-	ld	a,-2 (ix)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	push	af
 	inc	sp
 	ld	a,e
@@ -3636,7 +3571,6 @@ _updateEnemy::
 	ld	hl,#0x0018
 	add	hl,bc
 	ex	de,hl
-<<<<<<< HEAD
 	ld	l,-7 (ix)
 	ld	h,-6 (ix)
 	ld	a,(hl)
@@ -3644,15 +3578,6 @@ _updateEnemy::
 ;src/main.c:608: actual->seek = 1;
 	ld	l,-3 (ix)
 	ld	h,-2 (ix)
-=======
-	pop	hl
-	push	hl
-	ld	a,(hl)
-	ld	(de),a
-;src/main.c:605: actual->seek = 1;
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	(hl),#0x01
 ;src/main.c:609: actual->iter=0;
 	ld	hl,#0x000D
@@ -3665,33 +3590,19 @@ _updateEnemy::
 	ld	hl,#0x000B
 	add	hl,bc
 	ld	(hl),#0x00
-<<<<<<< HEAD
 ;src/main.c:611: actual->patrolling = 0;
 	pop	hl
 	push	hl
 	ld	(hl),#0x00
 ;src/main.c:612: actual->seen = 0;
-=======
-;src/main.c:608: actual->patrolling = 0;
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
-	ld	(hl),#0x00
-;src/main.c:609: actual->seen = 0;
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	l,-10 (ix)
 	ld	h,-9 (ix)
 	ld	(hl),#0x00
 	jr	00117$
 00112$:
-<<<<<<< HEAD
 ;src/main.c:614: } else if (actual->seek) {
 	ld	l,-3 (ix)
 	ld	h,-2 (ix)
-=======
-;src/main.c:611: } else if (actual->seek) {
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	a,(hl)
 	or	a, a
 	jr	Z,00117$
@@ -3703,35 +3614,22 @@ _updateEnemy::
 	pop	af
 	pop	de
 	pop	bc
-<<<<<<< HEAD
 ;src/main.c:616: if (actual->in_range) {
 	ld	a,(de)
-=======
-;src/main.c:613: if (actual->in_range) {
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
-	ld	a,(hl)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	or	a, a
 	jr	Z,00117$
 ;src/main.c:617: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
-	push	af
-	ld	a,(hl)
-	ld	-1 (ix),a
-	pop	af
-	push	de
+	ld	d,(hl)
 	push	af
 	inc	sp
-	ld	a,-1 (ix)
-	push	af
+	push	de
 	inc	sp
 	push	bc
 	call	_engage
 	pop	af
 	pop	af
-<<<<<<< HEAD
 ;src/main.c:618: actual->seek = 0;
 	ld	l,-3 (ix)
 	ld	h,-2 (ix)
@@ -3741,17 +3639,6 @@ _updateEnemy::
 	ld	h,-4 (ix)
 	ld	(hl),#0x01
 ;src/main.c:620: } else if (actual->seen) {
-=======
-	pop	de
-;src/main.c:615: actual->seek = 0;
-	ld	l,-6 (ix)
-	ld	h,-5 (ix)
-	ld	(hl),#0x00
-;src/main.c:616: actual->engage = 1;
-	ld	a,#0x01
-	ld	(de),a
-;src/main.c:617: } else if (actual->seen) {
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 00117$:
 	ld	sp, ix
 	pop	ix
@@ -3771,26 +3658,16 @@ _inicializarEnemy::
 	ld	a,(#_num_mapa + 0)
 	add	a, #0x02
 	ld	-1 (ix),a
-<<<<<<< HEAD
 ;src/main.c:638: actual = enemy;
-=======
-;src/main.c:635: actual = enemy;
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	de,#_enemy+0
 ;src/main.c:639: while(i){
 00101$:
 	ld	a,-1 (ix)
 	or	a, a
 	jp	Z,00104$
-<<<<<<< HEAD
 ;src/main.c:640: --i;
 	dec	-1 (ix)
 ;src/main.c:641: actual->x = actual->px = spawnX[i];
-=======
-;src/main.c:637: --i;
-	dec	-1 (ix)
-;src/main.c:638: actual->x = actual->px = spawnX[i];
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
 	ld	c, e
 	ld	b, d
 	inc	bc
@@ -4181,14 +4058,6 @@ _inicializarCPC::
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
-;src/main.c:727: cpct_akp_musicInit(g_song);
-	ld	hl,#_g_song
-	push	hl
-	call	_cpct_akp_musicInit
-	pop	af
-;src/main.c:728: cpct_setInterruptHandler(intHandler);
-	ld	hl,#_intHandler
-	call	_cpct_setInterruptHandler
 	ret
 ;src/main.c:735: void inicializarJuego() {
 ;	---------------------------------

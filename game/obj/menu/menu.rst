@@ -314,7 +314,6 @@
    4D8C 4D            [ 4]  312 	ld	c,l
    4D8D 44            [ 4]  313 	ld	b,h
                             314 ;src/menu/menu.c:41: cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra 
-<<<<<<< HEAD
    4D8E DD 66 07      [19]  315 	ld	h,7 (ix)
    4D91 DD 6E 06      [19]  316 	ld	l,6 (ix)
    4D94 E5            [11]  317 	push	hl
@@ -328,21 +327,6 @@
    4D9E 33            [ 6]  325 	inc	sp
    4D9F 18 51         [12]  326 	jr	00106$
    4DA1                     327 00104$:
-=======
-   4D7E DD 66 07      [19]  315 	ld	h,7 (ix)
-   4D81 DD 6E 06      [19]  316 	ld	l,6 (ix)
-   4D84 E5            [11]  317 	push	hl
-   4D85 AF            [ 4]  318 	xor	a, a
-   4D86 F5            [11]  319 	push	af
-   4D87 33            [ 6]  320 	inc	sp
-   4D88 C5            [11]  321 	push	bc
-   4D89 CD 51 5F      [17]  322 	call	_cpct_drawSolidBox
-   4D8C F1            [10]  323 	pop	af
-   4D8D F1            [10]  324 	pop	af
-   4D8E 33            [ 6]  325 	inc	sp
-   4D8F 18 51         [12]  326 	jr	00106$
-   4D91                     327 00104$:
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             328 ;src/menu/menu.c:43: else if (ancho > 40){
    4DA1 CB 41         [ 8]  329 	bit	0,c
    4DA3 28 4D         [12]  330 	jr	Z,00106$
@@ -356,7 +340,6 @@
    4DB3 4D            [ 4]  338 	ld	c,l
    4DB4 44            [ 4]  339 	ld	b,h
                             340 ;src/menu/menu.c:46: cpct_drawSolidBox(memptr, 0, 40, alto);  //borra la mitad derecha
-<<<<<<< HEAD
    4DB5 DD 7E 07      [19]  341 	ld	a,7 (ix)
    4DB8 F5            [11]  342 	push	af
    4DB9 33            [ 6]  343 	inc	sp
@@ -367,18 +350,6 @@
    4DC2 F1            [10]  348 	pop	af
    4DC3 F1            [10]  349 	pop	af
    4DC4 33            [ 6]  350 	inc	sp
-=======
-   4DA5 DD 7E 07      [19]  341 	ld	a,7 (ix)
-   4DA8 F5            [11]  342 	push	af
-   4DA9 33            [ 6]  343 	inc	sp
-   4DAA 21 00 28      [10]  344 	ld	hl,#0x2800
-   4DAD E5            [11]  345 	push	hl
-   4DAE C5            [11]  346 	push	bc
-   4DAF CD 51 5F      [17]  347 	call	_cpct_drawSolidBox
-   4DB2 F1            [10]  348 	pop	af
-   4DB3 F1            [10]  349 	pop	af
-   4DB4 33            [ 6]  350 	inc	sp
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             351 ;src/menu/menu.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, x + 40, y); // posición para borrar la mitad izquierda
    4DC5 DD 7E 04      [19]  352 	ld	a,4 (ix)
    4DC8 C6 28         [ 7]  353 	add	a, #0x28
@@ -394,7 +365,6 @@
    4DD9 4D            [ 4]  363 	ld	c,l
    4DDA 44            [ 4]  364 	ld	b,h
                             365 ;src/menu/menu.c:48: cpct_drawSolidBox(memptr, 0, ancho-40, alto);  //borra la mitad izquierda
-<<<<<<< HEAD
    4DDB DD 7E 06      [19]  366 	ld	a,6 (ix)
    4DDE C6 D8         [ 7]  367 	add	a,#0xD8
    4DE0 57            [ 4]  368 	ld	d,a
@@ -414,27 +384,6 @@
    4DF2                     382 00106$:
    4DF2 DD E1         [14]  383 	pop	ix
    4DF4 C9            [10]  384 	ret
-=======
-   4DCB DD 7E 06      [19]  366 	ld	a,6 (ix)
-   4DCE C6 D8         [ 7]  367 	add	a,#0xD8
-   4DD0 57            [ 4]  368 	ld	d,a
-   4DD1 DD 7E 07      [19]  369 	ld	a,7 (ix)
-   4DD4 F5            [11]  370 	push	af
-   4DD5 33            [ 6]  371 	inc	sp
-   4DD6 D5            [11]  372 	push	de
-   4DD7 33            [ 6]  373 	inc	sp
-   4DD8 AF            [ 4]  374 	xor	a, a
-   4DD9 F5            [11]  375 	push	af
-   4DDA 33            [ 6]  376 	inc	sp
-   4DDB C5            [11]  377 	push	bc
-   4DDC CD 51 5F      [17]  378 	call	_cpct_drawSolidBox
-   4DDF F1            [10]  379 	pop	af
-   4DE0 F1            [10]  380 	pop	af
-   4DE1 33            [ 6]  381 	inc	sp
-   4DE2                     382 00106$:
-   4DE2 DD E1         [14]  383 	pop	ix
-   4DE4 C9            [10]  384 	ret
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             385 ;src/menu/menu.c:52: void menuInstrucciones(){ // TODO TODO
                             386 ;	---------------------------------
                             387 ; Function menuInstrucciones

@@ -23,17 +23,10 @@
                              23 ; ram data
                              24 ;--------------------------------------------------------
                              25 	.area _DATA
-<<<<<<< HEAD
    647F                      26 _sol_tam::
    647F                      27 	.ds 1
    6480                      28 _camino::
    6480                      29 	.ds 200
-=======
-   6462                      26 _sol_tam::
-   6462                      27 	.ds 1
-   6463                      28 _camino::
-   6463                      29 	.ds 200
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                              30 ;--------------------------------------------------------
                              31 ; ram data
                              32 ;--------------------------------------------------------
@@ -66,7 +59,6 @@
                              59 ;src/pathfinding.c:11: u8 anyadido = 0;
    444C 0E 00         [ 7]   60 	ld	c,#0x00
                              61 ;src/pathfinding.c:13: if(sol_tam < CAMINO_TAM){
-<<<<<<< HEAD
    444E 3A 7F 64      [13]   62 	ld	a,(#_sol_tam + 0)
    4451 D6 C8         [ 7]   63 	sub	a, #0xC8
    4453 30 2D         [12]   64 	jr	NC,00102$
@@ -93,34 +85,6 @@
                              85 ;src/pathfinding.c:17: sol_tam++;
    447C 21 7F 64      [10]   86 	ld	hl, #_sol_tam+0
    447F 34            [11]   87 	inc	(hl)
-=======
-   3F0C 3A 62 64      [13]   62 	ld	a,(#_sol_tam + 0)
-   3F0F D6 C8         [ 7]   63 	sub	a, #0xC8
-   3F11 30 2D         [12]   64 	jr	NC,00102$
-                             65 ;src/pathfinding.c:14: camino[sol_tam] = x;
-   3F13 01 63 64      [10]   66 	ld	bc,#_camino+0
-   3F16 2A 62 64      [16]   67 	ld	hl,(_sol_tam)
-   3F19 26 00         [ 7]   68 	ld	h,#0x00
-   3F1B 09            [11]   69 	add	hl,bc
-   3F1C FD 21 02 00   [14]   70 	ld	iy,#2
-   3F20 FD 39         [15]   71 	add	iy,sp
-   3F22 FD 7E 00      [19]   72 	ld	a,0 (iy)
-   3F25 77            [ 7]   73 	ld	(hl),a
-                             74 ;src/pathfinding.c:15: sol_tam++;
-   3F26 21 62 64      [10]   75 	ld	hl, #_sol_tam+0
-   3F29 34            [11]   76 	inc	(hl)
-                             77 ;src/pathfinding.c:16: camino[sol_tam] = y;
-   3F2A 2A 62 64      [16]   78 	ld	hl,(_sol_tam)
-   3F2D 26 00         [ 7]   79 	ld	h,#0x00
-   3F2F 09            [11]   80 	add	hl,bc
-   3F30 FD 21 03 00   [14]   81 	ld	iy,#3
-   3F34 FD 39         [15]   82 	add	iy,sp
-   3F36 FD 7E 00      [19]   83 	ld	a,0 (iy)
-   3F39 77            [ 7]   84 	ld	(hl),a
-                             85 ;src/pathfinding.c:17: sol_tam++;
-   3F3A 21 62 64      [10]   86 	ld	hl, #_sol_tam+0
-   3F3D 34            [11]   87 	inc	(hl)
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                              88 ;src/pathfinding.c:18: anyadido = 1;
    4480 0E 01         [ 7]   89 	ld	c,#0x01
    4482                      90 00102$:
@@ -786,13 +750,8 @@
    4983 DD 7E 04      [19]  750 	ld	a,4 (ix)
    4986 DD 77 EF      [19]  751 	ld	-17 (ix),a
                             752 ;src/pathfinding.c:147: sol_tam = 0;
-<<<<<<< HEAD
    4989 21 7F 64      [10]  753 	ld	hl,#_sol_tam + 0
    498C 36 00         [10]  754 	ld	(hl), #0x00
-=======
-   4447 21 62 64      [10]  753 	ld	hl,#_sol_tam + 0
-   444A 36 00         [10]  754 	ld	(hl), #0x00
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             755 ;src/pathfinding.c:148: y = s_y;
    498E DD 7E 05      [19]  756 	ld	a,5 (ix)
    4991 DD 77 EE      [19]  757 	ld	-18 (ix),a
@@ -846,7 +805,6 @@
    49FA 20 16         [12]  805 	jr	NZ,00110$
    49FC                     806 00109$:
                             807 ;src/pathfinding.c:160: if(inserted == 0 || sol_tam == 0){
-<<<<<<< HEAD
    49FC DD 7E F1      [19]  808 	ld	a,-15 (ix)
    49FF B7            [ 4]  809 	or	a, a
    4A00 28 06         [12]  810 	jr	Z,00101$
@@ -854,15 +812,6 @@
    4A05 B7            [ 4]  812 	or	a, a
    4A06 20 04         [12]  813 	jr	NZ,00102$
    4A08                     814 00101$:
-=======
-   44BA DD 7E F1      [19]  808 	ld	a,-15 (ix)
-   44BD B7            [ 4]  809 	or	a, a
-   44BE 28 06         [12]  810 	jr	Z,00101$
-   44C0 3A 62 64      [13]  811 	ld	a,(#_sol_tam + 0)
-   44C3 B7            [ 4]  812 	or	a, a
-   44C4 20 04         [12]  813 	jr	NZ,00102$
-   44C6                     814 00101$:
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             815 ;src/pathfinding.c:161: problem = 1;
    4A08 DD 36 ED 01   [19]  816 	ld	-19 (ix),#0x01
    4A0C                     817 00102$:
@@ -1002,7 +951,6 @@
    4AED B7            [ 4]  951 	or	a, a
    4AEE 20 74         [12]  952 	jr	NZ,00126$
                             953 ;src/pathfinding.c:202: if(sol_tam < CAMINO_TAM){
-<<<<<<< HEAD
    4AF0 3A 7F 64      [13]  954 	ld	a,(#_sol_tam + 0)
    4AF3 D6 C8         [ 7]  955 	sub	a, #0xC8
    4AF5 30 0C         [12]  956 	jr	NC,00122$
@@ -1013,18 +961,6 @@
    4B00 77            [ 7]  961 	ld	(hl),a
    4B01 18 08         [12]  962 	jr	00142$
    4B03                     963 00122$:
-=======
-   45AE 3A 62 64      [13]  954 	ld	a,(#_sol_tam + 0)
-   45B1 D6 C8         [ 7]  955 	sub	a, #0xC8
-   45B3 30 0C         [12]  956 	jr	NC,00122$
-                            957 ;src/pathfinding.c:203: actual->longitud_camino = sol_tam;
-   45B5 DD 6E FE      [19]  958 	ld	l,-2 (ix)
-   45B8 DD 66 FF      [19]  959 	ld	h,-1 (ix)
-   45BB 3A 62 64      [13]  960 	ld	a,(#_sol_tam + 0)
-   45BE 77            [ 7]  961 	ld	(hl),a
-   45BF 18 08         [12]  962 	jr	00142$
-   45C1                     963 00122$:
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                             964 ;src/pathfinding.c:205: actual->longitud_camino = CAMINO_TAM;
    4B03 DD 6E F8      [19]  965 	ld	l,-8 (ix)
    4B06 DD 66 F9      [19]  966 	ld	h,-7 (ix)
@@ -1045,7 +981,6 @@
    4B28 96            [ 7]  981 	sub	a,(hl)
    4B29 30 41         [12]  982 	jr	NC,00131$
                             983 ;src/pathfinding.c:208: actual->camino[i] = camino[i];
-<<<<<<< HEAD
    4B2B DD 7E F3      [19]  984 	ld	a,-13 (ix)
    4B2E DD 86 FA      [19]  985 	add	a, -6 (ix)
    4B31 DD 77 F5      [19]  986 	ld	-11 (ix),a
@@ -1066,28 +1001,6 @@
    4B58 DD 66 F6      [19] 1001 	ld	h,-10 (ix)
    4B5B DD 7E FC      [19] 1002 	ld	a,-4 (ix)
    4B5E 77            [ 7] 1003 	ld	(hl),a
-=======
-   45E9 DD 7E F3      [19]  984 	ld	a,-13 (ix)
-   45EC DD 86 FB      [19]  985 	add	a, -5 (ix)
-   45EF DD 77 F8      [19]  986 	ld	-8 (ix),a
-   45F2 3E 00         [ 7]  987 	ld	a,#0x00
-   45F4 DD 8E FC      [19]  988 	adc	a, -4 (ix)
-   45F7 DD 77 F9      [19]  989 	ld	-7 (ix),a
-   45FA 3E 63         [ 7]  990 	ld	a,#<(_camino)
-   45FC DD 86 F3      [19]  991 	add	a, -13 (ix)
-   45FF DD 77 F5      [19]  992 	ld	-11 (ix),a
-   4602 3E 64         [ 7]  993 	ld	a,#>(_camino)
-   4604 CE 00         [ 7]  994 	adc	a, #0x00
-   4606 DD 77 F6      [19]  995 	ld	-10 (ix),a
-   4609 DD 6E F5      [19]  996 	ld	l,-11 (ix)
-   460C DD 66 F6      [19]  997 	ld	h,-10 (ix)
-   460F 7E            [ 7]  998 	ld	a,(hl)
-   4610 DD 77 F5      [19]  999 	ld	-11 (ix),a
-   4613 DD 6E F8      [19] 1000 	ld	l,-8 (ix)
-   4616 DD 66 F9      [19] 1001 	ld	h,-7 (ix)
-   4619 DD 7E F5      [19] 1002 	ld	a,-11 (ix)
-   461C 77            [ 7] 1003 	ld	(hl),a
->>>>>>> f6f0208c5a072b24018e9303c551e0ad8807af24
                            1004 ;src/pathfinding.c:207: for (i; i<actual->longitud_camino; i++){
    4B5F DD 34 F3      [23] 1005 	inc	-13 (ix)
    4B62 18 BB         [12] 1006 	jr	00129$
