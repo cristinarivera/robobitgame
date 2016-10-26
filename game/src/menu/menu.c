@@ -4,41 +4,11 @@
 #include "../assets/arrows.h"
 #include "../assets/text.h"
 
-void menuFin(u16 puntuacion) __z88dk_fastcall {
-	u8* memptr;
-	u16 puntuacion_aux;
-	puntuacion_aux = puntuacion/10000;
-	
-	// borrar pantalla
-	cpct_clearScreen(0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
-	cpct_drawStringM0("GAME OVER", memptr, 2, 0);
-
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 20, 120); // centrado en horizontal y arriba en vertical
-	cpct_drawStringM0("SCORE: ", memptr, 2, 0);
-	
-	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 45, 120); // centrado en horizontal y arriba en vertical
-	
-  	cpct_drawCharM0(memptr, 2, 0, (puntuacion_aux%10) + 48);
-  	puntuacion_aux = puntuacion / 1000;
-  	cpct_drawCharM0(memptr+4, 2, 0, (puntuacion_aux%10) + 48);
-  	puntuacion_aux = puntuacion / 100;
-  	cpct_drawCharM0(memptr+8, 2, 0, (puntuacion_aux%10) + 48);
-  	puntuacion_aux = puntuacion / 10;
-  	cpct_drawCharM0(memptr+12, 2, 0, (puntuacion_aux%10) + 48);
-  	puntuacion_aux = puntuacion;
-	cpct_drawCharM0(memptr+16, 2, 0, (puntuacion_aux%10) + 48);
-
-
-  while(1){}
-}
-
 void borrarPantalla(u8 x, u8 y, u8 ancho, u8 alto){
   u8* memptr;
   if (ancho <= 40){
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar 
-    cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra 
+    memptr = cpct_getScreenPtr(CPCT_VMEM_START, x, y); // posición para borrar
+    cpct_drawSolidBox(memptr, 0, ancho, alto);  //borra
   }
   else if (ancho > 40){
     // No se puede borrar todo de golpe.
@@ -57,10 +27,10 @@ void menuInstrucciones(){ // TODO TODO
 	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 16, 85); // centrado en horizontal y abajo en vertical
 	cpct_drawStringM0("INSTRUCTIONS", memptr, 2, 0);
 
-	
+
 	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 4, 115); // dibuja 5 corazones
 	cpct_drawSprite (g_arrows_0, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
-	
+
 	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 115); // dibuja 5 corazones
 	cpct_drawSprite (g_arrows_1, memptr, G_ARROWS_0_W, G_ARROWS_0_H);
 
@@ -77,7 +47,7 @@ void menuInstrucciones(){ // TODO TODO
 	cpct_drawStringM0("SPACE BAR TO SHOOT", memptr, 2, 0);
 
 	do{
-	    cpct_scanKeyboard_f(); 
+	    cpct_scanKeyboard_f();
 	    if(cpct_isKeyPressed(Key_M)){
 	    	menuOpciones();
 	    }
@@ -103,7 +73,7 @@ void menuCreditos(){ // TODO TODO
 	cpct_drawStringM0("Fernando Verdejo", memptr, 2, 0);
 
 	do{
-	    cpct_scanKeyboard_f(); 
+	    cpct_scanKeyboard_f();
 	    if(cpct_isKeyPressed(Key_M)){
 	    	menuOpciones();
 	    }
@@ -127,15 +97,15 @@ void menuOpciones(){ // TODO TODO
 	cpct_drawStringM0("CREDITS PRESS C", memptr, 2, 0);
 
 	do{
-		cpct_scanKeyboard_f(); 
+		cpct_scanKeyboard_f();
 		/*if(cpct_isKeyPressed(Key_S)){
 		// al juego ...
 		}
-		else */ 
+		else */
 		if(cpct_isKeyPressed(Key_I)){
 			menuInstrucciones();
 			//instrucciones
-			//jugar o volver al menu 
+			//jugar o volver al menu
 		}
 		else if(cpct_isKeyPressed(Key_C)){
 			menuCreditos();

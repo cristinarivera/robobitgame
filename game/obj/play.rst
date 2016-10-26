@@ -5,21 +5,21 @@ Hexadecimal [16-Bits]
 
                               1 .globl cpct_akp_musicPlay_asm
                               2 
-   539E                       3 _play::
-   539E D9            [ 4]    4 	exx
-   539F 08            [ 4]    5 	ex af' , af
-   53A0 F5            [11]    6 	push af
-   53A1 C5            [11]    7 	push bc
-   53A2 D5            [11]    8 	push de
-   53A3 E5            [11]    9 	push hl
+   522A                       3 _play::
+   522A D9            [ 4]    4 	exx
+   522B 08            [ 4]    5 	ex af' , af
+   522C F5            [11]    6 	push af
+   522D C5            [11]    7 	push bc
+   522E D5            [11]    8 	push de
+   522F E5            [11]    9 	push hl
                              10 
-   53A4 CD 26 58      [17]   11 	call cpct_akp_musicPlay_asm
+   5230 CD B2 56      [17]   11 	call cpct_akp_musicPlay_asm
                              12 
-   53A7 E1            [10]   13 	pop hl
-   53A8 D1            [10]   14 	pop de
-   53A9 C1            [10]   15 	pop bc
-   53AA F1            [10]   16 	pop af
-   53AB 08            [ 4]   17 	ex af' , af
-   53AC D9            [ 4]   18 	exx
+   5233 E1            [10]   13 	pop hl
+   5234 D1            [10]   14 	pop de
+   5235 C1            [10]   15 	pop bc
+   5236 F1            [10]   16 	pop af
+   5237 08            [ 4]   17 	ex af' , af
+   5238 D9            [ 4]   18 	exx
                              19 
-   53AD C9            [10]   20 	ret
+   5239 C9            [10]   20 	ret

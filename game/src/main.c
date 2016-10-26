@@ -100,6 +100,7 @@ u8 cambio;
 i16 timer;
 u8* mapa = 0;
 u8  num_mapa = 0;
+u8 endGame = 0;
 
 
 // es el color 8 - 4D - FF00FF
@@ -436,7 +437,7 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
     vidas--;
     if(vidas % 20 == 0){
     if (vidas == 0) {
-      menuFin(puntuacion);
+      endGame = 1;
     } else {
       modificarVidas(vidas);
     }}
@@ -660,19 +661,6 @@ void inicializarEnemy() {
     }
 }
 
-void avanzarMapa() {
-  if(num_mapa < NUM_MAPAS -1) {
-    mapa = mapas[++num_mapa];
-    prota.x = prota.px = 2;
-    prota.mover = SI;
-    dibujarMapa();
-    inicializarEnemy();
-  }
-  else{
-    menuFin(puntuacion);
-  }
-}
-
 void moverIzquierda() {
   prota.mira = M_izquierda;
   if (!checkCollision(M_izquierda)) {
@@ -766,6 +754,61 @@ void inicializarJuego() {
   dibujarProta();
 }
 
+void menuFin(u16 puntuacion) __z88dk_fastcall {
+  u8 breakLoop = 0;
+  u8* memptr;
+	u16 puntuacion_aux;
+	puntuacion_aux = puntuacion/10000;
+
+	// borrar pantalla
+	cpct_clearScreen(0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90); // centrado en horizontal y arriba en vertical
+	cpct_drawStringM0("GAME OVER", memptr, 2, 0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 20, 120); // centrado en horizontal y arriba en vertical
+	cpct_drawStringM0("SCORE: ", memptr, 2, 0);
+
+	memptr = cpct_getScreenPtr(CPCT_VMEM_START, 45, 120); // centrado en horizontal y arriba en vertical
+
+  	cpct_drawCharM0(memptr, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 1000;
+  	cpct_drawCharM0(memptr+4, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 100;
+  	cpct_drawCharM0(memptr+8, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion / 10;
+  	cpct_drawCharM0(memptr+12, 2, 0, (puntuacion_aux%10) + 48);
+  	puntuacion_aux = puntuacion;
+	cpct_drawCharM0(memptr+16, 2, 0, (puntuacion_aux%10) + 48);
+
+  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 14, 160); // centrado en horizontal y abajo en vertical
+   cpct_drawStringM0("TO PLAY AGAIN", memptr, 2, 0);
+
+   memptr = cpct_getScreenPtr(CPCT_VMEM_START, 28, 170); // centrado en horizontal y abajo en vertical
+   cpct_drawStringM0("PRESS P", memptr, 2, 0);
+
+
+   do{
+          cpct_scanKeyboard_f();
+
+
+      } while(!cpct_isKeyPressed(Key_P));
+}
+
+void avanzarMapa() {
+  if(num_mapa < NUM_MAPAS -1) {
+    mapa = mapas[++num_mapa];
+    prota.x = prota.px = 2;
+    prota.mover = SI;
+    dibujarMapa();
+    inicializarEnemy();
+  }
+  else{
+    menuFin(puntuacion);
+  }
+}
+
+
 void main(void) {
   u8* memptr;
   TEnemy* actual;
@@ -782,6 +825,11 @@ void main(void) {
   //cpct_akp_musicPlay();
 
   while (1) {
+    if (endGame) {
+      menuFin(puntuacion);
+      endGame = 0;
+      inicializarJuego();
+    }
     ++timer;
     if(timer == 4 && (cambio > 0 && cambio<=12)){
       timer = 0;

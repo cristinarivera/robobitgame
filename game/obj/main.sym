@@ -7,29 +7,40 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
+  9 ___str_0                                                       1949 R
+  9 ___str_1                                                       1953 R
+  9 ___str_2                                                       195B R
+  9 ___str_3                                                       1969 R
+    __divuint                                                      **** GX
     __moduchar                                                     **** GX
+    __moduint                                                      **** GX
+  A __xinit__endGame                                               0003 R
   A __xinit__mapa                                                  0000 R
   A __xinit__num_mapa                                              0002 R
-  A __xinit__puntuacion                                            0003 R
+  A __xinit__puntuacion                                            0004 R
     _abs                                                           **** GX
     _aumentarPuntuacion                                            **** GX
-  9 _avanzarMapa                                                   1662 GR
+  9 _avanzarMapa                                                   1971 GR
     _barraPuntuacionInicial                                        **** GX
     _borrarCuchillo                                                **** GX
-  9 _borrarEnemigo                                                 03B8 GR
+  9 _borrarEnemigo                                                 03B3 GR
   9 _borrarExplosion                                               0343 GR
   9 _borrarProta                                                   0072 GR
   1 _cambio                                                        03A0 GR
   9 _checkCollision                                                0161 GR
-  9 _checkEnemyDead                                                045E GR
+  9 _checkEnemyDead                                                0459 GR
   9 _comprobarTeclado                                              00FA GR
     _cpct_disableFirmware                                          **** GX
+    _cpct_drawCharM0                                               **** GX
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
+    _cpct_drawStringM0                                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
     _cpct_etm_setTileset2x4                                        **** GX
     _cpct_getScreenPtr                                             **** GX
     _cpct_isAnyKeyPressed                                          **** GX
     _cpct_isKeyPressed                                             **** GX
+    _cpct_memset                                                   **** GX
+    _cpct_scanKeyboard_f                                           **** GX
     _cpct_scanKeyboard_if                                          **** GX
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
@@ -41,11 +52,17 @@ Symbol Table
   9 _dibujarMapa                                                   0000 GR
   9 _dibujarProta                                                  004C GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
+  2 _endGame                                                       0003 GR
   1 _enemy                                                         0000 GR
-  9 _engage                                                        0BBD GR
+  9 _engage                                                        0BB1 GR
     _g_enemy                                                       **** GX
     _g_explosion                                                   **** GX
     _g_hero                                                        **** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
     _g_hero_down                                                   **** GX
     _g_hero_left                                                   **** GX
     _g_hero_up                                                     **** GX
@@ -57,35 +74,30 @@ Symbol Table
     _g_tileset                                                     **** GX
     _getTilePtr                                                    **** GX
   1 _i                                                             03A4 GR
-  9 _inicializarCPC                                                176E GR
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
-Hexadecimal [16-Bits]
-
-Symbol Table
-
-  9 _inicializarEnemy                                              153D GR
-  9 _inicializarJuego                                              1789 GR
-  9 _intHandler                                                    175B GR
+  9 _inicializarCPC                                                1705 GR
+  9 _inicializarEnemy                                              151B GR
+  9 _inicializarJuego                                              1720 GR
+  9 _intHandler                                                    16F2 GR
     _lanzarCuchillo                                                **** GX
-  9 _lookFor                                                       090F GR
-  9 _main                                                          1807 GR
+  9 _lookFor                                                       08F9 GR
+  9 _main                                                          19B8 GR
   2 _mapa                                                          0000 GR
   9 _mapas                                                         0016 GR
-    _menuFin                                                       **** GX
+  9 _menuFin                                                       179E GR
     _menuInicio                                                    **** GX
     _modificarPuntuacion                                           **** GX
     _modificarVidas                                                **** GX
-  9 _moverAbajo                                                    1737 GR
-  9 _moverArriba                                                   1713 GR
+  9 _moverAbajo                                                    16CE GR
+  9 _moverArriba                                                   16AA GR
     _moverCuchillo                                                 **** GX
-  9 _moverDerecha                                                  16CE GR
-  9 _moverEnemigoAbajo                                             0670 GR
-  9 _moverEnemigoArriba                                            0651 GR
-  9 _moverEnemigoDerecha                                           068F GR
-  9 _moverEnemigoIzquierda                                         069F GR
-  9 _moverEnemigoPatrol                                            06B1 GR
-  9 _moverEnemigoSeek                                              0A18 GR
-  9 _moverIzquierda                                                16A9 GR
+  9 _moverDerecha                                                  1665 GR
+  9 _moverEnemigoAbajo                                             066B GR
+  9 _moverEnemigoArriba                                            064C GR
+  9 _moverEnemigoDerecha                                           068A GR
+  9 _moverEnemigoIzquierda                                         069A GR
+  9 _moverEnemigoPatrol                                            06AC GR
+  9 _moverEnemigoSeek                                              09FF GR
+  9 _moverIzquierda                                                1640 GR
   2 _num_mapa                                                      0002 GR
   1 _parpadeo                                                      039F GR
     _pathFinding                                                   **** GX
@@ -93,14 +105,14 @@ Symbol Table
   9 _patrolY                                                       0038 GR
     _play                                                          **** GX
   1 _prota                                                         038C GR
-  2 _puntuacion                                                    0003 GR
+  2 _puntuacion                                                    0004 GR
     _redibujarCuchillo                                             **** GX
-  9 _redibujarEnemigo                                              042D GR
+  9 _redibujarEnemigo                                              0428 GR
   9 _redibujarProta                                                00E6 GR
   9 _spawnX                                                        001C GR
   9 _spawnY                                                        0020 GR
   1 _timer                                                         03A1 GR
-  9 _updateEnemy                                                   13D0 GR
+  9 _updateEnemy                                                   13BB GR
   1 _vidas                                                         03A3 GR
 
 
@@ -111,14 +123,14 @@ Area Table
 
    0 _CODE                                      size    0   flags    0
    1 _DATA                                      size  3A5   flags    0
-   2 _INITIALIZED                               size    4   flags    0
+   2 _INITIALIZED                               size    5   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
    5 _GSINIT                                    size    0   flags    0
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 1B0D   flags    0
-   A _INITIALIZER                               size    4   flags    0
+   9 _CSEG                                      size 1CD5   flags    0
+   A _INITIALIZER                               size    5   flags    0
    B _CABS                                      size    0   flags    8
 

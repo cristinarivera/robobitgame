@@ -21,28 +21,28 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s___g_song0                     
      00000000  s__g_tablatrans_                
      00000000  s__g_tablatrans_0               
-     00000004  l__INITIALIZED                  
-     00000004  l__INITIALIZER                  
+     00000005  l__INITIALIZED                  
+     00000005  l__INITIALIZER                  
      00000091  l___g_song0                     
      00000100  l__g_tablatrans_0               
      00000300  s__CODE                         
      0000046E  l__DATA                         
-     00001B0D  l__CSEG                         
-     00005DCA  l__CODE                         
-     000060CA  s__DATA                         
-     00006538  s__INITIALIZED                  
-     0000653C  s__GSFINAL                      
-     0000653C  s__GSINIT                       
-     0000653C  s__HOME                         
-     0000653C  s__INITIALIZER                  
-     00006540  s__CSEG                         
+     00001CD5  l__CSEG                         
+     00005C56  l__CODE                         
+     00005F56  s__DATA                         
+     000063C4  s__INITIALIZED                  
+     000063C9  s__GSFINAL                      
+     000063C9  s__GSINIT                       
+     000063C9  s__HOME                         
+     000063C9  s__INITIALIZER                  
+     000063CE  s__CSEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000300    00005DCA =       24010. bytes (REL,CON)
+_CODE                               00000300    00005C56 =       23638. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -101,7 +101,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000300    00005DCA =       24010. bytes (REL,CON)
+_CODE                               00000300    00005C56 =       23638. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -111,125 +111,125 @@ _CODE                               00000300    00005DCA =       24010. bytes (R
      00004A2A  _moverCuchillo                     knifestruct
      00004B61  _getTilePtr                        utils
      00004BA5  _abs                               utils
-     00004BE5  _menuFin                           menu
-     00004D59  _borrarPantalla                    menu
-     00004DE5  _menuInstrucciones                 menu
-     00004EFC  _menuCreditos                      menu
-     00004FDB  _menuOpciones                      menu
-     000050A6  _menuInicio                        menu
-     00005185  _barraPuntuacionInicial            score
-     00005221  _modificarPuntuacion               score
-     00005328  _modificarVidas                    score
-     0000538B  _aumentarPuntuacion                score
-     0000539E  _play                              
-     000053AE  __divuint                          
-     000053B6  __divuchar                         
-     000053BD  __divu8                            
-     000053C0  __divu16                           
-     000053EF  _cpct_scanKeyboard_f               cpct_keyboard
-     000053EF  cpct_scanKeyboard_f_asm            cpct_keyboard
-     00005459  _cpct_setPalette                   cpct_video
-     00005470  _cpct_isKeyPressed                 cpct_keyboard
-     00005470  cpct_isKeyPressed_asm              cpct_keyboard
-     0000547C  _cpct_setPALColour                 cpct_video
-     00005488  _cpct_drawStringM0                 cpct_strings
-     00005490  cpct_drawStringM0_asm              cpct_strings
-     000054AC  _cpct_drawSprite                   cpct_sprites
-     00005551  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
-     000055E0  _cpct_drawCharM0                   cpct_strings
-     000055ED  cpct_drawCharM0_asm                cpct_strings
-     0000566D  _cpct_etm_setTileset2x4            cpct_easytilemaps
-     0000566D  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
-     00005671  __moduchar                         
-     0000567D  __moduint                          
-     00005688  _cpct_keyboardStatusBuffer         cpct_keyboard
-     00005692  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     00005699  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     0000569B  dtr_restore_ptileset               cpct_easytilemaps
-     000056B3  _cpct_isAnyKeyPressed              cpct_keyboard
-     000056B3  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     000056C0  _cpct_scanKeyboard_if              cpct_keyboard
-     000056C0  cpct_scanKeyboard_if_asm           cpct_keyboard
-     00005728  _cpct_waitVSYNC                    cpct_video
-     00005728  cpct_waitVSYNC_asm                 cpct_video
-     00005730  _cpct_setVideoMode                 cpct_video
-     0000573E  dc_mode0_ct                        cpct_strings
-     0000574E  _cpct_memset                       cpct_memutils
-     0000575C  _cpct_disableFirmware              cpct_firmware
+     00004BE5  _borrarPantalla                    menu
+     00004C71  _menuInstrucciones                 menu
+     00004D88  _menuCreditos                      menu
+     00004E67  _menuOpciones                      menu
+     00004F32  _menuInicio                        menu
+     00005011  _barraPuntuacionInicial            score
+     000050AD  _modificarPuntuacion               score
+     000051B4  _modificarVidas                    score
+     00005217  _aumentarPuntuacion                score
+     0000522A  _play                              
+     0000523A  __divuint                          
+     00005242  __divuchar                         
+     00005249  __divu8                            
+     0000524C  __divu16                           
+     0000527B  _cpct_setPalette                   cpct_video
+     00005292  _cpct_isKeyPressed                 cpct_keyboard
+     00005292  cpct_isKeyPressed_asm              cpct_keyboard
+     0000529E  _cpct_scanKeyboard_f               cpct_keyboard
+     0000529E  cpct_scanKeyboard_f_asm            cpct_keyboard
+     00005308  _cpct_setPALColour                 cpct_video
+     00005314  _cpct_drawStringM0                 cpct_strings
+     0000531C  cpct_drawStringM0_asm              cpct_strings
+     00005338  _cpct_drawSprite                   cpct_sprites
+     000053DD  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     0000546C  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     0000546C  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     00005470  _cpct_drawCharM0                   cpct_strings
+     0000547D  cpct_drawCharM0_asm                cpct_strings
+     000054FD  __moduchar                         
+     00005509  __moduint                          
+     00005514  _cpct_keyboardStatusBuffer         cpct_keyboard
+     0000551E  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     00005525  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     00005527  dtr_restore_ptileset               cpct_easytilemaps
+     0000553F  _cpct_isAnyKeyPressed              cpct_keyboard
+     0000553F  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     0000554C  _cpct_scanKeyboard_if              cpct_keyboard
+     0000554C  cpct_scanKeyboard_if_asm           cpct_keyboard
+     000055B4  _cpct_waitVSYNC                    cpct_video
+     000055B4  cpct_waitVSYNC_asm                 cpct_video
+     000055BC  _cpct_setVideoMode                 cpct_video
+     000055CA  dc_mode0_ct                        cpct_strings
+     000055DA  _cpct_memset                       cpct_memutils
+     000055E8  _cpct_disableFirmware              cpct_firmware
+     000055E8  _cpct_removeInterruptHandler       cpct_firmware
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00000300    00005DCA =       24010. bytes (REL,CON)
+_CODE                               00000300    00005C56 =       23638. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     0000575C  _cpct_removeInterruptHandler       cpct_firmware
-     0000575C  cpct_disableFirmware_asm           cpct_firmware
-     0000575C  cpct_removeInterruptHandler_asm    cpct_firmware
-     0000576C  _cpct_drawSolidBox                 cpct_sprites
-     00005824  _cpct_akp_digidrumStatus           cpct_audio
-     00005825  _cpct_akp_songLoopTimes            cpct_audio
-     00005826  _cpct_akp_musicPlay                cpct_audio
-     00005826  cpct_akp_musicPlay_asm             cpct_audio
-     00005F29  _cpct_akp_musicInit                cpct_audio
-     00005F30  cpct_akp_musicInit_asm             cpct_audio
-     00005F89  _cpct_akp_stop                     cpct_audio
-     00005F89  cpct_akp_stop_asm                  cpct_audio
-     00005F9C  _cpct_akp_SFXGetInstrument         cpct_audio
-     00005FA1  cpct_akp_SFXGetInstrument_asm      cpct_audio
-     00005FB5  _cpct_akp_SFXInit                  cpct_audio
-     00005FBC  cpct_akp_SFXInit_asm               cpct_audio
-     00005FC3  _cpct_akp_SFXStopAll               cpct_audio
-     00005FC3  cpct_akp_SFXStopAll_asm            cpct_audio
-     00005FD0  _cpct_akp_SFXPlay                  cpct_audio
-     00005FE2  cpct_akp_SFXPlay_asm               cpct_audio
-     0000602F  _cpct_akp_SFXStop                  cpct_audio
-     00006034  cpct_akp_SFXStop_asm               cpct_audio
-     0000604D  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     0000606E  _cpct_mode_rom_status              cpct_firmware
-     0000606F  _cpct_getScreenPtr                 cpct_video
-     0000608F  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
-
+     000055E8  cpct_disableFirmware_asm           cpct_firmware
+     000055E8  cpct_removeInterruptHandler_asm    cpct_firmware
+     000055F8  _cpct_drawSolidBox                 cpct_sprites
+     000056B0  _cpct_akp_digidrumStatus           cpct_audio
+     000056B1  _cpct_akp_songLoopTimes            cpct_audio
+     000056B2  _cpct_akp_musicPlay                cpct_audio
+     000056B2  cpct_akp_musicPlay_asm             cpct_audio
+     00005DB5  _cpct_akp_musicInit                cpct_audio
+     00005DBC  cpct_akp_musicInit_asm             cpct_audio
+     00005E15  _cpct_akp_stop                     cpct_audio
+     00005E15  cpct_akp_stop_asm                  cpct_audio
+     00005E28  _cpct_akp_SFXGetInstrument         cpct_audio
+     00005E2D  cpct_akp_SFXGetInstrument_asm      cpct_audio
+     00005E41  _cpct_akp_SFXInit                  cpct_audio
+     00005E48  cpct_akp_SFXInit_asm               cpct_audio
+     00005E4F  _cpct_akp_SFXStopAll               cpct_audio
+     00005E4F  cpct_akp_SFXStopAll_asm            cpct_audio
+     00005E5C  _cpct_akp_SFXPlay                  cpct_audio
+     00005E6E  cpct_akp_SFXPlay_asm               cpct_audio
+     00005EBB  _cpct_akp_SFXStop                  cpct_audio
+     00005EC0  cpct_akp_SFXStop_asm               cpct_audio
+     00005ED9  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     00005EFA  _cpct_mode_rom_status              cpct_firmware
+     00005EFB  _cpct_getScreenPtr                 cpct_video
+     00005F1B  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000060CA    0000046E =        1134. bytes (REL,CON)
+_DATA                               00005F56    0000046E =        1134. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000060CA  _enemy                             main
-     00006456  _prota                             main
-     0000645E  _cu                                main
-     00006469  _parpadeo                          main
-     0000646A  _cambio                            main
-     0000646B  _timer                             main
-     0000646D  _vidas                             main
-     0000646E  _i                                 main
-     0000646F  _sol_tam                           pathfinding
-     00006470  _camino                            pathfinding
+     00005F56  _enemy                             main
+     000062E2  _prota                             main
+     000062EA  _cu                                main
+     000062F5  _parpadeo                          main
+     000062F6  _cambio                            main
+     000062F7  _timer                             main
+     000062F9  _vidas                             main
+     000062FA  _i                                 main
+     000062FB  _sol_tam                           pathfinding
+     000062FC  _camino                            pathfinding
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        00006538    00000004 =           4. bytes (REL,CON)
+_INITIALIZED                        000063C4    00000005 =           5. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006538  _mapa                              main
-     0000653A  _num_mapa                          main
-     0000653B  _puntuacion                        main
+     000063C4  _mapa                              main
+     000063C6  _num_mapa                          main
+     000063C7  _endGame                           main
+     000063C8  _puntuacion                        main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        0000653C    00000004 =           4. bytes (REL,CON)
+_INITIALIZER                        000063C9    00000005 =           5. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -260,46 +260,48 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00006540    00001B0D =        6925. bytes (REL,CON)
+_CSEG                               000063CE    00001CD5 =        7381. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006540  _dibujarMapa                       main
-     00006556  _mapas                             main
-     0000655C  _spawnX                            main
-     00006560  _spawnY                            main
-     00006564  _patrolX                           main
-     00006578  _patrolY                           main
-     0000658C  _dibujarProta                      main
-     000065B2  _borrarProta                       main
-     00006626  _redibujarProta                    main
-     0000663A  _comprobarTeclado                  main
-     000066A1  _checkCollision                    main
-     00006812  _dibujarEnemigo                    main
-     0000684A  _dibujarExplosion                  main
-     00006883  _borrarExplosion                   main
-     000068F8  _borrarEnemigo                     main
-     0000696D  _redibujarEnemigo                  main
-     0000699E  _checkEnemyDead                    main
-     00006B91  _moverEnemigoArriba                main
-     00006BB0  _moverEnemigoAbajo                 main
-     00006BCF  _moverEnemigoDerecha               main
-     00006BDF  _moverEnemigoIzquierda             main
-     00006BF1  _moverEnemigoPatrol                main
-     00006E4F  _lookFor                           main
-     00006F58  _moverEnemigoSeek                  main
-     000070FD  _engage                            main
-     00007910  _updateEnemy                       main
-     00007A7D  _inicializarEnemy                  main
-     00007BA2  _avanzarMapa                       main
-     00007BE9  _moverIzquierda                    main
-     00007C0E  _moverDerecha                      main
-     00007C53  _moverArriba                       main
-     00007C77  _moverAbajo                        main
-     00007C9B  _intHandler                        main
-     00007CAE  _inicializarCPC                    main
-     00007CC9  _inicializarJuego                  main
-     00007D47  _main                              main
+     000063CE  _dibujarMapa                       main
+     000063E4  _mapas                             main
+     000063EA  _spawnX                            main
+     000063EE  _spawnY                            main
+     000063F2  _patrolX                           main
+     00006406  _patrolY                           main
+     0000641A  _dibujarProta                      main
+     00006440  _borrarProta                       main
+     000064B4  _redibujarProta                    main
+     000064C8  _comprobarTeclado                  main
+     0000652F  _checkCollision                    main
+     000066A0  _dibujarEnemigo                    main
+     000066D8  _dibujarExplosion                  main
+     00006711  _borrarExplosion                   main
+     00006781  _borrarEnemigo                     main
+     000067F6  _redibujarEnemigo                  main
+     00006827  _checkEnemyDead                    main
+     00006A1A  _moverEnemigoArriba                main
+     00006A39  _moverEnemigoAbajo                 main
+     00006A58  _moverEnemigoDerecha               main
+     00006A68  _moverEnemigoIzquierda             main
+     00006A7A  _moverEnemigoPatrol                main
+     00006CC7  _lookFor                           main
+     00006DCD  _moverEnemigoSeek                  main
+     00006F7F  _engage                            main
+     00007789  _updateEnemy                       main
+     000078E9  _inicializarEnemy                  main
+     00007A0E  _moverIzquierda                    main
+     00007A33  _moverDerecha                      main
+     00007A78  _moverArriba                       main
+     00007A9C  _moverAbajo                        main
+     00007AC0  _intHandler                        main
+     00007AD3  _inicializarCPC                    main
+     00007AEE  _inicializarJuego                  main
+     00007B6C  _menuFin                           main
+     00007D3F  _avanzarMapa                       main
+     00007D86  _main                              main
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 
 Files Linked                              [ module(s) ]
@@ -336,11 +338,11 @@ Libraries Linked                          [ object file ]
 /home/miguel/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
                                           [ divunsigned.rel ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
-                                          [ cpct_scanKeyboard_f.rel ]
-/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_cbindings.rel ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_isKeyPressed.rel ]
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_f.rel ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPALColour_cbindings.rel ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
@@ -350,9 +352,9 @@ Libraries Linked                          [ object file ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_drawTileBox2x4_cbinding ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
-                                          [ cpct_drawCharM0.rel ]
-/home/miguel/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_etm_setTileset2x4.rel ]
+/home/miguel/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawCharM0.rel ]
 /home/miguel/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
                                           [ modunsigned.rel ]
 /home/miguel/cpctelera/cpctelera/cpctelera.lib
