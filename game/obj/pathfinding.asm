@@ -123,14 +123,14 @@ _adjacentTiles::
 	ld	-23 (ix),#0x00
 	ld	-22 (ix),#0x00
 ;src/pathfinding.c:34: i16 heu_derecha = 0;
+	ld	-31 (ix),#0x00
+	ld	-30 (ix),#0x00
+;src/pathfinding.c:35: i16 heu_izquierda = 0;
 	ld	-29 (ix),#0x00
 	ld	-28 (ix),#0x00
-;src/pathfinding.c:35: i16 heu_izquierda = 0;
+;src/pathfinding.c:36: i16 heu_arriba = 0;
 	ld	-27 (ix),#0x00
 	ld	-26 (ix),#0x00
-;src/pathfinding.c:36: i16 heu_arriba = 0;
-	ld	-25 (ix),#0x00
-	ld	-24 (ix),#0x00
 ;src/pathfinding.c:37: i16 heu_abajo = 0;
 	ld	hl,#0x0000
 	ex	(sp), hl
@@ -157,8 +157,8 @@ _adjacentTiles::
 	sub	a, 5 (ix)
 	jp	NC,00125$
 ;src/pathfinding.c:47: heu_arriba = -1;
-	ld	-25 (ix),#0xFF
-	ld	-24 (ix),#0xFF
+	ld	-27 (ix),#0xFF
+	ld	-26 (ix),#0xFF
 	jp	00125$
 00124$:
 ;src/pathfinding.c:51: if(x < f_x)
@@ -182,16 +182,16 @@ _adjacentTiles::
 	or	a, a
 	jr	Z,00106$
 ;src/pathfinding.c:52: heu_derecha = -1;
-	ld	-29 (ix),#0xFF
-	ld	-28 (ix),#0xFF
+	ld	-31 (ix),#0xFF
+	ld	-30 (ix),#0xFF
 00106$:
 ;src/pathfinding.c:53: if(x > f_x)
 	ld	a,e
 	or	a, a
 	jr	Z,00125$
 ;src/pathfinding.c:54: heu_izquierda = -1;
-	ld	-27 (ix),#0xFF
-	ld	-26 (ix),#0xFF
+	ld	-29 (ix),#0xFF
+	ld	-28 (ix),#0xFF
 	jr	00125$
 00121$:
 ;src/pathfinding.c:59: if(x < f_x){
@@ -208,12 +208,12 @@ _adjacentTiles::
 	jr	00111$
 00110$:
 ;src/pathfinding.c:63: heu_arriba = -1;
-	ld	-25 (ix),#0xFF
-	ld	-24 (ix),#0xFF
+	ld	-27 (ix),#0xFF
+	ld	-26 (ix),#0xFF
 00111$:
 ;src/pathfinding.c:65: heu_derecha = -1;
-	ld	-29 (ix),#0xFF
-	ld	-28 (ix),#0xFF
+	ld	-31 (ix),#0xFF
+	ld	-30 (ix),#0xFF
 	jr	00125$
 00118$:
 ;src/pathfinding.c:66: }else if(x > f_x){
@@ -230,17 +230,17 @@ _adjacentTiles::
 	jr	00114$
 00113$:
 ;src/pathfinding.c:71: heu_arriba = -1;
-	ld	-25 (ix),#0xFF
-	ld	-24 (ix),#0xFF
-00114$:
-;src/pathfinding.c:73: heu_izquierda = -1;
 	ld	-27 (ix),#0xFF
 	ld	-26 (ix),#0xFF
+00114$:
+;src/pathfinding.c:73: heu_izquierda = -1;
+	ld	-29 (ix),#0xFF
+	ld	-28 (ix),#0xFF
 00125$:
 ;src/pathfinding.c:78: if(  *getTilePtr(matriz, x, y-2) <=2 &&
 	ld	a,5 (ix)
 	add	a,#0xFE
-	ld	-6 (ix), a
+	ld	-14 (ix), a
 	push	af
 	inc	sp
 	ld	a,4 (ix)
@@ -256,33 +256,33 @@ _adjacentTiles::
 ;src/pathfinding.c:79: *getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2 ){
 	ld	a,4 (ix)
 	add	a, #0x04
-	ld	-3 (ix),a
+	ld	-13 (ix),a
 ;src/pathfinding.c:80: dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
 	ld	a,6 (ix)
-	ld	-2 (ix),a
-	ld	-1 (ix),#0x00
+	ld	-4 (ix),a
+	ld	-3 (ix),#0x00
 	ld	a,4 (ix)
-	ld	-5 (ix),a
-	ld	-4 (ix),#0x00
+	ld	-10 (ix),a
+	ld	-9 (ix),#0x00
 	ld	a,7 (ix)
+	ld	-6 (ix),a
+	ld	-5 (ix),#0x00
+	ld	a,5 (ix)
 	ld	-12 (ix),a
 	ld	-11 (ix),#0x00
-	ld	a,5 (ix)
-	ld	-14 (ix),a
-	ld	-13 (ix),#0x00
-	ld	a,-2 (ix)
-	sub	a, -5 (ix)
-	ld	-16 (ix),a
-	ld	a,-1 (ix)
-	sbc	a, -4 (ix)
-	ld	-15 (ix),a
+	ld	a,-4 (ix)
+	sub	a, -10 (ix)
+	ld	-2 (ix),a
+	ld	a,-3 (ix)
+	sbc	a, -9 (ix)
+	ld	-1 (ix),a
 ;src/pathfinding.c:78: if(  *getTilePtr(matriz, x, y-2) <=2 &&
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00127$
 ;src/pathfinding.c:79: *getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2 ){
-	ld	h,-6 (ix)
-	ld	l,-3 (ix)
+	ld	h,-14 (ix)
+	ld	l,-13 (ix)
 	push	hl
 	ld	l,8 (ix)
 	ld	h,9 (ix)
@@ -295,47 +295,47 @@ _adjacentTiles::
 	sub	a, c
 	jr	C,00127$
 ;src/pathfinding.c:80: dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
-	ld	l,-16 (ix)
-	ld	h,-15 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	push	hl
 	call	_abs
 	pop	af
 	ld	-7 (ix),h
 	ld	-8 (ix),l
-	ld	a,-14 (ix)
-	add	a,#0xFE
-	ld	-10 (ix),a
-	ld	a,-13 (ix)
-	adc	a,#0xFF
-	ld	-9 (ix),a
 	ld	a,-12 (ix)
-	sub	a, -10 (ix)
-	ld	-10 (ix),a
+	add	a,#0xFE
+	ld	-16 (ix),a
 	ld	a,-11 (ix)
-	sbc	a, -9 (ix)
-	ld	-9 (ix),a
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	adc	a,#0xFF
+	ld	-15 (ix),a
+	ld	a,-6 (ix)
+	sub	a, -16 (ix)
+	ld	-16 (ix),a
+	ld	a,-5 (ix)
+	sbc	a, -15 (ix)
+	ld	-15 (ix),a
+	ld	l,-16 (ix)
+	ld	h,-15 (ix)
 	push	hl
 	call	_abs
 	pop	af
-	ld	-9 (ix),h
-	ld	-10 (ix),l
+	ld	-15 (ix),h
+	ld	-16 (ix),l
 	ld	a,-8 (ix)
-	add	a, -10 (ix)
-	ld	-10 (ix),a
+	add	a, -16 (ix)
+	ld	-16 (ix),a
 	ld	a,-7 (ix)
-	adc	a, -9 (ix)
-	ld	-9 (ix),a
-	ld	a,-10 (ix)
-	add	a, -25 (ix)
-	ld	-10 (ix),a
-	ld	a,-9 (ix)
-	adc	a, -24 (ix)
-	ld	-9 (ix),a
-	ld	a,-10 (ix)
+	adc	a, -15 (ix)
+	ld	-15 (ix),a
+	ld	a,-16 (ix)
+	add	a, -27 (ix)
+	ld	-16 (ix),a
+	ld	a,-15 (ix)
+	adc	a, -26 (ix)
+	ld	-15 (ix),a
+	ld	a,-16 (ix)
 	ld	-19 (ix),a
-	ld	a,-9 (ix)
+	ld	a,-15 (ix)
 	ld	-18 (ix),a
 ;src/pathfinding.c:81: resultado = 0;
 	ld	-17 (ix),#0x00
@@ -365,7 +365,7 @@ _adjacentTiles::
 	ld	b,a
 	push	bc
 	inc	sp
-	ld	a,-3 (ix)
+	ld	a,-13 (ix)
 	push	af
 	inc	sp
 	ld	l,8 (ix)
@@ -374,32 +374,32 @@ _adjacentTiles::
 	call	_getTilePtr
 	pop	af
 	pop	af
-	ld	-9 (ix),h
-	ld	-10 (ix), l
-	ld	h,-9 (ix)
+	ld	-15 (ix),h
+	ld	-16 (ix), l
+	ld	h,-15 (ix)
 	ld	a,(hl)
-	ld	-10 (ix),a
+	ld	-16 (ix),a
 	ld	a,#0x02
-	sub	a, -10 (ix)
+	sub	a, -16 (ix)
 	jp	C,00135$
 ;src/pathfinding.c:86: dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
-	ld	l,-16 (ix)
-	ld	h,-15 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	push	hl
 	call	_abs
 	pop	af
-	ld	-9 (ix),h
-	ld	-10 (ix),l
-	ld	a,-14 (ix)
+	ld	-15 (ix),h
+	ld	-16 (ix),l
+	ld	a,-12 (ix)
 	add	a, #0x02
 	ld	-8 (ix),a
-	ld	a,-13 (ix)
+	ld	a,-11 (ix)
 	adc	a, #0x00
 	ld	-7 (ix),a
-	ld	a,-12 (ix)
+	ld	a,-6 (ix)
 	sub	a, -8 (ix)
 	ld	-8 (ix),a
-	ld	a,-11 (ix)
+	ld	a,-5 (ix)
 	sbc	a, -7 (ix)
 	ld	-7 (ix),a
 	ld	l,-8 (ix)
@@ -409,21 +409,21 @@ _adjacentTiles::
 	pop	af
 	ld	-7 (ix),h
 	ld	-8 (ix),l
-	ld	a,-10 (ix)
+	ld	a,-16 (ix)
 	add	a, -8 (ix)
-	ld	-10 (ix),a
-	ld	a,-9 (ix)
+	ld	-16 (ix),a
+	ld	a,-15 (ix)
 	adc	a, -7 (ix)
-	ld	-9 (ix),a
-	ld	a,-10 (ix)
+	ld	-15 (ix),a
+	ld	a,-16 (ix)
 	add	a, -33 (ix)
-	ld	-10 (ix),a
-	ld	a,-9 (ix)
+	ld	-16 (ix),a
+	ld	a,-15 (ix)
 	adc	a, -32 (ix)
-	ld	-9 (ix),a
-	ld	a,-10 (ix)
+	ld	-15 (ix),a
+	ld	a,-16 (ix)
 	ld	-21 (ix),a
-	ld	a,-9 (ix)
+	ld	a,-15 (ix)
 	ld	-20 (ix),a
 ;src/pathfinding.c:87: if(resultado == 0){
 	ld	a,-17 (ix)
@@ -466,25 +466,25 @@ _adjacentTiles::
 ;src/pathfinding.c:96: *getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
 	ld	a,5 (ix)
 	add	a, #0x14
-	ld	-10 (ix),a
+	ld	-16 (ix),a
 ;src/pathfinding.c:97: *getTilePtr(matriz, x-1, y + G_ENEMY_H/2) <=2){
 	ld	a,5 (ix)
 	add	a, #0x0B
 	ld	-8 (ix),a
 ;src/pathfinding.c:98: dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
-	ld	a,-12 (ix)
-	sub	a, -14 (ix)
-	ld	-16 (ix),a
-	ld	a,-11 (ix)
-	sbc	a, -13 (ix)
-	ld	-15 (ix),a
+	ld	a,-6 (ix)
+	sub	a, -12 (ix)
+	ld	-2 (ix),a
+	ld	a,-5 (ix)
+	sbc	a, -11 (ix)
+	ld	-1 (ix),a
 ;src/pathfinding.c:95: if(*getTilePtr(matriz, x-1, y) <=2 &&
 	ld	a,#0x02
 	sub	a, b
 	jp	C,00148$
 ;src/pathfinding.c:96: *getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
 	push	bc
-	ld	a,-10 (ix)
+	ld	a,-16 (ix)
 	push	af
 	inc	sp
 	ld	a,c
@@ -519,27 +519,27 @@ _adjacentTiles::
 	sub	a, c
 	jr	C,00148$
 ;src/pathfinding.c:98: dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
-	ld	c,-5 (ix)
-	ld	b,-4 (ix)
+	ld	c,-10 (ix)
+	ld	b,-9 (ix)
 	dec	bc
-	ld	a,-2 (ix)
+	ld	a,-4 (ix)
 	sub	a, c
 	ld	c,a
-	ld	a,-1 (ix)
+	ld	a,-3 (ix)
 	sbc	a, b
 	ld	b,a
 	push	bc
 	call	_abs
 	ex	(sp),hl
-	ld	l,-16 (ix)
-	ld	h,-15 (ix)
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	push	hl
 	call	_abs
 	pop	af
 	pop	bc
 	add	hl,bc
-	ld	e,-27 (ix)
-	ld	d,-26 (ix)
+	ld	e,-29 (ix)
+	ld	d,-28 (ix)
 	add	hl,de
 	ld	-23 (ix),l
 	ld	-22 (ix),h
@@ -603,7 +603,7 @@ _adjacentTiles::
 	add	a, #0x05
 	ld	b,a
 	push	bc
-	ld	a,-10 (ix)
+	ld	a,-16 (ix)
 	push	af
 	inc	sp
 	push	bc
@@ -636,53 +636,53 @@ _adjacentTiles::
 	sub	a, c
 	jp	C,00167$
 ;src/pathfinding.c:113: dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
-	ld	a,-5 (ix)
+	ld	a,-10 (ix)
 	add	a, #0x01
-	ld	-10 (ix),a
-	ld	a,-4 (ix)
+	ld	-16 (ix),a
+	ld	a,-9 (ix)
 	adc	a, #0x00
-	ld	-9 (ix),a
-	ld	a,-2 (ix)
-	sub	a, -10 (ix)
-	ld	-10 (ix),a
-	ld	a,-1 (ix)
-	sbc	a, -9 (ix)
-	ld	-9 (ix),a
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
-	push	hl
-	call	_abs
-	pop	af
-	ld	-9 (ix),h
-	ld	-10 (ix),l
+	ld	-15 (ix),a
+	ld	a,-4 (ix)
+	sub	a, -16 (ix)
+	ld	-16 (ix),a
+	ld	a,-3 (ix)
+	sbc	a, -15 (ix)
+	ld	-15 (ix),a
 	ld	l,-16 (ix)
 	ld	h,-15 (ix)
 	push	hl
 	call	_abs
 	pop	af
+	ld	-15 (ix),h
+	ld	-16 (ix),l
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
+	push	hl
+	call	_abs
+	pop	af
 	ld	-7 (ix),h
 	ld	-8 (ix),l
-	ld	a,-10 (ix)
+	ld	a,-16 (ix)
 	add	a, -8 (ix)
-	ld	-10 (ix),a
-	ld	a,-9 (ix)
+	ld	-16 (ix),a
+	ld	a,-15 (ix)
 	adc	a, -7 (ix)
-	ld	-9 (ix),a
-	ld	a,-10 (ix)
-	add	a, -29 (ix)
-	ld	-31 (ix),a
-	ld	a,-9 (ix)
-	adc	a, -28 (ix)
-	ld	-30 (ix),a
+	ld	-15 (ix),a
+	ld	a,-16 (ix)
+	add	a, -31 (ix)
+	ld	-25 (ix),a
+	ld	a,-15 (ix)
+	adc	a, -30 (ix)
+	ld	-24 (ix),a
 ;src/pathfinding.c:114: if(resultado == 0){
 	ld	a,-17 (ix)
 	or	a, a
 	jr	NZ,00164$
 ;src/pathfinding.c:115: if(dist1 >= dist4)
 	ld	a,-19 (ix)
-	sub	a, -31 (ix)
+	sub	a, -25 (ix)
 	ld	a,-18 (ix)
-	sbc	a, -30 (ix)
+	sbc	a, -24 (ix)
 	jp	PO, 00309$
 	xor	a, #0x80
 00309$:
@@ -697,9 +697,9 @@ _adjacentTiles::
 	jr	NZ,00161$
 ;src/pathfinding.c:118: if(dist2 >= dist4)
 	ld	a,-21 (ix)
-	sub	a, -31 (ix)
+	sub	a, -25 (ix)
 	ld	a,-20 (ix)
-	sbc	a, -30 (ix)
+	sbc	a, -24 (ix)
 	jp	PO, 00312$
 	xor	a, #0x80
 00312$:
@@ -714,9 +714,9 @@ _adjacentTiles::
 	jr	NZ,00158$
 ;src/pathfinding.c:121: if(dist3 >= dist4)
 	ld	a,-23 (ix)
-	sub	a, -31 (ix)
+	sub	a, -25 (ix)
 	ld	a,-22 (ix)
-	sbc	a, -30 (ix)
+	sbc	a, -24 (ix)
 	jp	PO, 00315$
 	xor	a, #0x80
 00315$:
@@ -748,64 +748,64 @@ _pathFinding::
 	ld	-19 (ix),#0x00
 ;src/pathfinding.c:146: x = s_x;
 	ld	a,4 (ix)
-	ld	-17 (ix),a
+	ld	-14 (ix),a
 ;src/pathfinding.c:147: sol_tam = 0;
 	ld	hl,#_sol_tam + 0
 	ld	(hl), #0x00
 ;src/pathfinding.c:148: y = s_y;
 	ld	a,5 (ix)
-	ld	-18 (ix),a
+	ld	-15 (ix),a
 ;src/pathfinding.c:150: k = 0;
-	ld	-14 (ix),#0x00
+	ld	-13 (ix),#0x00
 ;src/pathfinding.c:151: aux = 1;
-	ld	-12 (ix),#0x01
+	ld	-18 (ix),#0x01
 ;src/pathfinding.c:152: actual->longitud_camino = 0;
 	ld	a,8 (ix)
-	ld	-6 (ix),a
+	ld	-4 (ix),a
 	ld	a,9 (ix)
-	ld	-5 (ix),a
-	ld	a,-6 (ix)
+	ld	-3 (ix),a
+	ld	a,-4 (ix)
 	add	a, #0xE2
-	ld	-8 (ix),a
-	ld	a,-5 (ix)
+	ld	-6 (ix),a
+	ld	a,-3 (ix)
 	adc	a, #0x00
-	ld	-7 (ix),a
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	-5 (ix),a
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x00
 ;src/pathfinding.c:153: inserted = anyadirALista(x, y);
-	ld	h,-18 (ix)
-	ld	l,-17 (ix)
+	ld	h,-15 (ix)
+	ld	l,-14 (ix)
 	push	hl
 	call	_anyadirALista
 	pop	af
-	ld	-15 (ix),l
+	ld	-16 (ix),l
 ;src/pathfinding.c:156: if(!(x == f_x && y == f_y) ){
 	ld	a,6 (ix)
-	sub	a, -17 (ix)
+	sub	a, -14 (ix)
 	jr	NZ,00114$
 	ld	a,7 (ix)
-	sub	a, -18 (ix)
+	sub	a, -15 (ix)
 	jp	Z,00118$
 ;src/pathfinding.c:157: while (aux){
 00114$:
-	ld	a,-12 (ix)
+	ld	a,-18 (ix)
 	or	a, a
 	jp	Z,00119$
 ;src/pathfinding.c:158: if( (x == f_x && y == f_y) || inserted == 0){
 	ld	a,6 (ix)
-	sub	a, -17 (ix)
+	sub	a, -14 (ix)
 	jr	NZ,00113$
 	ld	a,7 (ix)
-	sub	a, -18 (ix)
+	sub	a, -15 (ix)
 	jr	Z,00109$
 00113$:
-	ld	a,-15 (ix)
+	ld	a,-16 (ix)
 	or	a, a
 	jr	NZ,00110$
 00109$:
 ;src/pathfinding.c:160: if(inserted == 0 || sol_tam == 0){
-	ld	a,-15 (ix)
+	ld	a,-16 (ix)
 	or	a, a
 	jr	Z,00101$
 	ld	a,(#_sol_tam + 0)
@@ -816,7 +816,7 @@ _pathFinding::
 	ld	-19 (ix),#0x01
 00102$:
 ;src/pathfinding.c:164: aux = 0;
-	ld	-12 (ix),#0x00
+	ld	-18 (ix),#0x00
 	jr	00114$
 00110$:
 ;src/pathfinding.c:166: movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
@@ -826,24 +826,24 @@ _pathFinding::
 	ld	h,7 (ix)
 	ld	l,6 (ix)
 	push	hl
-	ld	h,-18 (ix)
-	ld	l,-17 (ix)
+	ld	h,-15 (ix)
+	ld	l,-14 (ix)
 	push	hl
 	call	_adjacentTiles
 	pop	af
 	pop	af
 	pop	af
-	ld	-16 (ix),l
+	ld	-17 (ix),l
 ;src/pathfinding.c:168: switch(movimiento){
 	ld	a,#0x03
-	sub	a, -16 (ix)
+	sub	a, -17 (ix)
 	jr	C,00114$
 ;src/pathfinding.c:172: k = k+2;
-	ld	a,-14 (ix)
+	ld	a,-13 (ix)
 	add	a, #0x02
-	ld	-9 (ix),a
+	ld	-1 (ix),a
 ;src/pathfinding.c:168: switch(movimiento){
-	ld	e,-16 (ix)
+	ld	e,-17 (ix)
 	ld	d,#0x00
 	ld	hl,#00180$
 	add	hl,de
@@ -857,56 +857,56 @@ _pathFinding::
 	jr	00107$
 00104$:
 ;src/pathfinding.c:170: inserted = anyadirALista(x, y-2);
-	ld	a,-18 (ix)
+	ld	a,-15 (ix)
 	add	a,#0xFE
-	ld	-2 (ix), a
+	ld	-7 (ix), a
 	push	af
 	inc	sp
-	ld	a,-17 (ix)
-	push	af
-	inc	sp
-	call	_anyadirALista
-	pop	af
-	ld	-1 (ix), l
-	ld	-15 (ix), l
-;src/pathfinding.c:171: y = y-2;
-	ld	c,-2 (ix)
-	ld	-18 (ix),c
-;src/pathfinding.c:172: k = k+2;
-	ld	a,-9 (ix)
-	ld	-14 (ix),a
-;src/pathfinding.c:173: break;
-	jp	00114$
-;src/pathfinding.c:174: case 1:
-00105$:
-;src/pathfinding.c:177: inserted = anyadirALista(x, y+2);
-	ld	a,-18 (ix)
-	add	a, #0x02
-	ld	-1 (ix), a
-	push	af
-	inc	sp
-	ld	a,-17 (ix)
+	ld	a,-14 (ix)
 	push	af
 	inc	sp
 	call	_anyadirALista
 	pop	af
 	ld	-2 (ix), l
-	ld	-15 (ix), l
+	ld	-16 (ix), l
+;src/pathfinding.c:171: y = y-2;
+	ld	c,-7 (ix)
+	ld	-15 (ix),c
+;src/pathfinding.c:172: k = k+2;
+	ld	a,-1 (ix)
+	ld	-13 (ix),a
+;src/pathfinding.c:173: break;
+	jp	00114$
+;src/pathfinding.c:174: case 1:
+00105$:
+;src/pathfinding.c:177: inserted = anyadirALista(x, y+2);
+	ld	a,-15 (ix)
+	add	a, #0x02
+	ld	-2 (ix), a
+	push	af
+	inc	sp
+	ld	a,-14 (ix)
+	push	af
+	inc	sp
+	call	_anyadirALista
+	pop	af
+	ld	-7 (ix), l
+	ld	-16 (ix), l
 ;src/pathfinding.c:178: y = y+2;
-	ld	c,-1 (ix)
-	ld	-18 (ix),c
+	ld	c,-2 (ix)
+	ld	-15 (ix),c
 ;src/pathfinding.c:179: k = k+2;
-	ld	a,-9 (ix)
-	ld	-14 (ix),a
+	ld	a,-1 (ix)
+	ld	-13 (ix),a
 ;src/pathfinding.c:180: break;
 	jp	00114$
 ;src/pathfinding.c:181: case 2:
 00106$:
 ;src/pathfinding.c:184: inserted = anyadirALista(x-1, y);
-	ld	b,-17 (ix)
+	ld	b,-14 (ix)
 	dec	b
 	push	bc
-	ld	a,-18 (ix)
+	ld	a,-15 (ix)
 	push	af
 	inc	sp
 	push	bc
@@ -914,32 +914,32 @@ _pathFinding::
 	call	_anyadirALista
 	pop	af
 	pop	bc
-	ld	-15 (ix),l
+	ld	-16 (ix),l
 ;src/pathfinding.c:185: x = x-1;
-	ld	-17 (ix),b
+	ld	-14 (ix),b
 ;src/pathfinding.c:186: k = k+2;
-	ld	a,-9 (ix)
-	ld	-14 (ix),a
+	ld	a,-1 (ix)
+	ld	-13 (ix),a
 ;src/pathfinding.c:187: break;
 	jp	00114$
 ;src/pathfinding.c:188: case 3:
 00107$:
 ;src/pathfinding.c:189: inserted = anyadirALista(x+1, y);
-	ld	a,-17 (ix)
+	ld	a,-14 (ix)
 	inc	a
-	ld	-1 (ix),a
-	ld	h,-18 (ix)
-	ld	l,-1 (ix)
+	ld	-2 (ix),a
+	ld	h,-15 (ix)
+	ld	l,-2 (ix)
 	push	hl
 	call	_anyadirALista
 	pop	af
-	ld	-15 (ix),l
+	ld	-16 (ix),l
 ;src/pathfinding.c:190: x = x+1;
-	ld	a,-1 (ix)
-	ld	-17 (ix),a
-;src/pathfinding.c:191: k = k+2;
-	ld	a,-9 (ix)
+	ld	a,-2 (ix)
 	ld	-14 (ix),a
+;src/pathfinding.c:191: k = k+2;
+	ld	a,-1 (ix)
+	ld	-13 (ix),a
 ;src/pathfinding.c:194: }
 	jp	00114$
 00118$:
@@ -955,59 +955,59 @@ _pathFinding::
 	sub	a, #0xC8
 	jr	NC,00122$
 ;src/pathfinding.c:203: actual->longitud_camino = sol_tam;
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	a,(#_sol_tam + 0)
 	ld	(hl),a
 	jr	00142$
 00122$:
 ;src/pathfinding.c:205: actual->longitud_camino = CAMINO_TAM;
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0xC8
 ;src/pathfinding.c:207: for (i; i<actual->longitud_camino; i++){
 00142$:
-	ld	a,-6 (ix)
+	ld	a,-4 (ix)
 	add	a, #0x1A
-	ld	-6 (ix),a
-	ld	a,-5 (ix)
+	ld	-4 (ix),a
+	ld	a,-3 (ix)
 	adc	a, #0x00
-	ld	-5 (ix),a
-	ld	-13 (ix),#0x00
+	ld	-3 (ix),a
+	ld	-12 (ix),#0x00
 00129$:
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
-	ld	a,-13 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
+	ld	a,-12 (ix)
 	sub	a,(hl)
 	jr	NC,00131$
 ;src/pathfinding.c:208: actual->camino[i] = camino[i];
-	ld	a,-13 (ix)
-	add	a, -6 (ix)
+	ld	a,-12 (ix)
+	add	a, -4 (ix)
 	ld	-11 (ix),a
 	ld	a,#0x00
-	adc	a, -5 (ix)
+	adc	a, -3 (ix)
 	ld	-10 (ix),a
 	ld	a,#<(_camino)
-	add	a, -13 (ix)
-	ld	-4 (ix),a
+	add	a, -12 (ix)
+	ld	-9 (ix),a
 	ld	a,#>(_camino)
 	adc	a, #0x00
-	ld	-3 (ix),a
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
+	ld	-8 (ix),a
+	ld	l,-9 (ix)
+	ld	h,-8 (ix)
 	ld	a,(hl)
-	ld	-4 (ix),a
+	ld	-9 (ix),a
 	ld	l,-11 (ix)
 	ld	h,-10 (ix)
-	ld	a,-4 (ix)
+	ld	a,-9 (ix)
 	ld	(hl),a
 ;src/pathfinding.c:207: for (i; i<actual->longitud_camino; i++){
-	inc	-13 (ix)
+	inc	-12 (ix)
 	jr	00129$
 00126$:
 ;src/pathfinding.c:212: actual->longitud_camino = 0;
-	ld	l,-8 (ix)
-	ld	h,-7 (ix)
+	ld	l,-6 (ix)
+	ld	h,-5 (ix)
 	ld	(hl),#0x00
 00131$:
 	ld	sp, ix
