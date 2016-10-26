@@ -13,7 +13,7 @@ Symbol Table
   0 _bitWeights                                                    0038 GR
   1 _camino                                                        0001 GR
     _getTilePtr                                                    **** GX
-  0 _pathFinding                                                   0436 GR
+  0 _pathFinding                                                   0526 GR
   1 _sol_tam                                                       0000 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -21,7 +21,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size  5E0   flags    0
+   0 _CODE                                      size  6D0   flags    0
    1 _DATA                                      size   C9   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

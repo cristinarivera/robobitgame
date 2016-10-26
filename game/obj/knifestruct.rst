@@ -76,7 +76,7 @@
    3F26 33            [ 6]   76 	inc	sp
    3F27 21 00 C0      [10]   77 	ld	hl,#0xC000
    3F2A E5            [11]   78 	push	hl
-   3F2B CD 15 5F      [17]   79 	call	_cpct_getScreenPtr
+   3F2B CD 05 60      [17]   79 	call	_cpct_getScreenPtr
    3F2E D1            [10]   80 	pop	de
    3F2F 33            [ 6]   81 	inc	sp
    3F30 33            [ 6]   82 	inc	sp
@@ -118,7 +118,7 @@
    3F68 DD 66 FF      [19]  118 	ld	h,-1 (ix)
    3F6B E5            [11]  119 	push	hl
    3F6C C5            [11]  120 	push	bc
-   3F6D CD 35 5F      [17]  121 	call	_cpct_drawSpriteMaskedAlignedTable
+   3F6D CD 25 60      [17]  121 	call	_cpct_drawSpriteMaskedAlignedTable
    3F70 18 1B         [12]  122 	jr	00106$
    3F72                     123 00104$:
                             124 ;src/knifestruct.c:9: else if(cu->eje == E_Y){
@@ -140,7 +140,7 @@
    3F85 DD 66 FF      [19]  140 	ld	h,-1 (ix)
    3F88 E5            [11]  141 	push	hl
    3F89 C5            [11]  142 	push	bc
-   3F8A CD 35 5F      [17]  143 	call	_cpct_drawSpriteMaskedAlignedTable
+   3F8A CD 25 60      [17]  143 	call	_cpct_drawSpriteMaskedAlignedTable
    3F8D                     144 00106$:
    3F8D DD F9         [10]  145 	ld	sp, ix
    3F8F DD E1         [14]  146 	pop	ix
@@ -244,7 +244,7 @@
    401A 33            [ 6]  244 	inc	sp
    401B D5            [11]  245 	push	de
    401C 33            [ 6]  246 	inc	sp
-   401D CD F7 53      [17]  247 	call	_cpct_etm_drawTileBox2x4
+   401D CD E7 54      [17]  247 	call	_cpct_etm_drawTileBox2x4
    4020 DD F9         [10]  248 	ld	sp, ix
    4022 DD E1         [14]  249 	pop	ix
    4024 C9            [10]  250 	ret
@@ -389,7 +389,7 @@
    40FE DD 6E 08      [19]  389 	ld	l,8 (ix)
    4101 DD 66 09      [19]  390 	ld	h,9 (ix)
    4104 E5            [11]  391 	push	hl
-   4105 CD 2C 4A      [17]  392 	call	_getTilePtr
+   4105 CD 1C 4B      [17]  392 	call	_getTilePtr
    4108 F1            [10]  393 	pop	af
    4109 F1            [10]  394 	pop	af
    410A D1            [10]  395 	pop	de
@@ -459,7 +459,7 @@
    4175 DD 6E 08      [19]  459 	ld	l,8 (ix)
    4178 DD 66 09      [19]  460 	ld	h,9 (ix)
    417B E5            [11]  461 	push	hl
-   417C CD 2C 4A      [17]  462 	call	_getTilePtr
+   417C CD 1C 4B      [17]  462 	call	_getTilePtr
    417F F1            [10]  463 	pop	af
    4180 F1            [10]  464 	pop	af
    4181 D1            [10]  465 	pop	de
@@ -529,7 +529,7 @@
    41ED DD 6E 08      [19]  529 	ld	l,8 (ix)
    41F0 DD 66 09      [19]  530 	ld	h,9 (ix)
    41F3 E5            [11]  531 	push	hl
-   41F4 CD 2C 4A      [17]  532 	call	_getTilePtr
+   41F4 CD 1C 4B      [17]  532 	call	_getTilePtr
    41F7 F1            [10]  533 	pop	af
    41F8 F1            [10]  534 	pop	af
    41F9 D1            [10]  535 	pop	de
@@ -599,7 +599,7 @@
    4264 DD 6E 08      [19]  599 	ld	l,8 (ix)
    4267 DD 66 09      [19]  600 	ld	h,9 (ix)
    426A E5            [11]  601 	push	hl
-   426B CD 2C 4A      [17]  602 	call	_getTilePtr
+   426B CD 1C 4B      [17]  602 	call	_getTilePtr
    426E F1            [10]  603 	pop	af
    426F F1            [10]  604 	pop	af
    4270 D1            [10]  605 	pop	de
@@ -718,7 +718,7 @@
    4302 23            [ 6]  718 	inc	hl
    4303 46            [ 7]  719 	ld	b, (hl)
    4304 C5            [11]  720 	push	bc
-   4305 CD 2C 4A      [17]  721 	call	_getTilePtr
+   4305 CD 1C 4B      [17]  721 	call	_getTilePtr
    4308 F1            [10]  722 	pop	af
    4309 F1            [10]  723 	pop	af
    430A 4E            [ 7]  724 	ld	c,(hl)

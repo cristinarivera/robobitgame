@@ -221,8 +221,6 @@ void borrarEnemigo(u8 x, u8 y) {
   u8 h = 6 + (y & 3 ? 1 : 0);
     p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
   cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
-
-  enemy->mover = NO;
 }
 
 void redibujarEnemigo(u8 x, u8 y, TEnemy *enemy) {
@@ -232,116 +230,47 @@ void redibujarEnemigo(u8 x, u8 y, TEnemy *enemy) {
   dibujarEnemigo(enemy);
 }
 
-u8 checkEnemyCollision(u8 direction, TEnemy *enemy){
+void checkEnemyDead(u8 direction, TEnemy *enemy){
 
-	u8 colisiona = 1;
-
-	switch (direction) {
-    case 0:
-    	if( *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y) <= 2
-			 && *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H/2) <= 2
-			 	&& *getTilePtr(mapa, enemy->x + G_ENEMY_W + 1, enemy->y + G_ENEMY_H) <= 2)
-		{ // puede moverse, no colisiona con el mapa
-			if( (cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
-				colisiona = 0;
-				 // el cu no esta ni arriba ni abajo
-			}else{
-				if(cu.x > enemy->x){ //si el cu esta abajo
-					if( cu.x - (enemy->x + G_ENEMY_W) > 1){ // si hay espacio entre el enemigo y el cu
-						colisiona = 0;
-
-					}else{
-						enemy->muerto = SI;
-					}
-				}else{ // el prota esta arriba
-					colisiona = 0;
-				}
-			}
-		}else{
-			enemy->mira = M_izquierda;
-		}
-        break;
+  switch (direction) {
     case 1:
-    	if( *getTilePtr(mapa, enemy->x - 1, enemy->y) <= 2
-			 && *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H/2) <= 2
-			 	&& *getTilePtr(mapa, enemy->x - 1, enemy->y + G_ENEMY_H) <= 2)
-		{ // puede moverse, no colisiona con el mapa
-			if( (cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
-				colisiona = 0;
-				 // el cu no esta ni arriba ni abajo
-			}else{
-				if(enemy->x > cu.x){ //si el cu esta abajo
-					if( enemy->x - (cu.x + G_KNIFEX_0_W) > 1){ // si hay espacio entre el enemigo y el cu
-						colisiona = 0;
-
-					}else{
-						enemy->muerto = SI;
-					}
-				}else{ // el prota esta arriba
-					colisiona = 0;
-				}
-			}
-		}else{
-			enemy->mira = M_derecha;
-		}
-        break;
+    if( !(cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
+      if(cu.x > enemy->x){ //si el cu esta abajo
+        if( !(cu.x - (enemy->x + G_ENEMY_W) > 1)){ // si hay espacio entre el enemigo y el cu
+          enemy->muerto = SI;
+        }
+      }
+    }
+    break;
+    case 0:
+    if( !(cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
+      if(enemy->x > cu.x){ //si el cu esta abajo
+        if( !(enemy->x - (cu.x + G_KNIFEX_0_W) > 1)){ // si hay espacio entre el enemigo y el cu
+          enemy->muerto = SI;
+        }
+      }
+    }
+    break;
+    case 3:
+    if(!((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W))){
+      if(enemy->y>cu.y){
+        if(enemy->y - (cu.y + G_KNIFEY_0_H)  > 2){
+          enemy->muerto = SI;
+        }
+      }
+    }
+    break;
     case 2:
-         if( *getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
-			 && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-			 	&& *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2)
-		{
-			if((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)){
+    if( !((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)) ){
+      if(cu.y > enemy->y){ //si el cu esta abajo
+        if( cu.y - (enemy->y + G_ENEMY_H)  > 2){ // si hay espacio entre el enemigo y el cu
+          enemy->muerto = SI;
 
-				colisiona = 0;
-
-			}else{
-				if(enemy->y>cu.y){
-					if(enemy->y - (cu.y + G_KNIFEY_0_H)  > 2){
-						colisiona = 0;
-
-					}else{
-						enemy->muerto = SI;
-
-					}
-				}else{
-					colisiona = 0;
-
-				}
-			}
-
-		}else{
-			enemy->mira = M_abajo;
-		}
-
-	case 3:
-
-
-		if( *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-			 && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-			 	&& *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2)
-		{ // puede moverse, no colisiona con el mapa
-			if( (cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W) ){
-				colisiona = 0;
-				 // el cu no esta ni arriba ni abajo
-			}else{
-				if(cu.y > enemy->y){ //si el cu esta abajo
-					if( cu.y - (enemy->y + G_ENEMY_H)  > 2){ // si hay espacio entre el enemigo y el cu
-						colisiona = 0;
-
-					}else{
-						enemy->muerto = SI;
-
-					}
-				}else{ // el prota esta arriba
-					colisiona = 0;
-				}
-			}
-		}else{
-			enemy->mira = M_arriba;
-		}
-        break;
-   }
-   return colisiona;
+        }
+      }
+    }
+    break;
+  }
 }
 
 void moverEnemigoArriba(TEnemy *enemy){
@@ -464,10 +393,9 @@ void lookFor(TEnemy* enemy){
 
 void moverEnemigoSeek(TEnemy* actual){
 u8*memptr;
-
   if(!actual->muerto){
 
-    //if(!checkactualCollision(actual->mira, actual)){
+    //if(!checkEnemyCollision(actual->mira, actual)){
       if(actual->iter < actual->longitud_camino){
 
 
@@ -880,8 +808,14 @@ void main(void) {
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
     moverCuchillo(&cu, mapa);
     while(i){
+
       --i;
-      updateEnemy(actual);
+      if(!actual->muerto){
+        checkEnemyDead(cu.direccion, actual);
+      }
+      if(!actual->muerto){
+        updateEnemy(actual);
+      }
       ++actual;
     }
 
@@ -907,17 +841,17 @@ void main(void) {
       if(actual->mover){
         redibujarEnemigo((*actual).px, (*actual).py, actual);
       }
-      /*if (actual->muerto && actual->muertes == 0){
+      if (actual->muerto && actual->muertes == 0){
         borrarEnemigo((*actual).x, (*actual).y);
         dibujarExplosion(actual);
         puntuacion_aux = puntuacion;
         puntuacion = aumentarPuntuacion(puntuacion_aux);
         modificarPuntuacion(puntuacion);
-
+        actual->mover = NO;
         actual->muertes++;
         actual->x = 0;
         actual->y = 0;
-      }*/
+      }
       ++actual;
     }
     cpct_waitVSYNC();

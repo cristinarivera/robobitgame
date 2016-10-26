@@ -75,14 +75,14 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 
 	}
 
-	if(  *getTilePtr(matriz, x, y-2) <=2/* &&
- 				*getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2*/){
+	if(  *getTilePtr(matriz, x, y-2) <=2 &&
+ 				*getTilePtr(matriz, x + G_ENEMY_W, y-2) <=2 ){
 		dist1 = abs(f_x - x) + abs(f_y - (y-2)) + heu_arriba;
 		resultado = 0;
 	}
 
-	if(*getTilePtr(matriz, x, y+2) <=2 /*&&
-			*getTilePtr(matriz, x + G_ENEMY_W, y + G_ENEMY_H) <=2*/){
+	if(*getTilePtr(matriz, x, y+2) <=2 &&
+			*getTilePtr(matriz, x + G_ENEMY_W, y + G_ENEMY_H) <=2 ){
 		dist2 = abs(f_x - x) + abs(f_y - (y+2)) + heu_abajo;
 		if(resultado == 0){
 			if(dist1 > dist2)
@@ -92,9 +92,9 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if(*getTilePtr(matriz, x-1, y) <=2 //&&
-			 /**getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
-		 		 *getTilePtr(matriz, x-1, y + G_ENEMY_H/2) <=2*/){
+	if(*getTilePtr(matriz, x-1, y) <=2 &&
+			 *getTilePtr(matriz, x-1, (y + G_ENEMY_H - 2)) <=2 &&
+		 		 *getTilePtr(matriz, x-1, y + G_ENEMY_H/2) <=2){
 		dist3 = abs(f_x - (x-1)) + abs(f_y - y) + heu_izquierda;
 		if(resultado == 0){
 			if(dist1 >= dist3)
@@ -107,9 +107,9 @@ u8 adjacentTiles(u8 x, u8 y, u8 f_x, u8 f_y, u8* matriz){
 		}
 	}
 
-	if(*getTilePtr(matriz, (x +1), y) <=2 //&&
-	 		/**getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H - 2)) <=2 &&
-				*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H/2)) <=2*/){
+	if(*getTilePtr(matriz, (x +1), y) <=2 &&
+	 		*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H - 2)) <=2 &&
+				*getTilePtr(matriz, (x+ G_ENEMY_W+1), (y + G_ENEMY_H/2)) <=2){
 		dist4 = abs(f_x - (x+1)) + abs(f_y - y) + heu_derecha;
 		if(resultado == 0){
 			if(dist1 >= dist4)
