@@ -78,15 +78,15 @@ u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
   {66, 51, 0, 0} ,
-  {52, 51, 20, 0} ,
-  {56, 60, 35, 24}
+  {16, 51, 25, 0} ,
+  {36, 60, 48, 24}
 };
 
 u8 const patrolY[4][5] = {
   {0, 0, 0, 0} ,
   {70 + ORIGEN_MAPA_Y, 142 + ORIGEN_MAPA_Y, 0, 0} ,
-  {136 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 0} ,
-  {150 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 10 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
+  {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 0} ,
+  {120 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
 };
 
 TEnemy enemy[4];
@@ -96,15 +96,15 @@ TProta prota;
 TKnife cu;
 
 
-u8* mapa = 0;
-u8  num_mapa = 0;
+u8* mapa;
+u8  num_mapa;
 
 
 // es el color 8 - 4D - FF00FF
 // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
 
-u8 puntuacion = 0;
-u8 vidas = 5;
+u8 puntuacion;
+u8 vidas;
 
 cpctm_createTransparentMaskTable(g_tablatrans, 0x0100, M0, 0);
 extern void play();
@@ -232,8 +232,8 @@ void checkEnemyDead(u8 direction, TEnemy *enemy){
 
   switch (direction) {
     case 1:
-    if( !(cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
-      if(cu.x > enemy->x){ //si el cu esta abajo
+    if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
+      if(cu.x > enemy->x + G_ENEMY_W){ //si el cu esta abajo
         if( !(cu.x - (enemy->x + G_ENEMY_W) > 1)){ // si hay espacio entre el enemigo y el cu
           enemy->muerto = SI;
         }
@@ -241,8 +241,8 @@ void checkEnemyDead(u8 direction, TEnemy *enemy){
     }
     break;
     case 0:
-    if( !(cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H) ){
-      if(enemy->x > cu.x){ //si el cu esta abajo
+    if( !((cu.y + G_KNIFEX_0_H) < enemy->y || cu.y  > (enemy->y + G_ENEMY_H))){
+      if(enemy->x > cu.x + G_KNIFEX_0_W){ //si el cu esta abajo
         if( !(enemy->x - (cu.x + G_KNIFEX_0_W) > 1)){ // si hay espacio entre el enemigo y el cu
           enemy->muerto = SI;
         }
@@ -252,7 +252,7 @@ void checkEnemyDead(u8 direction, TEnemy *enemy){
     case 3:
     if(!((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W))){
       if(enemy->y>cu.y){
-        if(enemy->y - (cu.y + G_KNIFEY_0_H)  > 2){
+        if(!(enemy->y - (cu.y + G_KNIFEY_0_H))  > 2){
           enemy->muerto = SI;
         }
       }
@@ -260,8 +260,8 @@ void checkEnemyDead(u8 direction, TEnemy *enemy){
     break;
     case 2:
     if( !((cu.x + G_KNIFEY_0_W) < enemy->x || cu.x  > (enemy->x + G_ENEMY_W)) ){
-      if(cu.y > enemy->y){ //si el cu esta abajo
-        if( cu.y - (enemy->y + G_ENEMY_H)  > 2){ // si hay espacio entre el enemigo y el cu
+      if(cu.y > enemy->y + G_ENEMY_H){ //si el cu esta abajo
+        if( !(cu.y - (enemy->y + G_ENEMY_H))  > 2){ // si hay espacio entre el enemigo y el cu
           enemy->muerto = SI;
 
         }
@@ -354,19 +354,19 @@ void lookFor(TEnemy* enemy){
   u8 interpone = NO;
   u8 dist = 0;
   i16 difx = abs((i16)(enemy->x - prota.x));
-  i16 dify = abs((i16)(enemy->y - prota.y));
+  i16 dify = abs((i16)(enemy->y/2 - prota.y/2));
 
   dist = difx + dify; // manhattan
   enemy->seen = NO;
   enemy->in_range = NO;
 
   if(!enemy->seek){
-    if (dist <= 10) {// te detectan los sensores de proximidad
+    if (dist <= 20) {// te detectan los sensores de proximidad
       enemy->in_range = 1;
       enemy->engage = 1;
       enemy->seen = SI;
-    }else if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
-      && prota.y > enemy->y - 26*2 && prota.y < enemy->y + 26*2){
+    }else if(prota.x > enemy->x - 16 && prota.x < enemy->x + 16
+      && prota.y > enemy->y - 16*2 && prota.y < enemy->y +16*2){
         enemy->seen = SI;
     }
   }
@@ -569,11 +569,6 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 
 void updateEnemy(TEnemy* actual) { // maquina de estados
 
-  u8* memptr;
-  u8 x = prota.x;
-  u8 y = prota.y;
-
-
   if (actual->engage) { // prioridad a la persecucion, nunca te deja
     engage(actual, prota.x, prota.y);
   } else {
@@ -633,6 +628,8 @@ void inicializarEnemy() {
       actual->reversePatrol = NO;
       actual->iter = 0;
       actual->lastIter = 0;
+      actual->in_range = 0,
+      actual->seek = 0;
       actual->seen = 0;
       actual->found = 0;
       actual->engage = 0;
@@ -716,7 +713,14 @@ void inicializarCPC() {
 
 void inicializarJuego() {
 
-  num_mapa = 0;
+  num_mapa = 2;
+
+
+  // es el color 8 - 4D - FF00FF
+  // Si el modo fuera 1 solo podríamos tener el 0, 1, 2, 3
+
+  puntuacion = 0;
+  vidas = 5;
   mapa = mapas[num_mapa];
   cpct_etm_setTileset2x4(g_tileset);
 
@@ -789,6 +793,8 @@ void main(void) {
     }else if (cu.lanzado && !cu.mover){
       borrarCuchillo(cu.eje, cu.x, cu.y, mapa);
       cu.lanzado = NO;
+      cu.x = 0;
+      cy.y=0;
     }
 
     i = 2 + num_mapa;

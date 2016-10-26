@@ -153,49 +153,51 @@ void pathFinding(u8 s_x, u8 s_y, u8 f_x, u8 f_y, TEnemy* actual, u8* matriz){
 	inserted = anyadirALista(x, y);
 
 
+	if(!(x == f_x && y == f_y) ){
+		while (aux){
+			if( (x == f_x && y == f_y) || inserted == 0){
 
-	while (aux){
-		if( (x == f_x && y == f_y) || inserted == 0){
+				if(inserted == 0 || sol_tam == 0){
+					problem = 1;
+				}
 
-			if(inserted == 0 || sol_tam == 0){
-				problem = 1;
+				aux = 0;
+			}else{
+				movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
+
+				switch(movimiento){
+					case 0:
+						inserted = anyadirALista(x, y-2);
+						y = y-2;
+						k = k+2;
+						break;
+					case 1:
+
+
+						inserted = anyadirALista(x, y+2);
+						y = y+2;
+						k = k+2;
+						break;
+					case 2:
+
+
+						inserted = anyadirALista(x-1, y);
+						x = x-1;
+						k = k+2;
+						break;
+					case 3:
+						inserted = anyadirALista(x+1, y);
+						x = x+1;
+						k = k+2;
+						break;
+
+				}
 			}
 
-			aux = 0;
-		}else{
-			movimiento = adjacentTiles(x, y, f_x, f_y, matriz);
-
-			switch(movimiento){
-				case 0:
-					inserted = anyadirALista(x, y-2);
-					y = y-2;
-					k = k+2;
-					break;
-				case 1:
-
-
-					inserted = anyadirALista(x, y+2);
-					y = y+2;
-					k = k+2;
-					break;
-				case 2:
-
-
-					inserted = anyadirALista(x-1, y);
-					x = x-1;
-					k = k+2;
-					break;
-				case 3:
-					inserted = anyadirALista(x+1, y);
-					x = x+1;
-					k = k+2;
-					break;
-
-			}
 		}
-
+	}else {
+		problem = 1;
 	}
-
 	if(problem == 0){
 		if(sol_tam < CAMINO_TAM){
 			actual->longitud_camino = sol_tam;
