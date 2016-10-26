@@ -53,10 +53,11 @@
 #define ALTO_MAPA g_map1_H * 4 			// 4 bytes por tile de alto
 
 #define LIMITE_IZQUIERDO 0 + 4
-#define LIMITE_DERECHO ANCHO_PANTALLA - 4
+#define LIMITE_DERECHO ANCHO_PANTALLA - 4 + G_KNIFEX_0_W
 
-#define LIMITE_SUPERIOR 0 + 8
-#define LIMITE_INFERIOR ALTO_MAPA - 8
+#define LIMITE_SUPERIOR 0 + 8 + ORIGEN_MAPA_Y
+#define LIMITE_INFERIOR ALTO_MAPA - 8 + ORIGEN_MAPA_Y
+
 
 #define ALTO_PROTA 22
 
@@ -452,6 +453,7 @@ void lookFor(TEnemy* enemy){
     if (dist <= 10) {// te detectan los sensores de proximidad
         enemy->inRange = 1;
         enemy->engage = 1;
+        enemy->seen = SI;
     }else if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
         && prota.y > enemy->y - 26*2 && prota.y < enemy->y + 26*2){
       	enemy->seen = SI;
@@ -489,16 +491,19 @@ u8*memptr;
         }
       }
       else{
+        actual->seek = 0;
         lookFor(actual);
         actual->reversePatrol = NO;
         if(!actual->seen){
           actual->patrolling = 1;
-          actual->seek = 0;
-          pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
+          pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
         }else{
           actual->patrolling = 0;
-          actual->seek = 1;
-          pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
+          if(!actual->engage){
+            actual->seek = 1;
+            pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
+          }
+
         }
         actual->iter = 0;
 
