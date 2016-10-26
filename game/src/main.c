@@ -72,21 +72,21 @@
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[4] = {36, 71, 50, 24};
-u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+u8 const spawnX[4] = {36, 71, 48, 24};
+u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 40 + ORIGEN_MAPA_Y};
 
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
-  {20, 71, 0, 0} ,
-  {0, 0, 0, 0} ,
-  {0, 0, 0, 0}
+  {66, 51, 0, 0} ,
+  {52, 51, 20, 0} ,
+  {56, 60, 35, 24}
 };
 
 u8 const patrolY[4][5] = {
   {0, 0, 0, 0} ,
-  {66 + ORIGEN_MAPA_Y, 132 + ORIGEN_MAPA_Y, 0, 0} ,
-  {0, 0, 0, 0} ,
-  {0, 0, 0, 0}
+  {70 + ORIGEN_MAPA_Y, 142 + ORIGEN_MAPA_Y, 0, 0} ,
+  {136 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 0} ,
+  {150 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 10 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
 };
 
 TEnemy enemy[4];
@@ -144,16 +144,16 @@ void comprobarTeclado(TKnife* cu, TProta* prota, u8* mapa, u8* g_tablatrans) {
 
   if (cpct_isAnyKeyPressed()) {
     if (cpct_isKeyPressed(Key_CursorLeft)){
-    	moverIzquierda();
+      moverIzquierda();
     }else if (cpct_isKeyPressed(Key_CursorRight)){
-    	moverDerecha();
+      moverDerecha();
     }else if (cpct_isKeyPressed(Key_CursorUp)){
-    	moverArriba();
+      moverArriba();
     }else if (cpct_isKeyPressed(Key_CursorDown)){
-  	  	moverAbajo();
+      moverAbajo();
     }else if (cpct_isKeyPressed(Key_Space)){
-    	lanzarCuchillo(cu, prota, mapa, g_tablatrans);
-	}
+      lanzarCuchillo(cu, prota, mapa, g_tablatrans);
+    }
   }
 }
 
@@ -203,10 +203,8 @@ void borrarExplosion(TEnemy *enemy) {
   u8* p;
 
   u8 w = 4 + (enemy->px & 1);
-
-  //u8 h = 7 + (enemy->py & 3 ? 1 : 0);
   u8 h = 6 + (enemy->py & 2 ? 1 : 0);
-   p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
+  p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
   cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 
 }
@@ -214,12 +212,11 @@ void borrarExplosion(TEnemy *enemy) {
 void borrarEnemigo(u8 x, u8 y) {
   u8* p;
 
-  //u8 w = 4 + (enemy->px & 1);
+
   u8 w = 4 + (x & 1);
 
-  //u8 h = 7 + (enemy->py & 3 ? 1 : 0);
   u8 h = 6 + (y & 3 ? 1 : 0);
-    p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
+  p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
   cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 }
 
@@ -229,6 +226,7 @@ void redibujarEnemigo(u8 x, u8 y, TEnemy *enemy) {
   enemy->py = enemy->y;
   dibujarEnemigo(enemy);
 }
+
 
 void checkEnemyDead(u8 direction, TEnemy *enemy){
 
@@ -298,44 +296,34 @@ void moverEnemigoIzquierda(TEnemy *enemy){
 }
 
 void moverEnemigoPatrol(TEnemy* enemy){
-  u8* memptr;
-  if(!enemy->muerto){
-    //if(!checkEnemyCollision(enemy->mira, enemy)){
 
+  if(!enemy->muerto){
     if (!enemy->reversePatrol) {
       if(enemy->iter < enemy->longitud_camino){
         if(enemy->iter == 0){
-
           enemy->mover = SI;
           enemy->iter = 2;
           enemy->x = enemy->camino[enemy->iter];
           ++enemy->iter;
           enemy->y = enemy->camino[enemy->iter];
           ++enemy->iter;
-
         }else{
           enemy->mover = SI;
           enemy->x = enemy->camino[enemy->iter];
           ++enemy->iter;
           enemy->y = enemy->camino[enemy->iter];
           ++enemy->iter;
-
         }
       }
       else{
-                enemy->mover = NO;
+        enemy->mover = NO;
         enemy->iter = enemy->longitud_camino;
-        // = enemy->iter - 1;
-        //enemy->iter = 0;
-        //enemy->longitud_camino = 0;
         enemy->reversePatrol = 1;
-
       }
     } else {
-
       if(enemy->iter > 0){
         if(enemy->iter == enemy->longitud_camino){
-                    enemy->mover = SI;
+          enemy->mover = SI;
           enemy->iter = enemy->iter - 1;
           enemy->iter = enemy->iter - 2;
           enemy->y = enemy->camino[enemy->iter];
@@ -343,29 +331,23 @@ void moverEnemigoPatrol(TEnemy* enemy){
           enemy->x = enemy->camino[enemy->iter];
           --enemy->iter;
         }else{
-                    enemy->mover = SI;
+          enemy->mover = SI;
           enemy->y = enemy->camino[enemy->iter];
           --enemy->iter;
           enemy->x = enemy->camino[enemy->iter];
           --enemy->iter;
-
         }
       }
       else{
-                enemy->mover = NO;
+        enemy->mover = NO;
         enemy->iter = 0;
-        //enemy->longitud_camino = 0;
         enemy->reversePatrol = 0;
-
       }
     }
   }
 }
 
 void lookFor(TEnemy* enemy){
-
-  u8* memptr;
-
 
 
   u8 i;
@@ -377,25 +359,24 @@ void lookFor(TEnemy* enemy){
   dist = difx + dify; // manhattan
   enemy->seen = NO;
   enemy->in_range = NO;
-  memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90);
+
   if(!enemy->seek){
     if (dist <= 10) {// te detectan los sensores de proximidad
-        enemy->in_range = 1;
-        enemy->engage = 1;
-        enemy->seen = SI;
+      enemy->in_range = 1;
+      enemy->engage = 1;
+      enemy->seen = SI;
     }else if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
-        && prota.y > enemy->y - 26*2 && prota.y < enemy->y + 26*2){
-      	enemy->seen = SI;
-
+      && prota.y > enemy->y - 26*2 && prota.y < enemy->y + 26*2){
+        enemy->seen = SI;
     }
   }
 }
 
 void moverEnemigoSeek(TEnemy* actual){
-u8*memptr;
+
   if(!actual->muerto){
 
-    //if(!checkEnemyCollision(actual->mira, actual)){
+
       if(actual->iter < actual->longitud_camino){
 
 
@@ -417,23 +398,23 @@ u8*memptr;
 
         }
       }
-      else{
-        actual->seek = 0;
-        lookFor(actual);
-        if(!actual->seen){
-          actual->patrolling = 1;
-          pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
-        }else{
-          actual->patrolling = 0;
-          if(!actual->engage){
-            actual->seek = 1;
-            pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
-          }
+    }
+    else{
+      actual->seek = 0;
+      lookFor(actual);
+      if(!actual->seen){
+        actual->patrolling = 1;
+        pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
+      }else{
+        actual->patrolling = 0;
+        if(!actual->engage){
+          actual->seek = 1;
+          pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
         }
-        actual->iter = 0;
       }
+      actual->iter = 0;
+    }
 
-    //}
   }
 }
 
@@ -449,31 +430,31 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
   enemy->mover = NO;
 
   if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
-      if (dx < enemy->x) { // izquierda
-        if (dist > 11) {
-          if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
-          && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
-          && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
-            moverEnemigoIzquierda(enemy);
-            movX = 1;
-            enemy->mover = SI;
-          }
-        }
-      } else { // derecha
-        if (dist > G_ENEMY_W + 3) {
-          if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
-          && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
-          && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
-            moverEnemigoDerecha(enemy);
-            movX = 1;
-            enemy->mover = SI;
-          }
+    if (dx < enemy->x) { // izquierda
+      if (dist > 11) {
+        if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoIzquierda(enemy);
+          movX = 1;
+          enemy->mover = SI;
         }
       }
+    } else { // derecha
+      if (dist > G_ENEMY_W + 3) {
+        if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+        && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
+          moverEnemigoDerecha(enemy);
+          movX = 1;
+          enemy->mover = SI;
+        }
+      }
+    }
   }
   else if (enemy->x == dx) {
-      if (dy < enemy->y) {
-        if (dist > G_HERO_H + 5) {
+    if (dy < enemy->y) {
+      if (dist > G_HERO_H + 5) {
         if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
@@ -482,8 +463,8 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
           enemy->mover = SI;
         }
       }
-      } else {
-        if(dist > G_ENEMY_H + 7) {
+    } else {
+      if(dist > G_ENEMY_H + 7) {
         if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
         && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
@@ -588,99 +569,76 @@ void engage(TEnemy *enemy, u8 dx, u8 dy) {
 
 void updateEnemy(TEnemy* actual) { // maquina de estados
 
-    u8* memptr;
-    u8 x = prota.x;
-    u8 y = prota.y;
+  u8* memptr;
+  u8 x = prota.x;
+  u8 y = prota.y;
 
 
-    if (actual->engage) { // prioridad a la persecucion, nunca te deja
-      engage(actual, prota.x, prota.y);
-    } else {
-      lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
-      if (actual->patrolling) {
- // esta patrullando
-        moverEnemigoPatrol(actual);
-        if (actual->in_range) {
+  if (actual->engage) { // prioridad a la persecucion, nunca te deja
+    engage(actual, prota.x, prota.y);
+  } else {
+    lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+    if (actual->patrolling) {
+      // esta patrullando
+      moverEnemigoPatrol(actual);
+      if (actual->in_range) {
+        engage(actual, prota.x, prota.y);
+        actual->patrolling = 0;
+        actual->engage = 1;
+      } else if (actual->seen) {
+        pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
+        actual->p_seek_x = actual->x;
+        actual->p_seek_y = actual->y;
+        actual->seek = 1;
+        actual->iter=0;
+        actual->reversePatrol = NO;
+        actual->patrolling = 0;
+        actual->seen = 0;
+      }
+    } else if (actual->seek) {
+      moverEnemigoSeek(actual);
+      if (actual->in_range) {
+        engage(actual, prota.x, prota.y);
+        actual->seek = 0;
+        actual->engage = 1;
+      } else if (actual->seen) {
 
-          engage(actual, prota.x, prota.y);
-          actual->patrolling = 0;
-          actual->engage = 1;
-        } else if (actual->seen) {
-          pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
-          actual->p_seek_x = actual->x;
-          actual->p_seek_y = actual->y;
-          actual->seek = 1;
-          actual->iter=0;
-          actual->reversePatrol = NO;
-          actual->patrolling = 0;
-          actual->seen = 0;
-        }
-      } else if (actual->seek) {
-        moverEnemigoSeek(actual);
-        if (actual->in_range) {
-          engage(actual, prota.x, prota.y);
-          actual->seek = 0;
-          actual->engage = 1;
-        } else if (actual->seen) {
-
-        }
       }
     }
+  }
 }
 
 void inicializarEnemy() {
-  u8 i = 2 + num_mapa; //sacar distinto numero dependiendo del mapa
-   //u8 i = 4 + 1; // sacar todos
-  //u8 i = 2;
-  TEnemy* actual;
+    u8 i = 2 + num_mapa; //sacar distinto numero dependiendo del mapa
+    //u8 i = 4 + 1; // sacar todos
+    //u8 i = 2;
+    TEnemy* actual;
 
-  u8 aux0, aux1, k;
+    u8 aux0, aux1, k;
 
-  aux0 = 0;
-  aux1 = 0;
+    aux0 = 0;
+    aux1 = 0;
 
-  actual = enemy;
-  while(i){
-    --i;
-    actual->x = actual->px = spawnX[i];
-    actual->y = actual->py = spawnY[i];
-    actual->mover  = NO;
-    actual->mira   = M_abajo;
-    actual->sprite = g_enemy;
-    actual->muerto = NO;
-    actual->muertes = 0;
-    actual->patrolling = SI;
-    actual->reversePatrol = NO;
-    actual->iter = 0;
-    actual->lastIter = 0;
-    actual->seen = 0;
-    actual->found = 0;
-    pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
-    /*actual->longitud_camino = 100;
-    for (k = 0; k<100; k++){
-      if(k % 2 == 0 && aux0 == 0){
-        actual->camino[k] = actual->x + 1;
-        actual->x++;
-        aux0=1;
-      }else if(k % 2 == 0 && aux0 == 1){
-        actual->camino[k] = actual->x;
-        aux0=0;En
-      }else if(k % 2 != 0 && aux1 == 0){
-        actual->camino[k] = actual->y;
-        aux1=1;
-      }else if(k % 2 != 0 && aux1 == 1){
-        actual->camino[k] = actual->y + 1;
-        actual->y++;
-        aux1=0;
-      }
-
+    actual = enemy;
+    while(i){
+      --i;
+      actual->x = actual->px = spawnX[i];
+      actual->y = actual->py = spawnY[i];
+      actual->mover  = NO;
+      actual->mira   = M_abajo;
+      actual->sprite = g_enemy;
+      actual->muerto = NO;
+      actual->muertes = 0;
+      actual->patrolling = SI;
+      actual->reversePatrol = NO;
+      actual->iter = 0;
+      actual->lastIter = 0;
+      actual->seen = 0;
+      actual->found = 0;
+      pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
+      dibujarEnemigo(actual);
+      ++actual;
     }
-
-    actual->x = actual->px = spawnX[i];
-    actual->y = actual->py = spawnY[i];*/
-    dibujarEnemigo(actual);
-    ++actual;
-  }
 }
 
 void avanzarMapa() {
@@ -711,7 +669,6 @@ void moverDerecha() {
     prota.x++;
     prota.mover = SI;
     prota.sprite = g_hero;
-    //}else if ( prota.x > 68 && prota.y >= 72 && prota.y <= 80){  //TODO que avance solo si estamos en el centro
   }else if( prota.x + G_HERO_W >= 80){
     avanzarMapa();
   }
@@ -802,7 +759,7 @@ void main(void) {
 
   while (1) {
 
-    i = 2;
+    i = 2 + num_mapa;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
@@ -833,7 +790,7 @@ void main(void) {
       cu.lanzado = NO;
     }
 
-    i = 2;
+    i = 2 + num_mapa;
     actual = enemy;
     while(i){
 
@@ -841,6 +798,7 @@ void main(void) {
       if(actual->mover){
         redibujarEnemigo((*actual).px, (*actual).py, actual);
       }
+
       if (actual->muerto && actual->muertes == 0){
         borrarEnemigo((*actual).x, (*actual).y);
         dibujarExplosion(actual);
@@ -855,6 +813,7 @@ void main(void) {
       ++actual;
     }
     cpct_waitVSYNC();
+
   }
 }
 
