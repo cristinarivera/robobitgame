@@ -17,7 +17,6 @@
 	.globl _modificarPuntuacion
 	.globl _modificarVidas
 	.globl _aumentarPuntuacion
-	.globl _quitarVidas
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -387,18 +386,6 @@ _aumentarPuntuacion::
 	ld	a, 1 (iy)
 	adc	a, #0x00
 	ld	h, a
-	ret
-;src/score/score.c:56: u8 quitarVidas(u8 vidas){
-;	---------------------------------
-; Function quitarVidas
-; ---------------------------------
-_quitarVidas::
-;src/score/score.c:57: return vidas -1;
-	ld	hl, #2+0
-	add	hl, sp
-	ld	c, (hl)
-	dec	c
-	ld	l,c
 	ret
 	.area _CODE
 	.area _INITIALIZER

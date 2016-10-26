@@ -8,8 +8,8 @@ Symbol Table
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
   0 _borrarCuchillo                                                0088 GR
-  0 _checkKnifeCollision                                           03D8 GR
-  0 _checkOffBounds                                                03B3 GR
+  0 _checkKnifeCollision                                           03C8 GR
+  0 _checkOffBounds                                                03A3 GR
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
     _cpct_getScreenPtr                                             **** GX
@@ -20,7 +20,7 @@ Symbol Table
     _g_knifeY_1                                                    **** GX
     _getTilePtr                                                    **** GX
   0 _lanzarCuchillo                                                0162 GR
-  0 _moverCuchillo                                                 040B GR
+  0 _moverCuchillo                                                 03FB GR
   0 _redibujarCuchillo                                             011B GR
 
 
@@ -29,7 +29,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size  542   flags    0
+   0 _CODE                                      size  532   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

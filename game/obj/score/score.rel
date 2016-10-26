@@ -1,5 +1,5 @@
 XL2
-H 9 areas E global symbols
+H 9 areas D global symbols
 M score
 O -mz80
 S __divuint Ref0000
@@ -11,11 +11,10 @@ S .__.ABS. Def0000
 S _g_heart Ref0000
 S __moduint Ref0000
 S _cpct_getScreenPtr Ref0000
-A _CODE size 1F4 flags 0 addr 0
+A _CODE size 1EC flags 0 addr 0
 S _modificarVidas Def01A3
 S _barraPuntuacionInicial Def0000
 S _aumentarPuntuacion Def01D9
-S _quitarVidas Def01EC
 S _modificarPuntuacion Def009C
 A _DATA size 0 flags 0 addr 0
 A _INITIALIZED size 0 flags 0 addr 0
@@ -122,8 +121,4 @@ R 00 00 00 00
 T D9 01 FD 21 02 00 FD 39 FD 7E 00 C6 0A 6F FD 7E
 R 00 00 00 00
 T E7 01 01 CE 00 67 C9
-R 00 00 00 00
-T EC 01
-R 00 00 00 00
-T EC 01 21 02 00 39 4E 0D 69 C9
 R 00 00 00 00

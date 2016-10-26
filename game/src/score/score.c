@@ -26,7 +26,7 @@ void modificarPuntuacion(u16 puntuacion){
   u16 puntuacion_aux = puntuacion;
   borrarPantalla(0, 14, 25, 7);
   memptr = cpct_getScreenPtr(CPCT_VMEM_START, 0, 14); // puntuación inicial
-  
+
   cpct_drawCharM0(memptr, 2, 0, (puntuacion_aux%10) + 48);
   puntuacion_aux = puntuacion / 1000;
   cpct_drawCharM0(memptr+4, 2, 0, (puntuacion_aux%10) + 48);
@@ -51,8 +51,4 @@ void modificarVidas(u8 vidas){
 
 u16 aumentarPuntuacion(u16 puntuacion){
   return puntuacion + 10;
-}
-
-u8 quitarVidas(u8 vidas){
-  return vidas -1;
 }
