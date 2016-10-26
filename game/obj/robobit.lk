@@ -1,0 +1,36 @@
+-mjwx
+-i obj/robobit.ihx
+-b _CODE = 0x0300
+-b _DATA = 0x0000
+-u
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
+-k /home/sstuff/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
+-l /home/sstuff/cpctelera/cpctelera/cpctelera.lib
+-l z80
+obj/maps/map3.rel
+obj/maps/map2.rel
+obj/maps/map1.rel
+obj/assets/knifeY.rel
+obj/assets/knifeX.rel
+obj/maps/tiles.rel
+obj/assets/arrows.rel
+obj/assets/explosion.rel
+obj/assets/text.rel
+obj/assets/heart.rel
+obj/assets/enemy.rel
+obj/assets/hero_down.rel
+obj/assets/hero_up.rel
+obj/assets/hero_left.rel
+obj/assets/hero.rel
+obj/song/song.rel
+obj/enemystruct.rel
+obj/knifestruct.rel
+obj/main.rel
+obj/pathfinding.rel
+obj/protastruct.rel
+obj/utils.rel
+obj/menu/menu.rel
+obj/score/score.rel
+obj/play.rel
+
+-e
