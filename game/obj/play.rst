@@ -13,7 +13,7 @@ Hexadecimal [16-Bits]
    5375 D5            [11]    8 	push de
    5376 E5            [11]    9 	push hl
                              10 
-   5377 CD E2 57      [17]   11 	call cpct_akp_musicPlay_asm
+   5377 CD 1A 57      [17]   11 	call cpct_akp_musicPlay_asm
                              12 
    537A E1            [10]   13 	pop hl
    537B D1            [10]   14 	pop de

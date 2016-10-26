@@ -12,7 +12,7 @@ Symbol Table
   A __xinit__puntuacion                                            0003 R
     _abs                                                           **** GX
     _aumentarPuntuacion                                            **** GX
-  9 _avanzarMapa                                                   16A5 GR
+  9 _avanzarMapa                                                   16B4 GR
     _barraPuntuacionInicial                                        **** GX
     _borrarCuchillo                                                **** GX
   9 _borrarEnemigo                                                 03BA GR
@@ -21,6 +21,7 @@ Symbol Table
   9 _checkCollision                                                0161 GR
   9 _checkEnemyDead                                                045B GR
   9 _comprobarTeclado                                              00FA GR
+    _cpct_akp_musicInit                                            **** GX
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
@@ -29,6 +30,7 @@ Symbol Table
     _cpct_isAnyKeyPressed                                          **** GX
     _cpct_isKeyPressed                                             **** GX
     _cpct_scanKeyboard_if                                          **** GX
+    _cpct_setInterruptHandler                                      **** GX
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
@@ -51,38 +53,39 @@ Symbol Table
     _g_map2                                                        **** GX
     _g_map3                                                        **** GX
     _g_palette                                                     **** GX
+    _g_song                                                        **** GX
   8 _g_tablatrans                                                  0100 GR
     _g_tileset                                                     **** GX
     _getTilePtr                                                    **** GX
   1 _i                                                             039C GR
-  9 _inicializarCPC                                                17B1 GR
-  9 _inicializarEnemy                                              1586 GR
-  9 _inicializarJuego                                              17CC GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
-  9 _intHandler                                                    179E GR
+  9 _inicializarCPC                                                17C0 GR
+  9 _inicializarEnemy                                              1595 GR
+  9 _inicializarJuego                                              17E9 GR
+  9 _intHandler                                                    17AD GR
     _lanzarCuchillo                                                **** GX
   9 _lookFor                                                       08FB GR
-  9 _main                                                          183A GR
+  9 _main                                                          1857 GR
   2 _mapa                                                          0000 GR
   9 _mapas                                                         0016 GR
     _menuFin                                                       **** GX
     _menuInicio                                                    **** GX
     _modificarPuntuacion                                           **** GX
-  9 _moverAbajo                                                    177A GR
-  9 _moverArriba                                                   1756 GR
+  9 _moverAbajo                                                    1789 GR
+  9 _moverArriba                                                   1765 GR
     _moverCuchillo                                                 **** GX
-  9 _moverDerecha                                                  1711 GR
+  9 _moverDerecha                                                  1720 GR
   9 _moverEnemigoAbajo                                             066D GR
   9 _moverEnemigoArriba                                            064E GR
   9 _moverEnemigoDerecha                                           068C GR
   9 _moverEnemigoIzquierda                                         069C GR
   9 _moverEnemigoPatrol                                            06AE GR
   9 _moverEnemigoSeek                                              0A01 GR
-  9 _moverIzquierda                                                16EC GR
+  9 _moverIzquierda                                                16FB GR
   2 _num_mapa                                                      0002 GR
     _pathFinding                                                   **** GX
   9 _patrolX                                                       0024 GR
@@ -113,7 +116,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 1A38   flags    0
+   9 _CSEG                                      size 1A55   flags    0
    A _INITIALIZER                               size    4   flags    0
    B _CABS                                      size    0   flags    8
 

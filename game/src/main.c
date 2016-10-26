@@ -78,15 +78,15 @@ u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
   {66, 51, 0, 0} ,
-  {52, 51, 20, 0} ,
-  {56, 60, 35, 24}
+  {16, 51, 25, 0} ,
+  {36, 60, 48, 24}
 };
 
 u8 const patrolY[4][5] = {
   {0, 0, 0, 0} ,
   {70 + ORIGEN_MAPA_Y, 142 + ORIGEN_MAPA_Y, 0, 0} ,
-  {136 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 0} ,
-  {150 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 10 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
+  {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 0} ,
+  {120 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
 };
 
 TEnemy enemy[4];
@@ -724,8 +724,8 @@ void inicializarCPC() {
   cpct_setVideoMode(0);
   cpct_setBorder(HW_BLACK);
   cpct_setPalette(g_palette, 16);
-  //cpct_akp_musicInit(g_song);
-  //cpct_setInterruptHandler(intHandler);
+  cpct_akp_musicInit(g_song);
+  cpct_setInterruptHandler(intHandler);
 }
 
 void inicializarJuego() {

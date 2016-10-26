@@ -321,7 +321,7 @@
    4D86 F5            [11]  319 	push	af
    4D87 33            [ 6]  320 	inc	sp
    4D88 C5            [11]  321 	push	bc
-   4D89 CD 28 57      [17]  322 	call	_cpct_drawSolidBox
+   4D89 CD 51 5F      [17]  322 	call	_cpct_drawSolidBox
    4D8C F1            [10]  323 	pop	af
    4D8D F1            [10]  324 	pop	af
    4D8E 33            [ 6]  325 	inc	sp
@@ -346,7 +346,7 @@
    4DAA 21 00 28      [10]  344 	ld	hl,#0x2800
    4DAD E5            [11]  345 	push	hl
    4DAE C5            [11]  346 	push	bc
-   4DAF CD 28 57      [17]  347 	call	_cpct_drawSolidBox
+   4DAF CD 51 5F      [17]  347 	call	_cpct_drawSolidBox
    4DB2 F1            [10]  348 	pop	af
    4DB3 F1            [10]  349 	pop	af
    4DB4 33            [ 6]  350 	inc	sp
@@ -377,7 +377,7 @@
    4DD9 F5            [11]  375 	push	af
    4DDA 33            [ 6]  376 	inc	sp
    4DDB C5            [11]  377 	push	bc
-   4DDC CD 28 57      [17]  378 	call	_cpct_drawSolidBox
+   4DDC CD 51 5F      [17]  378 	call	_cpct_drawSolidBox
    4DDF F1            [10]  379 	pop	af
    4DE0 F1            [10]  380 	pop	af
    4DE1 33            [ 6]  381 	inc	sp
