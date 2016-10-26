@@ -17,7 +17,7 @@ typedef struct {
   u8  last_patrol;
   i16  iter;
   u8  lastIter;
-  u8  inRange; // tiene al prota en rango?
+  u8  in_range; // tiene al prota en rango?
   u8  seen;    // ha visto al prota?
   u8  found;  // ha encontrado al prota?
   u8  seek;    // esta buscando al prota?

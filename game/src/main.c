@@ -447,11 +447,11 @@ void lookFor(TEnemy* enemy){
 
   dist = difx + dify; // manhattan
   enemy->seen = NO;
-  enemy->inRange = NO;
+  enemy->in_range = NO;
   memptr = cpct_getScreenPtr(CPCT_VMEM_START, 24, 90);
   if(!enemy->seek){
     if (dist <= 10) {// te detectan los sensores de proximidad
-        enemy->inRange = 1;
+        enemy->in_range = 1;
         enemy->engage = 1;
         enemy->seen = SI;
     }else if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
@@ -468,7 +468,6 @@ u8*memptr;
   if(!actual->muerto){
 
     //if(!checkactualCollision(actual->mira, actual)){
-    if (!actual->reversePatrol) {
       if(actual->iter < actual->longitud_camino){
 
 
@@ -493,7 +492,6 @@ u8*memptr;
       else{
         actual->seek = 0;
         lookFor(actual);
-        actual->reversePatrol = NO;
         if(!actual->seen){
           actual->patrolling = 1;
           pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
@@ -501,14 +499,12 @@ u8*memptr;
           actual->patrolling = 0;
           if(!actual->engage){
             actual->seek = 1;
-            pathFinding(actual->x, actual->y, actual->p_seek_x, actual->p_seek_y, actual, mapa);
+            pathFinding(actual->x, actual->y, prota.x, prota.y, actual, mapa);
           }
-
         }
         actual->iter = 0;
-
       }
-    }
+
     //}
   }
 }
@@ -676,7 +672,7 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
       if (actual->patrolling) {
  // esta patrullando
         moverEnemigoPatrol(actual);
-        if (actual->inRange) {
+        if (actual->in_range) {
           engage(actual, prota.x, prota.y);
           actual->patrolling = 0;
           actual->engage = 1;
@@ -692,14 +688,13 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
           actual->seen = 0;
         }
       } else if (actual->seek) {
-
-        if (!actual->found /*&& actual->seekTimer <= 5*/) {
-
-
-          moverEnemigoSeek(actual); // buscar en posiciones cercanas a la actual
-        } else if (actual->inRange) {
+        moverEnemigoSeek(actual);
+        if (actual->in_range) {
           engage(actual, prota.x, prota.y);
+          actual->seek = 0;
           actual->engage = 1;
+        } else if (actual->seen) {
+
         }
       }
     }

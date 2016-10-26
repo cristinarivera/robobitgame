@@ -18,7 +18,7 @@ DEF l___g_song0 0x91
 DEF l__g_tablatrans_0 0x100
 DEF s__CODE 0x300
 DEF l__DATA 0x465
-DEF l__CSEG 0x1AB3
+DEF l__CSEG 0x1A9D
 DEF l__CODE 0x5C70
 DEF s__DATA 0x5F70
 DEF s__INITIALIZED 0x63D5
@@ -191,16 +191,16 @@ DEF _moverEnemigoIzquierda 0x6C89
 DEF _moverEnemigoPatrol 0x6C9B
 DEF _lookFor 0x6EE4
 DEF _moverEnemigoSeek 0x6FFC
-DEF _engage 0x71C5
-DEF _updateEnemy 0x7970
-DEF _inicializarEnemy 0x7ACA
-DEF _avanzarMapa 0x7BE3
-DEF _moverIzquierda 0x7C2A
-DEF _moverDerecha 0x7C4F
-DEF _moverArriba 0x7C94
-DEF _moverAbajo 0x7CB8
-DEF _intHandler 0x7CDC
-DEF _inicializarCPC 0x7CEF
-DEF _inicializarJuego 0x7D0A
-DEF _main 0x7D78
+DEF _engage 0x71A1
+DEF _updateEnemy 0x794C
+DEF _inicializarEnemy 0x7AB4
+DEF _avanzarMapa 0x7BCD
+DEF _moverIzquierda 0x7C14
+DEF _moverDerecha 0x7C39
+DEF _moverArriba 0x7C7E
+DEF _moverAbajo 0x7CA2
+DEF _intHandler 0x7CC6
+DEF _inicializarCPC 0x7CD9
+DEF _inicializarJuego 0x7CF4
+DEF _main 0x7D62
 LOAD obj/robobit.ihx
