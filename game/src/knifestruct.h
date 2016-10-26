@@ -15,9 +15,9 @@
 
 // You should have received a copy of the GNU General Public License
 // along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
-//------------------------------------------------------------------------------#ifndef _ASSETS_KNIFESTRUCT_H_
+//------------------------------------------------------------------------------
 
-
+#ifndef _ASSETS_KNIFESTRUCT_H_
 #define _ASSETS_KNIFESTRUCT_H_
 
 #include <types.h>

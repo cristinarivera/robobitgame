@@ -710,8 +710,8 @@ void inicializarCPC() {
   cpct_setVideoMode(0);
   cpct_setBorder(HW_BLACK);
   cpct_setPalette(g_palette, 16);
-  //cpct_akp_musicInit(g_song);
-  //cpct_setInterruptHandler(intHandler);
+  cpct_akp_musicInit(g_song);
+  cpct_setInterruptHandler(intHandler);
 }
 
 void inicializarJuego() {
