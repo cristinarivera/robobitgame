@@ -12,7 +12,7 @@ Symbol Table
   A __xinit__puntuacion                                            0003 R
   A __xinit__vidas                                                 0004 R
     _abs                                                           **** GX
-  9 _avanzarMapa                                                   17EE GR
+  9 _avanzarMapa                                                   17E7 GR
     _barraPuntuacionInicial                                        **** GX
     _borrarCuchillo                                                **** GX
   9 _borrarEnemigo                                                 03BA GR
@@ -55,33 +55,33 @@ Symbol Table
     _g_tileset                                                     **** GX
     _getTilePtr                                                    **** GX
   1 _i                                                             039B GR
-  9 _inicializarCPC                                                18FA GR
-  9 _inicializarEnemy                                              16D5 GR
-  9 _inicializarJuego                                              1915 GR
+  9 _inicializarCPC                                                18F3 GR
+  9 _inicializarEnemy                                              16D4 GR
+  9 _inicializarJuego                                              190E GR
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Symbol Table
 
-  9 _intHandler                                                    18E7 GR
+  9 _intHandler                                                    18E0 GR
     _lanzarCuchillo                                                **** GX
   9 _lookFor                                                       0B05 GR
-  9 _main                                                          1983 GR
+  9 _main                                                          197C GR
   2 _mapa                                                          0000 GR
   9 _mapas                                                         0016 GR
     _menuFin                                                       **** GX
     _menuInicio                                                    **** GX
-  9 _moverAbajo                                                    18C3 GR
-  9 _moverArriba                                                   189F GR
+  9 _moverAbajo                                                    18BC GR
+  9 _moverArriba                                                   1898 GR
     _moverCuchillo                                                 **** GX
-  9 _moverDerecha                                                  185A GR
+  9 _moverDerecha                                                  1853 GR
   9 _moverEnemigoAbajo                                             087B GR
   9 _moverEnemigoArriba                                            085C GR
   9 _moverEnemigoDerecha                                           089A GR
   9 _moverEnemigoIzquierda                                         08AA GR
   9 _moverEnemigoPatrol                                            08BC GR
   9 _moverEnemigoSeek                                              0C1D GR
-  9 _moverIzquierda                                                1835 GR
+  9 _moverIzquierda                                                182E GR
   2 _num_mapa                                                      0002 GR
     _pathFinding                                                   **** GX
   9 _patrolX                                                       0024 GR
@@ -112,7 +112,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size 1A9D   flags    0
+   9 _CSEG                                      size 1A96   flags    0
    A _INITIALIZER                               size    5   flags    0
    B _CABS                                      size    0   flags    8
 
