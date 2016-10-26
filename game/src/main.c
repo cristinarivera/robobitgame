@@ -72,21 +72,21 @@
 u8* const mapas[NUM_MAPAS] = { g_map1, g_map2, g_map3 };
 
 // enemies
-u8 const spawnX[4] = {36, 71, 50, 24};
-u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 80 + ORIGEN_MAPA_Y};
+u8 const spawnX[4] = {36, 71, 48, 24};
+u8 const spawnY[4] = {20 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 130 + ORIGEN_MAPA_Y, 40 + ORIGEN_MAPA_Y};
 
 u8 const patrolX[4][5] = {
   {0, 0, 0, 0, 0} ,
-  {20, 71, 0, 0} ,
-  {0, 0, 0, 0} ,
-  {0, 0, 0, 0}
+  {66, 51, 0, 0} ,
+  {52, 51, 20, 0} ,
+  {56, 60, 35, 24}
 };
 
 u8 const patrolY[4][5] = {
   {0, 0, 0, 0} ,
-  {66 + ORIGEN_MAPA_Y, 132 + ORIGEN_MAPA_Y, 0, 0} ,
-  {0, 0, 0, 0} ,
-  {0, 0, 0, 0}
+  {70 + ORIGEN_MAPA_Y, 142 + ORIGEN_MAPA_Y, 0, 0} ,
+  {136 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 20 + ORIGEN_MAPA_Y, 0} ,
+  {150 + ORIGEN_MAPA_Y, 78 + ORIGEN_MAPA_Y, 10 + ORIGEN_MAPA_Y, 110 + ORIGEN_MAPA_Y}
 };
 
 TEnemy enemy[4];
@@ -673,7 +673,6 @@ void updateEnemy(TEnemy* actual) { // maquina de estados
  // esta patrullando
         moverEnemigoPatrol(actual);
         if (actual->in_range) {
-
           engage(actual, prota.x, prota.y);
           actual->patrolling = 0;
           actual->engage = 1;
@@ -874,7 +873,7 @@ void main(void) {
 
   while (1) {
 
-    i = 2;
+    i = 2 + num_mapa;
     actual = enemy;
 
     comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
@@ -899,7 +898,7 @@ void main(void) {
       cu.lanzado = NO;
     }
 
-    i = 2;
+    i = 2 + num_mapa;
     actual = enemy;
     while(i){
 
