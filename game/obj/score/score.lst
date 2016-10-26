@@ -334,59 +334,91 @@
                             334 ; ---------------------------------
    01A3                     335 _modificarVidas::
    01A3 DD E5         [15]  336 	push	ix
-                            337 ;src/score/score.c:46: for(i=0; i<5; i++){
-   01A5 01 00 00      [10]  338 	ld	bc,#0x0000
-   01A8                     339 00102$:
-                            340 ;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
-   01A8 79            [ 4]  341 	ld	a,c
-   01A9 87            [ 4]  342 	add	a, a
-   01AA 87            [ 4]  343 	add	a, a
-   01AB C6 3C         [ 7]  344 	add	a, #0x3C
-   01AD 57            [ 4]  345 	ld	d,a
-   01AE C5            [11]  346 	push	bc
-   01AF 3E 0E         [ 7]  347 	ld	a,#0x0E
-   01B1 F5            [11]  348 	push	af
-   01B2 33            [ 6]  349 	inc	sp
-   01B3 D5            [11]  350 	push	de
-   01B4 33            [ 6]  351 	inc	sp
-   01B5 21 00 C0      [10]  352 	ld	hl,#0xC000
-   01B8 E5            [11]  353 	push	hl
-   01B9 CDr00r00      [17]  354 	call	_cpct_getScreenPtr
-   01BC EB            [ 4]  355 	ex	de,hl
-   01BD 21 03 06      [10]  356 	ld	hl,#0x0603
-   01C0 E5            [11]  357 	push	hl
-   01C1 D5            [11]  358 	push	de
-   01C2 21r00r00      [10]  359 	ld	hl,#_g_heart
-   01C5 E5            [11]  360 	push	hl
-   01C6 CDr00r00      [17]  361 	call	_cpct_drawSprite
-   01C9 C1            [10]  362 	pop	bc
-                            363 ;src/score/score.c:46: for(i=0; i<5; i++){
-   01CA 03            [ 6]  364 	inc	bc
-   01CB 79            [ 4]  365 	ld	a,c
-   01CC D6 05         [ 7]  366 	sub	a, #0x05
-   01CE 78            [ 4]  367 	ld	a,b
-   01CF 17            [ 4]  368 	rla
-   01D0 3F            [ 4]  369 	ccf
-   01D1 1F            [ 4]  370 	rra
-   01D2 DE 80         [ 7]  371 	sbc	a, #0x80
-   01D4 38 D2         [12]  372 	jr	C,00102$
-   01D6 DD E1         [14]  373 	pop	ix
-   01D8 C9            [10]  374 	ret
-                            375 ;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
-                            376 ;	---------------------------------
-                            377 ; Function aumentarPuntuacion
-                            378 ; ---------------------------------
-   01D9                     379 _aumentarPuntuacion::
-                            380 ;src/score/score.c:53: return puntuacion + 10;
-   01D9 FD 21 02 00   [14]  381 	ld	iy,#2
-   01DD FD 39         [15]  382 	add	iy,sp
-   01DF FD 7E 00      [19]  383 	ld	a,0 (iy)
-   01E2 C6 0A         [ 7]  384 	add	a, #0x0A
-   01E4 6F            [ 4]  385 	ld	l, a
-   01E5 FD 7E 01      [19]  386 	ld	a, 1 (iy)
-   01E8 CE 00         [ 7]  387 	adc	a, #0x00
-   01EA 67            [ 4]  388 	ld	h, a
-   01EB C9            [10]  389 	ret
-                            390 	.area _CODE
-                            391 	.area _INITIALIZER
-                            392 	.area _CABS (ABS)
+   01A5 DD 21 00 00   [14]  337 	ld	ix,#0
+   01A9 DD 39         [15]  338 	add	ix,sp
+                            339 ;src/score/score.c:45: borrarPantalla(60, 14, 20, 6);
+   01AB 21 14 06      [10]  340 	ld	hl,#0x0614
+   01AE E5            [11]  341 	push	hl
+   01AF 21 3C 0E      [10]  342 	ld	hl,#0x0E3C
+   01B2 E5            [11]  343 	push	hl
+   01B3 CDr00r00      [17]  344 	call	_borrarPantalla
+   01B6 F1            [10]  345 	pop	af
+   01B7 F1            [10]  346 	pop	af
+                            347 ;src/score/score.c:47: for(i = 0; i<vidas; i++){
+   01B8 0E 00         [ 7]  348 	ld	c,#0x00
+   01BA                     349 00105$:
+   01BA 79            [ 4]  350 	ld	a,c
+   01BB DD 96 04      [19]  351 	sub	a, 4 (ix)
+   01BE 30 43         [12]  352 	jr	NC,00107$
+                            353 ;src/score/score.c:48: if(i%20 == 0){
+   01C0 C5            [11]  354 	push	bc
+   01C1 3E 14         [ 7]  355 	ld	a,#0x14
+   01C3 F5            [11]  356 	push	af
+   01C4 33            [ 6]  357 	inc	sp
+   01C5 79            [ 4]  358 	ld	a,c
+   01C6 F5            [11]  359 	push	af
+   01C7 33            [ 6]  360 	inc	sp
+   01C8 CDr00r00      [17]  361 	call	__moduchar
+   01CB F1            [10]  362 	pop	af
+   01CC C1            [10]  363 	pop	bc
+   01CD 7D            [ 4]  364 	ld	a,l
+   01CE B7            [ 4]  365 	or	a, a
+   01CF 20 2F         [12]  366 	jr	NZ,00106$
+                            367 ;src/score/score.c:49: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + (i/20)*4, 14); // dibuja 5 corazones
+   01D1 C5            [11]  368 	push	bc
+   01D2 3E 14         [ 7]  369 	ld	a,#0x14
+   01D4 F5            [11]  370 	push	af
+   01D5 33            [ 6]  371 	inc	sp
+   01D6 79            [ 4]  372 	ld	a,c
+   01D7 F5            [11]  373 	push	af
+   01D8 33            [ 6]  374 	inc	sp
+   01D9 CDr00r00      [17]  375 	call	__divuchar
+   01DC F1            [10]  376 	pop	af
+   01DD C1            [10]  377 	pop	bc
+   01DE 7D            [ 4]  378 	ld	a,l
+   01DF 87            [ 4]  379 	add	a, a
+   01E0 87            [ 4]  380 	add	a, a
+   01E1 C6 3C         [ 7]  381 	add	a, #0x3C
+   01E3 47            [ 4]  382 	ld	b,a
+   01E4 C5            [11]  383 	push	bc
+   01E5 3E 0E         [ 7]  384 	ld	a,#0x0E
+   01E7 F5            [11]  385 	push	af
+   01E8 33            [ 6]  386 	inc	sp
+   01E9 C5            [11]  387 	push	bc
+   01EA 33            [ 6]  388 	inc	sp
+   01EB 21 00 C0      [10]  389 	ld	hl,#0xC000
+   01EE E5            [11]  390 	push	hl
+   01EF CDr00r00      [17]  391 	call	_cpct_getScreenPtr
+   01F2 EB            [ 4]  392 	ex	de,hl
+   01F3 21 03 06      [10]  393 	ld	hl,#0x0603
+   01F6 E5            [11]  394 	push	hl
+   01F7 D5            [11]  395 	push	de
+   01F8 21r00r00      [10]  396 	ld	hl,#_g_heart
+   01FB E5            [11]  397 	push	hl
+   01FC CDr00r00      [17]  398 	call	_cpct_drawSprite
+   01FF C1            [10]  399 	pop	bc
+   0200                     400 00106$:
+                            401 ;src/score/score.c:47: for(i = 0; i<vidas; i++){
+   0200 0C            [ 4]  402 	inc	c
+   0201 18 B7         [12]  403 	jr	00105$
+   0203                     404 00107$:
+   0203 DD E1         [14]  405 	pop	ix
+   0205 C9            [10]  406 	ret
+                            407 ;src/score/score.c:55: u16 aumentarPuntuacion(u16 puntuacion){
+                            408 ;	---------------------------------
+                            409 ; Function aumentarPuntuacion
+                            410 ; ---------------------------------
+   0206                     411 _aumentarPuntuacion::
+                            412 ;src/score/score.c:56: return puntuacion + 10;
+   0206 FD 21 02 00   [14]  413 	ld	iy,#2
+   020A FD 39         [15]  414 	add	iy,sp
+   020C FD 7E 00      [19]  415 	ld	a,0 (iy)
+   020F C6 0A         [ 7]  416 	add	a, #0x0A
+   0211 6F            [ 4]  417 	ld	l, a
+   0212 FD 7E 01      [19]  418 	ld	a, 1 (iy)
+   0215 CE 00         [ 7]  419 	adc	a, #0x00
+   0217 67            [ 4]  420 	ld	h, a
+   0218 C9            [10]  421 	ret
+                            422 	.area _CODE
+                            423 	.area _INITIALIZER
+                            424 	.area _CABS (ABS)

@@ -10,7 +10,6 @@ typedef struct {
   u8  mover;
   u8  mira;
   u8  muerto;
-  u8  colision;
   u8  muertes;
   u8  patrolling;  // esta patrullando?
   u8  reversePatrol;
@@ -23,6 +22,7 @@ typedef struct {
   u8  seek;    // esta buscando al prota?
   u8  seekTimer; // contador de tiempo buscando
   u8  engage; // esta atacando/persiguiendo al jugador?
+  u8  didDamage;
   u8  p_seek_x;
   u8  p_seek_y;
   u8  xplot;

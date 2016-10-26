@@ -40,12 +40,15 @@ void modificarPuntuacion(u16 puntuacion){
 }
 
 void modificarVidas(u8 vidas){
-  u8* memptr;
-  int i;
+  u8 i;
+  u8 *memptr;
+  borrarPantalla(60, 14, 20, 6);
 
-  for(i=0; i<5; i++){
-    memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
-    cpct_drawSprite (g_heart, memptr, G_HEART_W, G_HEART_H);
+  for(i = 0; i<vidas; i++){
+    if(i%20 == 0){
+      memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + (i/20)*4, 14); // dibuja 5 corazones
+      cpct_drawSprite (g_heart, memptr, G_HEART_W, G_HEART_H);
+    }
   }
 }
 

@@ -76,7 +76,7 @@
    3F26 33            [ 6]   76 	inc	sp
    3F27 21 00 C0      [10]   77 	ld	hl,#0xC000
    3F2A E5            [11]   78 	push	hl
-   3F2B CD 52 60      [17]   79 	call	_cpct_getScreenPtr
+   3F2B CD 7F 60      [17]   79 	call	_cpct_getScreenPtr
    3F2E D1            [10]   80 	pop	de
    3F2F 33            [ 6]   81 	inc	sp
    3F30 33            [ 6]   82 	inc	sp
@@ -118,7 +118,7 @@
    3F68 DD 66 FF      [19]  118 	ld	h,-1 (ix)
    3F6B E5            [11]  119 	push	hl
    3F6C C5            [11]  120 	push	bc
-   3F6D CD 72 60      [17]  121 	call	_cpct_drawSpriteMaskedAlignedTable
+   3F6D CD 9F 60      [17]  121 	call	_cpct_drawSpriteMaskedAlignedTable
    3F70 18 1B         [12]  122 	jr	00106$
    3F72                     123 00104$:
                             124 ;src/knifestruct.c:9: else if(cu->eje == E_Y){
@@ -140,7 +140,7 @@
    3F85 DD 66 FF      [19]  140 	ld	h,-1 (ix)
    3F88 E5            [11]  141 	push	hl
    3F89 C5            [11]  142 	push	bc
-   3F8A CD 72 60      [17]  143 	call	_cpct_drawSpriteMaskedAlignedTable
+   3F8A CD 9F 60      [17]  143 	call	_cpct_drawSpriteMaskedAlignedTable
    3F8D                     144 00106$:
    3F8D DD F9         [10]  145 	ld	sp, ix
    3F8F DD E1         [14]  146 	pop	ix
@@ -244,7 +244,7 @@
    401A 33            [ 6]  244 	inc	sp
    401B D5            [11]  245 	push	de
    401C 33            [ 6]  246 	inc	sp
-   401D CD 34 55      [17]  247 	call	_cpct_etm_drawTileBox2x4
+   401D CD 61 55      [17]  247 	call	_cpct_etm_drawTileBox2x4
    4020 DD F9         [10]  248 	ld	sp, ix
    4022 DD E1         [14]  249 	pop	ix
    4024 C9            [10]  250 	ret

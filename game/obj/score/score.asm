@@ -334,20 +334,57 @@ _modificarPuntuacion::
 ; ---------------------------------
 _modificarVidas::
 	push	ix
-;src/score/score.c:46: for(i=0; i<5; i++){
-	ld	bc,#0x0000
-00102$:
-;src/score/score.c:47: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + i*4, 14); // dibuja 5 corazones
+	ld	ix,#0
+	add	ix,sp
+;src/score/score.c:45: borrarPantalla(60, 14, 20, 6);
+	ld	hl,#0x0614
+	push	hl
+	ld	hl,#0x0E3C
+	push	hl
+	call	_borrarPantalla
+	pop	af
+	pop	af
+;src/score/score.c:47: for(i = 0; i<vidas; i++){
+	ld	c,#0x00
+00105$:
 	ld	a,c
+	sub	a, 4 (ix)
+	jr	NC,00107$
+;src/score/score.c:48: if(i%20 == 0){
+	push	bc
+	ld	a,#0x14
+	push	af
+	inc	sp
+	ld	a,c
+	push	af
+	inc	sp
+	call	__moduchar
+	pop	af
+	pop	bc
+	ld	a,l
+	or	a, a
+	jr	NZ,00106$
+;src/score/score.c:49: memptr = cpct_getScreenPtr(CPCT_VMEM_START, 60 + (i/20)*4, 14); // dibuja 5 corazones
+	push	bc
+	ld	a,#0x14
+	push	af
+	inc	sp
+	ld	a,c
+	push	af
+	inc	sp
+	call	__divuchar
+	pop	af
+	pop	bc
+	ld	a,l
 	add	a, a
 	add	a, a
 	add	a, #0x3C
-	ld	d,a
+	ld	b,a
 	push	bc
 	ld	a,#0x0E
 	push	af
 	inc	sp
-	push	de
+	push	bc
 	inc	sp
 	ld	hl,#0xC000
 	push	hl
@@ -360,24 +397,19 @@ _modificarVidas::
 	push	hl
 	call	_cpct_drawSprite
 	pop	bc
-;src/score/score.c:46: for(i=0; i<5; i++){
-	inc	bc
-	ld	a,c
-	sub	a, #0x05
-	ld	a,b
-	rla
-	ccf
-	rra
-	sbc	a, #0x80
-	jr	C,00102$
+00106$:
+;src/score/score.c:47: for(i = 0; i<vidas; i++){
+	inc	c
+	jr	00105$
+00107$:
 	pop	ix
 	ret
-;src/score/score.c:52: u16 aumentarPuntuacion(u16 puntuacion){
+;src/score/score.c:55: u16 aumentarPuntuacion(u16 puntuacion){
 ;	---------------------------------
 ; Function aumentarPuntuacion
 ; ---------------------------------
 _aumentarPuntuacion::
-;src/score/score.c:53: return puntuacion + 10;
+;src/score/score.c:56: return puntuacion + 10;
 	ld	iy,#2
 	add	iy,sp
 	ld	a,0 (iy)
