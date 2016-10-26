@@ -1407,7 +1407,7 @@ _moverEnemigoPatrol::
 	or	a, a
 	jp	NZ,00118$
 ;src/main.c:301: if (!enemy->reversePatrol) {
-	ld	hl,#0x000C
+	ld	hl,#0x000B
 	add	hl,bc
 	ld	-2 (ix),l
 	ld	-1 (ix),h
@@ -1416,7 +1416,7 @@ _moverEnemigoPatrol::
 	ld	a,(hl)
 	ld	-3 (ix),a
 ;src/main.c:302: if(enemy->iter < enemy->longitud_camino){
-	ld	hl,#0x000E
+	ld	hl,#0x000D
 	add	hl,bc
 	ld	-5 (ix),l
 	ld	-4 (ix),h
@@ -1797,7 +1797,7 @@ _lookFor::
 	add	hl, bc
 	ld	-5 (ix),l
 ;src/main.c:360: enemy->seen = NO;
-	ld	hl,#0x0012
+	ld	hl,#0x0011
 	add	hl,de
 	ld	-2 (ix),l
 	ld	-1 (ix),h
@@ -1805,7 +1805,7 @@ _lookFor::
 	ld	h,-1 (ix)
 	ld	(hl),#0x00
 ;src/main.c:361: enemy->in_range = NO;
-	ld	hl,#0x0011
+	ld	hl,#0x0010
 	add	hl,de
 	ld	c,l
 	ld	b,h
@@ -1814,7 +1814,7 @@ _lookFor::
 ;src/main.c:363: if(!enemy->seek){
 	push	de
 	pop	iy
-	ld	a,20 (iy)
+	ld	a,19 (iy)
 	or	a, a
 	jp	NZ,00111$
 ;src/main.c:364: if (dist <= 10) {// te detectan los sensores de proximidad
@@ -1825,7 +1825,7 @@ _lookFor::
 	ld	a,#0x01
 	ld	(bc),a
 ;src/main.c:366: enemy->engage = 1;
-	ld	hl,#0x0016
+	ld	hl,#0x0015
 	add	hl,de
 	ld	(hl),#0x01
 ;src/main.c:367: enemy->seen = SI;
@@ -1925,7 +1925,7 @@ _moverEnemigoSeek::
 	or	a, a
 	jp	NZ,00114$
 ;src/main.c:380: if(actual->iter < actual->longitud_camino){
-	ld	hl,#0x000E
+	ld	hl,#0x000D
 	add	hl,bc
 	ld	-8 (ix),l
 	ld	-7 (ix),h
@@ -2057,7 +2057,7 @@ _moverEnemigoSeek::
 	jp	00114$
 00110$:
 ;src/main.c:403: actual->seek = 0;
-	ld	hl,#0x0014
+	ld	hl,#0x0013
 	add	hl,bc
 	ex	(sp), hl
 	pop	hl
@@ -2072,12 +2072,12 @@ _moverEnemigoSeek::
 ;src/main.c:405: if(!actual->seen){
 	ld	l, c
 	ld	h, b
-	ld	de, #0x0012
+	ld	de, #0x0011
 	add	hl, de
 	ld	a,(hl)
 	ld	-3 (ix),a
 ;src/main.c:406: actual->patrolling = 1;
-	ld	hl,#0x000B
+	ld	hl,#0x000A
 	add	hl,bc
 	ld	-5 (ix),l
 	ld	-4 (ix),h
@@ -2125,7 +2125,7 @@ _moverEnemigoSeek::
 ;src/main.c:410: if(!actual->engage){
 	push	bc
 	pop	iy
-	ld	a,22 (iy)
+	ld	a,21 (iy)
 	or	a, a
 	jr	NZ,00108$
 ;src/main.c:411: actual->seek = 1;
@@ -2180,16 +2180,16 @@ _engage::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	hl,#-19
+	ld	hl,#-16
 	add	hl,sp
 	ld	sp,hl
 ;src/main.c:422: u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
 	ld	a,4 (ix)
-	ld	-15 (ix),a
+	ld	-12 (ix),a
 	ld	a,5 (ix)
-	ld	-14 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	-11 (ix),a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	c,(hl)
 	ld	b,#0x00
 	ld	hl,#_prota+0
@@ -2206,14 +2206,14 @@ _engage::
 	pop	af
 	ld	c,l
 ;src/main.c:423: u8 dify = abs(enemy->y - prota.y);
-	ld	a,-15 (ix)
+	ld	a,-12 (ix)
 	add	a, #0x01
-	ld	-13 (ix),a
-	ld	a,-14 (ix)
+	ld	-10 (ix),a
+	ld	a,-11 (ix)
 	adc	a, #0x00
-	ld	-12 (ix),a
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	ld	-9 (ix),a
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	e,(hl)
 	ld	d,#0x00
 	ld	hl, #_prota + 1
@@ -2232,32 +2232,25 @@ _engage::
 	pop	bc
 ;src/main.c:424: u8 dist = difx + dify; // manhattan
 	add	hl, bc
-	ld	-19 (ix),l
+	ld	-16 (ix),l
 ;src/main.c:426: u8 movX = 0;
-	ld	-16 (ix),#0x00
+	ld	-13 (ix),#0x00
 ;src/main.c:427: u8 movY = 0;
-	ld	-17 (ix),#0x00
+	ld	-14 (ix),#0x00
 ;src/main.c:428: u8 distConstraint = 25;
-	ld	-18 (ix),#0x19
+	ld	-15 (ix),#0x19
 ;src/main.c:429: enemy->mover = NO;
-	ld	a,-15 (ix)
+	ld	a,-12 (ix)
 	add	a, #0x06
-	ld	-11 (ix),a
-	ld	a,-14 (ix)
+	ld	-8 (ix),a
+	ld	a,-11 (ix)
 	adc	a, #0x00
-	ld	-10 (ix),a
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+	ld	-7 (ix),a
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x00
-;src/main.c:438: enemy->patrolling = 1;
-	ld	a,-15 (ix)
-	add	a, #0x0B
-	ld	c,a
-	ld	a,-14 (ix)
-	adc	a, #0x00
-	ld	b,a
 ;src/main.c:431: if (dist < 20) {
-	ld	a,-19 (ix)
+	ld	a,-16 (ix)
 	sub	a, #0x14
 	jr	NC,00104$
 ;src/main.c:432: vidas--;
@@ -2271,80 +2264,72 @@ _engage::
 	ld	iy,#_puntuacion
 	ld	l,0 (iy)
 	ld	h,#0x00
-	push	bc
 	call	_menuFin
-	pop	bc
 00102$:
-;src/main.c:438: enemy->patrolling = 1;
-	ld	a,#0x01
-	ld	(bc),a
-;src/main.c:439: enemy->engage = 0;
-	ld	a,-15 (ix)
+;src/main.c:438: enemy->didDamage = 1;
+	ld	a,-12 (ix)
 	add	a, #0x16
-	ld	e,a
-	ld	a,-14 (ix)
+	ld	l,a
+	ld	a,-11 (ix)
 	adc	a, #0x00
-	ld	d,a
-	xor	a, a
-	ld	(de),a
+	ld	h,a
+	ld	(hl),#0x01
 00104$:
-;src/main.c:442: if (!enemy->patrolling) {
-	ld	a,(bc)
-	ld	-9 (ix), a
-	or	a, a
-	jp	NZ,00205$
-;src/main.c:443: if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:441: if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
-	ld	-9 (ix),a
+	ld	-6 (ix),a
 ;src/main.c:422: u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	a,(hl)
-;src/main.c:456: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
-	ld	-8 (ix), a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+;src/main.c:454: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+	ld	a,b
 	add	a, #0x04
-	ld	-7 (ix),a
-;src/main.c:443: if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
-	ld	a,-9 (ix)
-	sub	a, 7 (ix)
-	jr	Z,00198$
-	ld	c,7 (ix)
-	ld	b,#0x00
-	ld	hl,#0x0001
-	add	hl,bc
-	ld	-6 (ix),l
-	ld	-5 (ix),h
-	ld	e,-9 (ix)
-	ld	d,#0x00
-	ld	a,e
+	ld	-5 (ix),a
+;src/main.c:441: if (enemy->y == dy || enemy->y == dy + 1 || enemy->y == dy - 1) { // alineado en el eje x
+	ld	a,7 (ix)
 	sub	a, -6 (ix)
-	jr	NZ,00442$
-	ld	a,d
-	sub	a, -5 (ix)
 	jr	Z,00198$
-00442$:
-	dec	bc
-	ld	a,e
-	sub	a, c
+	ld	e,7 (ix)
+	ld	d,#0x00
+	ld	hl,#0x0001
+	add	hl,de
+	ld	-4 (ix),l
+	ld	-3 (ix),h
+	ld	a,-6 (ix)
+	ld	-2 (ix),a
+	ld	-1 (ix),#0x00
+	ld	a,-4 (ix)
+	sub	a, -2 (ix)
+	jr	NZ,00436$
+	ld	a,-3 (ix)
+	sub	a, -1 (ix)
+	jr	Z,00198$
+00436$:
+	dec	de
+	ld	a,-2 (ix)
+	sub	a, e
 	jp	NZ,00199$
-	ld	a,d
-	sub	a, b
+	ld	a,-1 (ix)
+	sub	a, d
 	jp	NZ,00199$
 00198$:
-;src/main.c:444: if (dx < enemy->x) { // izquierda
+;src/main.c:442: if (dx < enemy->x) { // izquierda
 	ld	a,6 (ix)
-	sub	a, -8 (ix)
-	jr	NC,00118$
-;src/main.c:445: if (dist > 11) {
+	sub	a, b
+	jp	NC,00118$
+;src/main.c:443: if (dist > 11) {
 	ld	a,#0x0B
-	sub	a, -19 (ix)
-	jp	NC,00205$
-;src/main.c:446: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
-	ld	h,-9 (ix)
-	ld	l,-8 (ix)
-	push	hl
+	sub	a, -16 (ix)
+	jp	NC,00203$
+;src/main.c:444: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+	ld	a,-6 (ix)
+	push	af
+	inc	sp
+	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -2353,17 +2338,20 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:447: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:445: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	c, (hl)
+	ld	d,a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	push	de
+	inc	sp
 	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -2372,17 +2360,20 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:448: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:446: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x16
-	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	c, (hl)
+	ld	d,a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	push	de
+	inc	sp
 	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -2391,26 +2382,26 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:449: moverEnemigoIzquierda(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	jp	C,00203$
+;src/main.c:447: moverEnemigoIzquierda(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoIzquierda
 	pop	af
-;src/main.c:451: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:449: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00118$:
-;src/main.c:455: if (dist > G_ENEMY_W + 3) {
+;src/main.c:453: if (dist > G_ENEMY_W + 3) {
 	ld	a,#0x07
-	sub	a, -19 (ix)
-	jp	NC,00205$
-;src/main.c:456: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
-	ld	h,-9 (ix)
-	ld	l,-7 (ix)
+	sub	a, -16 (ix)
+	jp	NC,00203$
+;src/main.c:454: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+	ld	h,-6 (ix)
+	ld	l,-5 (ix)
 	push	hl
 	ld	hl,(_mapa)
 	push	hl
@@ -2420,15 +2411,15 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:457: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:455: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x0B
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2443,15 +2434,15 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:458: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:456: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x16
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2466,39 +2457,38 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:459: moverEnemigoDerecha(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	jp	C,00203$
+;src/main.c:457: moverEnemigoDerecha(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoDerecha
 	pop	af
-;src/main.c:461: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:459: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00199$:
-;src/main.c:466: else if (enemy->x == dx) {
-	ld	a,-8 (ix)
-	sub	a, 6 (ix)
+;src/main.c:464: else if (enemy->x == dx) {
+	ld	a,6 (ix)
+	sub	a, b
 	jp	NZ,00196$
-;src/main.c:467: if (dy < enemy->y) {
+;src/main.c:465: if (dy < enemy->y) {
 	ld	a,7 (ix)
-	sub	a, -9 (ix)
+	sub	a, -6 (ix)
 	jp	NC,00133$
-;src/main.c:468: if (dist > G_HERO_H + 5) {
+;src/main.c:466: if (dist > G_HERO_H + 5) {
 	ld	a,#0x1B
-	sub	a, -19 (ix)
-	jp	NC,00205$
-;src/main.c:469: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
-	ld	b,-9 (ix)
-	dec	b
-	dec	b
-	push	bc
+	sub	a, -16 (ix)
+	jp	NC,00203$
+;src/main.c:467: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+	ld	d,-6 (ix)
+	dec	d
+	dec	d
+	push	de
 	inc	sp
-	ld	a,-8 (ix)
-	push	af
+	push	bc
 	inc	sp
 	ld	hl,(_mapa)
 	push	hl
@@ -2508,20 +2498,22 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:470: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
-	ld	b,(hl)
-	dec	b
-	dec	b
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	jp	C,00203$
+;src/main.c:468: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	d,(hl)
-	inc	d
-	inc	d
-	ld	c, d
+	dec	d
+	dec	d
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	inc	b
+	inc	b
+	push	de
+	inc	sp
 	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -2530,15 +2522,15 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:471: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:469: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	b,(hl)
 	dec	b
 	dec	b
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2553,31 +2545,30 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:472: moverEnemigoArriba(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	jp	C,00203$
+;src/main.c:470: moverEnemigoArriba(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoArriba
 	pop	af
-;src/main.c:474: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:472: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00133$:
-;src/main.c:478: if(dist > G_ENEMY_H + 7) {
+;src/main.c:476: if(dist > G_ENEMY_H + 7) {
 	ld	a,#0x1D
-	sub	a, -19 (ix)
-	jp	NC,00205$
-;src/main.c:479: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	a,-9 (ix)
+	sub	a, -16 (ix)
+	jp	NC,00203$
+;src/main.c:477: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+	ld	a,-6 (ix)
 	add	a, #0x18
-	ld	b,a
-	push	bc
+	ld	d,a
+	push	de
 	inc	sp
-	ld	a,-8 (ix)
-	push	af
+	push	bc
 	inc	sp
 	ld	hl,(_mapa)
 	push	hl
@@ -2587,20 +2578,22 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:480: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:478: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
-	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	d,(hl)
-	inc	d
-	inc	d
-	ld	c, d
+	ld	d,a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	inc	b
+	inc	b
+	push	de
+	inc	sp
 	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -2609,15 +2602,15 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:481: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	jp	C,00203$
+;src/main.c:479: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2632,73 +2625,68 @@ _engage::
 	ld	c,(hl)
 	ld	a,#0x02
 	sub	a, c
-	jp	C,00205$
-;src/main.c:482: moverEnemigoAbajo(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	jp	C,00203$
+;src/main.c:480: moverEnemigoAbajo(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoAbajo
 	pop	af
-;src/main.c:484: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:482: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00196$:
-;src/main.c:490: if (!prota.mover) distConstraint = 20; // ajuste en parado
+;src/main.c:488: if (!prota.mover) distConstraint = 20; // ajuste en parado
 	ld	a, (#_prota + 6)
 	or	a, a
 	jr	NZ,00136$
-	ld	-18 (ix),#0x14
+	ld	-15 (ix),#0x14
 00136$:
-;src/main.c:492: if (dist > distConstraint) {
-	ld	a,-18 (ix)
-	sub	a, -19 (ix)
-	jp	NC,00205$
-;src/main.c:493: if (dx + 1 < enemy->x) {
-	ld	c,6 (ix)
-	ld	b,#0x00
-	inc	bc
-	ld	-6 (ix),c
-	ld	-5 (ix),b
-	ld	a,-8 (ix)
-	ld	-4 (ix),a
+;src/main.c:490: if (dist > distConstraint) {
+	ld	a,-15 (ix)
+	sub	a, -16 (ix)
+	jp	NC,00203$
+;src/main.c:491: if (dx + 1 < enemy->x) {
+	ld	e,6 (ix)
+	ld	d,#0x00
+	inc	de
+	ld	-2 (ix),e
+	ld	-1 (ix),d
+	ld	-4 (ix),b
 	ld	-3 (ix),#0x00
-	ld	a,-6 (ix)
+	ld	a,-2 (ix)
 	sub	a, -4 (ix)
-	ld	a,-5 (ix)
+	ld	a,-1 (ix)
 	sbc	a, -3 (ix)
-	jp	PO, 00447$
+	jp	PO, 00441$
 	xor	a, #0x80
-00447$:
+00441$:
 	jp	P,00148$
-;src/main.c:494: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+;src/main.c:492: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+	ld	a,-6 (ix)
+	push	af
+	inc	sp
+	push	bc
+	inc	sp
+	ld	hl,(_mapa)
+	push	hl
+	call	_getTilePtr
+	pop	af
+	pop	af
+	ld	c,(hl)
+	ld	a,#0x02
+	sub	a, c
+	jp	C,00149$
+;src/main.c:493: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
 	ld	h,-9 (ix)
-	ld	l,-8 (ix)
-	push	hl
-	ld	hl,(_mapa)
-	push	hl
-	call	_getTilePtr
-	pop	af
-	pop	af
-	ld	-1 (ix),h
-	ld	-2 (ix), l
-	ld	h,-1 (ix)
-	ld	c,(hl)
-	ld	a,#0x02
-	sub	a, c
-	jp	C,00149$
-;src/main.c:495: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
 	ld	a,(hl)
-	ld	-2 (ix), a
 	add	a, #0x0B
-	ld	-2 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	b,(hl)
-	ld	a,-2 (ix)
 	push	af
 	inc	sp
 	push	bc
@@ -2712,17 +2700,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00149$
-;src/main.c:496: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:494: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
-	ld	-2 (ix), a
 	add	a, #0x16
-	ld	-2 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	b,(hl)
-	ld	a,-2 (ix)
 	push	af
 	inc	sp
 	push	bc
@@ -2736,32 +2721,32 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00149$
-;src/main.c:497: moverEnemigoIzquierda(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:495: moverEnemigoIzquierda(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoIzquierda
 	pop	af
-;src/main.c:498: movX = 1;
-	ld	-16 (ix),#0x01
-;src/main.c:499: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:496: movX = 1;
+	ld	-13 (ix),#0x01
+;src/main.c:497: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00149$
 00148$:
-;src/main.c:501: } else if (dx + 1 > enemy->x){
+;src/main.c:499: } else if (dx + 1 > enemy->x){
 	ld	a,-4 (ix)
-	sub	a, -6 (ix)
+	sub	a, -2 (ix)
 	ld	a,-3 (ix)
-	sbc	a, -5 (ix)
-	jp	PO, 00448$
+	sbc	a, -1 (ix)
+	jp	PO, 00442$
 	xor	a, #0x80
-00448$:
+00442$:
 	jp	P,00149$
-;src/main.c:502: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
-	ld	h,-9 (ix)
-	ld	l,-7 (ix)
+;src/main.c:500: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+	ld	h,-6 (ix)
+	ld	l,-5 (ix)
 	push	hl
 	ld	hl,(_mapa)
 	push	hl
@@ -2772,14 +2757,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00149$
-;src/main.c:503: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:501: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x0B
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2795,14 +2780,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00149$
-;src/main.c:504: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:502: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x16
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2818,41 +2803,38 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00149$
-;src/main.c:505: moverEnemigoDerecha(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:503: moverEnemigoDerecha(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoDerecha
 	pop	af
-;src/main.c:506: movX = 1;
-	ld	-16 (ix),#0x01
-;src/main.c:507: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:504: movX = 1;
+	ld	-13 (ix),#0x01
+;src/main.c:505: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 00149$:
-;src/main.c:510: if (dy < enemy->y) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
-	ld	a,(hl)
-	ld	-2 (ix),a
+;src/main.c:508: if (dy < enemy->y) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
+	ld	c,(hl)
 ;src/main.c:422: u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	a,(hl)
-	ld	-4 (ix),a
-;src/main.c:510: if (dy < enemy->y) {
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+;src/main.c:508: if (dy < enemy->y) {
 	ld	a,7 (ix)
-	sub	a, -2 (ix)
+	sub	a, c
 	jp	NC,00159$
-;src/main.c:511: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
-	ld	b,-2 (ix)
-	dec	b
-	dec	b
-	push	bc
+;src/main.c:509: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+	ld	d,c
+	dec	d
+	dec	d
+	push	de
 	inc	sp
-	ld	a,-4 (ix)
-	push	af
+	push	bc
 	inc	sp
 	ld	hl,(_mapa)
 	push	hl
@@ -2863,14 +2845,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00160$
-;src/main.c:512: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:510: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	d,(hl)
 	dec	d
 	dec	d
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	b,(hl)
 	inc	b
 	inc	b
@@ -2887,14 +2869,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00160$
-;src/main.c:513: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:511: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	b,(hl)
 	dec	b
 	dec	b
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2910,28 +2892,27 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jp	C,00160$
-;src/main.c:514: moverEnemigoArriba(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:512: moverEnemigoArriba(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoArriba
 	pop	af
-;src/main.c:515: movY = 1;
-	ld	-17 (ix),#0x01
-;src/main.c:516: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:513: movY = 1;
+	ld	-14 (ix),#0x01
+;src/main.c:514: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00160$
 00159$:
-;src/main.c:519: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	a,-2 (ix)
+;src/main.c:517: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+	ld	a,c
 	add	a, #0x18
-	ld	b,a
-	push	bc
+	ld	d,a
+	push	de
 	inc	sp
-	ld	a,-4 (ix)
-	push	af
+	push	bc
 	inc	sp
 	ld	hl,(_mapa)
 	push	hl
@@ -2942,14 +2923,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00160$
-;src/main.c:520: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:518: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	d,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	b,(hl)
 	inc	b
 	inc	b
@@ -2966,14 +2947,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00160$
-;src/main.c:521: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:519: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -2989,42 +2970,42 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00160$
-;src/main.c:522: moverEnemigoAbajo(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:520: moverEnemigoAbajo(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoAbajo
 	pop	af
-;src/main.c:523: movY = 1;
-	ld	-17 (ix),#0x01
-;src/main.c:524: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:521: movY = 1;
+	ld	-14 (ix),#0x01
+;src/main.c:522: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 00160$:
-;src/main.c:527: if (!enemy->mover) {
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:525: if (!enemy->mover) {
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	a,(hl)
 	or	a, a
-	jp	NZ,00205$
-;src/main.c:528: if (!movX) {
-	ld	a,-16 (ix)
+	jp	NZ,00203$
+;src/main.c:526: if (!movX) {
+	ld	a,-13 (ix)
 	or	a, a
 	jp	NZ,00175$
-;src/main.c:529: if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:527: if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	e,(hl)
 ;src/main.c:422: u8 difx = abs(enemy->x - prota.x); // calculo distancia para mantener una dist
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	c,(hl)
-;src/main.c:529: if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
+;src/main.c:527: if (enemy->y > (ORIGEN_MAPA_Y + ALTO_MAPA/2)) {
 	ld	a,#0x70
 	sub	a, e
 	jp	NC,00172$
-;src/main.c:530: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
+;src/main.c:528: if(*getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H + 2) <= 2
 	ld	a,e
 	add	a, #0x18
 	ld	b,a
@@ -3038,14 +3019,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00162$
-;src/main.c:531: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:529: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y + G_ENEMY_H + 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	d,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	c,(hl)
 	ld	b,c
 	inc	b
@@ -3063,14 +3044,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00162$
-;src/main.c:532: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:530: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H + 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x18
 	ld	b,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -3086,31 +3067,31 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00162$
-;src/main.c:533: moverEnemigoAbajo(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:531: moverEnemigoAbajo(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoAbajo
 	pop	af
-;src/main.c:534: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:532: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00175$
 00162$:
-;src/main.c:536: moverEnemigoArriba(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:534: moverEnemigoArriba(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoArriba
 	pop	af
-;src/main.c:537: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:535: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jp	00175$
 00172$:
-;src/main.c:540: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
+;src/main.c:538: if(*getTilePtr(mapa, enemy->x, enemy->y - 2) <= 2
 	ld	b,e
 	dec	b
 	dec	b
@@ -3124,14 +3105,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00167$
-;src/main.c:541: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:539: && *getTilePtr(mapa, enemy->x + G_ENEMY_W / 2, enemy->y - 2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	d,(hl)
 	dec	d
 	dec	d
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	b,(hl)
 	inc	b
 	inc	b
@@ -3148,14 +3129,14 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00167$
-;src/main.c:542: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:540: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y - 2) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	b,(hl)
 	dec	b
 	dec	b
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
 	add	a, #0x04
 	push	bc
@@ -3171,175 +3152,152 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00167$
-;src/main.c:543: moverEnemigoArriba(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:541: moverEnemigoArriba(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoArriba
 	pop	af
-;src/main.c:544: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:542: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 	jr	00175$
 00167$:
-;src/main.c:546: moverEnemigoAbajo(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:544: moverEnemigoAbajo(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoAbajo
 	pop	af
-;src/main.c:547: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:545: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
 00175$:
-;src/main.c:552: if (!movY) {
-	ld	a,-17 (ix)
+;src/main.c:550: if (!movY) {
+	ld	a,-14 (ix)
 	or	a, a
-	jp	NZ,00205$
-;src/main.c:553: if (enemy->x < ANCHO_PANTALLA/2) {
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	a,(hl)
-	ld	-2 (ix),a
+	jp	NZ,00203$
+;src/main.c:551: if (enemy->x < ANCHO_PANTALLA/2) {
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	c,(hl)
 ;src/main.c:423: u8 dify = abs(enemy->y - prota.y);
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
-	ld	a,(hl)
-	ld	-4 (ix),a
-;src/main.c:553: if (enemy->x < ANCHO_PANTALLA/2) {
-	ld	a,-2 (ix)
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
+	ld	b,(hl)
+;src/main.c:551: if (enemy->x < ANCHO_PANTALLA/2) {
+	ld	a,c
 	sub	a, #0x28
 	jp	NC,00187$
-;src/main.c:554: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
-	ld	h,-4 (ix)
-	ld	l,-2 (ix)
-	push	hl
+;src/main.c:552: if(*getTilePtr(mapa, enemy->x, enemy->y) <= 2
+	push	bc
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
 	pop	af
 	pop	af
-	ld	-5 (ix),h
-	ld	-6 (ix), l
-	ld	h,-5 (ix)
-	ld	a,(hl)
-	ld	-6 (ix),a
+	ld	c,(hl)
 	ld	a,#0x02
-	sub	a, -6 (ix)
-	jp	C,00177$
-;src/main.c:555: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+	sub	a, c
+	jr	C,00177$
+;src/main.c:553: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	-6 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	a,(hl)
-	ld	-7 (ix),a
-	ld	h,-6 (ix)
-	ld	l,-7 (ix)
-	push	hl
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	push	af
+	inc	sp
+	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
 	pop	af
 	pop	af
-	ld	-5 (ix),h
-	ld	-6 (ix), l
-	ld	h,-5 (ix)
-	ld	a,(hl)
-	ld	-6 (ix),a
+	ld	c,(hl)
 	ld	a,#0x02
-	sub	a, -6 (ix)
+	sub	a, c
 	jr	C,00177$
-;src/main.c:556: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:554: && *getTilePtr(mapa, enemy->x, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x16
-	ld	-6 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	a,(hl)
-	ld	-7 (ix),a
-	ld	h,-6 (ix)
-	ld	l,-7 (ix)
-	push	hl
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	b,(hl)
+	push	af
+	inc	sp
+	push	bc
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
 	pop	af
 	pop	af
-	ld	-5 (ix),h
-	ld	-6 (ix), l
-	ld	h,-5 (ix)
-	ld	a,(hl)
-	ld	-6 (ix),a
+	ld	c,(hl)
 	ld	a,#0x02
-	sub	a, -6 (ix)
+	sub	a, c
 	jr	C,00177$
-;src/main.c:557: moverEnemigoIzquierda(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:555: moverEnemigoIzquierda(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoIzquierda
 	pop	af
-;src/main.c:558: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:556: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00177$:
-;src/main.c:560: moverEnemigoDerecha(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:558: moverEnemigoDerecha(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoDerecha
 	pop	af
-;src/main.c:561: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:559: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jp	00205$
+	jp	00203$
 00187$:
-;src/main.c:564: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
-	ld	a,-2 (ix)
+;src/main.c:562: if(*getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y) <= 2
+	ld	a,c
 	add	a, #0x04
-	ld	-2 (ix),a
-	ld	h,-4 (ix)
-	ld	l,-2 (ix)
-	push	hl
+	push	bc
+	inc	sp
+	push	af
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
 	pop	af
 	pop	af
-	ld	-1 (ix),h
-	ld	-2 (ix), l
-	ld	h,-1 (ix)
-	ld	a,(hl)
-	ld	-2 (ix),a
+	ld	c,(hl)
 	ld	a,#0x02
-	sub	a, -2 (ix)
+	sub	a, c
 	jr	C,00182$
-;src/main.c:565: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:563: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H/2) <= 2
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x0B
-	ld	-2 (ix),a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+	ld	b,a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	ld	a,(hl)
-	ld	-4 (ix), a
 	add	a, #0x04
-	ld	-4 (ix),a
-	ld	h,-2 (ix)
-	ld	l,-4 (ix)
-	push	hl
+	push	bc
+	inc	sp
+	push	af
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -3349,21 +3307,20 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00182$
-;src/main.c:566: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
-	ld	l,-13 (ix)
-	ld	h,-12 (ix)
+;src/main.c:564: && *getTilePtr(mapa, enemy->x + G_ENEMY_W, enemy->y + G_ENEMY_H) <= 2) {
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	add	a, #0x16
-	ld	c,a
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
-	ld	e,(hl)
-	inc	e
-	inc	e
-	inc	e
-	inc	e
-	ld	d, c
-	push	de
+	ld	b,a
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
+	ld	a,(hl)
+	add	a, #0x04
+	push	bc
+	inc	sp
+	push	af
+	inc	sp
 	ld	hl,(_mapa)
 	push	hl
 	call	_getTilePtr
@@ -3373,33 +3330,33 @@ _engage::
 	ld	a,#0x02
 	sub	a, c
 	jr	C,00182$
-;src/main.c:567: moverEnemigoDerecha(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:565: moverEnemigoDerecha(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoDerecha
 	pop	af
-;src/main.c:568: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:566: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-	jr	00205$
+	jr	00203$
 00182$:
-;src/main.c:571: moverEnemigoIzquierda(enemy);
-	ld	l,-15 (ix)
-	ld	h,-14 (ix)
+;src/main.c:569: moverEnemigoIzquierda(enemy);
+	ld	l,-12 (ix)
+	ld	h,-11 (ix)
 	push	hl
 	call	_moverEnemigoIzquierda
 	pop	af
-;src/main.c:572: enemy->mover = SI;
-	ld	l,-11 (ix)
-	ld	h,-10 (ix)
+;src/main.c:570: enemy->mover = SI;
+	ld	l,-8 (ix)
+	ld	h,-7 (ix)
 	ld	(hl),#0x01
-00205$:
+00203$:
 	ld	sp, ix
 	pop	ix
 	ret
-;src/main.c:582: void updateEnemy(TEnemy* actual) { // maquina de estados
+;src/main.c:579: void updateEnemy(TEnemy* actual) { // maquina de estados
 ;	---------------------------------
 ; Function updateEnemy
 ; ---------------------------------
@@ -3410,22 +3367,21 @@ _updateEnemy::
 	ld	hl,#-12
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:589: if (actual->engage) { // prioridad a la persecucion, nunca te deja
+;src/main.c:586: if (actual->engage) { // prioridad a la persecucion, nunca te deja
 	ld	c,4 (ix)
 	ld	b,5 (ix)
-	ld	hl,#0x0016
+	ld	hl,#0x0015
 	add	hl,bc
-	ld	-4 (ix),l
-	ld	-3 (ix),h
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
+	ex	(sp), hl
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	or	a, a
 	jr	Z,00115$
-;src/main.c:590: enemy->patrolling = 0;
-	ld	hl,#(_enemy + 0x000b)
+;src/main.c:587: enemy->patrolling = 0;
+	ld	hl,#(_enemy + 0x000a)
 	ld	(hl),#0x00
-;src/main.c:591: engage(actual, prota.x, prota.y);
+;src/main.c:588: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
 	ld	d,(hl)
@@ -3439,40 +3395,40 @@ _updateEnemy::
 	pop	af
 	jp	00117$
 00115$:
-;src/main.c:593: lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
+;src/main.c:590: lookFor(actual); // actualiza si el enemigo tiene el prota al alcance o lo ha visto
 	push	bc
 	push	bc
 	call	_lookFor
 	pop	af
 	pop	bc
-;src/main.c:599: actual->patrolling = 0;
-	ld	hl,#0x000B
+;src/main.c:596: actual->patrolling = 0;
+	ld	hl,#0x000A
 	add	hl,bc
-	ld	-10 (ix),l
-	ld	-9 (ix),h
-;src/main.c:594: if (actual->patrolling) {
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+	ld	-2 (ix),l
+	ld	-1 (ix),h
+;src/main.c:591: if (actual->patrolling) {
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	l,(hl)
-;src/main.c:597: if (actual->in_range) {
+;src/main.c:594: if (actual->in_range) {
 	ld	a,c
-	add	a, #0x11
+	add	a, #0x10
 	ld	e,a
 	ld	a,b
 	adc	a, #0x00
 	ld	d,a
-;src/main.c:605: actual->seek = 1;
+;src/main.c:602: actual->seek = 1;
 	ld	a,c
-	add	a, #0x14
-	ld	-12 (ix),a
+	add	a, #0x13
+	ld	-4 (ix),a
 	ld	a,b
 	adc	a, #0x00
-	ld	-11 (ix),a
-;src/main.c:594: if (actual->patrolling) {
+	ld	-3 (ix),a
+;src/main.c:591: if (actual->patrolling) {
 	ld	a,l
 	or	a, a
 	jp	Z,00112$
-;src/main.c:596: moverEnemigoPatrol(actual);
+;src/main.c:593: moverEnemigoPatrol(actual);
 	push	bc
 	push	de
 	push	bc
@@ -3480,11 +3436,11 @@ _updateEnemy::
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:597: if (actual->in_range) {
+;src/main.c:594: if (actual->in_range) {
 	ld	a,(de)
 	or	a, a
 	jr	Z,00104$
-;src/main.c:598: engage(actual, prota.x, prota.y);
+;src/main.c:595: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
 	ld	d,(hl)
@@ -3496,18 +3452,18 @@ _updateEnemy::
 	call	_engage
 	pop	af
 	pop	af
-;src/main.c:599: actual->patrolling = 0;
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+;src/main.c:596: actual->patrolling = 0;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	(hl),#0x00
-;src/main.c:600: actual->engage = 1;
-	ld	l,-4 (ix)
-	ld	h,-3 (ix)
+;src/main.c:597: actual->engage = 1;
+	pop	hl
+	push	hl
 	ld	(hl),#0x01
 	jp	00117$
 00104$:
-;src/main.c:601: } else if (actual->seen) {
-	ld	hl,#0x0012
+;src/main.c:598: } else if (actual->seen) {
+	ld	hl,#0x0011
 	add	hl,bc
 	ld	-7 (ix),l
 	ld	-6 (ix),h
@@ -3516,25 +3472,25 @@ _updateEnemy::
 	ld	a,(hl)
 	or	a, a
 	jp	Z,00117$
-;src/main.c:602: pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
+;src/main.c:599: pathFinding(actual->x, actual->y, prota.x , prota.y, actual, mapa);
 	ld	a,(#_prota + 1)
-	ld	-5 (ix),a
+	ld	-8 (ix),a
 	ld	hl, #_prota + 0
 	ld	e,(hl)
 	ld	hl,#0x0001
 	add	hl,bc
-	ld	-2 (ix),l
-	ld	-1 (ix),h
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	-10 (ix),l
+	ld	-9 (ix),h
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	d,(hl)
 	ld	a,(bc)
-	ld	-8 (ix),a
+	ld	-5 (ix),a
 	push	bc
 	ld	hl,(_mapa)
 	push	hl
 	push	bc
-	ld	a,-5 (ix)
+	ld	a,-8 (ix)
 	push	af
 	inc	sp
 	ld	a,e
@@ -3542,7 +3498,7 @@ _updateEnemy::
 	inc	sp
 	push	de
 	inc	sp
-	ld	a,-8 (ix)
+	ld	a,-5 (ix)
 	push	af
 	inc	sp
 	call	_pathFinding
@@ -3550,52 +3506,52 @@ _updateEnemy::
 	add	hl,sp
 	ld	sp,hl
 	pop	bc
-;src/main.c:603: actual->p_seek_x = actual->x;
+;src/main.c:600: actual->p_seek_x = actual->x;
 	ld	hl,#0x0017
 	add	hl,bc
 	ex	de,hl
 	ld	a,(bc)
 	ld	(de),a
-;src/main.c:604: actual->p_seek_y = actual->y;
+;src/main.c:601: actual->p_seek_y = actual->y;
 	ld	hl,#0x0018
 	add	hl,bc
 	ex	de,hl
-	ld	l,-2 (ix)
-	ld	h,-1 (ix)
+	ld	l,-10 (ix)
+	ld	h,-9 (ix)
 	ld	a,(hl)
 	ld	(de),a
-;src/main.c:605: actual->seek = 1;
-	pop	hl
-	push	hl
+;src/main.c:602: actual->seek = 1;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#0x01
-;src/main.c:606: actual->iter=0;
-	ld	hl,#0x000E
+;src/main.c:603: actual->iter=0;
+	ld	hl,#0x000D
 	add	hl,bc
 	xor	a, a
 	ld	(hl), a
 	inc	hl
 	ld	(hl), a
-;src/main.c:607: actual->reversePatrol = NO;
-	ld	hl,#0x000C
+;src/main.c:604: actual->reversePatrol = NO;
+	ld	hl,#0x000B
 	add	hl,bc
 	ld	(hl),#0x00
-;src/main.c:608: actual->patrolling = 0;
-	ld	l,-10 (ix)
-	ld	h,-9 (ix)
+;src/main.c:605: actual->patrolling = 0;
+	ld	l,-2 (ix)
+	ld	h,-1 (ix)
 	ld	(hl),#0x00
-;src/main.c:609: actual->seen = 0;
+;src/main.c:606: actual->seen = 0;
 	ld	l,-7 (ix)
 	ld	h,-6 (ix)
 	ld	(hl),#0x00
 	jr	00117$
 00112$:
-;src/main.c:611: } else if (actual->seek) {
-	pop	hl
-	push	hl
+;src/main.c:608: } else if (actual->seek) {
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a,(hl)
 	or	a, a
 	jr	Z,00117$
-;src/main.c:612: moverEnemigoSeek(actual);
+;src/main.c:609: moverEnemigoSeek(actual);
 	push	bc
 	push	de
 	push	bc
@@ -3603,11 +3559,11 @@ _updateEnemy::
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:613: if (actual->in_range) {
+;src/main.c:610: if (actual->in_range) {
 	ld	a,(de)
 	or	a, a
 	jr	Z,00117$
-;src/main.c:614: engage(actual, prota.x, prota.y);
+;src/main.c:611: engage(actual, prota.x, prota.y);
 	ld	a, (#_prota + 1)
 	ld	hl, #_prota + 0
 	ld	d,(hl)
@@ -3619,20 +3575,20 @@ _updateEnemy::
 	call	_engage
 	pop	af
 	pop	af
-;src/main.c:615: actual->seek = 0;
-	pop	hl
-	push	hl
-	ld	(hl),#0x00
-;src/main.c:616: actual->engage = 1;
+;src/main.c:612: actual->seek = 0;
 	ld	l,-4 (ix)
 	ld	h,-3 (ix)
+	ld	(hl),#0x00
+;src/main.c:613: actual->engage = 1;
+	pop	hl
+	push	hl
 	ld	(hl),#0x01
-;src/main.c:617: } else if (actual->seen) {
+;src/main.c:614: } else if (actual->seen) {
 00117$:
 	ld	sp, ix
 	pop	ix
 	ret
-;src/main.c:624: void inicializarEnemy() {
+;src/main.c:621: void inicializarEnemy() {
 ;	---------------------------------
 ; Function inicializarEnemy
 ; ---------------------------------
@@ -3643,26 +3599,26 @@ _inicializarEnemy::
 	ld	hl,#-7
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:625: u8 i = 2 + num_mapa; //sacar distinto numero dependiendo del mapa
+;src/main.c:622: u8 i = 2 + num_mapa; //sacar distinto numero dependiendo del mapa
 	ld	a,(#_num_mapa + 0)
 	add	a, #0x02
-	ld	-3 (ix),a
-;src/main.c:635: actual = enemy;
+	ld	-1 (ix),a
+;src/main.c:632: actual = enemy;
 	ld	de,#_enemy+0
-;src/main.c:636: while(i){
+;src/main.c:633: while(i){
 00101$:
-	ld	a,-3 (ix)
+	ld	a,-1 (ix)
 	or	a, a
 	jp	Z,00104$
-;src/main.c:637: --i;
-	dec	-3 (ix)
-;src/main.c:638: actual->x = actual->px = spawnX[i];
+;src/main.c:634: --i;
+	dec	-1 (ix)
+;src/main.c:635: actual->x = actual->px = spawnX[i];
 	ld	c, e
 	ld	b, d
 	inc	bc
 	inc	bc
 	ld	a,#<(_spawnX)
-	add	a, -3 (ix)
+	add	a, -1 (ix)
 	ld	-5 (ix),a
 	ld	a,#>(_spawnX)
 	adc	a, #0x00
@@ -3672,7 +3628,7 @@ _inicializarEnemy::
 	ld	a,(hl)
 	ld	(bc),a
 	ld	(de),a
-;src/main.c:639: actual->y = actual->py = spawnY[i];
+;src/main.c:636: actual->y = actual->py = spawnY[i];
 	push	de
 	pop	iy
 	inc	iy
@@ -3682,7 +3638,7 @@ _inicializarEnemy::
 	inc	bc
 	inc	bc
 	ld	a,#<(_spawnY)
-	add	a, -3 (ix)
+	add	a, -1 (ix)
 	ld	-7 (ix),a
 	ld	a,#>(_spawnY)
 	adc	a, #0x00
@@ -3692,60 +3648,64 @@ _inicializarEnemy::
 	ld	a,(hl)
 	ld	(bc),a
 	ld	0 (iy), a
-;src/main.c:640: actual->mover  = NO;
+;src/main.c:637: actual->mover  = NO;
 	ld	hl,#0x0006
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:641: actual->mira   = M_abajo;
+;src/main.c:638: actual->mira   = M_abajo;
 	ld	hl,#0x0007
 	add	hl,de
 	ld	(hl),#0x03
-;src/main.c:642: actual->sprite = g_enemy;
+;src/main.c:639: actual->sprite = g_enemy;
 	ld	hl,#0x0004
 	add	hl,de
 	ld	(hl),#<(_g_enemy)
 	inc	hl
 	ld	(hl),#>(_g_enemy)
-;src/main.c:643: actual->muerto = NO;
+;src/main.c:640: actual->muerto = NO;
 	ld	hl,#0x0008
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:644: actual->muertes = 0;
+;src/main.c:641: actual->muertes = 0;
+	ld	hl,#0x0009
+	add	hl,de
+	ld	(hl),#0x00
+;src/main.c:642: actual->patrolling = SI;
 	ld	hl,#0x000A
 	add	hl,de
-	ld	(hl),#0x00
-;src/main.c:645: actual->patrolling = SI;
+	ld	(hl),#0x01
+;src/main.c:643: actual->reversePatrol = NO;
 	ld	hl,#0x000B
 	add	hl,de
-	ld	(hl),#0x01
-;src/main.c:646: actual->reversePatrol = NO;
-	ld	hl,#0x000C
+	ld	(hl),#0x00
+;src/main.c:644: actual->didDamage = 0;
+	ld	hl,#0x0016
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:647: actual->iter = 0;
-	ld	hl,#0x000E
+;src/main.c:645: actual->iter = 0;
+	ld	hl,#0x000D
 	add	hl,de
 	xor	a, a
 	ld	(hl), a
 	inc	hl
 	ld	(hl), a
-;src/main.c:648: actual->lastIter = 0;
-	ld	hl,#0x0010
+;src/main.c:646: actual->lastIter = 0;
+	ld	hl,#0x000F
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:649: actual->seen = 0;
+;src/main.c:647: actual->seen = 0;
+	ld	hl,#0x0011
+	add	hl,de
+	ld	(hl),#0x00
+;src/main.c:648: actual->found = 0;
 	ld	hl,#0x0012
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:650: actual->found = 0;
-	ld	hl,#0x0013
+;src/main.c:649: actual->engage = 0;
+	ld	hl,#0x0015
 	add	hl,de
 	ld	(hl),#0x00
-;src/main.c:651: actual->engage = 0;
-	ld	hl,#0x0016
-	add	hl,de
-	ld	(hl),#0x00
-;src/main.c:652: pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
+;src/main.c:650: pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
 	ld	hl,#_num_mapa + 0
 	ld	c, (hl)
 	inc	c
@@ -3760,20 +3720,20 @@ _inicializarEnemy::
 	ld	hl,#_patrolY
 	add	hl,bc
 	ld	a,l
-	add	a, -3 (ix)
+	add	a, -1 (ix)
 	ld	l,a
 	ld	a,h
 	adc	a, #0x00
 	ld	h,a
 	ld	a,(hl)
-	ld	-1 (ix),a
+	ld	-2 (ix),a
 	ld	hl,#_patrolX
 	add	hl,bc
-	ld	c,-3 (ix)
+	ld	c,-1 (ix)
 	ld	b,#0x00
 	add	hl,bc
 	ld	a,(hl)
-	ld	-2 (ix),a
+	ld	-3 (ix),a
 	pop	hl
 	push	hl
 	ld	c,(hl)
@@ -3784,8 +3744,8 @@ _inicializarEnemy::
 	ld	hl,(_mapa)
 	push	hl
 	push	de
-	ld	h,-1 (ix)
-	ld	l,-2 (ix)
+	ld	h,-2 (ix)
+	ld	l,-3 (ix)
 	push	hl
 	ld	a,c
 	push	af
@@ -3797,13 +3757,13 @@ _inicializarEnemy::
 	add	hl,sp
 	ld	sp,hl
 	pop	de
-;src/main.c:653: dibujarEnemigo(actual);
+;src/main.c:651: dibujarEnemigo(actual);
 	push	de
 	push	de
 	call	_dibujarEnemigo
 	pop	af
 	pop	de
-;src/main.c:654: ++actual;
+;src/main.c:652: ++actual;
 	ld	hl,#0x00E2
 	add	hl,de
 	ex	de,hl
@@ -3812,16 +3772,16 @@ _inicializarEnemy::
 	ld	sp, ix
 	pop	ix
 	ret
-;src/main.c:658: void avanzarMapa() {
+;src/main.c:656: void avanzarMapa() {
 ;	---------------------------------
 ; Function avanzarMapa
 ; ---------------------------------
 _avanzarMapa::
-;src/main.c:659: if(num_mapa < NUM_MAPAS -1) {
+;src/main.c:657: if(num_mapa < NUM_MAPAS -1) {
 	ld	a,(#_num_mapa + 0)
 	sub	a, #0x02
 	jr	NC,00102$
-;src/main.c:660: mapa = mapas[++num_mapa];
+;src/main.c:658: mapa = mapas[++num_mapa];
 	ld	bc,#_mapas+0
 	ld	hl, #_num_mapa+0
 	inc	(hl)
@@ -3836,34 +3796,34 @@ _avanzarMapa::
 	inc	hl
 	ld	a,(hl)
 	ld	(#_mapa + 1),a
-;src/main.c:661: prota.x = prota.px = 2;
+;src/main.c:659: prota.x = prota.px = 2;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x02
 	ld	hl,#_prota
 	ld	(hl),#0x02
-;src/main.c:662: prota.mover = SI;
+;src/main.c:660: prota.mover = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-;src/main.c:663: dibujarMapa();
+;src/main.c:661: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:664: inicializarEnemy();
+;src/main.c:662: inicializarEnemy();
 	jp  _inicializarEnemy
 00102$:
-;src/main.c:667: menuFin(puntuacion);
+;src/main.c:665: menuFin(puntuacion);
 	ld	iy,#_puntuacion
 	ld	l,0 (iy)
 	ld	h,#0x00
 	jp  _menuFin
-;src/main.c:671: void moverIzquierda() {
+;src/main.c:669: void moverIzquierda() {
 ;	---------------------------------
 ; Function moverIzquierda
 ; ---------------------------------
 _moverIzquierda::
-;src/main.c:672: prota.mira = M_izquierda;
+;src/main.c:670: prota.mira = M_izquierda;
 	ld	bc,#_prota+0
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x01
-;src/main.c:673: if (!checkCollision(M_izquierda)) {
+;src/main.c:671: if (!checkCollision(M_izquierda)) {
 	push	bc
 	ld	a,#0x01
 	push	af
@@ -3874,26 +3834,26 @@ _moverIzquierda::
 	ld	a,l
 	or	a, a
 	ret	NZ
-;src/main.c:674: prota.x--;
+;src/main.c:672: prota.x--;
 	ld	a,(bc)
 	add	a,#0xFF
 	ld	(bc),a
-;src/main.c:675: prota.mover = SI;
+;src/main.c:673: prota.mover = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-;src/main.c:676: prota.sprite = g_hero_left;
+;src/main.c:674: prota.sprite = g_hero_left;
 	ld	hl,#_g_hero_left
 	ld	((_prota + 0x0004)), hl
 	ret
-;src/main.c:680: void moverDerecha() {
+;src/main.c:678: void moverDerecha() {
 ;	---------------------------------
 ; Function moverDerecha
 ; ---------------------------------
 _moverDerecha::
-;src/main.c:681: prota.mira = M_derecha;
+;src/main.c:679: prota.mira = M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:682: if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
+;src/main.c:680: if (!checkCollision(M_derecha) && ( prota.x + G_HERO_W < 80)) {
 	xor	a, a
 	push	af
 	inc	sp
@@ -3920,33 +3880,33 @@ _moverDerecha::
 	jr	NZ,00104$
 	or	a,e
 	jr	Z,00104$
-;src/main.c:683: prota.x++;
+;src/main.c:681: prota.x++;
 	inc	c
 	ld	hl,#_prota
 	ld	(hl),c
-;src/main.c:684: prota.mover = SI;
+;src/main.c:682: prota.mover = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-;src/main.c:685: prota.sprite = g_hero;
+;src/main.c:683: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
 	ret
 00104$:
-;src/main.c:686: }else if( prota.x + G_HERO_W >= 80){
+;src/main.c:684: }else if( prota.x + G_HERO_W >= 80){
 	ld	a,e
 	or	a, a
 	ret	NZ
-;src/main.c:687: avanzarMapa();
+;src/main.c:685: avanzarMapa();
 	jp  _avanzarMapa
-;src/main.c:691: void moverArriba() {
+;src/main.c:689: void moverArriba() {
 ;	---------------------------------
 ; Function moverArriba
 ; ---------------------------------
 _moverArriba::
-;src/main.c:692: prota.mira = M_arriba;
+;src/main.c:690: prota.mira = M_arriba;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x02
-;src/main.c:693: if (!checkCollision(M_arriba)) {
+;src/main.c:691: if (!checkCollision(M_arriba)) {
 	ld	a,#0x02
 	push	af
 	inc	sp
@@ -3955,30 +3915,30 @@ _moverArriba::
 	ld	a,l
 	or	a, a
 	ret	NZ
-;src/main.c:694: prota.y--;
+;src/main.c:692: prota.y--;
 	ld	hl,#_prota + 1
 	ld	c,(hl)
 	dec	c
 	ld	(hl),c
-;src/main.c:695: prota.y--;
+;src/main.c:693: prota.y--;
 	dec	c
 	ld	(hl),c
-;src/main.c:696: prota.mover  = SI;
+;src/main.c:694: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-;src/main.c:697: prota.sprite = g_hero_up;
+;src/main.c:695: prota.sprite = g_hero_up;
 	ld	hl,#_g_hero_up
 	ld	((_prota + 0x0004)), hl
 	ret
-;src/main.c:701: void moverAbajo() {
+;src/main.c:699: void moverAbajo() {
 ;	---------------------------------
 ; Function moverAbajo
 ; ---------------------------------
 _moverAbajo::
-;src/main.c:702: prota.mira = M_abajo;
+;src/main.c:700: prota.mira = M_abajo;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x03
-;src/main.c:703: if (!checkCollision(M_abajo) ) {
+;src/main.c:701: if (!checkCollision(M_abajo) ) {
 	ld	a,#0x03
 	push	af
 	inc	sp
@@ -3987,68 +3947,68 @@ _moverAbajo::
 	ld	a,l
 	or	a, a
 	ret	NZ
-;src/main.c:704: prota.y++;
+;src/main.c:702: prota.y++;
 	ld	bc,#_prota + 1
 	ld	a,(bc)
 	inc	a
 	ld	(bc),a
-;src/main.c:705: prota.y++;
+;src/main.c:703: prota.y++;
 	inc	a
 	ld	(bc),a
-;src/main.c:706: prota.mover  = SI;
+;src/main.c:704: prota.mover  = SI;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x01
-;src/main.c:707: prota.sprite = g_hero_down;
+;src/main.c:705: prota.sprite = g_hero_down;
 	ld	hl,#_g_hero_down
 	ld	((_prota + 0x0004)), hl
 	ret
-;src/main.c:714: void intHandler() {
+;src/main.c:712: void intHandler() {
 ;	---------------------------------
 ; Function intHandler
 ; ---------------------------------
 _intHandler::
-;src/main.c:715: if (++i == 6) {
+;src/main.c:713: if (++i == 6) {
 	ld	hl, #_i+0
 	inc	(hl)
 	ld	a,(#_i + 0)
 	sub	a, #0x06
 	ret	NZ
-;src/main.c:716: play();
+;src/main.c:714: play();
 	call	_play
-;src/main.c:717: i=0;
+;src/main.c:715: i=0;
 	ld	hl,#_i + 0
 	ld	(hl), #0x00
 	ret
-;src/main.c:721: void inicializarCPC() {
+;src/main.c:719: void inicializarCPC() {
 ;	---------------------------------
 ; Function inicializarCPC
 ; ---------------------------------
 _inicializarCPC::
-;src/main.c:722: cpct_disableFirmware();
+;src/main.c:720: cpct_disableFirmware();
 	call	_cpct_disableFirmware
-;src/main.c:723: cpct_setVideoMode(0);
+;src/main.c:721: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
-;src/main.c:724: cpct_setBorder(HW_BLACK);
+;src/main.c:722: cpct_setBorder(HW_BLACK);
 	ld	hl,#0x1410
 	push	hl
 	call	_cpct_setPALColour
-;src/main.c:725: cpct_setPalette(g_palette, 16);
+;src/main.c:723: cpct_setPalette(g_palette, 16);
 	ld	hl,#0x0010
 	push	hl
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
 	ret
-;src/main.c:730: void inicializarJuego() {
+;src/main.c:728: void inicializarJuego() {
 ;	---------------------------------
 ; Function inicializarJuego
 ; ---------------------------------
 _inicializarJuego::
-;src/main.c:732: num_mapa = 0;
+;src/main.c:730: num_mapa = 0;
 	ld	hl,#_num_mapa + 0
 	ld	(hl), #0x00
-;src/main.c:733: mapa = mapas[num_mapa];
+;src/main.c:731: mapa = mapas[num_mapa];
 	ld	hl, #_mapas + 0
 	ld	a,(hl)
 	ld	iy,#_mapa
@@ -4056,56 +4016,56 @@ _inicializarJuego::
 	inc	hl
 	ld	a,(hl)
 	ld	(#_mapa + 1),a
-;src/main.c:734: cpct_etm_setTileset2x4(g_tileset);
+;src/main.c:732: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/main.c:736: dibujarMapa();
+;src/main.c:734: dibujarMapa();
 	call	_dibujarMapa
-;src/main.c:739: barraPuntuacionInicial();
+;src/main.c:737: barraPuntuacionInicial();
 	call	_barraPuntuacionInicial
-;src/main.c:742: prota.x = prota.px = 4;
+;src/main.c:740: prota.x = prota.px = 4;
 	ld	hl,#(_prota + 0x0002)
 	ld	(hl),#0x04
 	ld	hl,#_prota
 	ld	(hl),#0x04
-;src/main.c:743: prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
+;src/main.c:741: prota.y = prota.py = 80 + ORIGEN_MAPA_Y;
 	ld	hl,#(_prota + 0x0003)
 	ld	(hl),#0x68
 	ld	hl,#(_prota + 0x0001)
 	ld	(hl),#0x68
-;src/main.c:744: prota.mover  = NO;
+;src/main.c:742: prota.mover  = NO;
 	ld	hl,#(_prota + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:745: prota.mira=M_derecha;
+;src/main.c:743: prota.mira=M_derecha;
 	ld	hl,#(_prota + 0x0007)
 	ld	(hl),#0x00
-;src/main.c:746: prota.sprite = g_hero;
+;src/main.c:744: prota.sprite = g_hero;
 	ld	hl,#_g_hero
 	ld	((_prota + 0x0004)), hl
-;src/main.c:750: cu.x = cu.px = 0;
+;src/main.c:748: cu.x = cu.px = 0;
 	ld	hl,#(_cu + 0x0002)
 	ld	(hl),#0x00
 	ld	hl,#_cu
 	ld	(hl),#0x00
-;src/main.c:751: cu.y = cu.py = 0;
+;src/main.c:749: cu.y = cu.py = 0;
 	ld	hl,#(_cu + 0x0003)
 	ld	(hl),#0x00
 	ld	hl,#(_cu + 0x0001)
 	ld	(hl),#0x00
-;src/main.c:752: cu.lanzado = NO;
+;src/main.c:750: cu.lanzado = NO;
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
-;src/main.c:753: cu.mover = NO;
+;src/main.c:751: cu.mover = NO;
 	ld	hl,#(_cu + 0x0009)
 	ld	(hl),#0x00
-;src/main.c:754: cu.off_bound = NO;
+;src/main.c:752: cu.off_bound = NO;
 	ld	hl,#(_cu + 0x000a)
 	ld	(hl),#0x00
-;src/main.c:756: inicializarEnemy();
+;src/main.c:754: inicializarEnemy();
 	call	_inicializarEnemy
-;src/main.c:758: dibujarProta();
+;src/main.c:756: dibujarProta();
 	jp  _dibujarProta
-;src/main.c:761: void main(void) {
+;src/main.c:759: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
@@ -4116,24 +4076,24 @@ _main::
 	ld	hl,#-7
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:766: vidas = 6;
+;src/main.c:764: vidas = 6;
 	ld	hl,#_vidas + 0
 	ld	(hl), #0x06
-;src/main.c:768: inicializarCPC();
+;src/main.c:766: inicializarCPC();
 	call	_inicializarCPC
-;src/main.c:770: menuInicio();
+;src/main.c:768: menuInicio();
 	call	_menuInicio
-;src/main.c:772: inicializarJuego();
+;src/main.c:770: inicializarJuego();
 	call	_inicializarJuego
-;src/main.c:776: while (1) {
-00126$:
-;src/main.c:778: i = 2 + num_mapa;
+;src/main.c:774: while (1) {
+00129$:
+;src/main.c:776: i = 2 + num_mapa;
 	ld	hl,#_num_mapa + 0
 	ld	c, (hl)
 	inc	c
 	inc	c
-;src/main.c:779: actual = enemy;
-;src/main.c:781: comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
+;src/main.c:777: actual = enemy;
+;src/main.c:779: comprobarTeclado(&cu, &prota, mapa, g_tablatrans);
 	push	bc
 	ld	hl,#_g_tablatrans
 	push	hl
@@ -4155,21 +4115,21 @@ _main::
 	pop	af
 	pop	af
 	pop	bc
-;src/main.c:783: while(i){
-	ld	-3 (ix),c
-	ld	-7 (ix),#<(_enemy)
-	ld	-6 (ix),#>(_enemy)
-00105$:
-	ld	a,-3 (ix)
+;src/main.c:781: while(i){
+	ld	-5 (ix),c
+	ld	-4 (ix),#<(_enemy)
+	ld	-3 (ix),#>(_enemy)
+00108$:
+	ld	a,-5 (ix)
 	or	a, a
-	jr	Z,00107$
-;src/main.c:785: --i;
-	dec	-3 (ix)
-;src/main.c:786: if(!actual->muerto){
-	ld	a,-7 (ix)
+	jr	Z,00110$
+;src/main.c:783: --i;
+	dec	-5 (ix)
+;src/main.c:784: if(!actual->muerto){
+	ld	a,-4 (ix)
 	add	a, #0x08
 	ld	-2 (ix),a
-	ld	a,-6 (ix)
+	ld	a,-3 (ix)
 	adc	a, #0x00
 	ld	-1 (ix),a
 	ld	l,-2 (ix)
@@ -4177,11 +4137,11 @@ _main::
 	ld	a,(hl)
 	or	a, a
 	jr	NZ,00102$
-;src/main.c:787: checkEnemyDead(cu.direccion, actual);
+;src/main.c:785: checkEnemyDead(cu.direccion, actual);
 	ld	hl, #_cu + 7
 	ld	b,(hl)
-	pop	hl
-	push	hl
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	push	hl
 	push	bc
 	inc	sp
@@ -4189,55 +4149,70 @@ _main::
 	pop	af
 	inc	sp
 00102$:
-;src/main.c:789: if(!actual->muerto){
+;src/main.c:787: if(!actual->muerto){
 	ld	l,-2 (ix)
 	ld	h,-1 (ix)
 	ld	a,(hl)
 	or	a, a
+	jr	NZ,00107$
+;src/main.c:788: if (!actual->didDamage)
+	ld	a,-4 (ix)
+	add	a, #0x16
+	ld	c,a
+	ld	a,-3 (ix)
+	adc	a, #0x00
+	ld	b,a
+	ld	a,(bc)
+	or	a, a
 	jr	NZ,00104$
-;src/main.c:790: updateEnemy(actual);
-	pop	hl
-	push	hl
+;src/main.c:789: updateEnemy(actual);
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	push	hl
 	call	_updateEnemy
 	pop	af
+	jr	00107$
 00104$:
-;src/main.c:792: ++actual;
-	ld	a,-7 (ix)
-	add	a, #0xE2
-	ld	-7 (ix),a
-	ld	a,-6 (ix)
-	adc	a, #0x00
-	ld	-6 (ix),a
-	jr	00105$
+;src/main.c:791: actual->didDamage = 0;
+	xor	a, a
+	ld	(bc),a
 00107$:
-;src/main.c:795: cpct_waitVSYNC();
+;src/main.c:793: ++actual;
+	ld	a,-4 (ix)
+	add	a, #0xE2
+	ld	-4 (ix),a
+	ld	a,-3 (ix)
+	adc	a, #0x00
+	ld	-3 (ix),a
+	jr	00108$
+00110$:
+;src/main.c:796: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/main.c:798: if (prota.mover) {
+;src/main.c:799: if (prota.mover) {
 	ld	bc,#_prota + 6
 	ld	a,(bc)
 	or	a, a
-	jr	Z,00109$
-;src/main.c:799: redibujarProta();
+	jr	Z,00112$
+;src/main.c:800: redibujarProta();
 	push	bc
 	call	_redibujarProta
 	pop	bc
-;src/main.c:800: prota.mover = NO;
+;src/main.c:801: prota.mover = NO;
 	xor	a, a
 	ld	(bc),a
-00109$:
-;src/main.c:802: if(cu.lanzado && cu.mover){
+00112$:
+;src/main.c:803: if(cu.lanzado && cu.mover){
 	ld	hl, #(_cu + 0x0006) + 0
 	ld	c,(hl)
-;src/main.c:803: redibujarCuchillo(cu.eje, cu.x, cu.y, &cu, g_tablatrans, mapa);
-;src/main.c:802: if(cu.lanzado && cu.mover){
+;src/main.c:804: redibujarCuchillo(cu.eje, cu.x, cu.y, &cu, g_tablatrans, mapa);
+;src/main.c:803: if(cu.lanzado && cu.mover){
 	ld	a,c
 	or	a, a
-	jr	Z,00114$
+	jr	Z,00117$
 	ld	a, (#(_cu + 0x0009) + 0)
 	or	a, a
-	jr	Z,00114$
-;src/main.c:803: redibujarCuchillo(cu.eje, cu.x, cu.y, &cu, g_tablatrans, mapa);
+	jr	Z,00117$
+;src/main.c:804: redibujarCuchillo(cu.eje, cu.x, cu.y, &cu, g_tablatrans, mapa);
 	ld	hl, #(_cu + 0x0001) + 0
 	ld	c,(hl)
 	ld	hl, #_cu + 0
@@ -4262,16 +4237,16 @@ _main::
 	ld	hl,#9
 	add	hl,sp
 	ld	sp,hl
-	jr	00115$
-00114$:
-;src/main.c:804: }else if (cu.lanzado && !cu.mover){
+	jr	00118$
+00117$:
+;src/main.c:805: }else if (cu.lanzado && !cu.mover){
 	ld	a,c
 	or	a, a
-	jr	Z,00115$
+	jr	Z,00118$
 	ld	a, (#(_cu + 0x0009) + 0)
 	or	a, a
-	jr	NZ,00115$
-;src/main.c:805: borrarCuchillo(cu.eje, cu.x, cu.y, mapa);
+	jr	NZ,00118$
+;src/main.c:806: borrarCuchillo(cu.eje, cu.x, cu.y, mapa);
 	ld	hl, #(_cu + 0x0001) + 0
 	ld	b,(hl)
 	ld	hl, #_cu + 0
@@ -4287,33 +4262,34 @@ _main::
 	pop	af
 	pop	af
 	inc	sp
-;src/main.c:806: cu.lanzado = NO;
+;src/main.c:807: cu.lanzado = NO;
 	ld	hl,#(_cu + 0x0006)
 	ld	(hl),#0x00
-00115$:
-;src/main.c:809: i = 2 + num_mapa;
+00118$:
+;src/main.c:810: i = 2 + num_mapa;
 	ld	a,(#_num_mapa + 0)
 	add	a, #0x02
 	ld	-2 (ix),a
-;src/main.c:810: actual = enemy;
+;src/main.c:811: actual = enemy;
 	ld	bc,#_enemy
-;src/main.c:811: while(i){
-00122$:
+;src/main.c:812: while(i){
+00125$:
 	ld	a,-2 (ix)
 	or	a, a
-	jp	Z,00124$
-;src/main.c:813: --i;
+	jp	Z,00127$
+;src/main.c:814: --i;
 	dec	-2 (ix)
-;src/main.c:814: if(actual->mover){
+;src/main.c:815: if(actual->mover){
 	ld	hl,#0x0006
 	add	hl,bc
-	ex	(sp), hl
-	pop	hl
-	push	hl
+	ld	-4 (ix),l
+	ld	-3 (ix),h
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	a,(hl)
 	or	a, a
-	jr	Z,00118$
-;src/main.c:815: redibujarEnemigo((*actual).px, (*actual).py, actual);
+	jr	Z,00121$
+;src/main.c:816: redibujarEnemigo((*actual).px, (*actual).py, actual);
 	ld	l, c
 	ld	h, b
 	inc	hl
@@ -4336,43 +4312,42 @@ _main::
 	pop	af
 	pop	af
 	pop	bc
-00118$:
-;src/main.c:818: if (actual->muerto && actual->muertes == 0){
+00121$:
+;src/main.c:819: if (actual->muerto && actual->muertes == 0){
 	push	bc
 	pop	iy
 	ld	a,8 (iy)
 	or	a, a
-	jr	Z,00120$
-	ld	hl,#0x000A
+	jr	Z,00123$
+	ld	hl,#0x0009
 	add	hl,bc
 	ex	de,hl
 	ld	a,(de)
 	or	a, a
-	jr	NZ,00120$
-;src/main.c:819: borrarEnemigo((*actual).x, (*actual).y);
+	jr	NZ,00123$
+;src/main.c:820: borrarEnemigo((*actual).x, (*actual).y);
 	ld	hl,#0x0001
 	add	hl,bc
-	ld	-5 (ix),l
-	ld	-4 (ix),h
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+	ex	(sp), hl
+	pop	hl
+	push	hl
 	ld	a,(hl)
 	push	af
 	ld	a,(bc)
-	ld	-3 (ix),a
+	ld	-5 (ix),a
 	pop	af
 	push	bc
 	push	de
 	push	af
 	inc	sp
-	ld	a,-3 (ix)
+	ld	a,-5 (ix)
 	push	af
 	inc	sp
 	call	_borrarEnemigo
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:820: dibujarExplosion(actual);
+;src/main.c:821: dibujarExplosion(actual);
 	push	bc
 	push	de
 	push	bc
@@ -4380,11 +4355,11 @@ _main::
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:821: puntuacion_aux = puntuacion;
+;src/main.c:822: puntuacion_aux = puntuacion;
 	ld	iy,#_puntuacion
 	ld	l,0 (iy)
 	ld	h,#0x00
-;src/main.c:822: puntuacion = aumentarPuntuacion(puntuacion_aux);
+;src/main.c:823: puntuacion = aumentarPuntuacion(puntuacion_aux);
 	push	bc
 	push	de
 	push	hl
@@ -4394,7 +4369,7 @@ _main::
 	pop	bc
 	ld	iy,#_puntuacion
 	ld	0 (iy),l
-;src/main.c:823: modificarPuntuacion(puntuacion);
+;src/main.c:824: modificarPuntuacion(puntuacion);
 	ld	iy,#_puntuacion
 	ld	l,0 (iy)
 	ld	h,#0x00
@@ -4405,32 +4380,32 @@ _main::
 	pop	af
 	pop	de
 	pop	bc
-;src/main.c:824: actual->mover = NO;
-	pop	hl
-	push	hl
+;src/main.c:825: actual->mover = NO;
+	ld	l,-4 (ix)
+	ld	h,-3 (ix)
 	ld	(hl),#0x00
-;src/main.c:825: actual->muertes++;
+;src/main.c:826: actual->muertes++;
 	ld	a,(de)
 	inc	a
 	ld	(de),a
-;src/main.c:826: actual->x = 0;
+;src/main.c:827: actual->x = 0;
 	xor	a, a
 	ld	(bc),a
-;src/main.c:827: actual->y = 0;
-	ld	l,-5 (ix)
-	ld	h,-4 (ix)
+;src/main.c:828: actual->y = 0;
+	pop	hl
+	push	hl
 	ld	(hl),#0x00
-00120$:
-;src/main.c:829: ++actual;
+00123$:
+;src/main.c:830: ++actual;
 	ld	hl,#0x00E2
 	add	hl,bc
 	ld	c,l
 	ld	b,h
-	jp	00122$
-00124$:
-;src/main.c:831: cpct_waitVSYNC();
+	jp	00125$
+00127$:
+;src/main.c:832: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-	jp	00126$
+	jp	00129$
 	.area _CODE
 	.area _INITIALIZER
 __xinit__mapa:
