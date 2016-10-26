@@ -377,28 +377,28 @@ void moverEnemigoSeek(TEnemy* actual){
   if(!actual->muerto){
 
 
-      if(actual->iter < actual->longitud_camino){
+    if(actual->iter < actual->longitud_camino){
 
 
-        if(actual->iter == 0){
+      if(actual->iter == 0){
 
-          actual->mover = SI;
-          actual->iter = 2;
-          actual->x = actual->camino[actual->iter];
-          ++actual->iter;
-          actual->y = actual->camino[actual->iter];
-          ++actual->iter;
+        actual->mover = SI;
+        actual->iter = 2;
+        actual->x = actual->camino[actual->iter];
+        ++actual->iter;
+        actual->y = actual->camino[actual->iter];
+        ++actual->iter;
 
-        }else{
-          actual->mover = SI;
-          actual->x = actual->camino[actual->iter];
-          ++actual->iter;
-          actual->y = actual->camino[actual->iter];
-          ++actual->iter;
+      }else{
+        actual->mover = SI;
+        actual->x = actual->camino[actual->iter];
+        ++actual->iter;
+        actual->y = actual->camino[actual->iter];
+        ++actual->iter;
 
-        }
       }
     }
+
     else{
       actual->seek = 0;
       lookFor(actual);
