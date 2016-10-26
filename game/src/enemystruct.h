@@ -25,7 +25,7 @@ typedef struct {
   u8  engage; // esta atacando/persiguiendo al jugador?
   u8  p_seek_x;
   u8  p_seek_y;
-
+  u8  xplot;
   u8  camino[200];
   u8  longitud_camino;
 } TEnemy;

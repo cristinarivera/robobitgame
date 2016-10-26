@@ -95,7 +95,9 @@ TProta prota;
 
 TKnife cu;
 
-
+u8 parpadeo;
+u8 cambio;
+i16 timer;
 u8* mapa = 0;
 u8  num_mapa = 0;
 
@@ -195,17 +197,17 @@ void dibujarEnemigo(TEnemy *enemy) {
 }
 
 void dibujarExplosion(TEnemy *enemy) {
-  u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy->x, enemy->y);
+  u8* pvmem = cpct_getScreenPtr(CPCT_VMEM_START, enemy->px, enemy->py);
   cpct_drawSpriteMaskedAlignedTable (g_explosion, pvmem, G_EXPLOSION_W, G_EXPLOSION_H, g_tablatrans);
 }
 
-void borrarExplosion(TEnemy *enemy) {
+void borrarExplosion(u8 x, u8 y) {
   u8* p;
 
-  u8 w = 4 + (enemy->px & 1);
-  u8 h = 6 + (enemy->py & 2 ? 1 : 0);
+  u8 w = 4 + (x & 1);
+  u8 h = 6 + (y & 3 ? 1 : 0);
   p = cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y);
-  cpct_etm_drawTileBox2x4 (enemy->px / 2, (enemy->py - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
+  cpct_etm_drawTileBox2x4 (x / 2, (y - ORIGEN_MAPA_Y)/4, w, h, g_map1_W, p, mapa);
 
 }
 
@@ -363,12 +365,12 @@ void lookFor(TEnemy* enemy){
   enemy->in_range = NO;
 
   if(!enemy->seek){
-    if (dist <= 10) {// te detectan los sensores de proximidad
+    if (dist <= 17) {// te detectan los sensores de proximidad
       enemy->in_range = 1;
       enemy->engage = 1;
       enemy->seen = SI;
-    }else if(prota.x > enemy->x - 25 && prota.x < enemy->x + 25
-      && prota.y > enemy->y - 26*2 && prota.y < enemy->y + 26*2){
+    }else if(prota.x > enemy->x - 20 && prota.x < enemy->x + 20
+      && prota.y > enemy->y - 20*2 && prota.y < enemy->y + 20*2){
         enemy->seen = SI;
     }
   }
@@ -651,6 +653,7 @@ void inicializarEnemy() {
       actual->seen = 0;
       actual->found = 0;
       actual->engage = 0;
+      actual->xplot = NO;
       pathFinding( spawnX[i],  spawnY[i], patrolX[num_mapa + 1][i], patrolY[num_mapa + 1][i], actual, mapa); // calculo rutas de patrulla
       dibujarEnemigo(actual);
       ++actual;
@@ -730,6 +733,9 @@ void inicializarCPC() {
 }
 
 void inicializarJuego() {
+  cambio = 0;
+  timer = 0;
+  parpadeo = 0;
 
   num_mapa = 0;
   mapa = mapas[num_mapa];
@@ -776,7 +782,14 @@ void main(void) {
   //cpct_akp_musicPlay();
 
   while (1) {
-
+    ++timer;
+    if(timer == 4 && (cambio > 0 && cambio<=12)){
+      timer = 0;
+      parpadeo = !parpadeo;
+      cambio ++;
+    }else if(cambio == 12){
+      cambio = 0;
+    }
     i = 2 + num_mapa;
     actual = enemy;
 
@@ -821,8 +834,10 @@ void main(void) {
       }
 
       if (actual->muerto && actual->muertes == 0){
+        timer = 3;
+        cambio++;
+        parpadeo = 1;
         borrarEnemigo((*actual).x, (*actual).y);
-        dibujarExplosion(actual);
         puntuacion_aux = puntuacion;
         puntuacion = aumentarPuntuacion(puntuacion_aux);
         modificarPuntuacion(puntuacion);
@@ -830,6 +845,14 @@ void main(void) {
         actual->muertes++;
         actual->x = 0;
         actual->y = 0;
+      }
+      if(parpadeo && actual->muerto && !actual->xplot){
+        dibujarExplosion(actual);
+      }else if(!parpadeo && actual->muerto && cambio<=12 && !actual->xplot){
+        borrarExplosion((*actual).px, (*actual).py);
+        if(cambio == 12){
+            actual->xplot = SI;
+        }
       }
       ++actual;
     }
